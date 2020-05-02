@@ -41,8 +41,7 @@
                 <p class="ma-0 pa-0 caption">NATIONALITY</p>
               </v-col>
               <v-col cols="20" xs="12" sm="4" md="4" lg="4" xl="4" class="py-0">
-                <p class="ma-0 pa-0 title">NEPALI
-                  <!-- <span class="overline">(NATIVE)</span> -->, ENGLISH
+                <p class="ma-0 pa-0 title">NEPALI<!-- <span class="overline">(NATIVE)</span> -->, ENGLISH
                   <!-- <span class="overline">(INTERMEDIATE)</span> -->
                 </p>
                 <p class="ma-0 pa-0 caption">LANGUAGE</p>
