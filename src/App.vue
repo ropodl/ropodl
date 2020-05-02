@@ -16,9 +16,7 @@
           <v-col cols="12" xs="12" sm="12" md="9" lg="9" xl="9">
             <div class="mb-6">
               <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
-                <span>
-                  Damian Keller
-                </span>
+                <span>Saroj Poudel</span>
                 <span>
                   <v-btn icon color="primary" @click="darkmode">
                     <v-icon v-if="!this.$vuetify.theme.dark">brightness_3</v-icon>
@@ -249,6 +247,120 @@
         </v-row>
 
         <v-row class="mb-6">
+          <v-col cols="12" lg="3" class="d-flex">
+            <span class="title ml-auto font-weight-light">WORK EXPERIENCE</span>
+          </v-col>
+          <v-col>
+            <v-row no-gutters>
+              <v-col cols="12" lg="6">
+                <p class="body-2 ma-0">2015 - Present</p>
+                <p class="display-1 font-weight-black ma-0">SENIOR DEVELOPER</p>
+                <p class="ma-0 title">Computer & Motor Ltd.</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+              <v-col cols="12" lg="6">
+                <p class="body-2 ma-0">2012 - 2015</p>
+                <p class="display-1 font-weight-black ma-0">WEBDESIGNER</p>
+                <p class="ma-0 title">BlissNiss</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+              <v-col cols="12" lg="6">
+                <p class="body-2 ma-0">2012 - 2015</p>
+                <p class="display-1 font-weight-black ma-0">WEB DEVELOPER</p>
+                <p class="ma-0 title">Unique Soft</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+              <v-col cols="12" lg="6">
+                <p class="body-2 ma-0">2010 - 2012</p>
+                <p class="display-1 font-weight-black ma-0">FRONT-END DEVELOPER</p>
+                <p class="ma-0 title">Somsom LLC</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+
+        <v-row class="mb-6">
+          <v-col cols="12" lg="3" class="d-flex">
+            <span class="title ml-auto font-weight-light">WORK EXPERIENCE</span>
+          </v-col>
+          <v-col>
+            <v-row no-gutters>
+              <v-col cols="12" lg="12" class="mb-6">
+                <p class="body-2 ma-0">2010 - 2012</p>
+                <p class="display-1 font-weight-black ma-0">MA PRODUCT DESIGN</p>
+                <p class="ma-0 title">University of California</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+              <v-col cols="12" lg="12" class="mb-6">
+                <p class="body-2 ma-0">2007 - 2010</p>
+                <p class="display-1 font-weight-black ma-0">BUSINESS MARKETING COURSE</p>
+                <p class="ma-0 title">Royal Academy of Business</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+              <v-col cols="12" lg="12" class="mb-6">
+                <p class="body-2 ma-0">2002 - 2006</p>
+                <p class="display-1 font-weight-black ma-0">BA (HONS) DESIGN</p>
+                <p class="ma-0 title">University of Michigan</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+              <v-col cols="12" lg="12" class="mb-6">
+                <p class="body-2 ma-0">2010 - 2012</p>
+                <p class="display-1 font-weight-black ma-0">FRONT-END DEVELOPER</p>
+                <p class="ma-0 title">Somsom LLC</p>
+                <p class="subtitle ma-0">United Kingdom, London</p>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+
+        <v-row class="mb-6">
+          <v-col cols="12" lg="3" class="d-flex">
+            <span class="title ml-auto font-weight-light">WORK EXPERIENCE</span>
+          </v-col>
+          <v-col>
+            <v-row>
+              <v-col cols="12" lg="4" class="pt-0">
+                <v-img max-height="300" contain src="https://api.adorable.io/avatars/285/abott@adorable.png">
+                  <template v-slot:placeholder>
+                    <v-row class="fill-height ma-0" align="center" justify="center">
+                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
+              </v-col>
+              <v-col cols="12" lg="4" class="pt-0">
+                <v-img max-height="300" src="https://api.adorable.io/avatars/285/abott@adorable.png">
+                  <template v-slot:placeholder>
+                    <v-row class="fill-height ma-0" align="center" justify="center">
+                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
+              </v-col>
+              <v-col cols="12" lg="4" class="pt-0">
+                <v-img max-height="300" src="https://api.adorable.io/avatars/285/abott@adorable.png">
+                  <template v-slot:placeholder>
+                    <v-row class="fill-height ma-0" align="center" justify="center">
+                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
+              </v-col>
+              <v-col cols="12" lg="4" class="pt-0">
+                <v-img max-height="300" src="https://api.adorable.io/avatars/285/abott@adorable.png">
+                  <template v-slot:placeholder>
+                    <v-row class="fill-height ma-0" align="center" justify="center">
+                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+
+        <v-row class="mb-6">
           <v-col cols="12" lg="3">
           </v-col>
           <v-col>
@@ -276,6 +388,8 @@
             </v-row>
           </v-col>
         </v-row>
+
+
 
         <v-row no-gutters>
           <v-col cols="12" class="d-flex">
