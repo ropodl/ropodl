@@ -36,7 +36,7 @@
             </p>
             <v-row no-gutters class="mb-6">
               <v-col cols="20" xs="12" sm="4" md="4" lg="4" xl="4" class="py-0">
-                <p class="ma-0 pa-0 title">OCTOBER 17, 1996</p>
+                <p class="ma-0 pa-0 title">APRIL 24, 1994</p>
                 <p class="ma-0 pa-0 caption">BIRTH</p>
               </v-col>
               <v-col cols="20" xs="12" sm="4" md="4" lg="4" xl="4" class="py-0">
