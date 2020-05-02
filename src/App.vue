@@ -12,12 +12,12 @@
             <div class="mb-6">
               <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
                 <span>
-                Damian Keller
+                  Damian Keller
                 </span>
                 <span>
                   <v-btn icon color="primary" @click="darkmode">
-                    <v-icon v-if="!this.$vuetify.theme.dark">brightness_high</v-icon>
-                    <v-icon v-if="this.$vuetify.theme.dark">brightness_1</v-icon>
+                    <v-icon v-if="!this.$vuetify.theme.dark">brightness_3</v-icon>
+                    <v-icon v-if="this.$vuetify.theme.dark">brightness_high</v-icon>
                   </v-btn>
                 </span>
               </h1>
@@ -162,37 +162,37 @@
                 <p class="display-1 font-weight-black">CODING SKILLS</p>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
-                  HTML5
+                    HTML5
                   </span>
                   <span>
-                  90%
+                    90%
                   </span>
                 </p>
                 <v-progress-linear class="mb-4" value="96"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
-                  CSS3
+                    CSS3
                   </span>
                   <span>
-                  90%
-                  </span>
-                </p>
-                <v-progress-linear class="mb-2" value="96"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                  PHP
-                  </span>
-                  <span>
-                  90%
+                    90%
                   </span>
                 </p>
                 <v-progress-linear class="mb-2" value="96"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
-                  JAVASCRIPT
+                    PHP
                   </span>
                   <span>
-                  90%
+                    90%
+                  </span>
+                </p>
+                <v-progress-linear class="mb-2" value="96"></v-progress-linear>
+                <p class="mb-2 d-flex justify-space-between">
+                  <span>
+                    JAVASCRIPT
+                  </span>
+                  <span>
+                    90%
                   </span>
                 </p>
                 <v-progress-linear value="96"></v-progress-linear>
@@ -201,41 +201,41 @@
                 <p class="display-1 font-weight-black">DESIGN TOOLS</p>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
-                  Photoshop
+                    Photoshop
                   </span>
                   <span>
-                  90%
+                    90%
                   </span>
                 </p>
                 <v-progress-linear class="mb-4" value="96"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
-                  Illustrator
+                    Illustrator
                   </span>
                   <span>
-                  90%
-                  </span>
-                </p>
-                <v-progress-linear class="mb-2" value="96"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                  Sketch
-                  </span>
-                  <span>
-                  90%
+                    90%
                   </span>
                 </p>
                 <v-progress-linear class="mb-2" value="96"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
-                  MACAW
+                    Sketch
                   </span>
                   <span>
-                  55%
+                    90%
+                  </span>
+                </p>
+                <v-progress-linear class="mb-2" value="96"></v-progress-linear>
+                <p class="mb-2 d-flex justify-space-between">
+                  <span>
+                    MACAW
+                  </span>
+                  <span>
+                    55%
                   </span>
                 </p>
                 <v-progress-linear value="55"></v-progress-linear>
-              </v-col>              
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
@@ -247,20 +247,34 @@
         </v-row>
       </v-container>
     </v-content>
+    <v-system-bar color="primary" height="4"></v-system-bar>
   </v-app>
 </template>
 
 <script>
   export default {
     name: 'App',
-    data(){
-      return{
-
+    data() {
+      return {
+        dark: false
       }
     },
+    created() {
+      this.dark = localStorage.getItem('darkmode') === 'true';
+      this.$vuetify.theme.dark = this.dark
+    },
+    watch: {
+      darkmodemethod() {
+        this.dark = !this.dark
+        localStorage.setItem('darkmode', this.dark);
+        this.$vuetify.theme.dark = this.dark
+      },
+    },
     methods: {
-      darkmode(){
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      darkmode() {
+        this.dark = !this.dark
+        localStorage.setItem('darkmode', this.dark);
+        this.$vuetify.theme.dark = this.dark
       }
     }
   };
