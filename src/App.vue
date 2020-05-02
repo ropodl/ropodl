@@ -320,7 +320,7 @@
   };
 </script>
 <style>
-div.v-input__slot{
-  border-bottom: 2px solid #FF5722 !important;
-}
+  div.v-input__slot {
+    border-bottom: 2px solid #FF5722 !important;
+  }
 </style>
