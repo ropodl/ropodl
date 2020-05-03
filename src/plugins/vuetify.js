@@ -8,10 +8,10 @@ const opts = {
         dark: false,
         themes: {
             light: {
-                primary: '#FF5722'
+                primary: '#EF5047'
             },
             dark: {
-                primary: '#FF5722'
+                primary: '#EF5047'
             }
         }
     }

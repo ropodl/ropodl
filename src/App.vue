@@ -5,7 +5,7 @@
       <v-container>
         <v-row>
           <v-col cols="12" xs="12" sm="12" md="3" lg="3" xl="3">
-            <v-img max-height="300" contain src="https://api.adorable.io/avatars/285/abott@adorable.png">
+            <v-img max-height="300" contain src="avatar.png">
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
                   <v-progress-circular indeterminate color="primary"></v-progress-circular>
@@ -387,7 +387,7 @@
               <v-col cols="12" lg="6">
                 <p class="body-2 ma-0">EMAIL</p>
                 <p class="display-1 font-weight-black ma-0">
-                  <a href="mailto:sarox14@gmail.com" target="_blank" style="text-decoration:none;">
+                  <a href="mailto:sarox14@gmail.com" target="_blank" style="text-decoration:none;outline:none;">
                     sarox14@gmail.com
                   </a>
                 </p>
@@ -428,12 +428,12 @@
           </v-col>
         </v-row>
 
-
-
         <v-row no-gutters>
-          <v-col cols="12" class="d-flex">
-            <v-spacer></v-spacer>
-            <p class="ma-0 pa-0">Online CV. Made By: <span class="primary--text">uiCookies</span></p>
+          <v-spacer></v-spacer>
+          <v-col cols="12" class="d-flex justify-end align-center ma-0 pa-0">
+            <v-img class="avatar" src="avatar.png" max-height="50" max-width="50" contain></v-img>
+            <p class="ma-0 pa-0">
+              <span class="display-1 font-weight-black primary--text">erskull</span></p>
           </v-col>
         </v-row>
       </v-container>
@@ -474,6 +474,6 @@
 </script>
 <style>
   div.v-input__slot {
-    border-bottom: 2px solid #FF5722 !important;
+    border-bottom: 2px solid #EF5047 !important;
   }
 </style>
