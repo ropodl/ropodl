@@ -7,6 +7,7 @@
     <v-system-bar color="primary" height="4"></v-system-bar>
     <v-content>
       <v-container>
+
         <v-row>
           <v-col cols="12" xs="12" sm="12" md="3" lg="3" xl="3">
             <v-img max-height="300" contain src="avatar.png">
@@ -17,6 +18,7 @@
               </template>
             </v-img>
           </v-col>
+
           <v-col cols="12" xs="12" sm="12" md="9" lg="9" xl="9">
             <div class="mb-6">
               <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
@@ -29,15 +31,11 @@
                 </span>
               </h1>
               <h5 class="primary--text display-1 font-weight-light">
-                Freelance Web Designer
+                <!-- Freelance  -->
+                Web Designer
               </h5>
             </div>
-            <p class="body-1 mb-6">
-              Credibly embrace visionary internal or "organic" sources and business benefits. Collaboratively integrate
-              efficient portals rather than customized customer service. Assetively deliver frictionless services via
-              leveraged interfaces. Conveniently evisculate accurate sources and process-centric expertise.
-              Energistically fabricate customized imperatives through cooperative for change.
-            </p>
+            <p class="body-1 mb-6"></p>
             <v-row no-gutters class="mb-6">
               <v-col cols="20" xs="12" sm="4" md="4" lg="4" xl="4" class="py-0">
                 <p class="ma-0 pa-0 title">APRIL 24, 1994</p>
@@ -53,15 +51,16 @@
                 <p class="ma-0 pa-0 caption">LANGUAGE</p>
               </v-col>
             </v-row>
+
             <v-row no-gutters class="mb-6">
               <v-col cols="12" md="4" class="d-flex justify-space-between">
-                <v-btn icon outlined style="border:0px;" color="primary" router link href="https://www.facebook.com/"
-                  target="_blank">
-                  <v-icon> fab fa-facebook
+                <v-btn icon outlined style="border:0px;" color="primary" router link
+                  href="https://www.github.com/erskull" target="_blank">
+                  <v-icon> fab fa-github
                   </v-icon>
                 </v-btn>
-                <v-btn icon outlined style="border:0px;" color="primary" router link href="https://www.twitter.com/"
-                  target="_blank">
+                <v-btn icon outlined style="border:0px;" color="primary" router link
+                  href="https://www.twitter.com/ropodl" target="_blank">
                   <v-icon> fab fa-twitter
                   </v-icon>
                 </v-btn>
@@ -75,8 +74,8 @@
                   <v-icon> fab fa-slack
                   </v-icon>
                 </v-btn>
-                <v-btn icon outlined style="border:0px;" color="primary" router link href="https://www.dribbble.com/"
-                  target="_blank">
+                <v-btn icon outlined style="border:0px;" color="primary" router link
+                  href="https://www.dribbble.com/ropodl" target="_blank">
                   <v-icon> fab fa-dribbble
                   </v-icon>
                 </v-btn>
@@ -84,6 +83,7 @@
             </v-row>
           </v-col>
         </v-row>
+
         <v-row class="mb-6">
           <v-col cols="12" lg="3" class="d-flex">
             <span class="title ml-auto font-weight-light">MY ACTIVITY</span>
@@ -109,6 +109,7 @@
             </v-row>
           </v-col>
         </v-row>
+
         <v-row class="mb-6">
           <v-col cols="12" lg="3" class="d-flex">
             <span class="title ml-auto font-weight-light">WORK HISTORY</span>
@@ -116,11 +117,11 @@
           <v-col>
             <v-row no-gutters>
               <v-col cols="12" lg="3">
-                <p class="ma-0 display-1 font-weight-black">15096</p>
-                <p class="ma-0">HOURS WORKED</p>
+                <p class="ma-0 display-1 font-weight-black">2 +</p>
+                <p class="ma-0">YEARS WORKED</p>
               </v-col>
               <v-col cols="12" lg="3">
-                <p class="ma-0 display-1 font-weight-black">687</p>
+                <p class="ma-0 display-1 font-weight-black">30 +</p>
                 <p class="ma-0">WORK DONE</p>
               </v-col>
               <v-col cols="12" lg="3">
@@ -128,7 +129,7 @@
                 <p class="ma-0">HOURS WEEKLY AVAILABLE</p>
               </v-col>
               <v-col cols="12" lg="3">
-                <p class="ma-0 display-1 font-weight-black">24</p>
+                <p class="ma-0 display-1 font-weight-black">12</p>
                 <p class="ma-0">HOUR RESPONSE TIME</p>
               </v-col>
             </v-row>
@@ -142,21 +143,20 @@
           <v-col>
             <v-row>
               <v-col cols="12" lg="6" class="pt-0">
-                <p class="ma-0 display-1 font-weight-black">WORDPRESS THEME DEVELOPMENT</p>
-                <p class="ma-0">Synergistically strategize customer directed resources rather than principle.</p>
+                <p class="ma-0 display-1 font-weight-black">VUE JS APPLICATION DEVELOPMENT</p>
+                <p class="ma-0">Progressive Javascript with lightweight twist.</p>
               </v-col>
               <v-col cols="12" lg="6" class="pt-0">
-                <p class="ma-0 display-1 font-weight-black">JOOMLA TEMPLATE DEVELOPMENT</p>
-                <p class="ma-0">Quickly repurpose reliable customer service with orthogonal ideas. Competently.</p>
+                <p class="ma-0 display-1 font-weight-black">HTML WEBSITE DEVELOPMENT</p>
+                <p class="ma-0">HTML, CSS and JS is the father of web frameworks.</p>
               </v-col>
               <v-col cols="12" lg="6">
-                <p class="ma-0 display-1 font-weight-black">DRUPAL TEMPLATE DEVELOPMENT</p>
-                <p class="ma-0">Interactively myocardinate high standards in initiatives rather than next-generation.
-                </p>
+                <p class="ma-0 display-1 font-weight-black">ADOBE XD UI TEMPLATING</p>
+                <p class="ma-0">Prototype you website/application.</p>
               </v-col>
               <v-col cols="12" lg="6">
-                <p class="ma-0 display-1 font-weight-black">SHOPIFY THEME DESIGN</p>
-                <p class="ma-0">Dynamically initiate client-based convergence vis-a-vis performance based.</p>
+                <p class="ma-0 display-1 font-weight-black">GRAPHIC DESIGN</p>
+                <p class="ma-0">Unique Designs to seperate you from competition.</p>
               </v-col>
             </v-row>
           </v-col>
@@ -236,15 +236,15 @@
                   </span>
                 </p>
                 <v-progress-linear rounded="" class="mb-2" value="96"></v-progress-linear>
-                <!-- <p class="mb-2 d-flex justify-space-between">
+                <p class="mb-2 d-flex justify-space-between">
                   <span>
-                    MACAW
+                    Adobe Premiere Pro
                   </span>
                   <span>
                     55%
                   </span>
                 </p>
-                <v-progress-linear rounded value="55"></v-progress-linear> -->
+                <v-progress-linear rounded value="55"></v-progress-linear>
               </v-col>
             </v-row>
           </v-col>
@@ -287,28 +287,28 @@
             <v-row no-gutters>
               <v-col cols="12" lg="12" class="mb-6">
                 <p class="body-2 ma-0">2010 - 2012</p>
-                <p class="display-1 font-weight-black ma-0">MA PRODUCT DESIGN</p>
-                <p class="ma-0 title">University of California</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
+                <p class="display-1 font-weight-black ma-0">BESE</p>
+                <p class="ma-0 title">NCIT</p>
+                <p class="subtitle ma-0">Balkumari, Lalitpur</p>
               </v-col>
               <v-col cols="12" lg="12" class="mb-6">
                 <p class="body-2 ma-0">2007 - 2010</p>
-                <p class="display-1 font-weight-black ma-0">BUSINESS MARKETING COURSE</p>
-                <p class="ma-0 title">Royal Academy of Business</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
+                <p class="display-1 font-weight-black ma-0">TEN PLUS TWO (+2)</p>
+                <p class="ma-0 title">Arniko International College/HSS</p>
+                <p class="subtitle ma-0">Talchikhel,Lalitpur</p>
               </v-col>
               <v-col cols="12" lg="12" class="mb-6">
                 <p class="body-2 ma-0">2002 - 2006</p>
-                <p class="display-1 font-weight-black ma-0">BA (HONS) DESIGN</p>
-                <p class="ma-0 title">University of Michigan</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
+                <p class="display-1 font-weight-black ma-0">SLC (School Leaving Certificate)</p>
+                <p class="ma-0 title">National United School</p>
+                <p class="subtitle ma-0">Ganesh Chowk, Kathmandu</p>
               </v-col>
-              <v-col cols="12" lg="12" class="mb-6">
+              <!-- <v-col cols="12" lg="12" class="mb-6">
                 <p class="body-2 ma-0">2010 - 2012</p>
                 <p class="display-1 font-weight-black ma-0">FRONT-END DEVELOPER</p>
                 <p class="ma-0 title">Somsom LLC</p>
                 <p class="subtitle ma-0">United Kingdom, London</p>
-              </v-col>
+              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
@@ -397,7 +397,6 @@
           </v-col>
         </v-row>
 
-
         <v-row class="mb-6">
           <v-col cols="12" lg="3">
           </v-col>
@@ -447,7 +446,7 @@
     data() {
       return {
         fab: false,
-        dark: false
+        dark: true
       }
     },
     created() {
@@ -466,8 +465,6 @@
         this.dark = !this.dark
         localStorage.setItem('darkmode', this.dark);
         this.$vuetify.theme.dark = this.dark
-        let a = window.matchMedia();
-        console.log(a);
       },
       onScroll(e) {
         if (typeof window === 'undefined') return
@@ -481,6 +478,7 @@
   * {
     scrollbar-color: #121212 #1c1e1f;
   }
+
   div.v-input__slot {
     border-bottom: 2px solid #EF5047 !important;
   }
