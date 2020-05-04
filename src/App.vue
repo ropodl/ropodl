@@ -282,7 +282,7 @@
 
         <v-row class="mb-6">
           <v-col cols="12" lg="3" class="d-flex">
-            <span class="title ml-auto font-weight-light">WORK EXPERIENCE</span>
+            <span class="title ml-auto font-weight-light">EDUCATION</span>
           </v-col>
           <v-col>
             <v-row no-gutters>
