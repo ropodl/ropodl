@@ -1,5 +1,9 @@
 <template>
   <v-app>
+    <v-btn fixed dark fab bottom right small color="primary" @click="$vuetify.goTo('#app')" v-scroll="onScroll"
+      v-show="fab">
+      <v-icon>keyboard_arrow_up</v-icon>
+    </v-btn>
     <v-system-bar color="primary" height="4"></v-system-bar>
     <v-content>
       <v-container>
@@ -180,28 +184,28 @@
                     CSS3
                   </span>
                   <span>
-                    90%
+                    85%
                   </span>
                 </p>
-                <v-progress-linear rounded class="mb-2" value="96"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    PHP
-                  </span>
-                  <span>
-                    90%
-                  </span>
-                </p>
-                <v-progress-linear rounded class="mb-2" value="96"></v-progress-linear>
+                <v-progress-linear rounded class="mb-2" value="85"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
                     JAVASCRIPT
                   </span>
                   <span>
-                    90%
+                    40%
                   </span>
                 </p>
-                <v-progress-linear rounded value="96"></v-progress-linear>
+                <v-progress-linear rounded class="mb-2" value="40"></v-progress-linear>
+                <p class="mb-2 d-flex justify-space-between">
+                  <span>
+                    VUEJS
+                  </span>
+                  <span>
+                    60%
+                  </span>
+                </p>
+                <v-progress-linear rounded value="60"></v-progress-linear>
               </v-col>
               <v-col cols="12" lg="6" class="pt-0">
                 <p class="display-1 font-weight-black">DESIGN TOOLS</p>
@@ -210,29 +214,29 @@
                     Photoshop
                   </span>
                   <span>
-                    90%
+                    70%
                   </span>
                 </p>
-                <v-progress-linear rounded class="mb-4" value="96"></v-progress-linear>
+                <v-progress-linear rounded class="mb-4" value="70"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
                     Illustrator
                   </span>
                   <span>
-                    90%
+                    80%
                   </span>
                 </p>
-                <v-progress-linear rounded class="mb-2" value="96"></v-progress-linear>
+                <v-progress-linear rounded class="mb-2" value="80"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
                   <span>
-                    Sketch
+                    Adobe XD
                   </span>
                   <span>
                     90%
                   </span>
                 </p>
                 <v-progress-linear rounded="" class="mb-2" value="96"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
+                <!-- <p class="mb-2 d-flex justify-space-between">
                   <span>
                     MACAW
                   </span>
@@ -240,7 +244,7 @@
                     55%
                   </span>
                 </p>
-                <v-progress-linear rounded value="55"></v-progress-linear>
+                <v-progress-linear rounded value="55"></v-progress-linear> -->
               </v-col>
             </v-row>
           </v-col>
@@ -252,29 +256,24 @@
           </v-col>
           <v-col>
             <v-row no-gutters>
-              <v-col cols="12" lg="6">
-                <p class="body-2 ma-0">2015 - Present</p>
-                <p class="display-1 font-weight-black ma-0">SENIOR DEVELOPER</p>
-                <p class="ma-0 title">Computer & Motor Ltd.</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
+              <!-- put mb-6 if more than 2 items  -->
+              <v-col cols="12" lg="6" class="mb-6">
+                <p class="body-2 ma-0">2019 - Present</p>
+                <p class="display-1 font-weight-black ma-0">CHIEF WEB DESIGNER</p>
+                <p class="ma-0 title">SoftMahal Technologies</p>
+                <p class="subtitle ma-0">Mid Baneshwor, Kathmandu</p>
+              </v-col>
+              <v-col cols="12" lg="6" class="mb-6">
+                <p class="body-2 ma-0">2018 - 2019</p>
+                <p class="display-1 font-weight-black ma-0">GRAPHIC DESIGNER</p>
+                <p class="ma-0 title">FIVONEST TECHNOLOGY</p>
+                <p class="subtitle ma-0">Solteemode, Kathmandu</p>
               </v-col>
               <v-col cols="12" lg="6">
-                <p class="body-2 ma-0">2012 - 2015</p>
-                <p class="display-1 font-weight-black ma-0">WEBDESIGNER</p>
-                <p class="ma-0 title">BlissNiss</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <p class="body-2 ma-0">2012 - 2015</p>
-                <p class="display-1 font-weight-black ma-0">WEB DEVELOPER</p>
-                <p class="ma-0 title">Unique Soft</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <p class="body-2 ma-0">2010 - 2012</p>
-                <p class="display-1 font-weight-black ma-0">FRONT-END DEVELOPER</p>
-                <p class="ma-0 title">Somsom LLC</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
+                <p class="body-2 ma-0">2018</p>
+                <p class="display-1 font-weight-black ma-0">FREELANCING GRAPHIC DESIGNER</p>
+                <!-- <p class="ma-0 title">HOME</p> -->
+                <!-- <p class="subtitle ma-0">Mahalaxmisthan, Lalitpur</p> -->
               </v-col>
             </v-row>
           </v-col>
@@ -361,15 +360,15 @@
         </v-row>
 
         <v-row class="mb-6">
-          <v-col cols="12" lg="3" class="d-flex">
+          <v-col cols="12" lg="3" class="d-flex pt-0">
             <span class="title ml-auto font-weight-light">CONTACT</span>
           </v-col>
-          <v-col>
+          <v-col class="pt-0">
             <v-row>
               <v-col cols="12" lg="6" class="pt-0">
                 <p class="body-2 ma-0">ADDRESS</p>
-                <p class="display-1 font-weight-black ma-0">1355 Market Street, Suit 900</p>
-                <p class="ma-0 title">San Francisco, CA 94103</p>
+                <p class="display-1 font-weight-black ma-0">Maitri Nagar, Kalanki</p>
+                <p class="ma-0 title">Kathmandu</p>
                 <!-- <p class="subtitle ma-0">United Kingdom, London</p> -->
               </v-col>
               <v-col cols="12" lg="6" class="pt-0">
@@ -447,6 +446,7 @@
     name: 'App',
     data() {
       return {
+        fab: false,
         dark: false
       }
     },
@@ -468,11 +468,19 @@
         this.$vuetify.theme.dark = this.dark
         let a = window.matchMedia();
         console.log(a);
-      }
+      },
+      onScroll(e) {
+        if (typeof window === 'undefined') return
+        const top = window.pageYOffset || e.target.scrollTop || 0
+        this.fab = top > 300
+      },
     }
   };
 </script>
 <style>
+  * {
+    scrollbar-color: #121212 #1c1e1f;
+  }
   div.v-input__slot {
     border-bottom: 2px solid #EF5047 !important;
   }
