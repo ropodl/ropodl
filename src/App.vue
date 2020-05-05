@@ -22,6 +22,8 @@
           <v-col cols="12" xs="12" sm="12" md="9" lg="9" xl="9">
             <div class="mb-6">
               <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
+              BETA TESTING</h1>
+              <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
                 <span>Saroj Poudel</span>
                 <span>
                   <v-btn icon color="primary" @click="darkmode">
@@ -84,7 +86,7 @@
           </v-col>
         </v-row>
 
-        <v-row class="mb-6">
+        <!-- <v-row class="mb-6">
           <v-col cols="12" lg="3" class="d-flex">
             <span class="title ml-auto font-weight-light">MY ACTIVITY</span>
           </v-col>
@@ -108,7 +110,7 @@
               </v-col>
             </v-row>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <v-row class="mb-6">
           <v-col cols="12" lg="3" class="d-flex">
@@ -236,7 +238,7 @@
                   </span>
                 </p>
                 <v-progress-linear rounded="" class="mb-2" value="96"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
+                <!-- <p class="mb-2 d-flex justify-space-between">
                   <span>
                     Adobe Premiere Pro
                   </span>
@@ -244,7 +246,7 @@
                     55%
                   </span>
                 </p>
-                <v-progress-linear rounded value="55"></v-progress-linear>
+                <v-progress-linear rounded value="55"></v-progress-linear> -->
               </v-col>
             </v-row>
           </v-col>
