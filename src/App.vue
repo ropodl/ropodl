@@ -478,6 +478,15 @@
   * {
     scrollbar-color: #121212 #1c1e1f;
   }
+  *::selection{
+    color: white !important;
+    background: #EF5047 !important;
+  }
+
+  *::-moz-selection{
+    color: white !important;
+    background: #EF5047 !important;
+  }
 
   div.v-input__slot {
     border-bottom: 2px solid #EF5047 !important;
