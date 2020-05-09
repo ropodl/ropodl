@@ -21,8 +21,8 @@
 
           <v-col cols="12" xs="12" sm="12" md="9" lg="9" xl="9">
             <div class="mb-6">
-              <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
-              BETA TESTING</h1>
+              <!-- <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
+                BETA TESTING</h1> -->
               <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
                 <span>Saroj Poudel</span>
                 <span>
@@ -58,28 +58,19 @@
               <v-col cols="12" md="4" class="d-flex justify-space-between">
                 <v-btn icon outlined style="border:0px;" color="primary" router link
                   href="https://www.github.com/erskull" target="_blank">
-                  <v-icon> fab fa-github
-                  </v-icon>
+                  <v-icon> fab fa-github</v-icon>
                 </v-btn>
                 <v-btn icon outlined style="border:0px;" color="primary" router link
                   href="https://www.twitter.com/ropodl" target="_blank">
-                  <v-icon> fab fa-twitter
-                  </v-icon>
-                </v-btn>
-                <v-btn icon outlined style="border:0px;" color="primary" router link href="https://www.linkedin.com/"
-                  target="_blank">
-                  <v-icon> fab fa-linkedin
-                  </v-icon>
-                </v-btn>
-                <v-btn icon outlined style="border:0px;" color="primary" router link href="https://www.slack.com/"
-                  target="_blank">
-                  <v-icon> fab fa-slack
-                  </v-icon>
+                  <v-icon> fab fa-twitter</v-icon>
                 </v-btn>
                 <v-btn icon outlined style="border:0px;" color="primary" router link
                   href="https://www.dribbble.com/ropodl" target="_blank">
-                  <v-icon> fab fa-dribbble
-                  </v-icon>
+                  <v-icon> fab fa-dribbble</v-icon>
+                </v-btn>
+                <v-btn icon outlined style="border:0px;" color="primary" router link href="mailto:sarox14@gmail.com"
+                  target="_blank">
+                  <v-icon> fas fa-envelope</v-icon>
                 </v-btn>
               </v-col>
             </v-row>
@@ -119,20 +110,20 @@
           <v-col>
             <v-row no-gutters>
               <v-col cols="12" lg="3">
-                <p class="ma-0 display-1 font-weight-black">2 +</p>
+                <p class="ma-0 display-1 font-weight-black">2+</p>
                 <p class="ma-0">YEARS WORKED</p>
               </v-col>
               <v-col cols="12" lg="3">
-                <p class="ma-0 display-1 font-weight-black">30 +</p>
+                <p class="ma-0 display-1 font-weight-black">30+</p>
                 <p class="ma-0">WORK DONE</p>
               </v-col>
               <v-col cols="12" lg="3">
                 <p class="ma-0 display-1 font-weight-black">30</p>
-                <p class="ma-0">HOURS WEEKLY AVAILABLE</p>
+                <p class="ma-0">HOURS WEEKLY<br>AVAILABLE</p>
               </v-col>
               <v-col cols="12" lg="3">
                 <p class="ma-0 display-1 font-weight-black">12</p>
-                <p class="ma-0">HOUR RESPONSE TIME</p>
+                <p class="ma-0">HOUR RESPONSE<br>TIME</p>
               </v-col>
             </v-row>
           </v-col>
@@ -154,7 +145,7 @@
               </v-col>
               <v-col cols="12" lg="6">
                 <p class="ma-0 display-1 font-weight-black">ADOBE XD UI TEMPLATING</p>
-                <p class="ma-0">Prototype you website/application.</p>
+                <p class="ma-0">Prototyping your website/application.</p>
               </v-col>
               <v-col cols="12" lg="6">
                 <p class="ma-0 display-1 font-weight-black">GRAPHIC DESIGN</p>
@@ -173,71 +164,43 @@
               <v-col cols="12" lg="6" class="pt-0">
                 <p class="display-1 font-weight-black">CODING SKILLS</p>
                 <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    HTML5
-                  </span>
-                  <span>
-                    90%
-                  </span>
+                  <span>HTML5</span>
+                  <span>90%</span>
                 </p>
                 <v-progress-linear rounded class="mb-4" value="96"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    CSS3
-                  </span>
-                  <span>
-                    85%
-                  </span>
+                  <span>CSS3</span>
+                  <span>85%</span>
                 </p>
                 <v-progress-linear rounded class="mb-2" value="85"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    JAVASCRIPT
-                  </span>
-                  <span>
-                    40%
-                  </span>
+                  <span>JAVASCRIPT</span>
+                  <span>40%</span>
                 </p>
                 <v-progress-linear rounded class="mb-2" value="40"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    VUEJS
-                  </span>
-                  <span>
-                    60%
-                  </span>
+                  <span>VUEJS</span>
+                  <span>60%</span>
                 </p>
                 <v-progress-linear rounded value="60"></v-progress-linear>
               </v-col>
               <v-col cols="12" lg="6" class="pt-0">
                 <p class="display-1 font-weight-black">DESIGN TOOLS</p>
                 <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    Photoshop
-                  </span>
-                  <span>
-                    70%
-                  </span>
+                  <span>Photoshop</span>
+                  <span>70%</span>
                 </p>
                 <v-progress-linear rounded class="mb-4" value="70"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    Illustrator
-                  </span>
-                  <span>
-                    80%
-                  </span>
+                  <span>Illustrator</span>
+                  <span>80%</span>
                 </p>
                 <v-progress-linear rounded class="mb-2" value="80"></v-progress-linear>
                 <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    Adobe XD
-                  </span>
-                  <span>
-                    90%
-                  </span>
+                  <span>Adobe XD</span>
+                  <span>80%</span>
                 </p>
-                <v-progress-linear rounded="" class="mb-2" value="96"></v-progress-linear>
+                <v-progress-linear rounded="" class="mb-2" value="80"></v-progress-linear>
                 <!-- <p class="mb-2 d-flex justify-space-between">
                   <span>
                     Adobe Premiere Pro
@@ -288,29 +251,23 @@
           <v-col>
             <v-row no-gutters>
               <v-col cols="12" lg="12" class="mb-6">
-                <p class="body-2 ma-0">2010 - 2012</p>
+                <p class="body-2 ma-0">2014 - 2018</p>
                 <p class="display-1 font-weight-black ma-0">BESE</p>
                 <p class="ma-0 title">NCIT</p>
                 <p class="subtitle ma-0">Balkumari, Lalitpur</p>
               </v-col>
               <v-col cols="12" lg="12" class="mb-6">
-                <p class="body-2 ma-0">2007 - 2010</p>
+                <p class="body-2 ma-0">2012 - 2014</p>
                 <p class="display-1 font-weight-black ma-0">TEN PLUS TWO (+2)</p>
                 <p class="ma-0 title">Arniko International College/HSS</p>
                 <p class="subtitle ma-0">Talchikhel,Lalitpur</p>
               </v-col>
               <v-col cols="12" lg="12" class="mb-6">
-                <p class="body-2 ma-0">2002 - 2006</p>
+                <p class="body-2 ma-0">2011</p>
                 <p class="display-1 font-weight-black ma-0">SLC (School Leaving Certificate)</p>
                 <p class="ma-0 title">National United School</p>
                 <p class="subtitle ma-0">Ganesh Chowk, Kathmandu</p>
               </v-col>
-              <!-- <v-col cols="12" lg="12" class="mb-6">
-                <p class="body-2 ma-0">2010 - 2012</p>
-                <p class="display-1 font-weight-black ma-0">FRONT-END DEVELOPER</p>
-                <p class="ma-0 title">Somsom LLC</p>
-                <p class="subtitle ma-0">United Kingdom, London</p>
-              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
@@ -480,12 +437,13 @@
   * {
     scrollbar-color: #121212 #1c1e1f;
   }
-  *::selection{
+
+  *::selection {
     color: white !important;
     background: #EF5047 !important;
   }
 
-  *::-moz-selection{
+  *::-moz-selection {
     color: white !important;
     background: #EF5047 !important;
   }
