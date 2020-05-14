@@ -32,45 +32,40 @@
                   </v-btn>
                 </span>
               </h1>
-              <h5 class="primary--text display-1 font-weight-light">
-                <!-- Freelance  -->
-                Web Designer
-              </h5>
+              <h5 class="primary--text display-1 font-weight-light">Web Designer</h5>
             </div>
-            <p class="body-1 mb-6"></p>
             <v-row no-gutters class="mb-6">
-              <v-col cols="20" xs="12" sm="4" md="4" lg="4" xl="4" class="py-0">
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4" class="py-0">
                 <p class="ma-0 pa-0 title">APRIL 24, 1994</p>
                 <p class="ma-0 pa-0 caption">BIRTH</p>
               </v-col>
-              <v-col cols="20" xs="12" sm="4" md="4" lg="4" xl="4" class="py-0">
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4" class="py-0">
                 <p class="ma-0 pa-0 title">NEPAL</p>
                 <p class="ma-0 pa-0 caption">NATIONALITY</p>
               </v-col>
-              <v-col cols="20" xs="12" sm="4" md="4" lg="4" xl="4" class="py-0">
-                <p class="ma-0 pa-0 title">NEPALI, ENGLISH
-                </p>
+              <v-col cols="6" sm="6" md="4" lg="4" xl="4" class="py-0">
+                <p class="ma-0 pa-0 title">NEPALI, ENGLISH</p>
                 <p class="ma-0 pa-0 caption">LANGUAGE</p>
               </v-col>
             </v-row>
 
             <v-row no-gutters class="mb-6">
-              <v-col cols="12" md="4" class="d-flex justify-space-between">
+              <v-col cols="12" xs="12" sm="4" md="4" lg="4" xl="4" class="d-flex justify-space-between">
                 <v-btn icon outlined style="border:0px;" color="primary" router link
                   href="https://www.github.com/erskull" target="_blank">
-                  <v-icon> fab fa-github</v-icon>
+                  <v-icon>fab fa-github</v-icon>
                 </v-btn>
                 <v-btn icon outlined style="border:0px;" color="primary" router link
                   href="https://www.twitter.com/ropodl" target="_blank">
-                  <v-icon> fab fa-twitter</v-icon>
+                  <v-icon>fab fa-twitter</v-icon>
                 </v-btn>
                 <v-btn icon outlined style="border:0px;" color="primary" router link
                   href="https://www.dribbble.com/ropodl" target="_blank">
-                  <v-icon> fab fa-dribbble</v-icon>
+                  <v-icon>fab fa-dribbble</v-icon>
                 </v-btn>
                 <v-btn icon outlined style="border:0px;" color="primary" router link href="mailto:sarox14@gmail.com"
                   target="_blank">
-                  <v-icon> fas fa-envelope</v-icon>
+                  <v-icon>fas fa-envelope</v-icon>
                 </v-btn>
               </v-col>
             </v-row>
@@ -104,26 +99,26 @@
         </v-row> -->
 
         <v-row class="mb-6">
-          <v-col cols="12" lg="3" class="d-flex">
+          <v-col cols="12" xl="12" lg="3" class="d-flex">
             <span class="title ml-auto font-weight-light">WORK HISTORY</span>
           </v-col>
           <v-col>
             <v-row no-gutters>
-              <v-col cols="12" lg="3">
+              <v-col cols="6" sm="6" md="3" lg="3" xl="3">
                 <p class="ma-0 display-1 font-weight-black">2+</p>
                 <p class="ma-0">YEARS WORKED</p>
               </v-col>
-              <v-col cols="12" lg="3">
+              <v-col cols="6" sm="6" md="3" lg="3" xl="3">
                 <p class="ma-0 display-1 font-weight-black">30+</p>
                 <p class="ma-0">WORK DONE</p>
               </v-col>
-              <v-col cols="12" lg="3">
+              <v-col cols="6" sm="6" md="3" lg="3" xl="3">
                 <p class="ma-0 display-1 font-weight-black">30</p>
-                <p class="ma-0">HOURS WEEKLY<br>AVAILABLE</p>
+                <p class="ma-0">HOURS WEEKLY AVAILABLE</p>
               </v-col>
-              <v-col cols="12" lg="3">
+              <v-col cols="6" sm="6" md="3" lg="3" xl="3">
                 <p class="ma-0 display-1 font-weight-black">12</p>
-                <p class="ma-0">HOUR RESPONSE<br>TIME</p>
+                <p class="ma-0">HOUR RESPONSE TIME</p>
               </v-col>
             </v-row>
           </v-col>
@@ -135,21 +130,9 @@
           </v-col>
           <v-col>
             <v-row>
-              <v-col cols="12" lg="6" class="pt-0">
-                <p class="ma-0 display-1 font-weight-black">VUE JS APPLICATION DEVELOPMENT</p>
-                <p class="ma-0">Progressive Javascript with lightweight twist.</p>
-              </v-col>
-              <v-col cols="12" lg="6" class="pt-0">
-                <p class="ma-0 display-1 font-weight-black">HTML WEBSITE DEVELOPMENT</p>
-                <p class="ma-0">HTML, CSS and JS is the father of web frameworks.</p>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <p class="ma-0 display-1 font-weight-black">ADOBE XD UI TEMPLATING</p>
-                <p class="ma-0">Prototyping your website/application.</p>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <p class="ma-0 display-1 font-weight-black">GRAPHIC DESIGN</p>
-                <p class="ma-0">Unique Designs to seperate you from competition.</p>
+              <v-col v-for="speciality in specialities" :key="speciality.id" cols="12" sm="12" md="6" lg="6" xl="6" class="pt-0">
+                <p class="ma-0 display-1 font-weight-black">{{ speciality.title }}</p>
+                <p class="ma-0">{{ speciality.desc }}</p>
               </v-col>
             </v-row>
           </v-col>
@@ -161,55 +144,25 @@
           </v-col>
           <v-col>
             <v-row>
-              <v-col cols="12" lg="6" class="pt-0">
+              <v-col cols="12" sm="6" lg="6" class="pt-0">
                 <p class="display-1 font-weight-black">CODING SKILLS</p>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>HTML5</span>
-                  <span>90%</span>
-                </p>
-                <v-progress-linear rounded class="mb-4" value="96"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>CSS3</span>
-                  <span>85%</span>
-                </p>
-                <v-progress-linear rounded class="mb-2" value="85"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>JAVASCRIPT</span>
-                  <span>40%</span>
-                </p>
-                <v-progress-linear rounded class="mb-2" value="40"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>VUEJS</span>
-                  <span>60%</span>
-                </p>
-                <v-progress-linear rounded value="60"></v-progress-linear>
+                <div v-for="coding in codings" :key="coding.id">
+                  <p class="mb-2 d-flex justify-space-between">
+                    <span>{{ coding.title }}</span>
+                    <span>{{ coding.percentage }}%</span>
+                  </p>
+                  <v-progress-linear rounded class="mb-4" :value="coding.percentage"></v-progress-linear>
+                </div>
               </v-col>
-              <v-col cols="12" lg="6" class="pt-0">
+              <v-col cols="12" sm="6" lg="6" class="pt-0">
                 <p class="display-1 font-weight-black">DESIGN TOOLS</p>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>Photoshop</span>
-                  <span>70%</span>
-                </p>
-                <v-progress-linear rounded class="mb-4" value="70"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>Illustrator</span>
-                  <span>80%</span>
-                </p>
-                <v-progress-linear rounded class="mb-2" value="80"></v-progress-linear>
-                <p class="mb-2 d-flex justify-space-between">
-                  <span>Adobe XD</span>
-                  <span>80%</span>
-                </p>
-                <v-progress-linear rounded="" class="mb-2" value="80"></v-progress-linear>
-                <!-- <p class="mb-2 d-flex justify-space-between">
-                  <span>
-                    Adobe Premiere Pro
-                  </span>
-                  <span>
-                    55%
-                  </span>
-                </p>
-                <v-progress-linear rounded value="55"></v-progress-linear> -->
+                <div v-for="design in designs" :key="design.id">
+                  <p class="mb-2 d-flex justify-space-between">
+                    <span>{{ design.title }}</span>
+                    <span>{{ design.percentage }}%</span>
+                  </p>
+                  <v-progress-linear rounded class="mb-4" :value="design.percentage"></v-progress-linear>
+                </div>
               </v-col>
             </v-row>
           </v-col>
@@ -222,23 +175,11 @@
           <v-col>
             <v-row no-gutters>
               <!-- put mb-6 if more than 2 items  -->
-              <v-col cols="12" lg="6" class="mb-6">
-                <p class="body-2 ma-0">2019 - Present</p>
-                <p class="display-1 font-weight-black ma-0">CHIEF WEB DESIGNER</p>
-                <p class="ma-0 title">SoftMahal Technologies</p>
-                <p class="subtitle ma-0">Mid Baneshwor, Kathmandu</p>
-              </v-col>
-              <v-col cols="12" lg="6" class="mb-6">
-                <p class="body-2 ma-0">2018 - 2019</p>
-                <p class="display-1 font-weight-black ma-0">GRAPHIC DESIGNER</p>
-                <p class="ma-0 title">FIVONEST TECHNOLOGY</p>
-                <p class="subtitle ma-0">Solteemode, Kathmandu</p>
-              </v-col>
-              <v-col cols="12" lg="6">
-                <p class="body-2 ma-0">2018</p>
-                <p class="display-1 font-weight-black ma-0">FREELANCING GRAPHIC DESIGNER</p>
-                <!-- <p class="ma-0 title">HOME</p> -->
-                <!-- <p class="subtitle ma-0">Mahalaxmisthan, Lalitpur</p> -->
+              <v-col v-for="experience in experiences" :key="experience.id" cols="12" sm="6" md="6" lg="6" xl="6" class="mb-6">
+                <p class="body-2 ma-0">{{ experience.date }}</p>
+                <p class="display-1 font-weight-black ma-0">{{ experience.post }}</p>
+                <p class="ma-0 title">{{ experience.company }}</p>
+                <p class="subtitle ma-0">{{ experience.address }}</p>
               </v-col>
             </v-row>
           </v-col>
@@ -250,63 +191,25 @@
           </v-col>
           <v-col>
             <v-row no-gutters>
-              <v-col cols="12" lg="12" class="mb-6">
-                <p class="body-2 ma-0">2014 - 2018</p>
-                <p class="display-1 font-weight-black ma-0">BESE</p>
-                <p class="ma-0 title">NCIT</p>
-                <p class="subtitle ma-0">Balkumari, Lalitpur</p>
-              </v-col>
-              <v-col cols="12" lg="12" class="mb-6">
-                <p class="body-2 ma-0">2012 - 2014</p>
-                <p class="display-1 font-weight-black ma-0">TEN PLUS TWO (+2)</p>
-                <p class="ma-0 title">Arniko International College/HSS</p>
-                <p class="subtitle ma-0">Talchikhel,Lalitpur</p>
-              </v-col>
-              <v-col cols="12" lg="12" class="mb-6">
-                <p class="body-2 ma-0">2011</p>
-                <p class="display-1 font-weight-black ma-0">SLC (School Leaving Certificate)</p>
-                <p class="ma-0 title">National United School</p>
-                <p class="subtitle ma-0">Ganesh Chowk, Kathmandu</p>
+              <v-col v-for="education in educations" :key="education.id" cols="12" sm="12" md="6" lg="6" xl="6" class="mb-6">
+                <p class="body-2 ma-0">{{ education.date }}</p>
+                <p class="display-1 font-weight-black ma-0">{{ education.subject }}</p>
+                <p class="ma-0 title">{{ education.institute }}</p>
+                <p class="subtitle ma-0">{{ education.address }}</p>
               </v-col>
             </v-row>
           </v-col>
         </v-row>
 
-        <v-row class="mb-6">
+        <!-- <v-row class="mb-6">
           <v-col cols="12" lg="3" class="d-flex">
             <span class="title ml-auto font-weight-light">PORTFOLIO</span>
           </v-col>
           <v-col>
             <v-row>
-              <v-col cols="12" lg="4" class="pt-0">
-                <v-img max-height="300" contain src="https://api.adorable.io/avatars/285/abott@adorable.png">
-                  <template v-slot:placeholder>
-                    <v-row class="fill-height ma-0" align="center" justify="center">
-                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-              </v-col>
-              <v-col cols="12" lg="4" class="pt-0">
-                <v-img max-height="300" src="https://api.adorable.io/avatars/285/abott@adorable.png">
-                  <template v-slot:placeholder>
-                    <v-row class="fill-height ma-0" align="center" justify="center">
-                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-              </v-col>
-              <v-col cols="12" lg="4" class="pt-0">
-                <v-img max-height="300" src="https://api.adorable.io/avatars/285/abott@adorable.png">
-                  <template v-slot:placeholder>
-                    <v-row class="fill-height ma-0" align="center" justify="center">
-                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-              </v-col>
-              <v-col cols="12" lg="4" class="pt-0">
-                <v-img max-height="300" src="https://api.adorable.io/avatars/285/abott@adorable.png">
+              <v-col v-for="portfolio in portfolios" :key="portfolio.id" cols="6" sm="6" md="4" lg="4" xl="4"
+                class="pt-0">
+                <v-img max-height="300" contain :src="portfolio.src">
                   <template v-slot:placeholder>
                     <v-row class="fill-height ma-0" align="center" justify="center">
                       <v-progress-circular indeterminate color="primary"></v-progress-circular>
@@ -316,7 +219,7 @@
               </v-col>
             </v-row>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <v-row class="mb-6">
           <v-col cols="12" lg="3" class="d-flex pt-0">
@@ -356,7 +259,7 @@
           </v-col>
         </v-row>
 
-        <v-row class="mb-6">
+        <!-- <v-row class="mb-6">
           <v-col cols="12" lg="3">
           </v-col>
           <v-col>
@@ -383,7 +286,7 @@
               </v-col>
             </v-row>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <v-row no-gutters>
           <v-spacer></v-spacer>
@@ -405,7 +308,97 @@
     data() {
       return {
         fab: false,
-        dark: true
+        dark: true,
+        specialities: [{
+          id: '1',
+          title: 'VUE JS APPLICATION DEVELOPMENT',
+          desc: 'Progressive Javascript with lightweight twist.'
+        },{
+          id: '2',
+          title: 'HTML WEBSITE DEVELOPMENT',
+          desc: 'HTML, CSS and JS are the backbone of web frameworks.'
+        },{
+          id: '3',
+          title: 'ADOBE XD UI TEMPLATING',
+          desc: 'Prototyping your website/application.'
+        },{
+          id: '4',
+          title: 'GRAPHIC DESIGN',
+          desc: 'Unique Designs to seperate you from competition.'
+        }],
+        codings: [{
+          id: '1',
+          title: 'HTML5',
+          percentage: '90'
+        }, {
+          id: '2',
+          title: 'CSS3',
+          percentage: '85'
+        }, {
+          id: '3',
+          title: 'JAVASCRIPT',
+          percentage: '40'
+        }, {
+          id: '4',
+          title: 'VUEJS',
+          percentage: '60'
+        }],
+        designs: [{
+          id: '1',
+          title: 'PHOTOSHOP',
+          percentage: '70'
+        }, {
+          id: '2',
+          title: 'ILLUSTRATOR',
+          percentage: '60'
+        }, {
+          id: '3',
+          title: 'ADOBE XD',
+          percentage: '65'
+        }],
+        experiences: [{
+          id: '1',
+          date: '2019 - Present',
+          post: 'CHIEF WEB DESIGNER',
+          company: 'SoftMahal Technologies',
+          address: 'Mid Baneshwor, Kathmandu'
+        },{
+          id: '2',
+          date: '2018 - 2019',
+          post: 'GRAPHIC DESIGNER',
+          company: 'FIVONEST TECHNOLOGY',
+          address: 'Solteemode, Kathmandu'
+        },{
+          id: '3',
+          date: '2018',
+          post: 'FREELANCING GRAPHIC DESIGNER'
+        }],
+        educations: [{
+          id: '1',
+          date: '2014 - 2018',
+          subject: 'BESE',
+          institute: 'NCIT',
+          address: 'Balkumari, Lalitpur'
+        },{
+          id: '2',
+          date: '2012 - 2014',
+          subject: 'TEN PLUS TWO (+2)',
+          institute: 'Arniko International College/HSS',
+          address: 'Talchikhel, Lalitpur'
+        },{
+          id: '1',
+          date: '2011',
+          subject: 'SLC (School Leaving Certificate)',
+          institute: 'National United High School',
+          address: 'Ganesh Chowk, Kathmandu'
+        }],
+        portfolios: [{
+          id: '1',
+          src: 'https://api.adorable.io/avatars/285/abott@adorable.png'
+        }, {
+          id: '2',
+          src: 'https://api.adorable.io/avatars/285/abott@adorable.png'
+        }]
       }
     },
     created() {
