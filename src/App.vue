@@ -109,16 +109,16 @@
                 <p class="ma-0">YEARS WORKED</p>
               </v-col>
               <v-col cols="6" sm="6" md="3" lg="3" xl="3">
-                <p class="ma-0 display-1 font-weight-black">30+</p>
+                <p class="ma-0 display-1 font-weight-black">50+</p>
                 <p class="ma-0">WORK DONE</p>
               </v-col>
               <v-col cols="6" sm="6" md="3" lg="3" xl="3">
-                <p class="ma-0 display-1 font-weight-black">30</p>
-                <p class="ma-0">HOURS WEEKLY AVAILABLE</p>
+                <p class="ma-0 display-1 font-weight-black">30 <span class="body-1">hours</span></p>
+                <p class="ma-0">WEEKLY AVAILABLE</p>
               </v-col>
               <v-col cols="6" sm="6" md="3" lg="3" xl="3">
-                <p class="ma-0 display-1 font-weight-black">12</p>
-                <p class="ma-0">HOUR RESPONSE TIME</p>
+                <p class="ma-0 display-1 font-weight-black">8 <span class="body-1">hours</span></p>
+                <p class="ma-0">RESPONSE TIME</p>
               </v-col>
             </v-row>
           </v-col>
@@ -289,11 +289,11 @@
         </v-row> -->
 
         <v-row no-gutters>
-          <v-spacer></v-spacer>
           <v-col cols="12" class="d-flex justify-end align-center ma-0 pa-0">
             <v-img class="avatar" src="avatar.png" max-height="50" max-width="50" contain></v-img>
             <p class="ma-0 pa-0">
               <span class="display-1 font-weight-black primary--text">erskull</span></p>
+          <v-spacer></v-spacer>
           </v-col>
         </v-row>
       </v-container>
@@ -324,7 +324,11 @@
         },{
           id: '4',
           title: 'GRAPHIC DESIGN',
-          desc: 'Unique Designs to seperate you from competition.'
+          desc: 'Unique Designs to seperate you from competition. From branding to simple graphic design with Illustrator and Photoshop.'
+        },{
+          id: '5',
+          title: 'ADOBE PREMIERE PRO',
+          desc: 'Video Editing with Adobe Premiere Pro.'
         }],
         codings: [{
           id: '1',
