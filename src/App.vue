@@ -178,7 +178,7 @@
               <v-col v-for="experience in experiences" :key="experience.id" cols="12" sm="6" md="6" lg="6" xl="6" class="mb-6">
                 <p class="body-2 ma-0">{{ experience.date }}</p>
                 <p class="display-1 font-weight-black ma-0">{{ experience.post }}</p>
-                <p class="ma-0 title">{{ experience.company }}</p>
+                <p class="ma-0 title text-uppercase">{{ experience.company }}</p>
                 <p class="subtitle ma-0">{{ experience.address }}</p>
               </v-col>
             </v-row>
