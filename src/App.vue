@@ -359,6 +359,10 @@
           id: '3',
           title: 'ADOBE XD',
           percentage: '65'
+        }, {
+          id: '4',
+          title: 'ADOBE PREMIERE PRO',
+          percentage: '56'
         }],
         experiences: [{
           id: '1',
