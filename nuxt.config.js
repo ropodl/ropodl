@@ -10,13 +10,14 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: "static",
+  target: "server",
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    titleTemplate: "%s - " + process.env.npm_package_name,
+    titleTemplate: "%s",
+    //  + process.env.npm_package_name,
     title: process.env.npm_package_name || "",
     meta: [
       { charset: "utf-8" },
@@ -32,6 +33,10 @@ export default {
       {
         rel: "stylesheet",
         href: "https://pro.fontawesome.com/releases/v5.8.2/css/all.css"
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css?family=Material+Icons"
       }
     ]
   },

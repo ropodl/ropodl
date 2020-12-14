@@ -117,31 +117,53 @@
         </v-col>
       </v-row>
 
+      <v-row class="mb-6">
+        <v-col cols="12" lg="3" class="d-flex">
+          <span class="title ml-auto font-weight-light">Portfolio</span>
+        </v-col>
+        <v-col>
+          <v-row>
+            <v-col class="py-0" cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
+              <v-card color="transparent" flat>
+                <v-btn
+                  href="https://vuedash.now.sh/"
+                  class="ml-auto"
+                  text
+                  color="primary"
+                  >VueDash
+                  <v-icon small>launch</v-icon>
+                </v-btn>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
       <!-- <v-row class="mb-6">
-          <v-col cols="12" lg="3" class="d-flex">
-            <span class="title ml-auto font-weight-light">MY ACTIVITY</span>
-          </v-col>
-          <v-col>
-            <v-row no-gutters>
-              <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
-                <p class="ma-0 display-1 font-weight-black">100%</p>
-                <p class="ma-0">JOBS SUCCESS</p>
-              </v-col>
-              <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
-                <p class="ma-0 display-1 font-weight-black">96%</p>
-                <p class="ma-0">ON BUDGET</p>
-              </v-col>
-              <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
-                <p class="ma-0 display-1 font-weight-black">99%</p>
-                <p class="ma-0">ON TIME</p>
-              </v-col>
-              <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
-                <p class="ma-0 display-1 font-weight-black">89%</p>
-                <p class="ma-0">REPEAT HIRE RATE</p>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row> -->
+        <v-col cols="12" lg="3" class="d-flex">
+          <span class="title ml-auto font-weight-light">MY ACTIVITY</span>
+        </v-col>
+        <v-col>
+          <v-row no-gutters>
+            <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
+              <p class="ma-0 display-1 font-weight-black">100%</p>
+              <p class="ma-0">JOBS SUCCESS</p>
+            </v-col>
+            <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
+              <p class="ma-0 display-1 font-weight-black">96%</p>
+              <p class="ma-0">ON BUDGET</p>
+            </v-col>
+            <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
+              <p class="ma-0 display-1 font-weight-black">99%</p>
+              <p class="ma-0">ON TIME</p>
+            </v-col>
+            <v-col cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
+              <p class="ma-0 display-1 font-weight-black">89%</p>
+              <p class="ma-0">REPEAT HIRE RATE</p>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row> -->
 
       <v-row class="mb-6">
         <v-col cols="12" xl="12" lg="3" class="d-flex">
@@ -540,27 +562,7 @@ export default {
       ]
     };
   },
-  created() {
-    // if (process.browser) {
-    //   this.dark = localStorage.getItem("darkmode") === "true";
-    // }
-    // this.$vuetify.theme.dark = this.dark;
-  },
-  watch: {
-    // darkmodemethod() {
-    //   this.dark = !this.dark;
-    //   this.localStorage.setItem("darkmode", this.dark);
-    //   this.$vuetify.theme.dark = this.dark;
-    // }
-  },
   methods: {
-    // darkmode() {
-    //   this.dark = !this.dark;
-    //   if (process.browser) {
-    //     this.localStorage.setItem("darkmode", this.dark);
-    //   }
-    //   this.$vuetify.theme.dark = this.dark;
-    // },
     onScroll(e) {
       if (typeof window === "undefined") return;
       const top = window.pageYOffset || e.target.scrollTop || 0;
