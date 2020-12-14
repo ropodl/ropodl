@@ -242,15 +242,25 @@
         </v-col>
         <v-col>
           <v-row>
-            <v-col class="py-0" cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
+            <v-col
+              v-for="portfolio in portfolios"
+              :key="portfolio.id"
+              class="py-0"
+              cols="12"
+              xs="6"
+              sm="6"
+              md="2"
+              lg="2"
+              xl="2"
+            >
               <v-card color="transparent" flat>
                 <v-btn
-                  href="https://vuedash.now.sh/"
+                  :href="portfolio.url"
                   target="_blank"
-                  class="ml-auto"
+                  class="mx-auto"
                   text
                   color="primary"
-                  >VueDash
+                  >{{ portfolio.title }}
                   <v-icon right small>launch</v-icon>
                 </v-btn>
               </v-card>
@@ -410,6 +420,7 @@
       <v-row no-gutters>
         <v-col cols="12" class="d-flex justify-end align-center ma-0 pa-0">
           <v-img
+            eager
             class="avatar"
             src="avatar.png"
             max-height="50"
@@ -507,6 +518,18 @@ export default {
           percentage: "56"
         }
       ],
+      portfolios: [
+        {
+          id: "1",
+          title: "VueDash",
+          url: "https://vuedash.now.sh/"
+        },
+        {
+          id: "2",
+          title: "SoftMahal",
+          url: "https://www.softmahal.com/"
+        }
+      ],
       experiences: [
         {
           id: "1",
@@ -549,16 +572,6 @@ export default {
           subject: "SLC (School Leaving Certificate)",
           institute: "National United High School",
           address: "Ganesh Chowk, Kathmandu"
-        }
-      ],
-      portfolios: [
-        {
-          id: "1",
-          src: "https://api.adorable.io/avatars/285/abott@adorable.png"
-        },
-        {
-          id: "2",
-          src: "https://api.adorable.io/avatars/285/abott@adorable.png"
         }
       ]
     };
