@@ -1,22 +1,9 @@
-# Designer by Nature, Developer by Choice
+<h1 align="center">
+Designer by Nature, Developer by Choice
+</h1>
 
-<!-- # erskull
-
-## Build Setup
-
-```bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org). -->
+<p align="center">
+<a href="https://erskull.now.sh/">
+    <img src="https://erskull.now.sh/avatar.png" alt="erskull" width="100" height="100">
+  </a>
+</p>
