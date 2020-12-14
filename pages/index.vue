@@ -117,28 +117,6 @@
         </v-col>
       </v-row>
 
-      <v-row class="mb-6">
-        <v-col cols="12" lg="3" class="d-flex">
-          <span class="title ml-auto font-weight-light">Portfolio</span>
-        </v-col>
-        <v-col>
-          <v-row>
-            <v-col class="py-0" cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
-              <v-card color="transparent" flat>
-                <v-btn
-                  href="https://vuedash.now.sh/"
-                  class="ml-auto"
-                  text
-                  color="primary"
-                  >VueDash
-                  <v-icon small>launch</v-icon>
-                </v-btn>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-
       <!-- <v-row class="mb-6">
         <v-col cols="12" lg="3" class="d-flex">
           <span class="title ml-auto font-weight-light">MY ACTIVITY</span>
@@ -253,6 +231,29 @@
                   :value="design.percentage"
                 ></v-progress-linear>
               </div>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <v-row class="mb-6">
+        <v-col cols="12" lg="3" class="d-flex">
+          <span class="title ml-auto font-weight-light">Portfolio</span>
+        </v-col>
+        <v-col>
+          <v-row>
+            <v-col class="py-0" cols="12" xs="6" sm="6" md="3" lg="3" xl="3">
+              <v-card color="transparent" flat>
+                <v-btn
+                  href="https://vuedash.now.sh/"
+                  target="_blank"
+                  class="ml-auto"
+                  text
+                  color="primary"
+                  >VueDash
+                  <v-icon right small>launch</v-icon>
+                </v-btn>
+              </v-card>
             </v-col>
           </v-row>
         </v-col>
