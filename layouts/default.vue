@@ -13,7 +13,7 @@
       v-scroll="onScroll"
       v-show="fab"
     >
-      <v-icon small>fal fa-arrow-up</v-icon>
+      <v-icon small>fas fa-arrow-up</v-icon>
     </v-btn>
     <v-main>
       <v-container>
