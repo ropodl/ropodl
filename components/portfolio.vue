@@ -47,6 +47,11 @@ export default {
           id: "2",
           title: "SoftMahal",
           url: "https://www.softmahal.com/"
+        },
+        {
+          id: "3",
+          title: "API Technology",
+          url: "https://www.apitechnepal.com/"
         }
       ]
     };
