@@ -37,6 +37,11 @@ export default {
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css?family=Material+Icons"
+      },
+    ],
+    script: [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-1KDFS20N0H"
       }
     ]
   },
