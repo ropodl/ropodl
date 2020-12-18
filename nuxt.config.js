@@ -48,7 +48,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [{ src: '~plugins/ga.js', mode: 'client' }],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -64,7 +64,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    "@nuxtjs/pwa"
+    "@nuxtjs/pwa",
+    // "@nuxtjs/google-analytics"
   ],
   /*
    ** Axios module configuration
@@ -97,6 +98,9 @@ export default {
       }
     }
   },
+  // googleAnalytics: {
+  //   id: 'UA-XXX-X'
+  // },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
