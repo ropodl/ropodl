@@ -120,6 +120,50 @@
       <myspeciality />
       <skills />
       <portfolio />
+      <v-row class="mb-6">
+        <v-col cols="12" md="4">
+          <a
+            target="_blank"
+            href="https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg"
+          >
+            <v-card class="rounded-lg ma-0 pa-0">
+              <v-img
+                width="100%"
+                height="200px"
+                src="https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg"
+              ></v-img>
+            </v-card>
+          </a>
+        </v-col>
+        <v-col cols="12" md="4">
+          <a
+            target="_blank"
+            href="https://cdn.dribbble.com/users/1462542/screenshots/14226800/media/510b014866a5d2873bbde1ff8a285218.png"
+          >
+            <v-card class="rounded-lg ma-0 pa-0">
+              <v-img
+                width="100%"
+                height="200px"
+                src="https://cdn.dribbble.com/users/1462542/screenshots/14226800/media/510b014866a5d2873bbde1ff8a285218.png"
+              ></v-img>
+            </v-card>
+          </a>
+        </v-col>
+        <v-col cols="12" md="4">
+          <a
+            target="_blank"
+            href="https://cdn.dribbble.com/users/1462542/screenshots/11289842/media/e89ef0017af23e8cf0f6f10bc79ccf0a.png"
+          >
+            <v-card class="rounded-lg ma-0 pa-0">
+              <v-img
+                width="100%"
+                height="200px"
+                src="https://cdn.dribbble.com/users/1462542/screenshots/11289842/media/e89ef0017af23e8cf0f6f10bc79ccf0a.png"
+              ></v-img>
+            </v-card>
+          </a>
+        </v-col>
+      </v-row>
       <experience />
       <education />
       <contacts />

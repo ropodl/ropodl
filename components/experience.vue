@@ -34,8 +34,13 @@ export default {
     return {
       experiences: [
         {
+          id: "0",
+          date: "2021",
+          post: "FREELANCING GRAPHIC/WEB DESIGNER"
+        },
+        {
           id: "1",
-          date: "2019 - Present",
+          date: "2019 - 2021",
           post: "CHIEF WEB DESIGNER",
           company: "SoftMahal Technologies",
           address: "Mid Baneshwor, Kathmandu"
