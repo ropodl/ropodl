@@ -7,13 +7,12 @@
       fab
       bottom
       right
-      small
       color="primary"
       @click="$vuetify.goTo('#app')"
       v-scroll="onScroll"
       v-show="fab"
     >
-      <v-icon small>fas fa-arrow-up</v-icon>
+      <v-icon>north</v-icon>
     </v-btn>
     <v-main>
       <v-container>

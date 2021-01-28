@@ -19,21 +19,11 @@
 
         <v-col cols="12" xs="12" sm="12" md="9" lg="9" xl="9">
           <div class="mb-6">
-            <!-- <h1 class="display-2 font-weight-bold d-flex justify-space-between" style="text-transform:uppercase;">
-                BETA TESTING</h1> -->
             <h1
               class="display-2 font-weight-bold d-flex justify-space-between"
               style="text-transform:uppercase;"
             >
               <span>Saroj Poudel</span>
-              <!-- <span>
-                <v-btn icon color="primary" @click="darkmode">
-                  <v-icon v-if="!this.$vuetify.theme.dark">brightness_3</v-icon>
-                  <v-icon v-if="this.$vuetify.theme.dark"
-                    >brightness_high</v-icon
-                  >
-                </v-btn>
-              </span> -->
             </h1>
             <h5 class="primary--text display-1 font-weight-light">
               Web Designer
@@ -120,8 +110,8 @@
       <myspeciality />
       <skills />
       <portfolio />
-      <v-row class="mb-6">
-        <v-col cols="12" md="4">
+      <v-row class="mb-6 d-flex">
+        <v-col class="mx-auto" cols="12" sm="6" md="4">
           <a
             target="_blank"
             href="https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg"
@@ -131,11 +121,24 @@
                 width="100%"
                 height="200px"
                 src="https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg"
-              ></v-img>
+              >
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
             </v-card>
           </a>
         </v-col>
-        <v-col cols="12" md="4">
+        <v-col class="mx-auto" cols="12" sm="6" md="4">
           <a
             target="_blank"
             href="https://cdn.dribbble.com/users/1462542/screenshots/14226800/media/510b014866a5d2873bbde1ff8a285218.png"
@@ -145,11 +148,24 @@
                 width="100%"
                 height="200px"
                 src="https://cdn.dribbble.com/users/1462542/screenshots/14226800/media/510b014866a5d2873bbde1ff8a285218.png"
-              ></v-img>
+              >
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
             </v-card>
           </a>
         </v-col>
-        <v-col cols="12" md="4">
+        <v-col class="mx-auto" cols="12" sm="6" md="4">
           <a
             target="_blank"
             href="https://cdn.dribbble.com/users/1462542/screenshots/11289842/media/e89ef0017af23e8cf0f6f10bc79ccf0a.png"
@@ -159,7 +175,20 @@
                 width="100%"
                 height="200px"
                 src="https://cdn.dribbble.com/users/1462542/screenshots/11289842/media/e89ef0017af23e8cf0f6f10bc79ccf0a.png"
-              ></v-img>
+              >
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
             </v-card>
           </a>
         </v-col>
@@ -191,11 +220,11 @@
 </template>
 
 <script>
-import Contacts from "../components/contacts.vue";
-import Education from "../components/education.vue";
-import portfolio from "../components/portfolio.vue";
+// import Contacts from "../components/contacts.vue";
+// import Education from "../components/education.vue";
+// import portfolio from "../components/portfolio.vue";
 export default {
-  components: { portfolio, Education, Contacts },
+  // components: { portfolio, Education, Contacts },
   name: "App",
   data() {
     return {

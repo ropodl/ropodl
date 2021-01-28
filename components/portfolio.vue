@@ -56,6 +56,11 @@ export default {
           id: "3",
           title: "API Technology",
           url: "https://www.apitechnepal.com/"
+        },
+        {
+          id: "4",
+          title: "Instagram Concept",
+          url: "https://instaconcept.now.sh/"
         }
       ]
     };
