@@ -61,10 +61,11 @@ export default {
           id: "4",
           title: "Instagram Concept",
           url: "https://instaconcept.now.sh/"
-        },{
-          id: '5',
-          title: 'Reno Design',
-          url: 'https://renodesign.now.sh/'
+        },
+        {
+          id: "5",
+          title: "Reno Design",
+          url: "https://renodesign.now.sh/"
         }
       ]
     };

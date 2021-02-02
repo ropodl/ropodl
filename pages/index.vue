@@ -2,8 +2,16 @@
   <div>
     <v-container>
       <v-row>
-        <v-col class="d-flex align-center justify-center" cols="12" xs="12" sm="12" md="3" lg="3" xl="3">
-          <v-avatar :size="512/3">
+        <v-col
+          class="d-flex align-center justify-center"
+          cols="12"
+          xs="12"
+          sm="12"
+          md="3"
+          lg="3"
+          xl="3"
+        >
+          <v-avatar :size="512 / 3">
             <v-img src="/saroj.jpg">
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
@@ -202,7 +210,7 @@
           <v-img
             eager
             class="avatar"
-            src="avatar.png"
+            src="/icon.png"
             max-height="50"
             max-width="50"
             contain
@@ -220,11 +228,7 @@
 </template>
 
 <script>
-// import Contacts from "../components/contacts.vue";
-// import Education from "../components/education.vue";
-// import portfolio from "../components/portfolio.vue";
 export default {
-  // components: { portfolio, Education, Contacts },
   name: "App",
   data() {
     return {

@@ -1,35 +1,20 @@
-import colors from "vuetify/es5/util/colors";
+import colors from 'vuetify/es5/util/colors'
 
 export default {
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
-  // mode: "universal",
-  /*
-   ** Nuxt target
-   ** See https://nuxtjs.org/api/configuration-target
-   */
-  target: "static",
-  /*
-   ** Headers of the page
-   ** See https://nuxtjs.org/api/configuration-head
-   */
+  // Target: https://go.nuxtjs.dev/config-target
+  target: 'static',
+
+  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s",
-    //  + process.env.npm_package_name,
-    title: process.env.npm_package_name || "",
+    titleTemplate: 'erskull',
+    title: 'erskull',
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      {
-        hid: "description",
-        name: "description",
-        content: process.env.npm_package_description || ""
-      }
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: 'Portfolio website of erskull' }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: "stylesheet",
         href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -46,44 +31,56 @@ export default {
       }
     ]
   },
-  /*
-   ** Global CSS
-   */
-  css: [],
-  /*
-   ** Plugins to load before mounting the App
-   ** https://nuxtjs.org/guide/plugins
-   */
-  plugins: [{ src: '~plugins/ga.js', mode: 'client' }],
-  /*
-   ** Auto import components
-   ** See https://nuxtjs.org/api/configuration-components
-   */
-  components: true,
-  /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: ["@nuxtjs/vuetify"],
-  /*
-   ** Nuxt.js modules
-   */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios",
-    "@nuxtjs/pwa",
-    // "@nuxtjs/google-analytics"
+
+  // Progress Bar
+  loading: {
+    color: "#EF5047"
+  },
+
+
+  // Global CSS: https://go.nuxtjs.dev/config-css
+  css: [
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
-  /*
-   ** vuetify module configuration
-   ** https://github.com/nuxt-community/vuetify-module
-   */
+
+  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  plugins: [{ src: '~plugins/ga.js', mode: 'client' }],
+
+  // Auto import components: https://go.nuxtjs.dev/config-components
+  components: true,
+
+  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+  buildModules: [
+    // https://go.nuxtjs.dev/vuetify
+    '@nuxtjs/vuetify',
+  ],
+
+  // Modules: https://go.nuxtjs.dev/config-modules
+  modules: [
+    // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/pwa',
+  ],
+
+  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  pwa: {
+    manifest: {
+      lang: 'en'
+    },
+    icon: {
+      source: "/icon.png"
+    },
+    meta: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      title: "erskull",
+      author: "erskull",
+      icon: "/icon.png",
+      theme_color: "#EF5047"
+    }
+  },
+
+  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ["~/assets/variables.scss"],
+    customVariables: ['~/assets/variables.scss'],
     treeShake: true,
     defaultAssets: {
       icons: "mdi"
@@ -92,7 +89,6 @@ export default {
       dark: true,
       themes: {
         dark: {
-          // primary: colors.blue.darken2,
           primary: "#EF5047",
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
@@ -104,12 +100,8 @@ export default {
       }
     }
   },
-  // googleAnalytics: {
-  //   id: 'UA-XXX-X'
-  // },
-  /*
-   ** Build configuration
-   ** See https://nuxtjs.org/api/configuration-build/
-   */
-  build: {}
-};
+
+  // Build Configuration: https://go.nuxtjs.dev/config-build
+  build: {
+  }
+}
