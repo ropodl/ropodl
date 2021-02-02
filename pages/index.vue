@@ -2,8 +2,8 @@
   <div>
     <v-container>
       <v-row>
-        <v-col cols="12" xs="12" sm="12" md="3" lg="3" xl="3">
-          <v-avatar size="256">
+        <v-col class="d-flex align-center justify-center" cols="12" xs="12" sm="12" md="3" lg="3" xl="3">
+          <v-avatar :size="512/3">
             <v-img src="/saroj.jpg">
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">

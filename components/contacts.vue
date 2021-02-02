@@ -5,7 +5,7 @@
     </v-col>
     <v-col class="pt-0">
       <v-row>
-        <v-col cols="12" lg="6" class="pt-0">
+        <v-col cols="12" md="6" lg="6" class="pt-0">
           <p class="body-2 ma-0">ADDRESS</p>
           <p class="display-1 font-weight-black ma-0">
             Maitri Nagar, Kalanki
@@ -13,19 +13,19 @@
           <p class="ma-0 title">Kathmandu</p>
           <!-- <p class="subtitle ma-0">United Kingdom, London</p> -->
         </v-col>
-        <v-col cols="12" lg="6" class="pt-0">
+        <v-col cols="12" md="6" lg="6" class="pt-0">
           <p class="body-2 ma-0">PHONE NUMBER</p>
           <p class="display-1 font-weight-black ma-0">N/A</p>
           <!-- <p class="ma-0 title">BlissNiss</p> -->
           <!-- <p class="subtitle ma-0">United Kingdom, London</p> -->
         </v-col>
-        <v-col cols="12" lg="6">
+        <v-col cols="12" md="6" lg="6">
           <p class="body-2 ma-0">MOBILE NUMBER</p>
           <p class="display-1 font-weight-black ma-0">9849808471</p>
           <!-- <p class="ma-0 title">Unique Soft</p> -->
           <!-- <p class="subtitle ma-0">United Kingdom, London</p> -->
         </v-col>
-        <v-col cols="12" lg="6">
+        <v-col cols="12" md="6" lg="6">
           <p class="body-2 ma-0">EMAIL</p>
           <p class="display-1 font-weight-black ma-0">
             <a
