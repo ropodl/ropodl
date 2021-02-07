@@ -63,52 +63,18 @@
               class="d-flex justify-space-between"
             >
               <v-btn
+                v-for="social in sociallinks"
+                :key="social"
                 icon
-                outlined
+                large
                 style="border:0px;"
                 color="primary"
                 router
                 link
-                href="https://www.github.com/erskull"
+                :href="social.link"
                 target="_blank"
               >
-                <v-icon>fab fa-github</v-icon>
-              </v-btn>
-              <v-btn
-                icon
-                outlined
-                style="border:0px;"
-                color="primary"
-                router
-                link
-                href="https://www.twitter.com/ropodl"
-                target="_blank"
-              >
-                <v-icon>fab fa-twitter</v-icon>
-              </v-btn>
-              <v-btn
-                icon
-                outlined
-                style="border:0px;"
-                color="primary"
-                router
-                link
-                href="https://dribbble.com/erskull"
-                target="_blank"
-              >
-                <v-icon>fab fa-dribbble</v-icon>
-              </v-btn>
-              <v-btn
-                icon
-                outlined
-                style="border:0px;"
-                color="primary"
-                router
-                link
-                href="mailto:sarox14@gmail.com"
-                target="_blank"
-              >
-                <v-icon>fas fa-envelope</v-icon>
+                <v-icon>{{ social.icon }}</v-icon>
               </v-btn>
             </v-col>
           </v-row>
@@ -119,71 +85,17 @@
       <skills />
       <portfolio />
       <v-row class="mb-6 d-flex">
-        <v-col class="mx-auto" cols="12" sm="6" md="4">
-          <a
-            target="_blank"
-            href="https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg"
-          >
+        <v-col
+          v-for="image in images"
+          :key="image.i"
+          class="mx-auto"
+          cols="12"
+          sm="6"
+          md="4"
+        >
+          <a target="_blank" :href="image.src">
             <v-card class="rounded-lg ma-0 pa-0">
-              <v-img
-                width="100%"
-                height="200px"
-                src="https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg"
-              >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="primary"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-            </v-card>
-          </a>
-        </v-col>
-        <v-col class="mx-auto" cols="12" sm="6" md="4">
-          <a
-            target="_blank"
-            href="https://cdn.dribbble.com/users/1462542/screenshots/14226800/media/510b014866a5d2873bbde1ff8a285218.png"
-          >
-            <v-card class="rounded-lg ma-0 pa-0">
-              <v-img
-                width="100%"
-                height="200px"
-                src="https://cdn.dribbble.com/users/1462542/screenshots/14226800/media/510b014866a5d2873bbde1ff8a285218.png"
-              >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="primary"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-            </v-card>
-          </a>
-        </v-col>
-        <v-col class="mx-auto" cols="12" sm="6" md="4">
-          <a
-            target="_blank"
-            href="https://cdn.dribbble.com/users/1462542/screenshots/11289842/media/e89ef0017af23e8cf0f6f10bc79ccf0a.png"
-          >
-            <v-card class="rounded-lg ma-0 pa-0">
-              <v-img
-                width="100%"
-                height="200px"
-                src="https://cdn.dribbble.com/users/1462542/screenshots/11289842/media/e89ef0017af23e8cf0f6f10bc79ccf0a.png"
-              >
+              <v-img width="100%" height="250px" :src="image.src">
                 <template v-slot:placeholder>
                   <v-row
                     class="fill-height ma-0"
@@ -233,7 +145,50 @@ export default {
   data() {
     return {
       fab: false,
-      dark: true
+      dark: true,
+      sociallinks: [
+        {
+          id: "1",
+          title: "Github",
+          icon: "fab fa-github",
+          link: "https://www.github.com/erskull"
+        },
+        {
+          id: "2",
+          title: "Twitter",
+          icon: "fab fa-twitter",
+          link: "https://www.twitter.com/ropodl"
+        },
+        {
+          id: "3",
+          title: "Dribble",
+          icon: "fab fa-dribbble",
+          link: "https://dribbble.com/erskull"
+        },
+        {
+          id: "4",
+          title: "Email",
+          icon: "fas fa-envelope",
+          link: "mailto:sarox14@gmail.com"
+        }
+      ],
+      images: [
+        {
+          id: "1",
+          src:
+            "https://cdn.dribbble.com/users/1462542/screenshots/15078907/media/77d0f57efb1d67aeb81b8b520e143b36.png"
+        },
+        {
+          id: "2",
+          src:
+            "https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg"
+        },
+        {
+          id: "3",
+          src:
+            "https://cdn.dribbble.com/users/1462542/screenshots/14226800/media/510b014866a5d2873bbde1ff8a285218.png"
+        }
+      ]
     };
   },
   methods: {
