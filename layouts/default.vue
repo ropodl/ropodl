@@ -1,19 +1,21 @@
 <template>
   <v-app>
     <v-system-bar color="primary" height="4"></v-system-bar>
-    <v-btn
-      fixed
-      dark
-      fab
-      bottom
-      right
-      color="primary"
-      @click="$vuetify.goTo('#app')"
-      v-scroll="onScroll"
-      v-show="fab"
-    >
-      <v-icon>north</v-icon>
-    </v-btn>
+    <transition name="slide-fade">
+      <v-btn
+        fixed
+        dark
+        fab
+        bottom
+        right
+        color="primary"
+        @click="$vuetify.goTo('#app')"
+        v-scroll="onScroll"
+        v-show="fab"
+      >
+        <v-icon>north</v-icon>
+      </v-btn>
+    </transition>
     <v-main>
       <v-container>
         <nuxt />
@@ -39,3 +41,16 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(50px);
+  opacity: 0;
+}
+</style>
