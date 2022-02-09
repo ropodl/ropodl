@@ -8,11 +8,12 @@
               <v-card-title class="text-h3 font-weight-bold">
                 Let's work together on your next project.
               </v-card-title>
+              <v-card-text>
+                <v-btn x-large color="primary">contact</v-btn>
+              </v-card-text>
             </v-col>
             <v-col cols="12" md="6">
-              <div class="d-flex align-center justify-center h-100">
-                <v-btn x-large>contact</v-btn>
-              </div>
+              <div class="d-flex align-center justify-center h-100"></div>
             </v-col>
           </v-row>
         </v-container>
