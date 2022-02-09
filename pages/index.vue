@@ -10,6 +10,7 @@
       <div class="mid-banner" />
       <Shared-Project />
       <Shared-Contact />
+      <Layout-FooterLink />
     </div>
   </div>
 </template>

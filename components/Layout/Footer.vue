@@ -2,7 +2,7 @@
   <!-- <v-card> -->
   <v-footer>
     <v-container>
-      <v-row class="text-overline text-capitalize">
+      <v-row class="py-3 text-overline text-capitalize">
         <v-col cols="12" md="4">
           <v-avatar size="32">
             <v-img src="avatar.png"></v-img>
@@ -44,8 +44,9 @@
         <v-col cols="12" md="4"
           ><div class="d-flex flex-wrap">
             <v-spacer></v-spacer>
-            <v-icon small color="pink" class="mr-3">fa-solid fa-heart</v-icon>
-            With love from Nepal
+            From Nepal With&nbsp;<v-icon small color="pink" class="mr-3"
+              >fa-solid fa-heart</v-icon
+            >
           </div>
         </v-col>
       </v-row>
