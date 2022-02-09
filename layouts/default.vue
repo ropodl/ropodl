@@ -15,6 +15,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.h-100 {
+  height: 100%;
+}
 .list-style-none {
   list-style: none;
 }
