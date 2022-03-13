@@ -14,30 +14,47 @@
           <v-col cols="12" md="6">
             <div class="d-flex">
               <v-spacer></v-spacer>
-              <v-btn tile x-large>View All</v-btn>
+              <v-btn tile x-large color="primary">View All</v-btn>
             </div>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" md="6" v-for="i in 4" :key="i">
-            <v-card flat color="transparent">
-              <v-card flat tile>
-                <v-card-text>
-                  <v-card tile class="my-10">
-                    <!-- <v-responsive :aspect-ratio="1 / 1"> -->
-                    <v-img
-                      tile
-                      src="https://images.unsplash.com/photo-1644079956630-4ee4a85859a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-                      height="300"
-                    ></v-img>
-                    <!-- </v-responsive> -->
+          <v-col cols="12" md="6" v-for="(project, i) in projects" :key="i">
+            <v-card flat color="transparent" class="pt-16">
+              <v-card
+                flat
+                tile
+                style="
+                  border-radius: 50px !important;
+                  border-bottom-right-radius: 0px;
+                "
+              >
+                <v-card-text class="pl-0">
+                  <v-card tile class="mr-10" elevation="10">
+                    <v-hover v-slot:default="{ hover }">
+                      <v-img
+                        class="mt-n16 mb-16 d-flex align-end"
+                        :src="project['image']"
+                        height="300"
+                      >
+                        <v-card-title class="pb-0" v-html="project['title']" />
+                        <v-card-actions>
+                          <v-btn
+                            text
+                            tile
+                            color="primary"
+                            class="text-capitalize"
+                            >Know More
+                            <v-icon small :class="hover ? 'pl-4' : ' pl-2'"
+                              >fa-regular fa-arrow-right</v-icon
+                            >
+                          </v-btn>
+                        </v-card-actions>
+                      </v-img>
+                    </v-hover>
                   </v-card>
                 </v-card-text>
               </v-card>
-              <v-card-title class="pb-0"> Lorem ipsum </v-card-title>
-              <v-card-actions>
-                <v-btn text x-large>Know More</v-btn>
-              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -47,7 +64,27 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "FeaturedProjects",
+  data() {
+    return {
+      projects: [
+        {
+          image:
+            "https://images.unsplash.com/photo-1610123598195-eea6b6be4c48?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
+          title: "adf asf ",
+          desc: "test",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1610123598195-eea6b6be4c48?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
+          title: "adf asf ",
+          desc: "test",
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style></style>

@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-main>
-      <v-alert tile type="error" dense>Currently on development</v-alert>
+      <!-- <v-alert tile type="error" dense>Currently on development</v-alert> -->
       <Layout-Navbar />
       <Nuxt keep-alive />
       <Layout-Footer />

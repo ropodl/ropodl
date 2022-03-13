@@ -6,13 +6,11 @@
         <v-col cols="12" md="6">
           <div class="font-weight-bold">Hello, I'm Saroj Poudel</div>
           <div class="text-h3 font-weight-black my-2">Web Designer</div>
-          <div class="mb-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus optio
-            repellendus, distinctio pariatur deleniti perspiciatis sit? Dolor,
-            veritatis recusandae? Aspernatur.
-          </div>
+          <!-- <div class="mb-3">
+            Potential Wellfare for the title
+          </div> -->
           <div>
-            <v-btn tile x-large width="200"> About Me </v-btn>
+            <v-btn tile x-large width="200" color="primary">About Me</v-btn>
           </div>
         </v-col>
       </v-row>
