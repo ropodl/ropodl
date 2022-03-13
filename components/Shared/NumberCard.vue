@@ -25,13 +25,13 @@
           <v-col cols="12" md="8">
             <v-row>
               <v-col cols="12" md="6" v-for="(number, i) in numbers" :key="i">
-                <v-card class="text-center py-5">
+                <v-card tile class="text-center py-5">
                   <v-card-title
                     class="text-h4 font-weight-bold justify-center primary--text pb-0"
                     v-html="number['title']"
                   ></v-card-title>
                   <v-card-text
-                    class="text-h6 font-weight-light text-capitalize"
+                    class="text-h6 font-weight-light text-capitalize white--text"
                     v-html="number['desc']"
                   ></v-card-text>
                 </v-card>

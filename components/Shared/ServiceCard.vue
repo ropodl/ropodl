@@ -3,22 +3,29 @@
     <v-container class="py-16">
       <v-row>
         <v-col cols="12" md="4" v-for="(service, i) in services" :key="i">
-          <v-card tile class="py-8 px-5" :color="i === 1 ? 'primary' : ''">
-            <v-card-title class="pb-0">
-              <v-icon x-large :color="i === 1 ? 'white' : 'primary'">{{
-                service.icon
-              }}</v-icon>
-            </v-card-title>
-            <v-card-title class="font-weight-bold" v-html="service.title">
-            </v-card-title>
-            <v-card-text v-html="service.desc"></v-card-text>
-            <v-card-actions>
-              <v-btn text :color="i === 1 ? 'white' : 'primary'"
-                >Know More
-                <v-icon small class="ml-2">fa-thin fa-arrow-right</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <v-hover v-slot:default="{ hover }">
+            <v-card tile class="py-8 px-5" :color="i === 1 ? 'primary' : ''">
+              <v-card-title class="pb-0">
+                <v-icon x-large :color="i === 1 ? 'white' : 'primary'">{{
+                  service.icon
+                }}</v-icon>
+              </v-card-title>
+              <v-card-title class="font-weight-bold" v-html="service.title">
+              </v-card-title>
+              <v-card-text v-html="service.desc"></v-card-text>
+              <v-card-actions>
+                <v-btn
+                  text
+                  class="text-capitalize"
+                  :color="i === 1 ? 'white' : 'primary'"
+                  >Know More
+                  <v-icon small :class="hover ? 'ml-4' : 'ml-2'"
+                    >fa-thin fa-arrow-right</v-icon
+                  >
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-hover>
         </v-col>
       </v-row>
     </v-container>
