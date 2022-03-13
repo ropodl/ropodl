@@ -9,7 +9,7 @@
                 Let's work together on your next project.
               </v-card-title>
               <v-card-text>
-                <v-btn x-large color="primary">contact</v-btn>
+                <v-btn x-large tile width="200" color="primary">contact</v-btn>
               </v-card-text>
             </v-col>
             <v-col cols="12" md="6">
