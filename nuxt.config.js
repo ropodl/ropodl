@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - ropodl",
+    // titleTemplate: "%s - ropodl",
     title: "ropodl",
     meta: [
       { charset: "utf-8" },
@@ -66,7 +66,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: "#9e101a",
+          primary: "#008080",
           // colors.blue.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,

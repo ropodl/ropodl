@@ -12,7 +12,8 @@
               color="transparent"
             >
               <div>
-                <v-card-title class="text-h1 font-weight-black justify-center"
+                <v-card-title
+                  class="text-h1 font-weight-black justify-center primary--text"
                   >5</v-card-title
                 >
                 <v-card-text class="text-h4 font-weight-bold">
@@ -23,10 +24,16 @@
           </v-col>
           <v-col cols="12" md="8">
             <v-row>
-              <v-col cols="12" md="6" v-for="i in 4" :key="i">
-                <v-card class="text-center">
-                  <v-card-title class="justify-center">title</v-card-title>
-                  <v-card-text> text </v-card-text>
+              <v-col cols="12" md="6" v-for="(number, i) in numbers" :key="i">
+                <v-card class="text-center py-5">
+                  <v-card-title
+                    class="text-h4 font-weight-bold justify-center primary--text pb-0"
+                    v-html="number['title']"
+                  ></v-card-title>
+                  <v-card-text
+                    class="text-h6 font-weight-light text-capitalize"
+                    v-html="number['desc']"
+                  ></v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -38,7 +45,31 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "NumberCard",
+  data() {
+    return {
+      numbers: [
+        {
+          title: "60+",
+          desc: "Clients",
+        },
+        {
+          title: "4",
+          desc: "Years Work Experience",
+        },
+        {
+          title: "100+",
+          desc: "Completed Projects",
+        },
+        {
+          title: "0",
+          desc: "Achievements",
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style></style>
