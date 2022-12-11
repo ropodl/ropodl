@@ -3,7 +3,7 @@
     <v-col cols="12" lg="3" class="d-flex pt-0">
       <span class="title ml-auto font-weight-light">CONTACT</span>
     </v-col>
-    <v-col class="pt-0">
+    <v-col class="pt-0"> 
       <v-row>
         <v-col cols="12" md="6" lg="6" class="pt-0">
           <p class="body-2 ma-0">ADDRESS</p>
