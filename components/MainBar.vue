@@ -60,7 +60,7 @@ export default {
         {
           title: "Github",
           icon: "fab fa-github",
-          link: "https://www.github.com/erskull"
+          link: "https://www.github.com/ropodl"
         },
         {
           title: "Twitter",
