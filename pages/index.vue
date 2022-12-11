@@ -10,7 +10,7 @@
       <Experience />
       <Education />
       <Contacts />
-      <Footer />
+      <!-- <Footer /> -->
     </v-container>
   </div>
 </template>
