@@ -37,8 +37,8 @@
       </v-row>
 
       <v-row no-gutters class="mb-6">
-        <v-col cols="12" xs="12" sm="4" md="4" lg="4" xl="4" class="d-flex justify-space-between">
-          <v-btn v-for="(social, i) in sociallinks" :key="i" icon large color="primary" router link :href="social.link" target="_blank">
+        <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12">
+          <v-btn v-for="(social, i) in sociallinks" :key="i" icon large class="mr-6" color="primary" router link :href="social.link" target="_blank">
             <v-icon>{{ social.icon }}</v-icon>
           </v-btn>
         </v-col>

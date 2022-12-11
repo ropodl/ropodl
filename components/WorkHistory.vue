@@ -10,7 +10,7 @@
           <p class="ma-0">YEARS WORKED</p>
         </v-col>
         <v-col cols="6" sm="6" md="3" lg="3" xl="3">
-          <p class="ma-0 display-1 font-weight-black">50+</p>
+          <p class="ma-0 display-1 font-weight-black">100+</p>
           <p class="ma-0">WORK DONE</p>
         </v-col>
         <v-col cols="6" sm="6" md="3" lg="3" xl="3">
