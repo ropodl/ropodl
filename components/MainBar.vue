@@ -2,7 +2,7 @@
   <v-row>
     <v-col class="d-flex justify-center" cols="12" xs="12" sm="12" md="3" lg="3" xl="3">
       <v-avatar rounded="lg" width="200px" height="200px">
-        <v-img src="/me.jpg">
+        <v-img src="/me2.jpg">
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular indeterminate color="primary"></v-progress-circular>

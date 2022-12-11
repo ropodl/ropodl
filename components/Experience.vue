@@ -5,17 +5,7 @@
     </v-col>
     <v-col>
       <v-row no-gutters>
-        <!-- put mb-6 if more than 2 items  -->
-        <v-col
-          v-for="experience in experiences"
-          :key="experience.id"
-          cols="12"
-          sm="6"
-          md="6"
-          lg="6"
-          xl="6"
-          class="mb-6"
-        >
+        <v-col v-for="experience, i in experiences" :key="i" cols="12" sm="6" md="6" lg="6" xl="6" class="mb-6">
           <p class="body-2 ma-0">{{ experience.date }}</p>
           <p class="display-1 font-weight-black ma-0">
             {{ experience.post }}
@@ -34,33 +24,27 @@ export default {
     return {
       experiences: [
         {
-          id: "0",
           date: "2021",
-          post: "FREELANCING GRAPHIC/WEB DESIGNER"
+          post: "FREELANCE GRAPHIC/WEB DESIGNER"
         },
         {
-          id: "1",
           date: "2019 - 2021",
           post: "CHIEF WEB DESIGNER",
           company: "SoftMahal Technologies",
           address: "Mid Baneshwor, Kathmandu"
         },
         {
-          id: "2",
           date: "2018 - 2019",
           post: "GRAPHIC DESIGNER",
           company: "FIVONEST TECHNOLOGY",
           address: "Solteemode, Kathmandu"
         },
         {
-          id: "3",
           date: "2018",
-          post: "FREELANCING GRAPHIC DESIGNER"
+          post: "FREELANCE GRAPHIC DESIGNER"
         }
       ]
     };
   }
 };
 </script>
-
-<style></style>

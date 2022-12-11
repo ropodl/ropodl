@@ -7,31 +7,19 @@
       <v-row>
         <v-col cols="12" sm="6" lg="6" class="pt-0">
           <p class="display-1 font-weight-black">CODING SKILLS</p>
-          <div v-for="coding in codings" :key="coding.id">
-            <p class="mb-2 d-flex justify-space-between">
-              <span>{{ coding.title }}</span>
-              <span>{{ coding.percentage }}%</span>
-            </p>
-            <v-progress-linear
-              rounded
-              class="mb-4"
-              :value="coding.percentage"
-            ></v-progress-linear>
-          </div>
+          <v-chip-group column>
+            <v-chip color="primary" class="rounded-0" text v-for="coding, i in codings" :key="i">
+              {{ coding.title }}
+            </v-chip>
+          </v-chip-group>
         </v-col>
         <v-col cols="12" sm="6" lg="6" class="pt-0">
           <p class="display-1 font-weight-black">DESIGN TOOLS</p>
-          <div v-for="design in designs" :key="design.id">
-            <p class="mb-2 d-flex justify-space-between">
-              <span>{{ design.title }}</span>
-              <span>{{ design.percentage }}%</span>
-            </p>
-            <v-progress-linear
-              rounded
-              class="mb-4"
-              :value="design.percentage"
-            ></v-progress-linear>
-          </div>
+          <v-chip-group column>
+            <v-chip class="rounded-0" color="primary" v-for="design, i in designs" :key="i">
+              {{ design.title }}
+            </v-chip>
+          </v-chip-group>
         </v-col>
       </v-row>
     </v-col>
@@ -91,4 +79,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
