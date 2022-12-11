@@ -6,7 +6,7 @@
     <v-col>
       <v-row no-gutters>
         <v-col cols="6" sm="6" md="3" lg="3" xl="3">
-          <p class="ma-0 display-1 font-weight-black">2+</p>
+          <p class="ma-0 display-1 font-weight-black">5+</p>
           <p class="ma-0">YEARS WORKED</p>
         </v-col>
         <v-col cols="6" sm="6" md="3" lg="3" xl="3">

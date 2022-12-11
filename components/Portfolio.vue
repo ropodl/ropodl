@@ -14,17 +14,11 @@
           xl="2"
         > -->
         <!-- <v-card color="transparent" flat> -->
-        <v-btn
-          v-for="portfolio in portfolios"
-          :key="portfolio.id"
-          :href="portfolio.url"
-          text
-          target="_blank"
-          class="mx-auto"
-          color="primary"
-          >{{ portfolio.title }}
-          <v-icon right small>launch</v-icon>
-        </v-btn>
+        <v-chip-group class="pt-0">
+          <v-chip outlined v-for="portfolio, i in portfolios" :key="i" :href="portfolio.url" text target="_blank" color="primary">{{ portfolio.title }}
+          </v-chip>
+        </v-chip-group>
+        <!-- <v-icon right small>launch</v-icon> -->
         <!-- </v-card> -->
         <!-- </v-col> -->
       </v-row>
@@ -38,34 +32,28 @@ export default {
     return {
       portfolios: [
         {
-          id: "0",
-          title: "AnimeZone",
-          url: "https://animezone.info/"
-        },
-        {
-          id: "1",
-          title: "VueDash",
-          url: "https://vuedash.now.sh/"
-        },
-        {
-          id: "2",
-          title: "SoftMahal",
-          url: "https://www.softmahal.com/"
-        },
-        {
-          id: "3",
           title: "API Technology",
           url: "https://www.apitechnepal.com/"
         },
         {
-          id: "4",
-          title: "Instagram Concept",
-          url: "https://instaconcept.now.sh/"
+          title: "SoftMahal",
+          url: "https://www.softmahal.com/"
         },
         {
-          id: "5",
+          title: "VueDash",
+          url: "https://vuedash.vercel.app/"
+        },
+        {
+          title: "AnimeZone",
+          url: "https://animezone.vercel.app/"
+        },
+        {
+          title: "Instagram Concept",
+          url: "https://instaconcept.vercel.app/"
+        },
+        {
           title: "Reno Design",
-          url: "https://renodesign.now.sh/"
+          url: "https://renodesign.vercel.app/"
         }
       ]
     };
@@ -73,4 +61,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
