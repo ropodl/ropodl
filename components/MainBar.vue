@@ -27,11 +27,11 @@
           <p class="ma-0 pa-0 caption">BIRTH</p>
         </v-col>
         <v-col cols="6" sm="6" md="4" lg="4" xl="4" class="py-0">
-          <p class="ma-0 pa-0 title">NEPALI</p>
+          <p class="ma-0 pa-0 title">Nepali</p>
           <p class="ma-0 pa-0 caption">NATIONALITY</p>
         </v-col>
         <v-col cols="6" sm="6" md="4" lg="4" xl="4" class="py-0">
-          <p class="ma-0 pa-0 title">NEPALI, ENGLISH</p>
+          <p class="ma-0 pa-0 title">Nepali, sEnglish</p>
           <p class="ma-0 pa-0 caption">LANGUAGE</p>
         </v-col>
       </v-row>
