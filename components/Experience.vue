@@ -43,13 +43,13 @@ export default {
           address: "Mid Baneshwor, Kathmandu",
         },
         {
-          date: "2018 - 2019",
+          date: "2017 - 2018",
           post: "GRAPHIC DESIGNER",
           company: "Fivonest Technology",
           address: "Solteemode, Kathmandu",
         },
         {
-          date: "2018",
+          date: "2017",
           post: "FREELANCE GRAPHIC DESIGNER",
         },
       ],
