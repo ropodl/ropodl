@@ -43,8 +43,8 @@ export default {
           address: "Mid Baneshwor, Kathmandu",
         },
         {
-          date: "2017 - 2018",
-          post: "GRAPHIC DESIGNER",
+          date: "2018",
+          post: "GRAPHIC/WEB DESIGNER",
           company: "Fivonest Technology",
           address: "Solteemode, Kathmandu",
         },
