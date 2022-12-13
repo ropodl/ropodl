@@ -34,7 +34,7 @@ export default {
       educations: [
         {
           id: "1",
-          date: "2014 - 2018",
+          date: "2014 - 2017",
           subject: "BESE",
           institute: "NCIT",
           address: "Balkumari, Lalitpur"
