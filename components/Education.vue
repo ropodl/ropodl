@@ -41,7 +41,7 @@ export default {
         },
         {
           id: "2",
-          date: "2012 - 2014",
+          date: "2012 - 2013",
           subject: "TEN PLUS TWO (+2)",
           institute: "Arniko International College/HSS",
           address: "Talchikhel, Lalitpur"
