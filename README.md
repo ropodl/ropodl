@@ -1,9 +1,44 @@
-### Desinger by Nature, Developer by Choice
+# default
 
-- 🔭 I’m currently working on: Myself
-- 🌱 I’m currently learning: Javascript
-- 👯 I’m looking to collaborate on: Vue
-- 🤔 I’m looking for help with: Life
-- 💬 Ask me about: Nothing
-- 📫 How to reach me: sarox14@gmail.com
-- ⚡ Fun fact: I am Lazy
+## Project setup
+
+```
+# yarn
+yarn
+
+# npm
+npm install
+
+# pnpm
+pnpm install
+```
+
+### Compiles and hot-reloads for development
+
+```
+# yarn
+yarn dev
+
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+```
+
+### Compiles and minifies for production
+
+```
+# yarn
+yarn build
+
+# npm
+npm run build
+
+# pnpm
+pnpm build
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://vitejs.dev/config/).
