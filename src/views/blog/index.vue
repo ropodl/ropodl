@@ -9,6 +9,9 @@ const PageTitle = defineAsyncComponent(() =>
     <v-row>
       <v-col cols="12">
         <PageTitle title="Blogs"></PageTitle>
+        <v-card border flat>
+          <v-card-text>Nothing yet but stay tuned.</v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
