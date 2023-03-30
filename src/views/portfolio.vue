@@ -16,8 +16,8 @@ const PageTitle = defineAsyncComponent(() =>
 
 let dialog = reactive([]);
 let fullWidth = ref(false);
-let zoomPlusScale = ref(0)
-let zoomMinusScale = ref(0)
+let zoomPlusScale = ref(0);
+let zoomMinusScale = ref(0);
 
 let current = ref("All");
 let categories = ["All", "Graphic Design", "Web"];
@@ -72,9 +72,9 @@ let works = [
             >
               <v-hover v-slot="{ isHovering, props: hover }">
                 <v-dialog
-                fullscreen
-                v-model="dialog[i]"
-                transition="none"
+                  fullscreen
+                  v-model="dialog[i]"
+                  transition="none"
                   scrim="black"
                   width="auto"
                   content-class="d-flex w-100"
@@ -144,7 +144,7 @@ let works = [
                         </v-btn>
                       </v-card-text>
                       <v-img :src="works[i].img"></v-img>
-                      <v-card-text>Image Info</v-card-text>
+                      <!-- <v-card-text>Image Info</v-card-text> -->
                     </v-card>
                     <v-card
                       flat
