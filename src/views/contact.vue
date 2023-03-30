@@ -44,6 +44,11 @@ emailjs
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </v-card>
+        <v-card border>
+          <v-card-text>
+            WIP, for now you can contact me at sarox14@gmail.com
+          </v-card-text>
+        </v-card>
         <v-card flat>
           <v-card-title class="mb-6">Contact Form </v-card-title>
           <v-card-text>

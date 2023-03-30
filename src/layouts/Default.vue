@@ -17,7 +17,7 @@ import { mdiEmailOpen, mdiPhone, mdiCake, mdiMapMarkerRadius } from "@mdi/js";
             background: linear-gradient(to top, #212121, rgba(33, 33, 33, 0.8));
           "
         >
-          <v-img class="d-flex align-end" src="/src/assets/image/me2.jpg">
+          <v-img class="d-flex align-end" src="/image/me2.jpg">
             <v-card
               v-auto-animate
               transition="v-slide-x-transition"

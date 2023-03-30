@@ -16,6 +16,8 @@ const PageTitle = defineAsyncComponent(() =>
 
 let dialog = reactive([]);
 let fullWidth = ref(false);
+let zoomPlusScale = ref(0)
+let zoomMinusScale = ref(0)
 
 let current = ref("All");
 let categories = ["All", "Graphic Design", "Web"];
@@ -37,7 +39,7 @@ let works = [
     category: "Graphic Design",
   },
   {
-    img: "/src/assets/portfolio/VueDash.png",
+    img: "/image/portfolio/VueDash.png",
     link: "https://vuedash.vercel.app/",
     category: "Web",
   },
