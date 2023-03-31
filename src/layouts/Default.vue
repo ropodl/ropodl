@@ -177,7 +177,7 @@ import {
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="9">
         <v-card border flat rounded="xl">
           <v-card
             border
@@ -197,9 +197,9 @@ import {
               <v-tab exact to="/portfolio" class="rounded-0 text-capitalize">
                 Portfolio
               </v-tab>
-              <v-tab exact to="/blog" class="rounded-0 text-capitalize">
+              <!-- <v-tab exact to="/blog" class="rounded-0 text-capitalize">
                 Blog
-              </v-tab>
+              </v-tab> -->
               <v-tab exact to="/contact" class="rounded-0 text-capitalize">
                 Contact
               </v-tab>

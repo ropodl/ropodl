@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
     "@emailjs/browser": "^3.10.0",
@@ -21,6 +24,7 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "sass": "^1.56.2",
     "vite": "^4.2.0",
-    "vite-plugin-vuetify": "^1.0.2"
+    "vite-plugin-vuetify": "^1.0.2",
+    "vitepress": "^1.0.0-alpha.64"
   }
 }
