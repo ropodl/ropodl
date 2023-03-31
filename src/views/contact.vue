@@ -3,11 +3,12 @@ import { defineAsyncComponent, reactive, ref } from "vue";
 import { mdiSend } from "@mdi/js";
 import emailjs from "@emailjs/browser";
 
-const PageTitle = defineAsyncComponent(() =>
-  import("@/components/layout/PageTitle.vue")
-);
-
 const contactForm = ref(null);
+let snackbar = reactive({
+  show: false,
+  text: "",
+});
+let text = ref("");
 
 const rules = {
   firstNameRules: [
@@ -54,7 +55,9 @@ const submitForm = async () => {
         "-xkHJckmH36raNsEo"
       )
       .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
+        snackbar["text"] = "Successfully sent, will reply soon.";
+        snackbar["show"] = true;
+        contactForm.value.reset();
       })
       .catch((err) => {
         console.log("FAILED...", err);
@@ -76,11 +79,6 @@ const submitForm = async () => {
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
-        </v-card>
-        <v-card border>
-          <v-card-text>
-            WIP, for now you can contact me at sarox14@gmail.com
-          </v-card-text>
         </v-card>
         <v-card flat>
           <v-card-title class="mb-6">Contact Form </v-card-title>
@@ -137,4 +135,17 @@ const submitForm = async () => {
       </v-col>
     </v-row>
   </v-container>
+  <v-snackbar v-model="snackbar['show']" theme="light">
+    {{ snackbar["text"] }}
+    <template v-slot:actions>
+      <v-btn
+        class="text-capitalize px-4"
+        color="teal"
+        variant="tonal"
+        @click="snackbar['show'] = false"
+      >
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
