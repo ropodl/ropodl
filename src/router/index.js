@@ -8,7 +8,6 @@ const routes = [
       {
         path: "/",
         name: "Home",
-        alias: "/",
         component: () => import("@/views/index"),
       },
       {
