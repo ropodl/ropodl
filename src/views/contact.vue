@@ -32,7 +32,7 @@ emailjs
   <v-container>
     <v-row>
       <v-col cols="12">
-        <PageTitle title="Contact Me"></PageTitle>
+        <!-- <PageTitle title="Contact Me"></PageTitle> -->
         <v-card border flat rounded="xl" class="mb-6">
           <iframe
             class="w-100"
