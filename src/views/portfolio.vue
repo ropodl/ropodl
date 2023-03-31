@@ -226,9 +226,7 @@ const closeDialog = (i) => {
 }
 // image zoom effect
 .v-img {
-  // transition: all 0.5s;
   .v-img__img {
-    // transition: all 0.5s;
     transform: scale(1);
   }
   &.zoom-scale-1 {
