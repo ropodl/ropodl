@@ -9,26 +9,30 @@ const PageTitle = defineAsyncComponent(() =>
   <v-container>
     <v-row>
       <v-col cols="12">
-        <PageTitle title="About Me" />
-        <p>
-          I am a Web Performance Optimization Specialist dedicated to optimizing
-          website speed and user experience. I keep up with the latest industry
-          trends and have expertise in Vue.js, Linux, and UX optimization. My
-          passion for sports translates into my work, where I enjoy
-          collaborating with teams to achieve exceptional results. With
-          extensive experience in web performance optimization, data analysis,
-          and delivering cutting-edge solutions, I am able to drive tangible
-          business results for my clients.
-        </p>
-        <br />
-        <p>
-          As an introverted individual, I am focused on delivering quality work
-          and committed to ongoing learning and professional development.
-          Additionally, I have experience in front-end development, responsive
-          design, and website accessibility. I provide tailored and effective
-          solutions to my clients, continuously striving for web optimization
-          excellence.
-        </p>
+        <!-- <PageTitle title="About Me" /> -->
+        <v-card flat>
+          <v-card-text>
+            <p>
+              I am a Web Performance Optimization Specialist dedicated to
+              optimizing website speed and user experience. I keep up with the
+              latest industry trends and have expertise in Vue.js, Linux, and UX
+              optimization. My passion for sports translates into my work, where
+              I enjoy collaborating with teams to achieve exceptional results.
+              With extensive experience in web performance optimization, data
+              analysis, and delivering cutting-edge solutions, I am able to
+              drive tangible business results for my clients.
+            </p>
+            <br />
+            <p>
+              As an introverted individual, I am focused on delivering quality
+              work and committed to ongoing learning and professional
+              development. Additionally, I have experience in front-end
+              development, responsive design, and website accessibility. I
+              provide tailored and effective solutions to my clients,
+              continuously striving for web optimization excellence.
+            </p>
+          </v-card-text>
+        </v-card>
       </v-col>
       <v-col cols="12">
         <v-card-title class="d-flex align-center">
@@ -98,7 +102,7 @@ const PageTitle = defineAsyncComponent(() =>
               </v-list>
             </v-card>
           </v-col>
-          <v-col cols="12" md="6" class="pb-0">
+          <!-- <v-col cols="12" md="6" class="pb-0">
             <v-card flat>
               <v-list color="transparent" class="py-0" lines="two">
                 <v-list-item>
@@ -117,7 +121,7 @@ const PageTitle = defineAsyncComponent(() =>
                 </v-list-item>
               </v-list>
             </v-card>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-col>
       <v-col cols="12" class="pb-0">

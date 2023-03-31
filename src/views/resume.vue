@@ -10,7 +10,6 @@ const PageTitle = defineAsyncComponent(() =>
   <v-container>
     <v-row>
       <v-col cols="12">
-        <PageTitle title="Resume"></PageTitle>
         <v-card flat class="mb-3">
           <v-card-title class="d-flex align-center">
             <v-icon
@@ -70,6 +69,94 @@ const PageTitle = defineAsyncComponent(() =>
               </v-timeline-item>
             </v-timeline>
           </div>
+        </v-card>
+
+        <v-card flat class="mb-3">
+          <v-card-title class="d-flex align-center">
+            <v-icon
+              start
+              class="mr-3"
+              color="primary"
+              :icon="mdiBookOpenPageVariantOutline"
+            ></v-icon>
+            Skills
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Product Design</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Video Editing</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Problem Solving</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Problem Solving</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Team Player / Manager</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Research and Development</v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+        <v-card flat class="mb-3">
+          <v-card-title class="d-flex align-center">
+            <v-icon
+              start
+              class="mr-3"
+              color="primary"
+              :icon="mdiBookOpenPageVariantOutline"
+            ></v-icon>
+            Software
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Adobe Illustrator</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Adobe Photoshop</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>Adobe Premiere Pro</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>MS Office</v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3" class="pb-0">
+                <v-card border flat class="h-100">
+                  <v-card-text>VS Code</v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
         <v-card flat class="mb-3">
           <v-card-title class="d-flex align-center">
@@ -140,37 +227,6 @@ const PageTitle = defineAsyncComponent(() =>
               </v-timeline-item>
             </v-timeline>
           </div>
-        </v-card>
-        <v-card flat class="mb-3">
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              start
-              class="mr-3"
-              color="primary"
-              :icon="mdiBookOpenPageVariantOutline"
-            ></v-icon>
-            Skills
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" md="4">
-                <v-card border flat>
-                  <v-card-title>Video Editing</v-card-title>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-card border flat>
-                  <v-card-title>Video Editing</v-card-title>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-card border flat>
-                  <v-card-title>Video Editing</v-card-title>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card-text>
         </v-card>
       </v-col>
     </v-row>

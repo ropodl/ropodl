@@ -5,8 +5,8 @@ import {
   mdiEye,
   mdiMagnifyPlusOutline,
   mdiMagnifyMinusOutline,
-  mdiFullscreen,
-  mdiFullscreenExit,
+  mdiArrowExpand,
+  mdiArrowCollapse,
 } from "@mdi/js";
 import { defineAsyncComponent, ref, reactive } from "vue";
 
@@ -14,42 +14,50 @@ const PageTitle = defineAsyncComponent(() =>
   import("@/components/layout/PageTitle.vue")
 );
 
-let dialog = reactive([]);
+let dialogs = reactive([]);
 let fullWidth = ref(false);
-let zoomPlusScale = ref(0);
-let zoomMinusScale = ref(0);
+let zoomLevel = ref(0);
 
 let current = ref("All");
-let categories = ["All", "Graphic Design", "Web"];
+let categories = ["All", "Graphic Design", "Web", "Branding"];
 
 let works = [
   {
     img: "https://cdn.dribbble.com/users/1462542/screenshots/15078907/media/77d0f57efb1d67aeb81b8b520e143b36.png",
     link: "https://google.com",
-    category: "Web",
+    category: "Branding",
+    title: "API Technology Concept Branding",
   },
   {
     img: "https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg",
     link: "https://google.com",
-    category: "Graphic Design",
+    category: "Branding",
+    title: "Honiko Multiple",
   },
   {
     img: "https://cdn.dribbble.com/userupload/5525097/file/original-bec38402c952bde85d074df812cabebc.png",
     link: "https://google.com",
     category: "Graphic Design",
+    title: "Be Curious not Judgemental",
   },
   {
     img: "/image/portfolio/VueDash.png",
     link: "https://vuedash.vercel.app/",
     category: "Web",
+    title: "Vuetify Dashboard",
   },
 ];
+
+const closeDialog = (i) => {
+  dialogs[i] = false;
+  fullWidth.value = false;
+  zoomLevel.value = 0;
+};
 </script>
 <template>
   <v-container>
     <v-row>
       <v-col cols="12">
-        <PageTitle title="Portfolio"></PageTitle>
         <v-btn
           flat
           class="text-capitalize mr-1"
@@ -73,8 +81,9 @@ let works = [
               <v-hover v-slot="{ isHovering, props: hover }">
                 <v-dialog
                   fullscreen
-                  v-model="dialog[i]"
-                  transition="none"
+                  persistent
+                  v-model="dialogs[i]"
+                  transition="fade-transition"
                   scrim="black"
                   width="auto"
                   content-class="d-flex w-100"
@@ -101,50 +110,91 @@ let works = [
                       flat
                       color="rgba(0,0,0,0.8)"
                       rounded="0"
-                      class="h-100"
+                      class="h-100 d-flex align-center justify-center"
                       :class="fullWidth ? 'w-100' : 'w-75'"
-                      style="backdrop-filter: blur(4px)"
+                      style="backdrop-filter: blur(10px)"
                     >
                       <v-card-text
-                        class="d-flex w-100 position-absolute z-index-1"
+                        class="d-flex w-100 position-absolute z-index-1 pb-0"
+                        style="top: 0"
                       >
-                        <v-btn
-                          icon
-                          variant="tonal"
-                          color="black"
-                          @click="dialog[i] = false"
-                        >
-                          <v-icon color="white" :icon="mdiClose"></v-icon>
-                        </v-btn>
+                        <v-hover v-slot="{ isHovering, props: button }">
+                          <v-btn
+                            icon
+                            size="small"
+                            variant="tonal"
+                            :color="isHovering ? 'white' : 'black'"
+                            @click="closeDialog(i)"
+                            v-bind="button"
+                          >
+                            <v-icon
+                              size="large"
+                              color="white"
+                              :icon="mdiClose"
+                            ></v-icon>
+                          </v-btn>
+                        </v-hover>
                         <v-spacer></v-spacer>
-                        <v-btn icon class="mr-3" variant="tonal" color="black">
-                          <v-icon
-                            color="white"
-                            :icon="mdiMagnifyPlusOutline"
-                          ></v-icon>
-                        </v-btn>
-                        <v-btn icon class="mr-3" variant="tonal" color="black">
-                          <v-icon
-                            color="white"
-                            :icon="mdiMagnifyMinusOutline"
-                          ></v-icon>
-                        </v-btn>
-                        <v-btn
-                          icon
-                          variant="tonal"
-                          color="black"
-                          @click="fullWidth = !fullWidth"
-                        >
-                          <v-icon
-                            color="white"
-                            :icon="
-                              fullWidth ? mdiFullscreenExit : mdiFullscreen
-                            "
-                          ></v-icon>
-                        </v-btn>
+                        <v-hover v-slot="{ isHovering, props: button }">
+                          <v-btn
+                            icon
+                            size="small"
+                            variant="tonal"
+                            class="mr-3"
+                            :disabled="zoomLevel == 3"
+                            :color="isHovering ? 'white' : 'black'"
+                            v-bind="button"
+                            @click="zoomLevel++"
+                          >
+                            <v-icon
+                              size="large"
+                              color="white"
+                              :icon="mdiMagnifyPlusOutline"
+                            ></v-icon>
+                          </v-btn>
+                        </v-hover>
+                        <v-hover v-slot="{ isHovering, props: button }">
+                          <v-btn
+                            icon
+                            size="small"
+                            variant="tonal"
+                            class="mr-3"
+                            :disabled="zoomLevel == 0"
+                            :color="isHovering ? 'white' : 'black'"
+                            v-bind="button"
+                            @click="zoomLevel--"
+                          >
+                            <v-icon
+                              size="large"
+                              color="white"
+                              :icon="mdiMagnifyMinusOutline"
+                            ></v-icon>
+                          </v-btn>
+                        </v-hover>
+                        <v-hover v-slot="{ isHovering, props: button }">
+                          <v-btn
+                            icon
+                            size="small"
+                            variant="tonal"
+                            class="mr-3"
+                            :color="isHovering ? 'white' : 'black'"
+                            v-bind="button"
+                            @click="fullWidth = !fullWidth"
+                          >
+                            <v-icon
+                              size="large"
+                              color="white"
+                              :icon="
+                                fullWidth ? mdiArrowCollapse : mdiArrowExpand
+                              "
+                            ></v-icon>
+                          </v-btn>
+                        </v-hover>
                       </v-card-text>
-                      <v-img :src="works[i].img"></v-img>
-                      <!-- <v-card-text>Image Info</v-card-text> -->
+                      <v-img
+                        :src="works[i].img"
+                        :class="['overflow-auto', 'zoom-scale-' + zoomLevel]"
+                      ></v-img>
                     </v-card>
                     <v-card
                       flat
@@ -153,7 +203,12 @@ let works = [
                       class="h-100"
                       :class="fullWidth ? '' : 'w-25'"
                     >
-                      <v-card-title>This is a test</v-card-title>
+                      <v-card-title class="text-wrap">
+                        {{ work["title"] }}
+                      </v-card-title>
+                      <v-card-text>
+                        <v-chip>{{ work["category"] }}</v-chip>
+                      </v-card-text>
                     </v-card>
                   </div>
                 </v-dialog>
@@ -165,8 +220,31 @@ let works = [
     </v-row>
   </v-container>
 </template>
-<style>
+<style lang="scss">
 .z-index-1 {
   z-index: 1;
+}
+// image zoom effect
+.v-img {
+  // transition: all 0.5s;
+  .v-img__img {
+    // transition: all 0.5s;
+    transform: scale(1);
+  }
+  &.zoom-scale-1 {
+    .v-img__img {
+      transform: scale(1.3);
+    }
+  }
+  &.zoom-scale-2 {
+    .v-img__img {
+      transform: scale(1.7);
+    }
+  }
+  &.zoom-scale-3 {
+    .v-img__img {
+      transform: scale(2.1);
+    }
+  }
 }
 </style>
