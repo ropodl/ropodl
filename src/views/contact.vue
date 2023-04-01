@@ -95,7 +95,7 @@ const submitForm = async () => {
                     v-model="templateParams['from_name']"
                     color="primary"
                     variant="outlined"
-                    placeholder="Full Name"
+                    label="Full Name"
                     :rules="rules['firstNameRules']"
                   ></v-text-field>
                 </v-col>
@@ -104,7 +104,7 @@ const submitForm = async () => {
                     v-model="templateParams['from_email']"
                     color="primary"
                     variant="outlined"
-                    placeholder="Email Address"
+                    label="Email Address "
                     :rules="rules['emailRules']"
                   ></v-text-field>
                 </v-col>
@@ -113,7 +113,7 @@ const submitForm = async () => {
                     v-model="templateParams['message']"
                     color="primary"
                     variant="outlined"
-                    placeholder="Message"
+                    label="Message"
                     :rules="rules['messageRules']"
                   ></v-textarea>
                 </v-col>
