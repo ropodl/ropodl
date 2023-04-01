@@ -163,7 +163,7 @@ const socials = [
       </v-col>
       <v-col cols="12" md="9">
         <v-card border flat rounded="xl" class="mb-5">
-          <v-tabs grow height="60" align-tabs="center">
+          <v-tabs grow height="50" align-tabs="center">
             <v-tab exact to="/" class="rounded-0 text-capitalize">
               About
             </v-tab>
