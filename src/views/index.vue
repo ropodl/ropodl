@@ -49,7 +49,7 @@ const PageTitle = defineAsyncComponent(() =>
                     <v-avatar size="60">
                       <v-icon
                         color="primary"
-                        icon="fa:fa-solid fa-swatchbook"
+                        icon="fa:fa-light fa-swatchbook"
                       ></v-icon>
                     </v-avatar>
                   </template>
@@ -69,7 +69,7 @@ const PageTitle = defineAsyncComponent(() =>
                     <v-avatar size="60">
                       <v-icon
                         color="primary"
-                        icon="fa:fa-solid fa-swatchbook"
+                        icon="fa:fa-light fa-code"
                       ></v-icon>
                     </v-avatar>
                   </template>
@@ -89,7 +89,7 @@ const PageTitle = defineAsyncComponent(() =>
                     <v-avatar size="60">
                       <v-icon
                         color="primary"
-                        icon="fa:fa-solid fa-swatchbook"
+                        icon="fa:fa-light fa-pen-ruler"
                       ></v-icon>
                     </v-avatar>
                   </template>

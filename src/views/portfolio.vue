@@ -32,19 +32,42 @@ let works = [
     img: "https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg",
     link: "https://google.com",
     category: "Branding",
-    title: "Honiko Multiple",
+    title: "Honiko Multiple Branding",
   },
   {
-    img: "https://cdn.dribbble.com/userupload/5525097/file/original-bec38402c952bde85d074df812cabebc.png",
-    link: "https://google.com",
-    category: "Graphic Design",
     title: "Be Curious not Judgemental",
+    category: "Graphic Design",
+    link: "https://google.com",
+    img: "https://cdn.dribbble.com/userupload/5525097/file/original-bec38402c952bde85d074df812cabebc.png",
+    image: {
+      thumbnail:
+        "https://cdn.dribbble.com/userupload/5525097/file/original-bec38402c952bde85d074df812cabebc.png",
+      full: "",
+    },
   },
   {
     img: "/image/portfolio/VueDash.png",
     link: "https://vuedash.vercel.app/",
     category: "Web",
     title: "Vuetify Dashboard",
+  },
+  {
+    img: "/image/portfolio/api.png",
+    link: "https://vuedash.vercel.app/",
+    category: "Web",
+    title: "API Technology Website",
+  },
+  {
+    img: "/image/portfolio/animezone.png",
+    link: "https://vuedash.vercel.app/",
+    category: "Web",
+    title: "Anime Zone Website",
+  },
+  {
+    img: "/image/portfolio/reno.png",
+    link: "https://vuedash.vercel.app/",
+    category: "Web",
+    title: "Reno Website",
   },
 ];
 
@@ -58,17 +81,19 @@ const closeDialog = (i) => {
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-btn
-          flat
-          class="text-capitalize mr-1"
-          :color="current == cat ? 'primary' : 'white'"
-          variant="text"
-          v-for="cat in categories"
-          @click="current = cat"
-        >
-          <v-icon start v-if="current == cat" :icon="mdiCheck"></v-icon>
-          {{ cat }}
-        </v-btn>
+        <v-btn-group>
+          <v-btn
+            flat
+            class="text-capitalize mr-1"
+            :color="current == cat ? 'primary' : 'white'"
+            variant="text"
+            v-for="cat in categories"
+            @click="current = cat"
+          >
+            <!-- <v-icon start v-if="current == cat" :icon="mdiCheck"></v-icon> -->
+            {{ cat }}
+          </v-btn>
+        </v-btn-group>
       </v-col>
       <v-container class="pt-0">
         <v-row v-auto-animate>
@@ -82,6 +107,7 @@ const closeDialog = (i) => {
                 <v-dialog
                   fullscreen
                   persistent
+                  no-click-animation
                   v-model="dialogs[i]"
                   transition="fade-transition"
                   scrim="black"
@@ -193,7 +219,7 @@ const closeDialog = (i) => {
                       </v-card-text>
                       <v-img
                         :src="works[i].img"
-                        :class="['overflow-auto', 'zoom-scale-' + zoomLevel]"
+                        :class="['zoom-scale-' + zoomLevel]"
                       ></v-img>
                     </v-card>
                     <v-card

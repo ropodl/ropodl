@@ -3,6 +3,7 @@ import { defineAsyncComponent, reactive, ref } from "vue";
 import { mdiSend } from "@mdi/js";
 import emailjs from "@emailjs/browser";
 
+let loading = ref(false);
 const contactForm = ref(null);
 let snackbar = reactive({
   show: false,
@@ -45,6 +46,7 @@ const templateParams = reactive({
 });
 
 const submitForm = async () => {
+  loading.value = true;
   const { valid } = await contactForm.value.validate();
   if (valid) {
     emailjs
@@ -55,14 +57,17 @@ const submitForm = async () => {
         "-xkHJckmH36raNsEo"
       )
       .then((response) => {
-        snackbar["text"] = "Successfully sent, will reply soon.";
-        snackbar["show"] = true;
-        contactForm.value.reset();
+        if (response.status == "200") {
+          snackbar["text"] = "Successfully sent, will reply soon.";
+          snackbar["show"] = true;
+          contactForm.value.reset();
+        }
       })
       .catch((err) => {
         console.log("FAILED...", err);
       });
   } else console.log("failed");
+  loading.value = false;
 };
 </script>
 <template>
@@ -114,10 +119,11 @@ const submitForm = async () => {
                 </v-col>
                 <v-col>
                   <v-row justify="end">
-                    <v-col cols="12" md="3" class="pt-0">
+                    <v-col cols="12" md="4" class="pt-0">
                       <v-btn
                         flat
                         block
+                        :loading="loading"
                         height="50"
                         class="px-10 text-capitalize"
                         type="submit"
