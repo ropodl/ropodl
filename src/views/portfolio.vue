@@ -69,6 +69,12 @@ let works = [
     category: "Web",
     title: "Reno Website",
   },
+  {
+    img: "https://cdn.dribbble.com/users/1462542/screenshots/6586732/legends.png",
+    link: "https://vuedash.vercel.app/",
+    category: "Web",
+    title: "Legends",
+  },
 ];
 
 const closeDialog = (i) => {
