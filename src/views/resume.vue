@@ -1,233 +1,211 @@
 <script setup>
-import { defineAsyncComponent } from "vue";
-import { mdiLightningBolt, mdiBookOpenPageVariantOutline } from "@mdi/js";
+import {
+  mdiLightningBolt,
+  mdiBookOpenPageVariantOutline,
+  mdiAnvil,
+  mdiHandPeace,
+} from "@mdi/js";
 
-const PageTitle = defineAsyncComponent(() =>
-  import("@/components/layout/PageTitle.vue")
-);
+const experience = [
+  {
+    title: "FREELANCE GRAPHIC/WEB DESIGNER",
+    year: "2023",
+  },
+  {
+    title: "Chief Technology Officer",
+    year: "2019 - 2022",
+    desc: "SoftMahal Technologies @ Mid Baneshwor, Kathmandu",
+  },
+  {
+    title: "GRAPHIC/WEB DESIGNER",
+    year: "2018",
+    desc: "Fivonest Technology @ Solteemode, Kathmandu",
+  },
+  {
+    title: "FREELANCE GRAPHIC DESIGNER",
+    year: "2017",
+  },
+];
+
+const software = [
+  {
+    title: "Adobe Illustrator",
+  },
+  {
+    title: "Adobe Photoshop",
+  },
+  {
+    title: "Adobe XD",
+  },
+  {
+    title: "Adobe Premiere Pro",
+  },
+  {
+    title: "MS Office",
+  },
+  {
+    title: "VS Code",
+  },
+];
+
+const education = [
+  {
+    title: "BSCSIT",
+    year: "2021",
+    desc: "Sagarmatha College of Information Technology @ Sanepa, Lalitpur",
+  },
+  {
+    title: "BE.SE",
+    year: "2014 - 2017",
+    desc: " Nepal College of Information Technology @ Balkumari,Lalitpur (Dropped Out)",
+  },
+  {
+    title: "TEN PLUS TWO (+2)",
+    year: "2012 - 2013",
+    desc: "Arniko International College/HSS @ Talchikhel, Lalitpur",
+  },
+  {
+    title: "SLC (School Leaving Certificate)",
+    year: "2011",
+    desc: "National United High School @ Ganesh Chowk, Kathmandu",
+  },
+];
 </script>
 <template>
-  <v-container>
+  <v-container class="px-0">
     <v-row>
+      <v-col cols="12" class="mb-3">
+        <v-card-title class="d-flex align-center">
+          <v-icon
+            start
+            class="mr-3"
+            color="primary"
+            :icon="mdiLightningBolt"
+          ></v-icon>
+          Experience
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card flat color="transparent">
+          <div class="d-flex justify-start">
+            <v-timeline side="end" align="center">
+              <v-timeline-item
+                dot-color="primary"
+                size="10"
+                v-for="(exp, i) in experience"
+              >
+                <v-card border flat>
+                  <v-card-text>
+                    <v-list-item class="w-100 pa-0">
+                      <v-list-item-title
+                        class="w-100 font-weight-bold"
+                        v-text="exp['title']"
+                      ></v-list-item-title>
+                      <v-list-item-subtitle
+                        :class="exp['desc'] ? 'mb-3' : ''"
+                        v-text="exp['year']"
+                      ></v-list-item-subtitle>
+                      <v-list-item-subtitle
+                        v-if="exp['desc']"
+                        v-text="exp['desc']"
+                      ></v-list-item-subtitle>
+                    </v-list-item>
+                  </v-card-text>
+                </v-card>
+              </v-timeline-item>
+            </v-timeline>
+          </div>
+        </v-card>
+      </v-col>
+      <v-col cols="12" class="mb-3">
+        <v-card-title class="d-flex align-center">
+          <v-icon
+            start
+            class="mr-3"
+            color="primary"
+            :icon="mdiHandPeace"
+          ></v-icon>
+          Skills
+        </v-card-title>
+        <!-- <v-divider class="mb-3"></v-divider> -->
+        <v-row>
+          <v-col cols="12" md="4" class="pb-0">
+            <v-card border flat class="h-100">
+              <v-card-text>Product Design</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="4" class="pb-0">
+            <v-card border flat class="h-100">
+              <v-card-text>Video Editing</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="4" class="pb-0">
+            <v-card border flat class="h-100">
+              <v-card-text>Problem Solving</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="4" class="pb-0">
+            <v-card border flat class="h-100">
+              <v-card-text>Team Player / Manager</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="4" class="pb-0">
+            <v-card border flat class="h-100">
+              <v-card-text>Research and Development</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="12" class="mb-3">
+        <v-card-title class="d-flex align-center">
+          <v-icon start class="mr-3" color="primary" :icon="mdiAnvil"></v-icon>
+          Software
+        </v-card-title>
+        <v-row>
+          <v-col cols="12" md="4" class="pb-0" v-for="(sof, i) in software">
+            <v-card border flat class="h-100">
+              <v-card-text v-text="sof['title']"></v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
       <v-col cols="12">
-        <v-card flat class="mb-3">
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              start
-              class="mr-3"
-              color="primary"
-              :icon="mdiLightningBolt"
-            ></v-icon>
-            Experience
-          </v-card-title>
-          <v-divider></v-divider>
-          <div class="d-flex justify-start">
-            <v-timeline side="end" align="start">
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    FREELANCE GRAPHIC/WEB DESIGNER
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">2023</v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    Chief Technology Officer
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">
-                    2019 - 2022
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    SoftMahal Technologies @ Mid Baneshwor, Kathmandu
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    GRAPHIC/WEB DESIGNER
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">
-                    2018
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Fivonest Technology @ Solteemode, Kathmandu
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    FREELANCE GRAPHIC DESIGNER
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">
-                    2017
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-            </v-timeline>
-          </div>
-        </v-card>
-
-        <v-card flat class="mb-3">
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              start
-              class="mr-3"
-              color="primary"
-              :icon="mdiBookOpenPageVariantOutline"
-            ></v-icon>
-            Skills
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Product Design</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Video Editing</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Problem Solving</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Problem Solving</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Team Player / Manager</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Research and Development</v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-        <v-card flat class="mb-3">
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              start
-              class="mr-3"
-              color="primary"
-              :icon="mdiBookOpenPageVariantOutline"
-            ></v-icon>
-            Software
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Adobe Illustrator</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Adobe Photoshop</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>Adobe Premiere Pro</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>MS Office</v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="3" class="pb-0">
-                <v-card border flat class="h-100">
-                  <v-card-text>VS Code</v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-        <v-card flat class="mb-3">
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              start
-              class="mr-3"
-              color="primary"
-              :icon="mdiBookOpenPageVariantOutline"
-            ></v-icon>
-            Education
-          </v-card-title>
-          <v-divider></v-divider>
-          <div class="d-flex justify-start">
-            <v-timeline side="end" align="start">
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    BSC.CSIT
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">
-                    2021
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Sagarmatha College of Information Technology @ Sanepa,
-                    Lalitpur
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    BE.SE
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">
-                    2014 - 2017
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Nepal College of Information Technology @ Balkumari,
-                    Lalitpur (Dropped Out)
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    TEN PLUS TWO (+2)
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">
-                    2012 - 2013
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Arniko International College/HSS @ Talchikhel, Lalitpur
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-              <v-timeline-item dot-color="primary" size="10">
-                <v-list-item class="w-100 pa-0">
-                  <v-list-item-title class="w-100 font-weight-bold">
-                    SLC (School Leaving Certificate)
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="mb-3">
-                    2011
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    National United High School @ Ganesh Chowk, Kathmandu
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-timeline-item>
-            </v-timeline>
-          </div>
-        </v-card>
+        <v-card-title class="d-flex align-center">
+          <v-icon
+            start
+            class="mr-3"
+            color="primary"
+            :icon="mdiBookOpenPageVariantOutline"
+          ></v-icon>
+          Education
+        </v-card-title>
+        <v-divider></v-divider>
+        <div class="d-flex justify-start">
+          <v-timeline side="end" align="center">
+            <v-timeline-item
+              dot-color="primary"
+              size="10"
+              v-for="(edu, i) in education"
+            >
+              <v-card border flat>
+                <v-card-text>
+                  <v-list-item class="pa-0">
+                    <v-list-item-title
+                      class="font-weight-bold"
+                      v-text="edu['title']"
+                    ></v-list-item-title>
+                    <v-list-item-subtitle
+                      class="mb-3"
+                      v-text="edu['year']"
+                    ></v-list-item-subtitle>
+                    <v-list-item-subtitle
+                      v-text="edu['desc']"
+                    ></v-list-item-subtitle>
+                  </v-list-item>
+                </v-card-text>
+              </v-card>
+            </v-timeline-item>
+          </v-timeline>
+        </div>
       </v-col>
     </v-row>
   </v-container>
