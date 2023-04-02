@@ -130,8 +130,8 @@ const closeDialog = (i) => {
         <v-row v-auto-animate>
           <template v-for="(work, i) in works">
             <v-col
-              cols="12"
-              md="4"
+              cols="12" sm="6"
+              md="6" lg="4"
               v-if="work['category'] === current || current === 'All'"
             >
               <v-hover v-slot="{ isHovering, props: hover }">
@@ -146,27 +146,23 @@ const closeDialog = (i) => {
                   content-class="d-flex w-100"
                 >
                   <template v-slot:activator="{ props: overlay }">
-                    <v-responsive :aspect-ratio="16 / 9">
-                      <v-card flat v-bind="{ ...hover }">
-                        <v-img
-                          cover
-                          height="160"
-                          :src="work['image'].thumbnail"
+                    <!-- <v-responsive :aspect-ratio="16 / 9"> -->
+                    <v-card flat height="150" v-bind="{ ...hover }">
+                      <v-img cover :src="work['image'].thumbnail">
+                        <v-overlay
+                          contained
+                          persistent
+                          scrim="black"
+                          :model-value="isHovering"
+                          class="align-center justify-center"
                         >
-                          <v-overlay
-                            contained
-                            persistent
-                            scrim="black"
-                            :model-value="isHovering"
-                            class="align-center justify-center"
-                          >
-                            <v-btn icon flat v-bind="{ ...overlay }">
-                              <v-icon :icon="mdiEye"></v-icon>
-                            </v-btn>
-                          </v-overlay>
-                        </v-img>
-                      </v-card>
-                    </v-responsive>
+                          <v-btn icon flat v-bind="{ ...overlay }">
+                            <v-icon :icon="mdiEye"></v-icon>
+                          </v-btn>
+                        </v-overlay>
+                      </v-img>
+                    </v-card>
+                    <!-- </v-responsive> -->
                   </template>
                   <div class="w-100 h-100">
                     <v-card

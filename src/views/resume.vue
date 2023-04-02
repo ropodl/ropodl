@@ -27,6 +27,24 @@ const experience = [
   },
 ];
 
+const skills = [
+  {
+    title: "Product Design",
+  },
+  {
+    title: "Video Editing",
+  },
+  {
+    title: "Team Player / Manager",
+  },
+  {
+    title: "Research and Development",
+  },
+  {
+    title: "Problem Solving",
+  },
+];
+
 const software = [
   {
     title: "Adobe Illustrator",
@@ -126,31 +144,16 @@ const education = [
           ></v-icon>
           Skills
         </v-card-title>
-        <!-- <v-divider class="mb-3"></v-divider> -->
         <v-row>
-          <v-col cols="12" md="4" class="pb-0">
+          <v-col
+            cols="12"
+            sm="6"
+            md="4"
+            class="pb-0"
+            v-for="(skill, i) in skills"
+          >
             <v-card border flat class="h-100">
-              <v-card-text>Product Design</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12" md="4" class="pb-0">
-            <v-card border flat class="h-100">
-              <v-card-text>Video Editing</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12" md="4" class="pb-0">
-            <v-card border flat class="h-100">
-              <v-card-text>Problem Solving</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12" md="4" class="pb-0">
-            <v-card border flat class="h-100">
-              <v-card-text>Team Player / Manager</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12" md="4" class="pb-0">
-            <v-card border flat class="h-100">
-              <v-card-text>Research and Development</v-card-text>
+              <v-card-text v-text="skill['title']"></v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -161,7 +164,7 @@ const education = [
           Software
         </v-card-title>
         <v-row>
-          <v-col cols="12" md="4" class="pb-0" v-for="(sof, i) in software">
+          <v-col cols="12" sm="6" md="4" class="pb-0" v-for="(sof, i) in software">
             <v-card border flat class="h-100">
               <v-card-text v-text="sof['title']"></v-card-text>
             </v-card>
