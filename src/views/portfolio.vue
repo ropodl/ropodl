@@ -58,8 +58,8 @@ let works = [
     category: "Web",
     link: "https://vuedash.vercel.app/",
     image: {
-      thumbnail: "/image/portfolio/VueDash.png",
-      full: "/image/portfolio/VueDash.png",
+      thumbnail: "/image/portfolio/vuedash/thumb.webp",
+      full: "/image/portfolio/vuedash/full.webp",
     },
   },
   {
@@ -74,10 +74,10 @@ let works = [
   {
     title: "Anime Zone Website",
     category: "Web",
-    link: "https://vuedash.vercel.app/",
+    link: "https://animezone.vercel.app/",
     image: {
-      thumbnail: "/image/portfolio/animezone.png",
-      full: "/image/portfolio/animezone.png",
+      thumbnail: "/image/portfolio/animezone/thumb.webp",
+      full: "/image/portfolio/animezone/full.webp",
     },
   },
   {
@@ -85,8 +85,8 @@ let works = [
     category: "Web",
     link: "https://vuedash.vercel.app/",
     image: {
-      thumbnail: "/image/portfolio/reno.png",
-      full: "/image/portfolio/reno.png",
+      thumbnail: "/image/portfolio/reno/thumb.webp",
+      full: "/image/portfolio/reno/full.webp",
     },
   },
   {
@@ -252,12 +252,10 @@ const closeDialog = (i) => {
                           </v-btn>
                         </v-hover>
                       </v-card-text>
-                      <v-img class="pa-0 w-100"
+                      <v-img
+                        class="pa-0 w-100"
                         :src="works[i].image.full"
-                        :class="[
-                          
-                          'zoom-scale-' + zoomLevel,
-                        ]"
+                        :class="['zoom-scale-' + zoomLevel]"
                       ></v-img>
                       <v-card
                         v-if="info"
@@ -274,7 +272,10 @@ const closeDialog = (i) => {
                         ></v-card-title>
                         <v-card-text>
                           <div class="mb-2">
-                            Category: <v-chip>{{ work["category"] }}</v-chip>
+                            Category:
+                            <v-chip density="comfortable">{{
+                              work["category"]
+                            }}</v-chip>
                           </div>
                         </v-card-text>
                         <v-btn

@@ -127,7 +127,12 @@ const socials = [
         </v-card>
       </v-col>
       <v-col cols="12" md="9">
-        <v-card border flat rounded="xl">
+        <v-card
+          border
+          flat
+          rounded="xl"
+          style="position: sticky; top: 16px; z-index: 1"
+        >
           <v-tabs grow height="50" align-tabs="center">
             <v-tab exact to="/" class="rounded-0 text-capitalize">
               About
