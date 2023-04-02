@@ -85,12 +85,14 @@ const submitForm = async () => {
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </v-card>
-        <v-card flat>
-          <v-card-title class="mb-6">Contact Form </v-card-title>
-          <v-form ref="contactForm" @submit.prevent="submitForm">
+        <v-card border flat class="mb-3">
+          <v-card-title>Contact Form</v-card-title>
+        </v-card>
+        <v-form ref="contactForm" @submit.prevent="submitForm">
+          <v-card border flat class="mb-3">
             <v-card-text>
               <v-row>
-                <v-col cols="12" md="6" class="py-0">
+                <v-col cols="12" md="6" class="pb-0">
                   <v-text-field
                     v-model="templateParams['from_name']"
                     color="primary"
@@ -99,7 +101,7 @@ const submitForm = async () => {
                     :rules="rules['firstNameRules']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6" class="py-0">
+                <v-col cols="12" md="6" class="pb-0">
                   <v-text-field
                     v-model="templateParams['from_email']"
                     color="primary"
@@ -108,7 +110,7 @@ const submitForm = async () => {
                     :rules="rules['emailRules']"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12" class="py-0">
+                <v-col cols="12" class="py-0">
                   <v-textarea
                     v-model="templateParams['message']"
                     color="primary"
@@ -117,27 +119,25 @@ const submitForm = async () => {
                     :rules="rules['messageRules']"
                   ></v-textarea>
                 </v-col>
-                <v-col>
-                  <v-row justify="end">
-                    <v-col cols="12" md="4" class="pt-0">
-                      <v-btn
-                        flat
-                        block
-                        :loading="loading"
-                        height="50"
-                        class="px-10 text-capitalize"
-                        type="submit"
-                      >
-                        Send Message
-                        <v-icon end :icon="mdiSend"></v-icon>
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </v-col>
               </v-row>
             </v-card-text>
-          </v-form>
-        </v-card>
+          </v-card>
+          <v-row justify="end">
+            <v-col cols="12" md="4">
+              <v-btn
+                flat
+                block
+                :loading="loading"
+                height="50"
+                class="px-10 text-capitalize"
+                type="submit"
+              >
+                Send Message
+                <v-icon end :icon="mdiSend"></v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
       </v-col>
     </v-row>
   </v-container>

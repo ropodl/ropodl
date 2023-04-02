@@ -37,7 +37,7 @@ export default createVuetify({
       light: {
         dark: false,
         colors: {
-          primary: colors.blue.darken2,
+          primary: "#ff7800",
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -49,7 +49,7 @@ export default createVuetify({
       dark: {
         dark: true,
         colors: {
-          primary: colors.teal.base,
+          primary: "#ff7800",
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,

@@ -1,16 +1,19 @@
 <script setup>
 import { defineAsyncComponent } from "vue";
 import { mdiHeart, mdiHandshake } from "@mdi/js";
-const PageTitle = defineAsyncComponent(() =>
-  import("@/components/layout/PageTitle.vue")
-);
+
+const clients = [
+  {
+    name: "API Technology",
+    img: "https://www.apitechnology.com.np/_nuxt/img/apitech.8e7a111.webp",
+  },
+];
 </script>
 <template>
-  <v-container>
+  <v-container class="px-0">
     <v-row>
       <v-col cols="12">
-        <!-- <PageTitle title="About Me" /> -->
-        <v-card flat>
+        <v-card border flat rounded="xl">
           <v-card-text>
             <p>
               I am a Web Performance Optimization Specialist dedicated to
@@ -34,15 +37,14 @@ const PageTitle = defineAsyncComponent(() =>
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="mb-3">
         <v-card-title class="d-flex align-center">
           <v-icon start class="mr-3" color="primary" :icon="mdiHeart"></v-icon>
           What I love doing
         </v-card-title>
-        <v-divider></v-divider>
         <v-row>
           <v-col cols="12" md="6" class="pb-0">
-            <v-card flat>
+            <v-card border flat rounded="xl">
               <v-list color="transparent" class="py-0" lines="two">
                 <v-list-item>
                   <template #prepend>
@@ -62,7 +64,7 @@ const PageTitle = defineAsyncComponent(() =>
             </v-card>
           </v-col>
           <v-col cols="12" md="6" class="pb-0">
-            <v-card flat>
+            <v-card border flat rounded="xl">
               <v-list color="transparent" class="py-0" lines="two">
                 <v-list-item>
                   <template #prepend>
@@ -82,7 +84,7 @@ const PageTitle = defineAsyncComponent(() =>
             </v-card>
           </v-col>
           <v-col cols="12" md="6" class="pb-0">
-            <v-card flat>
+            <v-card border flat rounded="xl">
               <v-list color="transparent" class="py-0" lines="two">
                 <v-list-item>
                   <template #prepend>
@@ -102,29 +104,9 @@ const PageTitle = defineAsyncComponent(() =>
               </v-list>
             </v-card>
           </v-col>
-          <!-- <v-col cols="12" md="6" class="pb-0">
-            <v-card flat>
-              <v-list color="transparent" class="py-0" lines="two">
-                <v-list-item>
-                  <template #prepend>
-                    <v-avatar size="60">
-                      <v-icon
-                        color="primary"
-                        icon="fa:fa-solid fa-swatchbook"
-                      ></v-icon>
-                    </v-avatar>
-                  </template>
-                  <v-list-item-title> Web Design </v-list-item-title>
-                  <v-list-item-subtitle>
-                    Modern web design with help of design frameworks.
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-col> -->
         </v-row>
       </v-col>
-      <v-col cols="12" class="pb-0">
+      <v-col cols="12">
         <v-card-title class="d-flex align-center">
           <v-icon
             start
@@ -134,15 +116,13 @@ const PageTitle = defineAsyncComponent(() =>
           ></v-icon>
           Clients
         </v-card-title>
-        <v-divider></v-divider>
-        <v-card flat height="120" class="d-flex overflow-x-auto">
-          <v-img
-            class="my-2 mx-4"
-            max-width="200"
-            max-height="100"
-            src="https://www.apitechnology.com.np/_nuxt/img/apitech.8e7a111.webp"
-          ></v-img>
-        </v-card>
+        <v-row>
+          <v-col cols="12" md="3" v-for="(client, i) in clients">
+            <v-card border flat class="px-2">
+              <v-img height="100" :src="client['img']"></v-img>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>

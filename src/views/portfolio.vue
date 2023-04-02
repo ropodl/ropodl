@@ -7,15 +7,16 @@ import {
   mdiMagnifyMinusOutline,
   mdiArrowExpand,
   mdiArrowCollapse,
+  mdiInformation,
+  mdiInformationOutline,
+  mdiLink,
+  mdiArrowTopRight,
+  mdiArrowRight,
 } from "@mdi/js";
 import { defineAsyncComponent, ref, reactive } from "vue";
 
-const PageTitle = defineAsyncComponent(() =>
-  import("@/components/layout/PageTitle.vue")
-);
-
 let dialogs = reactive([]);
-let fullWidth = ref(false);
+let info = ref(true);
 let zoomLevel = ref(0);
 
 let current = ref("All");
@@ -23,83 +24,107 @@ let categories = ["All", "Graphic Design", "Web", "Branding"];
 
 let works = [
   {
-    img: "https://cdn.dribbble.com/users/1462542/screenshots/15078907/media/77d0f57efb1d67aeb81b8b520e143b36.png",
-    link: "https://google.com",
-    category: "Branding",
     title: "API Technology Concept Branding",
+    category: "Branding",
+    link: "https://dribbble.com/shots/15078907-API-Technology-Logo-Mockup",
+    image: {
+      thumbnail:
+        "https://cdn.dribbble.com/users/1462542/screenshots/15078907/media/77d0f57efb1d67aeb81b8b520e143b36.png?compress=1&resize=768x576&vertical=top",
+      full: "https://cdn.dribbble.com/users/1462542/screenshots/15078907/media/77d0f57efb1d67aeb81b8b520e143b36.png",
+    },
   },
   {
-    img: "https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg",
-    link: "https://google.com",
-    category: "Branding",
     title: "Honiko Multiple Branding",
+    category: "Branding",
+    link: "https://dribbble.com/shots/13964553-Letterhead",
+    image: {
+      thumbnail:
+        "https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg",
+      full: "https://cdn.dribbble.com/users/1462542/screenshots/13964553/media/de7681bf963d621cf0804f95d24f63f7.jpg",
+    },
   },
   {
     title: "Be Curious not Judgemental",
     category: "Graphic Design",
-    link: "https://google.com",
-    img: "https://cdn.dribbble.com/userupload/5525097/file/original-bec38402c952bde85d074df812cabebc.png",
+    link: "https://dribbble.com/shots/20980483-Be-curious",
     image: {
       thumbnail:
         "https://cdn.dribbble.com/userupload/5525097/file/original-bec38402c952bde85d074df812cabebc.png",
-      full: "",
+      full: "https://cdn.dribbble.com/userupload/5525097/file/original-bec38402c952bde85d074df812cabebc.png",
     },
   },
   {
-    img: "/image/portfolio/VueDash.png",
-    link: "https://vuedash.vercel.app/",
-    category: "Web",
     title: "Vuetify Dashboard",
+    category: "Web",
+    link: "https://vuedash.vercel.app/",
+    image: {
+      thumbnail: "/image/portfolio/VueDash.png",
+      full: "/image/portfolio/VueDash.png",
+    },
   },
   {
-    img: "/image/portfolio/api.png",
-    link: "https://vuedash.vercel.app/",
-    category: "Web",
     title: "API Technology Website",
+    category: "Web",
+    link: "https://www.apitechnology.com.np/",
+    image: {
+      thumbnail: "/image/portfolio/api/thumb.webp",
+      full: "/image/portfolio/api/full.webp",
+    },
   },
   {
-    img: "/image/portfolio/animezone.png",
-    link: "https://vuedash.vercel.app/",
-    category: "Web",
     title: "Anime Zone Website",
+    category: "Web",
+    link: "https://vuedash.vercel.app/",
+    image: {
+      thumbnail: "/image/portfolio/animezone.png",
+      full: "/image/portfolio/animezone.png",
+    },
   },
   {
-    img: "/image/portfolio/reno.png",
-    link: "https://vuedash.vercel.app/",
-    category: "Web",
     title: "Reno Website",
+    category: "Web",
+    link: "https://vuedash.vercel.app/",
+    image: {
+      thumbnail: "/image/portfolio/reno.png",
+      full: "/image/portfolio/reno.png",
+    },
   },
   {
-    img: "https://cdn.dribbble.com/users/1462542/screenshots/6586732/legends.png",
-    link: "https://vuedash.vercel.app/",
-    category: "Web",
     title: "Legends",
+    category: "Graphic Design",
+    link: "https://dribbble.com/shots/6586732-Legends",
+    image: {
+      thumbnail:
+        "https://cdn.dribbble.com/users/1462542/screenshots/6586732/legends.png",
+      full: "https://cdn.dribbble.com/users/1462542/screenshots/6586732/legends.png",
+    },
   },
 ];
 
 const closeDialog = (i) => {
   dialogs[i] = false;
-  fullWidth.value = false;
+  info.value = true;
   zoomLevel.value = 0;
 };
 </script>
 <template>
-  <v-container>
+  <v-container class="px-0">
     <v-row>
       <v-col cols="12">
-        <v-btn-group>
-          <v-btn
-            flat
-            class="text-capitalize mr-1"
-            :color="current == cat ? 'primary' : 'white'"
-            variant="text"
-            v-for="cat in categories"
-            @click="current = cat"
-          >
-            <!-- <v-icon start v-if="current == cat" :icon="mdiCheck"></v-icon> -->
-            {{ cat }}
-          </v-btn>
-        </v-btn-group>
+        <v-card border flat>
+          <v-btn-group rounded="0" variant="outlined">
+            <v-btn
+              flat
+              class="text-capitalize mr-1"
+              :color="current == cat ? 'primary' : 'white'"
+              variant="text"
+              v-for="cat in categories"
+              @click="current = cat"
+            >
+              {{ cat }}
+            </v-btn>
+          </v-btn-group>
+        </v-card>
       </v-col>
       <v-container class="pt-0">
         <v-row v-auto-animate>
@@ -121,30 +146,36 @@ const closeDialog = (i) => {
                   content-class="d-flex w-100"
                 >
                   <template v-slot:activator="{ props: overlay }">
-                    <v-card flat v-bind="{ ...hover }">
-                      <v-img eager cover height="200" :src="work['img']">
-                        <v-overlay
-                          contained
-                          persistent
-                          scrim="black"
-                          :model-value="isHovering"
-                          class="align-center justify-center"
+                    <v-responsive :aspect-ratio="16 / 9">
+                      <v-card flat v-bind="{ ...hover }">
+                        <v-img
+                          cover
+                          height="160"
+                          :src="work['image'].thumbnail"
                         >
-                          <v-btn icon flat v-bind="{ ...overlay }">
-                            <v-icon :icon="mdiEye"></v-icon>
-                          </v-btn>
-                        </v-overlay>
-                      </v-img>
-                    </v-card>
+                          <v-overlay
+                            contained
+                            persistent
+                            scrim="black"
+                            :model-value="isHovering"
+                            class="align-center justify-center"
+                          >
+                            <v-btn icon flat v-bind="{ ...overlay }">
+                              <v-icon :icon="mdiEye"></v-icon>
+                            </v-btn>
+                          </v-overlay>
+                        </v-img>
+                      </v-card>
+                    </v-responsive>
                   </template>
-                  <div class="d-flex w-100 h-100">
+                  <div class="w-100 h-100">
                     <v-card
+                      v-auto-animate
                       flat
                       color="rgba(0,0,0,0.8)"
                       rounded="0"
-                      class="h-100 d-flex align-center justify-center"
-                      :class="fullWidth ? 'w-100' : 'w-75'"
-                      style="backdrop-filter: blur(10px)"
+                      class="h-100 align-center justify-center"
+                      style="backdrop-filter: blur(2px)"
                     >
                       <v-card-text
                         class="d-flex w-100 position-absolute z-index-1 pb-0"
@@ -211,36 +242,55 @@ const closeDialog = (i) => {
                             class="mr-3"
                             :color="isHovering ? 'white' : 'black'"
                             v-bind="button"
-                            @click="fullWidth = !fullWidth"
+                            @click="info = !info"
                           >
                             <v-icon
                               size="large"
                               color="white"
-                              :icon="
-                                fullWidth ? mdiArrowCollapse : mdiArrowExpand
-                              "
+                              :icon="mdiInformationOutline"
                             ></v-icon>
                           </v-btn>
                         </v-hover>
                       </v-card-text>
-                      <v-img
-                        :src="works[i].img"
-                        :class="['zoom-scale-' + zoomLevel]"
+                      <v-img class="pa-0 w-100"
+                        :src="works[i].image.full"
+                        :class="[
+                          
+                          'zoom-scale-' + zoomLevel,
+                        ]"
                       ></v-img>
-                    </v-card>
-                    <v-card
-                      flat
-                      v-if="!fullWidth"
-                      rounded="0"
-                      class="h-100"
-                      :class="fullWidth ? '' : 'w-25'"
-                    >
-                      <v-card-title class="text-wrap">
-                        {{ work["title"] }}
-                      </v-card-title>
-                      <v-card-text>
-                        <v-chip>{{ work["category"] }}</v-chip>
-                      </v-card-text>
+                      <v-card
+                        v-if="info"
+                        border
+                        flat
+                        rounded="xl"
+                        width="400"
+                        class="position-absolute"
+                        style="bottom: 20px; left: 0; right: 0; margin: auto"
+                      >
+                        <v-card-title
+                          class="text-wrap"
+                          v-text="work['title']"
+                        ></v-card-title>
+                        <v-card-text>
+                          <div class="mb-2">
+                            Category: <v-chip>{{ work["category"] }}</v-chip>
+                          </div>
+                        </v-card-text>
+                        <v-btn
+                          block
+                          variant="tonal"
+                          rounded="0"
+                          height="50"
+                          class="text-capitalize"
+                          target="_blank"
+                          :href="work['link']"
+                        >
+                          <v-icon start :icon="mdiLink"></v-icon>
+                          Open link
+                          <v-icon end :icon="mdiArrowRight"></v-icon>
+                        </v-btn>
+                      </v-card>
                     </v-card>
                   </div>
                 </v-dialog>
