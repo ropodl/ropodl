@@ -5,3 +5,9 @@
     </v-main>
   </v-app>
 </template>
+<style>
+::selection {
+  color: white;
+  background: rgba(var(--v-theme-primary),1);
+}
+</style>

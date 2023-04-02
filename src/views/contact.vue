@@ -71,7 +71,7 @@ const submitForm = async () => {
 };
 </script>
 <template>
-  <v-container>
+  <v-container class="px-0">
     <v-row>
       <v-col cols="12">
         <v-card border flat rounded="xl" class="mb-6">
