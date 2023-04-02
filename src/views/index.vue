@@ -14,7 +14,7 @@ const clients = [
     <v-row>
       <v-col cols="12">
         <v-card border flat rounded="xl">
-          <v-card-text>
+          <v-card-text class="text-subtitle-1">
             <p>
               I am a Web Performance Optimization Specialist dedicated to
               optimizing website speed and user experience. I keep up with the
