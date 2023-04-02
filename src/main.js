@@ -10,8 +10,6 @@ import { registerPlugins } from "@/plugins";
 
 const app = createApp(App);
 
-app.config.compilerOptions.comments = false;
-
 registerPlugins(app);
 
 app.mount("#app");

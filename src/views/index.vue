@@ -8,6 +8,14 @@ const clients = [
     img: "https://www.apitechnology.com.np/_nuxt/img/apitech.8e7a111.webp",
   },
 ];
+
+const loves = [
+  {
+    title: "Web Design",
+    icon: "fa:fas fa-swatchbook",
+    desc: "Modern web design with help of design frameworks.",
+  },
+];
 </script>
 <template>
   <v-container class="px-0">
@@ -43,22 +51,25 @@ const clients = [
           What I love doing
         </v-card-title>
         <v-row>
-          <v-col cols="12" sm="6" md="6" class="pb-0">
+          <v-col
+            cols="12"
+            sm="6"
+            md="6"
+            class="pb-0"
+            v-for="(love, i) in loves"
+          >
             <v-card border flat rounded="xl">
               <v-list color="transparent" class="py-0" lines="three">
                 <v-list-item>
                   <template #prepend>
                     <v-avatar size="60">
-                      <v-icon
-                        color="primary"
-                        icon="fa:fa-light fa-swatchbook"
-                      ></v-icon>
+                      <v-icon color="primary" :icon="love['icon']"></v-icon>
                     </v-avatar>
                   </template>
-                  <v-list-item-title>Web Design</v-list-item-title>
-                  <v-list-item-subtitle>
-                    Modern web design with help of design frameworks.
-                  </v-list-item-subtitle>
+                  <v-list-item-title v-text="love['title']"></v-list-item-title>
+                  <v-list-item-subtitle
+                    v-text="love['desc']"
+                  ></v-list-item-subtitle>
                 </v-list-item>
               </v-list>
             </v-card>
@@ -69,10 +80,7 @@ const clients = [
                 <v-list-item>
                   <template #prepend>
                     <v-avatar size="60">
-                      <v-icon
-                        color="primary"
-                        icon="fa:fa-light fa-code"
-                      ></v-icon>
+                      <v-icon color="primary" icon="fa:fas fa-code"></v-icon>
                     </v-avatar>
                   </template>
                   <v-list-item-title>Web Development</v-list-item-title>
@@ -91,7 +99,7 @@ const clients = [
                     <v-avatar size="60">
                       <v-icon
                         color="primary"
-                        icon="fa:fa-light fa-pen-ruler"
+                        icon="fa:fas fa-pen-ruler"
                       ></v-icon>
                     </v-avatar>
                   </template>

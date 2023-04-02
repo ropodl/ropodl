@@ -8,7 +8,7 @@ import {
 
 const experience = [
   {
-    title: "FREELANCE GRAPHIC/WEB DESIGNER",
+    title: "Freelance Graphic/Web Designer",
     year: "2023",
   },
   {
@@ -17,7 +17,7 @@ const experience = [
     desc: "SoftMahal Technologies @ Mid Baneshwor, Kathmandu",
   },
   {
-    title: "GRAPHIC/WEB DESIGNER",
+    title: "Graphic/Web Designer",
     year: "2018",
     desc: "Fivonest Technology @ Solteemode, Kathmandu",
   },
@@ -78,7 +78,7 @@ const education = [
     desc: " Nepal College of Information Technology @ Balkumari,Lalitpur (Dropped Out)",
   },
   {
-    title: "TEN PLUS TWO (+2)",
+    title: "Ten Plus Two (+2)",
     year: "2012 - 2013",
     desc: "Arniko International College/HSS @ Talchikhel, Lalitpur",
   },
@@ -164,7 +164,13 @@ const education = [
           Software
         </v-card-title>
         <v-row>
-          <v-col cols="12" sm="6" md="4" class="pb-0" v-for="(sof, i) in software">
+          <v-col
+            cols="12"
+            sm="6"
+            md="4"
+            class="pb-0"
+            v-for="(sof, i) in software"
+          >
             <v-card border flat class="h-100">
               <v-card-text v-text="sof['title']"></v-card-text>
             </v-card>
