@@ -1,11 +1,5 @@
 <script setup>
-import {
-  mdiEmailOpen,
-  mdiPhone,
-  mdiCake,
-  mdiMapMarkerRadius,
-  mdiChevronDown,
-} from "@mdi/js";
+import { mdiEmailOpen, mdiPhone, mdiCake, mdiMapMarkerRadius } from "@mdi/js";
 
 const socials = [
   {
@@ -35,7 +29,7 @@ const socials = [
     <v-row>
       <v-col cols="12" md="4" lg="3">
         <v-card border flat rounded="xl" class="mb-3">
-          <v-img class="align-end pa-3 hidden-sm-and-down" src="/image/me2.jpg">
+          <v-img class="align-end pa-3 hidden-sm-and-down" src="/image/me2_optimized.jpg">
             <v-card border flat rounded="xl">
               <v-list>
                 <v-list-item>
@@ -137,7 +131,7 @@ const socials = [
           </v-row>
         </v-card>
       </v-col>
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="8" lg="9">
         <v-card border flat rounded="xl">
           <v-tabs grow height="50" align-tabs="center">
             <v-tab exact to="/" class="rounded-0 text-capitalize">
