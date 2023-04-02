@@ -35,7 +35,7 @@ const socials = [
     <v-row>
       <v-col cols="12" md="4" lg="3">
         <v-card border flat rounded="xl" class="mb-3">
-          <v-img class="align-end pa-3" src="/image/me2.jpg">
+          <v-img class="align-end pa-3 hidden-sm-and-down" src="/image/me2.jpg">
             <v-card border flat rounded="xl">
               <v-list>
                 <v-list-item>
@@ -47,6 +47,17 @@ const socials = [
               </v-list>
             </v-card>
           </v-img>
+          <v-list class="hidden-md-and-up">
+            <v-list-item>
+              <template #prepend>
+                <v-avatar>
+                  <v-img src="/image/me2.jpg"></v-img>
+                </v-avatar>
+              </template>
+              <v-list-item-title>Saroj Poudel</v-list-item-title>
+              <v-list-item-subtitle>Web/Graphic Designer</v-list-item-subtitle>
+            </v-list-item>
+          </v-list>
         </v-card>
         <v-card border flat rounded="xl" class="mb-3">
           <v-list
@@ -126,7 +137,7 @@ const socials = [
           </v-row>
         </v-card>
       </v-col>
-      <v-col cols="12" md="9">
+      <v-col cols="12" md="8">
         <v-card border flat rounded="xl">
           <v-tabs grow height="50" align-tabs="center">
             <v-tab exact to="/" class="rounded-0 text-capitalize">

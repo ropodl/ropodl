@@ -43,9 +43,9 @@ const clients = [
           What I love doing
         </v-card-title>
         <v-row>
-          <v-col cols="12" md="6" class="pb-0">
+          <v-col cols="12" sm="6" md="6" class="pb-0">
             <v-card border flat rounded="xl">
-              <v-list color="transparent" class="py-0" lines="two">
+              <v-list color="transparent" class="py-0" lines="three">
                 <v-list-item>
                   <template #prepend>
                     <v-avatar size="60">
@@ -63,9 +63,9 @@ const clients = [
               </v-list>
             </v-card>
           </v-col>
-          <v-col cols="12" md="6" class="pb-0">
+          <v-col cols="12" sm="6" md="6" class="pb-0">
             <v-card border flat rounded="xl">
-              <v-list color="transparent" class="py-0" lines="two">
+              <v-list color="transparent" class="py-0" lines="three">
                 <v-list-item>
                   <template #prepend>
                     <v-avatar size="60">
@@ -83,9 +83,9 @@ const clients = [
               </v-list>
             </v-card>
           </v-col>
-          <v-col cols="12" md="6" class="pb-0">
+          <v-col cols="12" sm="6" md="6" class="pb-0">
             <v-card border flat rounded="xl">
-              <v-list color="transparent" class="py-0" lines="two">
+              <v-list color="transparent" class="py-0" lines="three">
                 <v-list-item>
                   <template #prepend>
                     <v-avatar size="60">
@@ -96,7 +96,7 @@ const clients = [
                     </v-avatar>
                   </template>
                   <v-list-item-title>Graphic Design</v-list-item-title>
-                  <v-list-item-subtitle>
+                  <v-list-item-subtitle class="text-wrap">
                     Any kind of high quality graphic from branding to every day
                     use banner.
                   </v-list-item-subtitle>
@@ -117,7 +117,7 @@ const clients = [
           Clients
         </v-card-title>
         <v-row>
-          <v-col cols="12" md="3" v-for="(client, i) in clients">
+          <v-col cols="12" sm="4" md="3" v-for="(client, i) in clients">
             <v-card border flat class="px-2">
               <v-img height="100" :src="client['img']"></v-img>
             </v-card>
