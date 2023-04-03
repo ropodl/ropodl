@@ -104,7 +104,11 @@ const loves = [
         <v-row>
           <v-col cols="12" sm="4" md="3" v-for="(client, i) in clients">
             <v-card border flat class="px-2">
-              <v-img height="100" :src="client['img']"></v-img>
+              <v-img
+                height="100"
+                :alt="client['name']"
+                :src="client['img']"
+              ></v-img>
             </v-card>
           </v-col>
         </v-row>

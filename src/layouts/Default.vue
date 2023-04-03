@@ -145,6 +145,7 @@ const socials = [
                   variant="tonal"
                   target="_blank"
                   :href="social['link']"
+                  :aria-label="social['name']"
                 >
                   <v-icon color="primary" :icon="social['icon']"></v-icon>
                 </v-btn>
