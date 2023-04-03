@@ -22,7 +22,7 @@ const rules = {
   emailRules: [
     (value) => {
       if (value?.length > 3) return true;
-      return "Full name must be at least 3 characters.";
+      return "Email Address must be at least 3 characters.";
     },
     (v) =>
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
