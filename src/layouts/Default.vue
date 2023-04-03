@@ -1,25 +1,31 @@
 <script setup>
-import { mdiEmailOpen, mdiPhone, mdiCake, mdiMapMarkerRadius } from "@mdi/js";
+import {
+  mdiCheckDecagram,
+  mdiEmailOpen,
+  mdiPhone,
+  mdiCake,
+  mdiMapMarkerRadius,
+} from "@mdi/js";
 
 const socials = [
   {
     name: "Linkedin",
-    icon: "fa:fab fa-linkedin",
+    icon: "fa:fa-brands fa-linkedin",
     link: "https://linkedin.com/in/ropodl/",
   },
   {
     name: "Instagram",
-    icon: "fa:fab fa-instagram",
+    icon: "fa:fa-brands fa-instagram",
     link: "https://instagram.com/ropodl/",
   },
   {
     name: "GitHub",
-    icon: "fa:fab fa-github",
+    icon: "fa:fa-brands fa-github",
     link: "https://github.com/ropodl/",
   },
   {
     name: "Dribbble",
-    icon: "fa:fab fa-dribbble",
+    icon: "fa:fa-brands fa-dribbble",
     link: "https://dribbble.com/ropodl/",
   },
 ];
@@ -29,14 +35,28 @@ const socials = [
     <v-row>
       <v-col cols="12" md="4" lg="3">
         <v-card border flat rounded="xl" class="mb-3">
-          <v-img class="align-end pa-3 hidden-sm-and-down" src="/image/me2_optimized.jpg">
+          <v-img
+            eager
+            alt="Saroj Poudel"
+            class="align-end pa-3 hidden-sm-and-down"
+            src="/image/me2_optimized.jpg"
+          >
             <v-card border flat rounded="xl">
               <v-list>
                 <v-list-item>
                   <v-list-item-title>Saroj Poudel</v-list-item-title>
-                  <v-list-item-subtitle
-                    >Web/Graphic Designer</v-list-item-subtitle
-                  >
+                  <v-list-item-subtitle>
+                    Web/Graphic Designer
+                  </v-list-item-subtitle>
+                  <template #append>
+                    <v-avatar>
+                      <v-icon
+                        color="primary"
+                        size="x-small"
+                        :icon="mdiCheckDecagram"
+                      ></v-icon>
+                    </v-avatar>
+                  </template>
                 </v-list-item>
               </v-list>
             </v-card>
@@ -44,11 +64,13 @@ const socials = [
           <v-list class="hidden-md-and-up">
             <v-list-item>
               <template #prepend>
-                <v-avatar>
-                  <v-img src="/image/me2.jpg"></v-img>
+                <v-avatar size="50">
+                  <v-img alt="Saroj Poudel" src="/image/me2.jpg"></v-img>
                 </v-avatar>
               </template>
-              <v-list-item-title>Saroj Poudel</v-list-item-title>
+              <v-list-item-title class="text-h6 mb-1"
+                >Saroj Poudel</v-list-item-title
+              >
               <v-list-item-subtitle>Web/Graphic Designer</v-list-item-subtitle>
             </v-list-item>
           </v-list>

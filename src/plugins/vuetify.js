@@ -3,9 +3,8 @@ import "vuetify/styles";
 import { md3 } from "vuetify/blueprints";
 import colors from "vuetify/lib/util/colors";
 // Icons
-import { fa } from "vuetify/iconsets/fa";
+import { fa } from "vuetify/iconsets/fa-svg";
 import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
-import "@fortawesome/fontawesome-free/css/all.css";
 // Composables
 import { createVuetify } from "vuetify";
 
