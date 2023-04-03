@@ -40,7 +40,7 @@ const socials = [
             height="272"
             alt="Saroj Poudel"
             class="align-end pa-3 hidden-sm-and-down"
-            src="/image/me2_optimized.jpg"
+            src="/image/me2_optimized.webp"
           >
             <v-card border flat rounded="xl">
               <v-list>
