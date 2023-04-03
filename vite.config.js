@@ -6,8 +6,10 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
 
+//optimize css some day
+
 // Vite Pwa
-// import { VitePWA } from "vite-plugin-pwa";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,29 +24,33 @@ export default defineConfig({
         configFile: "src/styles/settings.scss",
       },
     }),
-    // VitePWA({
-    //   registerType: "autoUpdate",
-    //   injectRegister: "auto",
-    //   includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
-    //   manifest: {
-    //     name: "VueDash",
-    //     short_name: "VueDash",
-    //     description: "Vue UI Dashboard with  Vuetify",
-    //     theme_color: "#ffffff",
-    //     icons: [
-    //       {
-    //         src: "favicon.ico",
-    //         sizes: "192x192",
-    //         type: "image/png",
-    //       },
-    //       {
-    //         src: "favicon.ico",
-    //         sizes: "512x512",
-    //         type: "image/png",
-    //       },
-    //     ],
-    //   },
-    // }),
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: "auto",
+      // includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
+      workbox: {
+        cleanupOutdatedCaches: true,
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+      },
+      manifest: {
+        name: "Saroj Poudel",
+        short_name: "ropodl",
+        description: "Portfolio Website of Saroj Poudel",
+        theme_color: "#ff7800",
+        icons: [
+          {
+            src: "favicon-192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "favicon-512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
+    }),
   ],
   define: { "process.env": {} },
   resolve: {
