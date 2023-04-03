@@ -37,6 +37,7 @@ const socials = [
         <v-card border flat rounded="xl" class="mb-3">
           <v-img
             eager
+            height="272"
             alt="Saroj Poudel"
             class="align-end pa-3 hidden-sm-and-down"
             src="/image/me2_optimized.jpg"
