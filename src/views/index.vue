@@ -1,6 +1,11 @@
 <script setup>
-import { defineAsyncComponent } from "vue";
-import { mdiHeart, mdiHandshake } from "@mdi/js";
+import {
+  mdiHeart,
+  mdiHandshake,
+  mdiPencilRuler,
+  mdiPaletteSwatch,
+  mdiXml,
+} from "@mdi/js";
 
 const clients = [
   {
@@ -12,8 +17,18 @@ const clients = [
 const loves = [
   {
     title: "Web Design",
-    icon: "fa:fas fa-swatchbook",
+    icon: mdiPaletteSwatch,
     desc: "Modern web design with help of design frameworks.",
+  },
+  {
+    title: "Web Development",
+    icon: mdiXml,
+    desc: "High quality code with performance in mind.",
+  },
+  {
+    title: "Graphic Design",
+    icon: mdiPencilRuler,
+    desc: "Any kind of high quality graphic from branding to every day use banner.",
   },
 ];
 </script>
@@ -70,44 +85,6 @@ const loves = [
                   <v-list-item-subtitle
                     v-text="love['desc']"
                   ></v-list-item-subtitle>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-col>
-          <v-col cols="12" sm="6" md="6" class="pb-0">
-            <v-card border flat rounded="xl">
-              <v-list color="transparent" class="py-0" lines="three">
-                <v-list-item>
-                  <template #prepend>
-                    <v-avatar size="60">
-                      <v-icon color="primary" icon="fa:fas fa-code"></v-icon>
-                    </v-avatar>
-                  </template>
-                  <v-list-item-title>Web Development</v-list-item-title>
-                  <v-list-item-subtitle>
-                    High quality code with performance in mind.
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-col>
-          <v-col cols="12" sm="6" md="6" class="pb-0">
-            <v-card border flat rounded="xl">
-              <v-list color="transparent" class="py-0" lines="three">
-                <v-list-item>
-                  <template #prepend>
-                    <v-avatar size="60">
-                      <v-icon
-                        color="primary"
-                        icon="fa:fas fa-pen-ruler"
-                      ></v-icon>
-                    </v-avatar>
-                  </template>
-                  <v-list-item-title>Graphic Design</v-list-item-title>
-                  <v-list-item-subtitle class="text-wrap">
-                    Any kind of high quality graphic from branding to every day
-                    use banner.
-                  </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
             </v-card>

@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import { mdiSend } from "@mdi/js";
 import emailjs from "@emailjs/browser";
 
