@@ -1,4 +1,3 @@
-// Explore tauri
 // Components
 import App from "./App.vue";
 
