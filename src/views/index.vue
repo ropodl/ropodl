@@ -10,7 +10,7 @@ import {
 const clients = [
   {
     name: "API Technology",
-    img: "https://www.apitechnology.com.np/_nuxt/img/apitech.8e7a111.webp",
+    img: "image/clients/apitech.webp",
   },
 ];
 
