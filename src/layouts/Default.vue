@@ -66,7 +66,7 @@ const socials = [
             <v-list-item>
               <template #prepend>
                 <v-avatar size="50">
-                  <v-img alt="Saroj Poudel" src="/image/me2.jpg"></v-img>
+                  <v-img alt="Saroj Poudel" src="/image/me2_optimized.webp"></v-img>
                 </v-avatar>
               </template>
               <v-list-item-title class="text-h6 mb-1"
