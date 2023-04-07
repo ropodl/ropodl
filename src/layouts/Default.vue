@@ -66,7 +66,10 @@ const socials = [
             <v-list-item>
               <template #prepend>
                 <v-avatar size="50">
-                  <v-img alt="Saroj Poudel" src="/image/me2_optimized.webp"></v-img>
+                  <v-img
+                    alt="Saroj Poudel"
+                    src="/image/me2_optimized.webp"
+                  ></v-img>
                 </v-avatar>
               </template>
               <v-list-item-title class="text-h6 mb-1"
@@ -86,11 +89,7 @@ const socials = [
             <v-list-item>
               <template #prepend>
                 <v-avatar class="hidden-md">
-                  <v-icon
-                    color="primary"
-                    :icon="mdiEmailOpen"
-                    style="opacity: 1"
-                  ></v-icon>
+                  <v-icon color="primary" :icon="mdiEmailOpen"></v-icon>
                 </v-avatar>
               </template>
               <v-list-item-title>Email Address</v-list-item-title>
@@ -175,7 +174,6 @@ const socials = [
             </v-tab>
           </v-tabs>
         </v-card>
-
         <router-view></router-view>
       </v-col>
     </v-row>
