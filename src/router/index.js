@@ -35,6 +35,10 @@ const routes = [
         name: "Contact",
         component: () => import("@/views/contact"),
       },
+      {
+        path: "/:pathMatch(.*)",
+        component: () => import("@/views/NotFoundComponent.vue"),
+      },
     ],
   },
 ];
