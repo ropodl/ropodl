@@ -13,7 +13,8 @@ import {
   mdiArrowTopRight,
   mdiArrowRight,
 } from "@mdi/js";
-import { defineAsyncComponent, ref, reactive } from "vue";
+import { defineAsyncComponent, ref, reactive, onMounted, nextTick } from "vue";
+import Panzoom from "@panzoom/panzoom";
 
 let dialogs = reactive([]);
 let info = ref(true);
@@ -101,10 +102,25 @@ let works = [
   },
 ];
 
+const openDialog = (i) => {
+  dialogs[i] = true;
+  info.value = true;
+  nextTick(() => {
+    const elem = document.getElementById("scene");
+    console.log(elem);
+    const panzoom = Panzoom(elem, {
+      maxScale: 5,
+    });
+    elem.parentElement.addEventListener("wheel", panzoom.zoomWithWheel);
+  });
+};
+
 const closeDialog = (i) => {
   dialogs[i] = false;
-  info.value = true;
-  zoomLevel.value = 0;
+  nextTick(() => {
+    info.value = true;
+    zoomLevel.value = 0;
+  });
 };
 </script>
 <template>
@@ -130,8 +146,10 @@ const closeDialog = (i) => {
         <v-row v-auto-animate>
           <template v-for="(work, i) in works">
             <v-col
-              cols="12" sm="6"
-              md="6" lg="4"
+              cols="12"
+              sm="6"
+              md="6"
+              lg="4"
               v-if="work['category'] === current || current === 'All'"
             >
               <v-hover v-slot="{ isHovering, props: hover }">
@@ -146,7 +164,6 @@ const closeDialog = (i) => {
                   content-class="d-flex w-100"
                 >
                   <template v-slot:activator="{ props: overlay }">
-                    <!-- <v-responsive :aspect-ratio="16 / 9"> -->
                     <v-card flat height="150" v-bind="{ ...hover }">
                       <v-img cover :src="work['image'].thumbnail">
                         <v-overlay
@@ -156,17 +173,20 @@ const closeDialog = (i) => {
                           :model-value="isHovering"
                           class="align-center justify-center"
                         >
-                          <v-btn icon flat v-bind="{ ...overlay }">
+                          <v-btn
+                            icon
+                            flat
+                            v-bind="{ ...overlay }"
+                            @click="openDialog(i)"
+                          >
                             <v-icon :icon="mdiEye"></v-icon>
                           </v-btn>
                         </v-overlay>
                       </v-img>
                     </v-card>
-                    <!-- </v-responsive> -->
                   </template>
                   <div class="w-100 h-100">
                     <v-card
-                      v-auto-animate
                       flat
                       color="rgba(0,0,0,0.8)"
                       rounded="0"
@@ -194,7 +214,7 @@ const closeDialog = (i) => {
                           </v-btn>
                         </v-hover>
                         <v-spacer></v-spacer>
-                        <v-hover v-slot="{ isHovering, props: button }">
+                        <!-- <v-hover v-slot="{ isHovering, props: button }">
                           <v-btn
                             icon
                             size="small"
@@ -211,8 +231,8 @@ const closeDialog = (i) => {
                               :icon="mdiMagnifyPlusOutline"
                             ></v-icon>
                           </v-btn>
-                        </v-hover>
-                        <v-hover v-slot="{ isHovering, props: button }">
+                        </v-hover> -->
+                        <!-- <v-hover v-slot="{ isHovering, props: button }">
                           <v-btn
                             icon
                             size="small"
@@ -221,7 +241,7 @@ const closeDialog = (i) => {
                             :disabled="zoomLevel == 0"
                             :color="isHovering ? 'white' : 'black'"
                             v-bind="button"
-                            @click="zoomLevel--"
+                            @click="zooomIn"
                           >
                             <v-icon
                               size="large"
@@ -229,7 +249,7 @@ const closeDialog = (i) => {
                               :icon="mdiMagnifyMinusOutline"
                             ></v-icon>
                           </v-btn>
-                        </v-hover>
+                        </v-hover> -->
                         <v-hover v-slot="{ isHovering, props: button }">
                           <v-btn
                             icon
@@ -248,11 +268,14 @@ const closeDialog = (i) => {
                           </v-btn>
                         </v-hover>
                       </v-card-text>
-                      <v-img
-                        class="pa-0 w-100"
-                        :src="works[i].image.full"
-                        :class="['zoom-scale-' + zoomLevel]"
-                      ></v-img>
+                      <div id="scene">
+                        <v-img
+                          draggable
+                          class="pa-0 w-100"
+                          :src="works[i].image.full"
+                        />
+                      </div>
+                      <!-- :class="['zoom-scale-' + zoomLevel]" -->
                       <v-card
                         v-if="info"
                         border
