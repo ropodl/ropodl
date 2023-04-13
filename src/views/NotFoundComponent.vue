@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-card border flat class="rounded-pill">
           <v-card-text>
-            Sorry the page you are looking for dos not exist. You could go back
+            Sorry the page you are looking for does not exist. You could go back
             to home by pressing About in the tab above.
           </v-card-text>
         </v-card>
