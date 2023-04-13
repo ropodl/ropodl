@@ -194,74 +194,35 @@ const closeDialog = (i) => {
                       style="backdrop-filter: blur(2px)"
                     >
                       <v-card-text
-                        class="d-flex w-100 position-absolute z-index-1 pb-0"
+                        class="position-absolute z-index-1 pb-0 pr-0"
                         style="top: 0"
                       >
                         <v-hover v-slot="{ isHovering, props: button }">
                           <v-btn
                             icon
-                            size="small"
                             variant="tonal"
                             :color="isHovering ? 'white' : 'black'"
                             @click="closeDialog(i)"
                             v-bind="button"
                           >
-                            <v-icon
-                              size="large"
-                              color="white"
-                              :icon="mdiClose"
-                            ></v-icon>
+                            <v-icon color="white" :icon="mdiClose"></v-icon>
                           </v-btn>
                         </v-hover>
-                        <v-spacer></v-spacer>
-                        <!-- <v-hover v-slot="{ isHovering, props: button }">
-                          <v-btn
-                            icon
-                            size="small"
-                            variant="tonal"
-                            class="mr-3"
-                            :disabled="zoomLevel == 3"
-                            :color="isHovering ? 'white' : 'black'"
-                            v-bind="button"
-                            @click="zoomLevel++"
-                          >
-                            <v-icon
-                              size="large"
-                              color="white"
-                              :icon="mdiMagnifyPlusOutline"
-                            ></v-icon>
-                          </v-btn>
-                        </v-hover> -->
-                        <!-- <v-hover v-slot="{ isHovering, props: button }">
-                          <v-btn
-                            icon
-                            size="small"
-                            variant="tonal"
-                            class="mr-3"
-                            :disabled="zoomLevel == 0"
-                            :color="isHovering ? 'white' : 'black'"
-                            v-bind="button"
-                            @click="zooomIn"
-                          >
-                            <v-icon
-                              size="large"
-                              color="white"
-                              :icon="mdiMagnifyMinusOutline"
-                            ></v-icon>
-                          </v-btn>
-                        </v-hover> -->
+                      </v-card-text>
+
+                      <v-card-text
+                        class="position-absolute z-index-1 pb-0 pl-0"
+                        style="top: 0; right: 0"
+                      >
                         <v-hover v-slot="{ isHovering, props: button }">
                           <v-btn
                             icon
-                            size="small"
                             variant="tonal"
-                            class="mr-3"
                             :color="isHovering ? 'white' : 'black'"
-                            v-bind="button"
                             @click="info = !info"
+                            v-bind="button"
                           >
                             <v-icon
-                              size="large"
                               color="white"
                               :icon="mdiInformationOutline"
                             ></v-icon>
@@ -269,13 +230,8 @@ const closeDialog = (i) => {
                         </v-hover>
                       </v-card-text>
                       <div id="scene">
-                        <v-img
-                          draggable
-                          class="pa-0 w-100"
-                          :src="works[i].image.full"
-                        />
+                        <v-img :src="works[i].image.full" />
                       </div>
-                      <!-- :class="['zoom-scale-' + zoomLevel]" -->
                       <v-card
                         v-if="info"
                         border
@@ -290,12 +246,8 @@ const closeDialog = (i) => {
                           v-text="work['title']"
                         ></v-card-title>
                         <v-card-text>
-                          <div class="mb-2">
-                            Category:
-                            <v-chip density="comfortable">{{
-                              work["category"]
-                            }}</v-chip>
-                          </div>
+                          Category:
+                          {{ work["category"] }}
                         </v-card-text>
                         <v-btn
                           block
