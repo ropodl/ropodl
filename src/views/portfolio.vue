@@ -230,7 +230,7 @@ const closeDialog = (i) => {
                         </v-hover>
                       </v-card-text>
                       <div id="scene">
-                        <v-img :src="works[i].image.full" />
+                        <v-img :src="works[i].image['full']" />
                       </div>
                       <v-card
                         v-if="info"
@@ -238,8 +238,8 @@ const closeDialog = (i) => {
                         flat
                         rounded="xl"
                         width="400"
-                        class="position-absolute"
-                        style="bottom: 20px; left: 0; right: 0; margin: auto"
+                        class="position-absolute mx-auto"
+                        style="bottom: 20px; left: 0; right: 0;"
                       >
                         <v-card-title
                           class="text-wrap"
