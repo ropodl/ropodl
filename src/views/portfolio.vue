@@ -25,6 +25,15 @@ let categories = ["All", "Graphic Design", "Web", "Branding"];
 
 let works = [
   {
+    title: "API Technology Website (New)",
+    category: "Web",
+    link: "https://www.apitechnology.com.np/",
+    image: {
+      thumbnail: "/image/portfolio/api(new)/thumb.webp",
+      full: "/image/portfolio/api(new)/full.webp",
+    },
+  },
+  {
     title: "API Technology Concept Branding",
     category: "Branding",
     link: "https://dribbble.com/shots/15078907-API-Technology-Logo-Mockup",
@@ -239,7 +248,7 @@ const closeDialog = (i) => {
                         rounded="xl"
                         width="400"
                         class="position-absolute mx-auto"
-                        style="bottom: 20px; left: 0; right: 0;"
+                        style="bottom: 20px; left: 0; right: 0"
                       >
                         <v-card-title
                           class="text-wrap"
