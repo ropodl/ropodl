@@ -75,7 +75,7 @@ const education = [
   {
     title: "BE.SE",
     year: "2014 - 2017",
-    desc: " Nepal College of Information Technology @ Balkumari,Lalitpur (Dropped Out)",
+    desc: " Nepal College of Information Technology @ Balkumari, Lalitpur (Dropped Out)",
   },
   {
     title: "Ten Plus Two (+2)",
@@ -109,7 +109,7 @@ const education = [
               <v-timeline-item
                 dot-color="primary"
                 size="10"
-                v-for="(exp, i) in experience"
+                v-for="exp in experience"
               >
                 <v-card border flat>
                   <v-card-text>
@@ -150,7 +150,7 @@ const education = [
             sm="6"
             md="4"
             class="pb-0"
-            v-for="(skill, i) in skills"
+            v-for="skill in skills"
           >
             <v-card border flat class="h-100">
               <v-card-text v-text="skill['title']"></v-card-text>
@@ -169,7 +169,7 @@ const education = [
             sm="6"
             md="4"
             class="pb-0"
-            v-for="(sof, i) in software"
+            v-for="sof in software"
           >
             <v-card border flat class="h-100">
               <v-card-text v-text="sof['title']"></v-card-text>
@@ -193,7 +193,7 @@ const education = [
             <v-timeline-item
               dot-color="primary"
               size="10"
-              v-for="(edu, i) in education"
+              v-for="edu in education"
             >
               <v-card border flat>
                 <v-card-text>

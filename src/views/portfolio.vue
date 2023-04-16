@@ -66,6 +66,15 @@ let works = [
     },
   },
   {
+    title: "Bishwas Khabar Logo",
+    category: "Branding",
+    link: "https://bishwashkhabar.com/",
+    image: {
+      thumbnail: "/image/portfolio/bishwaskhabar/thumb.webp",
+      full: "/image/portfolio/bishwaskhabar/full.webp",
+    },
+  },
+  {
     title: "API Technology Website",
     category: "Web",
     link: "https://www.apitechnology.com.np/",
@@ -121,7 +130,6 @@ const closeDialog = (i) => {
   dialogs[i] = false;
   nextTick(() => {
     info.value = true;
-    zoomLevel.value = 0;
   });
 };
 </script>
