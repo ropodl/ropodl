@@ -4,6 +4,10 @@ import { defineAsyncComponent } from "vue";
 import { useNetwork } from "@vueuse/core";
 const { isOnline } = useNetwork();
 
+const GoTop = defineAsyncComponent(() =>
+  import("@/components/layout/GoTop.vue")
+);
+
 const OfflineBanner = defineAsyncComponent(() =>
   import("@/components/layout/OfflineBanner.vue")
 );
@@ -14,8 +18,9 @@ const OfflineBanner = defineAsyncComponent(() =>
       <v-layout v-auto-animate>
         <OfflineBanner v-if="!isOnline" />
       </v-layout>
-      <router-view> </router-view>
+      <router-view />
     </v-main>
+    <GoTop />
   </v-app>
 </template>
 <style>
