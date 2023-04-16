@@ -1,19 +1,12 @@
 <script setup>
 import {
-  mdiCheck,
   mdiClose,
   mdiEye,
-  mdiMagnifyPlusOutline,
-  mdiMagnifyMinusOutline,
-  mdiArrowExpand,
-  mdiArrowCollapse,
-  mdiInformation,
   mdiInformationOutline,
   mdiLink,
-  mdiArrowTopRight,
   mdiArrowRight,
 } from "@mdi/js";
-import { defineAsyncComponent, ref, reactive, onMounted, nextTick } from "vue";
+import { ref, reactive, nextTick } from "vue";
 import Panzoom from "@panzoom/panzoom";
 
 let dialogs = reactive([]);
