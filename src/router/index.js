@@ -21,16 +21,6 @@ const routes = [
         component: () => import("@/views/portfolio"),
       },
       {
-        path: "/blog",
-        name: "Blog",
-        component: () => import("@/views/blog/index"),
-      },
-      {
-        path: "/blog/:slug",
-        name: "Show Blog",
-        component: () => import("@/views/blog/show"),
-      },
-      {
         path: "/contact",
         name: "Contact",
         component: () => import("@/views/contact"),
