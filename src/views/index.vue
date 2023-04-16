@@ -12,6 +12,10 @@ const clients = [
     name: "API Technology",
     img: "image/clients/apitech.webp",
   },
+  {
+    name: "Genese Solution",
+    img: "image/clients/genese.svg",
+  },
 ];
 
 const loves = [

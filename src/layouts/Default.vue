@@ -53,7 +53,6 @@ const socials = [
                     <v-avatar>
                       <v-icon
                         color="primary"
-                        size="x-small"
                         :icon="mdiCheckDecagram"
                       ></v-icon>
                     </v-avatar>
