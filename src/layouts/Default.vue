@@ -51,10 +51,7 @@ const socials = [
                   </v-list-item-subtitle>
                   <template #append>
                     <v-avatar>
-                      <v-icon
-                        color="primary"
-                        :icon="mdiCheckDecagram"
-                      ></v-icon>
+                      <v-icon color="primary" :icon="mdiCheckDecagram"></v-icon>
                     </v-avatar>
                   </template>
                 </v-list-item>
