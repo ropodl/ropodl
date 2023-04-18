@@ -43,23 +43,81 @@ const loves = [
         <v-card border flat rounded="xl">
           <v-card-text class="text-subtitle-1">
             <p>
-              I am a Web Performance Optimization Specialist dedicated to
-              optimizing website speed and user experience. I keep up with the
-              latest industry trends and have expertise in Vue.js, Linux, and UX
-              optimization. My passion for sports translates into my work, where
-              I enjoy collaborating with teams to achieve exceptional results.
-              With extensive experience in web performance optimization, data
-              analysis, and delivering cutting-edge solutions, I am able to
-              drive tangible business results for my clients.
+              As a frontend developer with more than four years of experience, I
+              have a strong understanding of modern web development practices
+              and technologies, including cross-browser compatibility,
+              responsive web design, SASS, jQuery, and single-page applications.
             </p>
             <br />
             <p>
-              As an introverted individual, I am focused on delivering quality
-              work and committed to ongoing learning and professional
-              development. Additionally, I have experience in front-end
-              development, responsive design, and website accessibility. I
-              provide tailored and effective solutions to my clients,
-              continuously striving for web optimization excellence.
+              At Softmahal Technologies, I have been responsible for designing
+              and implementing a wide range of web applications and sites. I
+              have worked on projects that require creating complex front-end
+              architectures, optimizing web content for search engines, and
+              enhancing user interface. My role at Softmahal has allowed me to
+              develop skills in Git, GitHub, GitLab, which allowed me to become
+              an effective collaborator and team player. As the lead frontend
+              developer, I was responsible for designing a user interface that
+              would make it easy for users to navigate the website and make the
+              site optimized for search engines and responsive on all devices.
+            </p>
+            <br />
+            <p>
+              In addition to my work at Softmahal Technologies, I have also been
+              involved in a range of freelance projects at API Technology Pvt.
+              Ltd. Here, I have been able to expand my skills in video editing
+              and web development. I have worked on a variety of projects,
+              including creating landing pages, designing print graphics like ID
+              Cards, Visintg Cards, etc. As a freelancer, I have also had the
+              opportunity to work on a variety of projects with different
+              clients. This has allowed me to gain experience in a range of
+              industries and made me adept at tailoring my approach to suit the
+              needs of different clients.
+            </p>
+            <br />
+            <p>
+              Prior to my current role, I worked as a graphic designer at
+              Fivonest Technology Pvt. Ltd. Here, I gained valuable experience
+              in graphic design, logo design, and HTML5. My experience in
+              graphic design has given me an eye for detail that I bring to all
+              my frontend development projects. I believe that creating visually
+              appealing interfaces is crucial to enhancing the user experience
+              and building brand recognition.
+            </p>
+            <br />
+            <p>
+              Throughout my career, I have been dedicated to staying up-to-date
+              with the latest trends and technologies in frontend development. I
+              have attended numerous web development conferences and workshops,
+              where I have learned about new frameworks, libraries, and best
+              practices. I have used this knowledge to build websites and
+              applications that are not only visually appealing but also highly
+              functional, scalable, and optimized for the best possible user
+              experience.
+            </p>
+            <br />
+            <p>
+              In my free time, I enjoy experimenting with new frontend
+              development technologies and creating personal projects. This has
+              allowed me to hone my skills and develop a creative approach to
+              front-end development. I am also an active contributor to several
+              open-source projects, where I provide feedback on usecase and
+              userflow with other developers to create tools and frameworks that
+              can benefit the web development community as a whole.
+            </p>
+            <br />
+            <p>
+              Overall, as a frontend developer with a passion for user-centric
+              design and a strong skill set in modern web development
+              technologies, I am confident that I can contribute significantly
+              to any dynamic and innovative organization looking to create
+              world-class websites and applications. My experience in project
+              management, collaboration, and design allows me to approach
+              projects with a comprehensive perspective, ensuring that every
+              aspect of the user experience is optimized. I believe that my
+              skills and experience make me an excellent candidate for any
+              organization looking for a dedicated and creative front-end
+              developer.
             </p>
           </v-card-text>
         </v-card>
