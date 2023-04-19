@@ -56,6 +56,7 @@ const socials = [
                       <template v-slot:activator="{ props }">
                         <v-btn
                           icon
+                          download
                           target="_blank"
                           color="primary"
                           v-bind="props"
