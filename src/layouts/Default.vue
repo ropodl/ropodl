@@ -56,12 +56,12 @@ const socials = [
                       <template v-slot:activator="{ props }">
                         <v-btn
                           icon
+                          target="_blank"
                           color="primary"
                           v-bind="props"
                           size="small"
                           variant="tonal"
                           href="/doc/resume.pdf"
-                          download="/doc/resume.pdf"
                         >
                           <v-icon :icon="mdiDownload"></v-icon>
                         </v-btn>
