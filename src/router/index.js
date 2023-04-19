@@ -26,11 +26,6 @@ const routes = [
         component: () => import("@/views/contact"),
       },
       {
-        path: "/doc/resume.pdf",
-        // name: "Contact",
-        // component: () => import("@/views/contact"),
-      },
-      {
         path: "/:pathMatch(.*)",
         component: () => import("@/views/NotFoundComponent.vue"),
       },
