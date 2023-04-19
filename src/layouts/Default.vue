@@ -61,6 +61,7 @@ const socials = [
                           size="small"
                           variant="tonal"
                           href="/doc/resume.pdf"
+                          download="/doc/resume.pdf"
                         >
                           <v-icon :icon="mdiDownload"></v-icon>
                         </v-btn>
