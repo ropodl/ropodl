@@ -51,7 +51,7 @@ const socials = [
                   <v-list-item-subtitle>
                     Web/Graphic Designer
                   </v-list-item-subtitle>
-                  <template #append>
+                  <!-- <template #append>
                     <v-tooltip location="top" text="Download Resume">
                       <template v-slot:activator="{ props }">
                         <v-btn
@@ -68,7 +68,7 @@ const socials = [
                         </v-btn>
                       </template>
                     </v-tooltip>
-                  </template>
+                  </template> -->
                 </v-list-item>
               </v-list>
             </v-card>
