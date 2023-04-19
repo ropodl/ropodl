@@ -5,6 +5,8 @@ import {
   mdiPhone,
   mdiCake,
   mdiMapMarkerRadius,
+  mdiPanDown,
+  mdiDownload,
 } from "@mdi/js";
 
 const socials = [
@@ -50,9 +52,21 @@ const socials = [
                     Web/Graphic Designer
                   </v-list-item-subtitle>
                   <template #append>
-                    <v-avatar>
-                      <v-icon color="primary" :icon="mdiCheckDecagram"></v-icon>
-                    </v-avatar>
+                    <v-tooltip location="top" text="Download Resume">
+                      <template v-slot:activator="{ props }">
+                        <v-btn
+                          icon
+                          download
+                          color="primary"
+                          v-bind="props"
+                          size="small"
+                          variant="tonal"
+                          href="/doc/resume.pdf"
+                        >
+                          <v-icon :icon="mdiDownload"></v-icon>
+                        </v-btn>
+                      </template>
+                    </v-tooltip>
                   </template>
                 </v-list-item>
               </v-list>
