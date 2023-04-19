@@ -56,7 +56,6 @@ const socials = [
                       <template v-slot:activator="{ props }">
                         <v-btn
                           icon
-                          download
                           color="primary"
                           v-bind="props"
                           size="small"
@@ -176,9 +175,6 @@ const socials = [
             <v-tab exact to="/portfolio" class="rounded-0 text-capitalize">
               Portfolio
             </v-tab>
-            <!-- <v-tab exact to="/blog" class="rounded-0 text-capitalize">
-              Blog
-            </v-tab> -->
             <v-tab exact to="/contact" class="rounded-0 text-capitalize">
               Contact
             </v-tab>
