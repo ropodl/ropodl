@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/doc/pdf", "destination": "/doc/resume.pdf" },
-    { "source": "/:path*", "destination": "/index.html" }
-  ]
+  "rewrites": [{ "source": "/:path*", "destination": "/index.html" }]
 }
