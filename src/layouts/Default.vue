@@ -1,5 +1,11 @@
 <script setup>
-import { mdiCake, mdiEmailOpen, mdiMapMarkerRadius, mdiPhone } from "@mdi/js";
+import {
+  mdiCake,
+  mdiDownload,
+  mdiEmailOpen,
+  mdiMapMarkerRadius,
+  mdiPhone,
+} from "@mdi/js";
 
 const socials = [
   {
