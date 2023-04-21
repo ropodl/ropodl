@@ -26,7 +26,7 @@ const routes = [
         component: () => import("@/views/contact"),
       },
       {
-        path: "/doc",
+        path: "/doc/resume.pdf",
       },
       {
         path: "/:pathMatch(.*)",
