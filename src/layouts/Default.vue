@@ -47,7 +47,7 @@ const socials = [
                 <v-list-item>
                   <v-list-item-title>Saroj Poudel</v-list-item-title>
                   <v-list-item-subtitle>
-                    Web/Graphic Designer
+                    Full Stack Developer
                   </v-list-item-subtitle>
                   <template #append>
                     <v-tooltip location="top" text="Download Resume">
@@ -84,7 +84,7 @@ const socials = [
               <v-list-item-title class="text-h6 mb-1"
                 >Saroj Poudel</v-list-item-title
               >
-              <v-list-item-subtitle>Web/Graphic Designer</v-list-item-subtitle>
+              <v-list-item-subtitle>Full Stack Developer</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
