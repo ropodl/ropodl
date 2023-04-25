@@ -1,9 +1,9 @@
 <script setup>
 import {
-  mdiHeart,
   mdiHandshake,
-  mdiPencilRuler,
+  mdiHeart,
   mdiPaletteSwatch,
+  mdiPencilRuler,
   mdiXml,
 } from "@mdi/js";
 
@@ -43,71 +43,61 @@ const loves = [
         <v-card border flat rounded="xl">
           <v-card-text class="text-subtitle-1">
             <p>
-              As a frontend developer with more than four years of experience, I
-              have a strong understanding of modern web development practices
-              and technologies, including cross-browser compatibility,
-              responsive web design, SASS, jQuery, and single-page applications.
+              As a full stack developer with expertise in Laravel and Vue.js, I
+              possess over four years of experience in modern web development
+              practices and technologies. I am well-versed in cross-browser
+              compatibility, responsive web design, SASS, jQuery, and
+              single-page applications.
             </p>
             <br />
             <p>
               At Softmahal Technologies, I have been responsible for designing
-              and implementing a wide range of web applications and sites. I
-              have worked on projects that require creating complex front-end
-              architectures, optimizing web content for search engines, and
-              enhancing user interface. My role at Softmahal has allowed me to
-              develop skills in Git, GitHub, GitLab, which allowed me to become
-              an effective collaborator and team player. As the lead frontend
-              developer, I was responsible for designing a user interface that
-              would make it easy for users to navigate the website and make the
-              site optimized for search engines and responsive on all devices.
+              and implementing a wide range of web applications and sites using
+              my skills in Git, GitHub, and GitLab. As the lead frontend
+              developer, I was responsible for designing user interfaces that
+              were optimized for search engines and responsive on all devices.
             </p>
             <br />
             <p>
-              In addition to my work at Softmahal Technologies, I have also been
+              Apart from my work at Softmahal Technologies, I have also been
               involved in a range of freelance projects at API Technology Pvt.
-              Ltd. Here, I have been able to expand my skills in video editing
-              and web development. I have worked on a variety of projects,
-              including creating landing pages, designing print graphics like ID
-              Cards, Visintg Cards, etc. As a freelancer, I have also had the
-              opportunity to work on a variety of projects with different
-              clients. This has allowed me to gain experience in a range of
-              industries and made me adept at tailoring my approach to suit the
-              needs of different clients.
+              Ltd. Here, I have expanded my skills in video editing and web
+              development by working on landing pages, designing print graphics
+              such as ID Cards, Visiting Cards, etc. As a freelancer, I have had
+              the opportunity to work on projects in various industries, gaining
+              experience in tailoring my approach to meet the needs of different
+              clients.
             </p>
             <br />
             <p>
-              Prior to my current role, I worked as a graphic designer at
-              Fivonest Technology Pvt. Ltd. Here, I gained valuable experience
-              in graphic design, logo design, and HTML5. My experience in
-              graphic design has given me an eye for detail that I bring to all
-              my frontend development projects. I believe that creating visually
-              appealing interfaces is crucial to enhancing the user experience
-              and building brand recognition.
+              Before my current role, I worked as a graphic designer at Fivonest
+              Technology Pvt. Ltd. Here, I gained valuable experience in graphic
+              design, logo design, and HTML5. This experience has given me an
+              eye for detail that I bring to all my frontend development
+              projects.
             </p>
             <br />
             <p>
-              Throughout my career, I have been dedicated to staying up-to-date
-              with the latest trends and technologies in frontend development. I
-              have attended numerous web development conferences and workshops,
-              where I have learned about new frameworks, libraries, and best
-              practices. I have used this knowledge to build websites and
-              applications that are not only visually appealing but also highly
+              I believe in staying up-to-date with the latest trends and
+              technologies in frontend development, attending numerous web
+              development conferences and workshops. I have used this knowledge
+              to build websites and applications that are visually appealing,
               functional, scalable, and optimized for the best possible user
               experience.
             </p>
             <br />
             <p>
-              In my free time, I enjoy experimenting with new frontend
-              development technologies and creating personal projects. This has
-              allowed me to hone my skills and develop a creative approach to
-              front-end development. I am also an active contributor to several
-              open-source projects, where I provide feedback on usecase and
-              userflow with other developers to create tools and frameworks that
-              can benefit the web development community as a whole.
+              In my free time, I experiment with new frontend development
+              technologies and create personal projects, honing my skills and
+              developing a creative approach to frontend development. I am also
+              an active contributor to several open-source projects, providing
+              feedback on use case and user flow with other developers to create
+              tools and frameworks that can benefit the web development
+              community as a whole.
             </p>
             <br />
             <p>
-              Overall, as a frontend developer with a passion for user-centric
+              Overall, as a full stack developer with a passion for user-centric
               design and a strong skill set in modern web development
               technologies, I am confident that I can contribute significantly
               to any dynamic and innovative organization looking to create
@@ -116,8 +106,8 @@ const loves = [
               projects with a comprehensive perspective, ensuring that every
               aspect of the user experience is optimized. I believe that my
               skills and experience make me an excellent candidate for any
-              organization looking for a dedicated and creative front-end
-              developer.
+              organization looking for a dedicated and creative full stack
+              developer with Laravel and Vue.js expertise.
             </p>
           </v-card-text>
         </v-card>
