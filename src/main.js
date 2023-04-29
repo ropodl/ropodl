@@ -6,9 +6,14 @@ import { createApp } from "vue";
 
 // Plugins
 import { registerPlugins } from "@/plugins";
+import { registerSW } from "virtual:pwa-register";
+
+const updateSW = registerSW({
+  onOfflineReady() {},
+});
 
 const app = createApp(App);
 
 registerPlugins(app);
 
-app.mount("#app");
+app.mount("#app").then(() => onOfflineReady());
