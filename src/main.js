@@ -9,13 +9,15 @@ import { registerPlugins } from "@/plugins";
 import { registerSW } from "virtual:pwa-register";
 
 const updateSW = registerSW({
-  onOfflineReady() {},
+  onOfflineReady() {
+    alert("We are now offline capable");
+  },
 });
+
+updateSW();
 
 const app = createApp(App);
 
 registerPlugins(app);
-
-updateSW();
 
 app.mount("#app");
