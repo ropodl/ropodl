@@ -15,6 +15,7 @@ const updateSW = registerSW({
 const app = createApp(App);
 
 registerPlugins(app);
-onOfflineReady();
+
+updateSW();
 
 app.mount("#app");
