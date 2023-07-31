@@ -1,13 +1,13 @@
 <script setup>
 import {
+  mdiArrowRight,
   mdiClose,
   mdiEye,
   mdiInformationOutline,
   mdiLink,
-  mdiArrowRight,
 } from "@mdi/js";
-import { ref, reactive, nextTick } from "vue";
 import Panzoom from "@panzoom/panzoom";
+import { nextTick, reactive, ref } from "vue";
 
 let dialogs = reactive([]);
 let info = ref(true);
@@ -17,6 +17,15 @@ let current = ref("All");
 let categories = ["All", "Graphic Design", "Web", "Branding"];
 
 let works = [
+  {
+    title: "Rohan Bhandari's Website",
+    category: "Web",
+    link: "https://rohan-website.vercel.app/",
+    image: {
+      thumbnail: "/image/portfolio/rohan/thumb.webp",
+      full: "/image/portfolio/rohan/full.webp",
+    },
+  },
   {
     title: "API Technology Website (New)",
     category: "Web",
