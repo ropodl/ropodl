@@ -1,7 +1,7 @@
 // Styles
-import "vuetify/styles";
 import { md3 } from "vuetify/blueprints";
 import colors from "vuetify/lib/util/colors";
+import "vuetify/styles";
 // Icons
 import { fa } from "vuetify/iconsets/fa-svg";
 import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
@@ -30,7 +30,7 @@ export default createVuetify({
       dark: {
         dark: true,
         colors: {
-          primary: "#dc0714",
+          primary: "#ff7a03",
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
