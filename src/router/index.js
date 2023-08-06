@@ -31,6 +31,16 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/newhome",
+    component: () => import("@/layouts/FullWidth"),
+    children: [
+      {
+        path: "/newhome",
+        component: () => import("@/views/newindex"),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({

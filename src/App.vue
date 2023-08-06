@@ -15,7 +15,8 @@ const OfflineBanner = defineAsyncComponent(() =>
 <template>
   <v-app>
     <v-main>
-      <v-layout v-auto-animate>
+      <v-layout>
+        <!-- v-auto-animate -->
         <OfflineBanner v-if="!isOnline" />
       </v-layout>
       <router-view />
@@ -35,5 +36,8 @@ const OfflineBanner = defineAsyncComponent(() =>
   .v-container.v-container--fluid {
     max-width: 100%;
   }
+}
+.list-style-none {
+  list-style: none;
 }
 </style>
