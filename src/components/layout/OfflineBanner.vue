@@ -11,6 +11,7 @@ import { mdiWifiStrengthAlertOutline } from "@mdi/js";
       rounded="xl"
       :icon="mdiWifiStrengthAlertOutline"
       text="You are currently not connect to the internet."
+      style="background-color: #2a2c3b"
     ></v-banner>
   </v-container>
 </template>

@@ -4,11 +4,11 @@ import {
   faDribbble,
   faGithub,
   faInstagram,
-  faLinkedin,
+  faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export async function loadFontAwesome(app) {
   app.component("font-awesome-icon", FontAwesomeIcon);
-  library.add(faInstagram, faLinkedin, faDribbble, faGithub);
+  library.add(faInstagram, faLinkedinIn, faDribbble, faGithub);
 }
