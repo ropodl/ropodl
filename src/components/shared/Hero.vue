@@ -1,6 +1,5 @@
 <script setup>
 import { mdiArrowRight } from "@mdi/js";
-import gsap from "gsap";
 import { defineAsyncComponent, onMounted } from "vue";
 
 const DashText = defineAsyncComponent(() =>
@@ -40,24 +39,24 @@ onMounted(() => {
   //         button.textContent.trim().split("").join("</span><span>") +
   //         "</span></div>")
   //   );
-  gsap.from(".social", {
-    duration: 1,
-    y: 100,
-    stagger: 0.2,
-  });
-  gsap.from("#image", {
-    duration: 2,
-    opacity: 0,
-  });
-  gsap.from(".split", 2, {
-    y: 200,
-    ease: "power4.out",
-    delay: 2,
-    skewY: 15,
-    stagger: {
-      amount: 0.4,
-    },
-  });
+  // gsap.from(".social", {
+  //   duration: 1,
+  //   y: 100,
+  //   stagger: 0.2,
+  // });
+  // gsap.from("#image", {
+  //   duration: 2,
+  //   opacity: 0,
+  // });
+  // gsap.from(".split", 2, {
+  //   y: 200,
+  //   ease: "power4.out",
+  //   delay: 0,
+  //   skewY: 15,
+  //   stagger: {
+  //     amount: 0.4,
+  //   },
+  // });
 });
 </script>
 <template>
@@ -66,12 +65,18 @@ onMounted(() => {
       <v-row class="position-relative">
         <v-col cols="12" md="6">
           <div class="text-overline" id="this">Hi, I am</div>
-          <div
-            class="font-weight-bold split"
-            style="font-size: 10rem; line-height: 10.4rem"
-          >
-            <div class="split">
-              <span class="overflow-hidden" style="height: 189px;">Saroj</span>
+          <div class="font-weight-bold">
+            <!-- style="font-size: 10rem; line-height: 10.4rem" -->
+            <div
+              class="split"
+              style="
+                font-size: 10rem;
+                line-height: 10.4rem;
+                height: 172px;
+                overflow: hidden !important;
+              "
+            >
+              <span>Saroj</span>
             </div>
             <div class="split">
               <span>Poudel.</span>
@@ -155,3 +160,15 @@ onMounted(() => {
     ></v-img>
   </v-card>
 </template>
+<style>
+.split {
+  position: relative;
+  overflow: hidden;
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+</style>
