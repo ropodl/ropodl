@@ -8,9 +8,9 @@ const DashText = defineAsyncComponent(() =>
 </script>
 <template>
   <div style="background-color: #333646">
-    <v-container>
-      <v-row>
-        <v-col cols="12" md="6">
+    <v-container class="py-16">
+      <v-row justify="space-between">
+        <v-col cols="12" md="5">
           <DashText text="Portfolio" />
           <div class="text-h4">
             All Creative Works,<br />
@@ -39,7 +39,54 @@ const DashText = defineAsyncComponent(() =>
             </v-btn>
           </v-hover>
         </v-col>
-        <v-col cols="12" md="6"> </v-col>
+        <v-col cols="12" md="5">
+          <v-card color="#252734">
+            <v-img cover height="400" src="/image/portfolio/vuedash/test.png">
+              <v-overlay
+                contained
+                scrim="black"
+                :model-value="true"
+                persistent
+                no-click-animation=""
+              >
+                <div class="text-h3 mt-5 mx-5">VueDash</div>
+                <v-card-text class="mx-5">Web Design</v-card-text>
+              </v-overlay>
+            </v-img>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="5">
+          <v-card color="#252734">
+            <v-img cover height="400" src="/image/portfolio/vuedash/test.png">
+              <v-overlay
+                contained
+                scrim="black"
+                :model-value="true"
+                persistent
+                no-click-animation=""
+              >
+                <div class="text-h3 mt-5 mx-5">VueDash</div>
+                <v-card-text class="mx-5">Web Design</v-card-text>
+              </v-overlay>
+            </v-img>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="5">
+          <v-card class="mt-10" color="#252734">
+            <v-img cover height="400" src="/image/portfolio/vuedash/test.png">
+              <v-overlay
+                contained
+                scrim="black"
+                :model-value="true"
+                persistent
+                no-click-animation=""
+              >
+                <div class="text-h3 mt-5 mx-5">VueDash</div>
+                <v-card-text class="mx-5">Web Design</v-card-text>
+              </v-overlay>
+            </v-img>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
   </div>

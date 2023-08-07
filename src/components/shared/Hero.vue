@@ -37,9 +37,17 @@ onMounted(() => {
     stagger: 0.2,
   });
   gsap.from("#image", {
-    duration: 1,
+    duration: 2,
     opacity: 0,
-    stagger: 0.2,
+  });
+  gsap.from(".split span", 2, {
+    y: 200,
+    ease: "power4.out",
+    delay: 2,
+    skewY: 15,
+    stagger: {
+      amount: 0.4,
+    },
   });
 });
 </script>
@@ -50,10 +58,10 @@ onMounted(() => {
         <v-col cols="12" md="6">
           <div class="text-overline" id="this">Hi, I am</div>
           <div
-            class="font-weight-bold"
+            class="font-weight-bold split"
             style="font-size: 10rem; line-height: 10.4rem"
           >
-            Saroj<br />Poudel.
+            <span>Saroj<br />Poudel.</span>
           </div>
           <div
             class="mt-4"
