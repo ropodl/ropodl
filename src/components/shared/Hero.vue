@@ -31,6 +31,15 @@ const socials = [
 ];
 
 onMounted(() => {
+  // document
+  //   .querySelectorAll(".split")
+  //   .forEach(
+  //     (button) =>
+  //       (button.innerHTML =
+  //         "<div><span>" +
+  //         button.textContent.trim().split("").join("</span><span>") +
+  //         "</span></div>")
+  //   );
   gsap.from(".social", {
     duration: 1,
     y: 100,
@@ -40,7 +49,7 @@ onMounted(() => {
     duration: 2,
     opacity: 0,
   });
-  gsap.from(".split span", 2, {
+  gsap.from(".split", 2, {
     y: 200,
     ease: "power4.out",
     delay: 2,
@@ -61,7 +70,12 @@ onMounted(() => {
             class="font-weight-bold split"
             style="font-size: 10rem; line-height: 10.4rem"
           >
-            <span>Saroj<br />Poudel.</span>
+            <div class="split">
+              <span class="overflow-hidden" style="height: 189px;">Saroj</span>
+            </div>
+            <div class="split">
+              <span>Poudel.</span>
+            </div>
           </div>
           <div
             class="mt-4"
