@@ -25,7 +25,7 @@ const socials = [
 ];
 </script>
 <template>
-  <v-card class="pt-16 pb-10" rounded="0" elevation="0" color="#3a3d4f">
+  <v-card class="pb-16" rounded="0" elevation="0" color="#3a3d4f">
     <v-card-text class="text-center">
       <Logo />
     </v-card-text>

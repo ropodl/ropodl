@@ -1,10 +1,15 @@
-<script setup></script>
+<script setup>
+defineProps({
+  width: { type: Number, default: 90 },
+  height: { type: Number, default: 90 },
+});
+</script>
 <template>
   <svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
-    width="90"
-    height="90"
+    :width="width"
+    :height="height"
     viewBox="0 0 512.000000 512.000000"
     preserveAspectRatio="xMidYMid meet"
   >

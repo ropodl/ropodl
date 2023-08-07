@@ -15,10 +15,7 @@ const OfflineBanner = defineAsyncComponent(() =>
 <template>
   <v-app>
     <v-main>
-      <v-layout>
-        <!-- v-auto-animate -->
-        <OfflineBanner v-if="!isOnline" />
-      </v-layout>
+      <OfflineBanner v-if="!isOnline" />
       <router-view />
     </v-main>
     <GoTop />
@@ -28,6 +25,7 @@ const OfflineBanner = defineAsyncComponent(() =>
 ::selection {
   color: white;
   background: rgba(var(--v-theme-primary), 1);
+  filter: invert(0.4);
 }
 @media (min-width: 1280px) and (min-width: 1920px) {
   .v-container {

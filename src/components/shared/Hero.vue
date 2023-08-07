@@ -1,6 +1,7 @@
 <script setup>
 import { mdiArrowRight } from "@mdi/js";
-import { defineAsyncComponent } from "vue";
+import gsap from "gsap";
+import { defineAsyncComponent, onMounted } from "vue";
 
 const DashText = defineAsyncComponent(() =>
   import("@/components/shared/DashText.vue")
@@ -28,13 +29,26 @@ const socials = [
     link: "https://github.com/ropodl/",
   },
 ];
+
+onMounted(() => {
+  gsap.from(".social", {
+    duration: 1,
+    y: 100,
+    stagger: 0.2,
+  });
+  gsap.from("#image", {
+    duration: 1,
+    opacity: 0,
+    stagger: 0.2,
+  });
+});
 </script>
 <template>
   <v-card rounded="0" elevation="0" color="#333646" class="py-16">
     <v-container class="pb-0 pt-10">
       <v-row class="position-relative">
         <v-col cols="12" md="6">
-          <div class="text-overline">Hi, I am</div>
+          <div class="text-overline" id="this">Hi, I am</div>
           <div
             class="font-weight-bold"
             style="font-size: 10rem; line-height: 10.4rem"
@@ -49,9 +63,8 @@ const socials = [
               background-color: rgb(var(--v-theme-primary));
             "
           ></div>
-
           <ul class="d-flex list-style-none mt-16">
-            <li v-for="(social, i) in socials">
+            <li v-for="(social, i) in socials" class="social">
               <v-hover v-slot="{ isHovering, props }">
                 <v-btn
                   rounded
@@ -63,7 +76,6 @@ const socials = [
                   v-bind="props"
                   :color="isHovering ? 'primary' : 'white'"
                   size="small"
-                  class="mr-3"
                 >
                   <v-icon :icon="social['icon']"></v-icon>
                 </v-btn>
@@ -73,17 +85,17 @@ const socials = [
         </v-col>
         <v-col cols="12" md="1"></v-col>
         <v-col cols="12" md="5">
-          <div class="pt-16 mt-10">
+          <div class="pt-16 mt-16">
             <DashText text="Introduction" />
-            <div class="text-h4 font-weight-medium mb-6">
+            <div class="text-h4 font-weight-medium">
               Fullstack developer<br />
-              based in KTM.
+              based in Kathmandu, Nepal.
             </div>
-            <div class="mb-6">
+            <v-card-text class="pl-0">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quas
               culpa, similique sapiente consectetur suscipit eos totam in
               dignissimos labore.
-            </div>
+            </v-card-text>
             <v-hover v-slot="{ isHovering, props }">
               <v-btn
                 size="large"
@@ -92,9 +104,9 @@ const socials = [
                 class="text-capitalize"
                 v-bind="props"
               >
-                <span> My Story </span>
+                My Story
                 <v-icon
-                  size="small"
+                  size="x-small"
                   :icon="mdiArrowRight"
                   :class="isHovering ? 'ml-4' : 'ml-2'"
                   style="transition: all 100ms linear"
@@ -106,6 +118,7 @@ const socials = [
       </v-row>
     </v-container>
     <v-img
+      id="image"
       src="/image/me2_no_bg.webp"
       height="700"
       style="
@@ -120,5 +133,3 @@ const socials = [
     ></v-img>
   </v-card>
 </template>
-
-<style lang="scss" scoped></style>
