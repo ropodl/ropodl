@@ -2,18 +2,16 @@
 import { mdiWifiStrengthAlertOutline } from "@mdi/js";
 </script>
 <template>
-  <v-container class="pb-0">
-    <v-banner
-      border
-      sticky
-      elevation="0"
-      lines="one"
-      rounded="xl"
-      :icon="mdiWifiStrengthAlertOutline"
-      text="You are currently not connect to the internet."
-      style="background-color: #2a2c3b"
-    ></v-banner>
-  </v-container>
+  <v-snackbar
+    dense
+    rounded="pill"
+    :model-value="true"
+    theme="light"
+    :timeout="-1"
+  >
+    <v-icon class="mr-3" :icon="mdiWifiStrengthAlertOutline"></v-icon>
+    Looks like you are currently offline.
+  </v-snackbar>
 </template>
 <style>
 .v-banner__content {
