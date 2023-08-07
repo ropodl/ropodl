@@ -24,7 +24,7 @@ const links = [
 </script>
 <template>
   <v-container
-    class="pt-0"
+    class="pa-0"
     style="position: absolute; top: 0; left: 0; right: 0; z-index: 10"
   >
     <v-card flat color="transparent" class="d-flex align-center pa-5">
@@ -45,6 +45,7 @@ const links = [
               variant="tonal"
               :to="link['href']"
               :class="[i != links.length - 1 ? ' ' : '', 'text-capitalize']"
+              style="background-color: transparent"
             >
               {{ link["title"] }}
             </v-btn>
@@ -54,7 +55,11 @@ const links = [
     </v-card>
   </v-container>
 </template>
-
+<style>
+.v-btn--variant-tonal .v-btn__underlay {
+  position: unset !important;
+}
+</style>
 <style lang="scss" scoped>
 ul.nav-link {
   list-style: none;
