@@ -42,7 +42,12 @@ const OfflineBanner = defineAsyncComponent(() =>
     <GoTop />
   </v-app>
 </template>
-<style>
+<style lang="scss">
+.mf-cursor{
+  &::before{
+    transform: scale(0.5);
+  }
+}
 ::selection {
   color: white;
   background: rgba(var(--v-theme-primary), 1);

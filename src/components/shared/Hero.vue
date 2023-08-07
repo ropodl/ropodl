@@ -1,5 +1,6 @@
 <script setup>
 import { mdiArrowRight } from "@mdi/js";
+import gsap from "gsap";
 import { defineAsyncComponent, onMounted } from "vue";
 
 const DashText = defineAsyncComponent(() =>
@@ -30,33 +31,56 @@ const socials = [
 ];
 
 onMounted(() => {
-  // document
-  //   .querySelectorAll(".split")
-  //   .forEach(
-  //     (button) =>
-  //       (button.innerHTML =
-  //         "<div><span>" +
-  //         button.textContent.trim().split("").join("</span><span>") +
-  //         "</span></div>")
-  //   );
-  // gsap.from(".social", {
-  //   duration: 1,
-  //   y: 100,
-  //   stagger: 0.2,
-  // });
-  // gsap.from("#image", {
-  //   duration: 2,
-  //   opacity: 0,
-  // });
-  // gsap.from(".split", 2, {
-  //   y: 200,
-  //   ease: "power4.out",
-  //   delay: 0,
-  //   skewY: 15,
-  //   stagger: {
-  //     amount: 0.4,
-  //   },
-  // });
+  gsap
+    .timeline()
+      // { repeat: -2, repeatDelay: 1, yoyo: true }
+    .from("#image", {
+      duration: 2,
+      opacity: 0,
+      ease: "Power4.out",
+    })
+    .from(
+      ".social",
+      {
+        duration: 0.5,
+        y: 100,
+        stagger: 0.2,
+      },
+      "<"
+    )
+    .from(
+      "#hi",
+      {
+        y: -40,
+        opacity: 0,
+        duration: 1,
+      },
+      "<"
+    )
+    .from(
+      ".split span",
+      {
+        y: 250,
+        ease: "elastic",
+        duration: 2,
+        delay: 0,
+        skewY: 15,
+        stagger: {
+          amount: 0.4,
+        },
+      },
+      "<"
+    )
+    .from(
+      "#line",
+      {
+        width: 0,
+        opacity: 0,
+        duration: 0.3,
+        delay: 1,
+      },
+      "<"
+    );
 });
 </script>
 <template>
@@ -64,25 +88,23 @@ onMounted(() => {
     <v-container class="pb-0 pt-10">
       <v-row class="position-relative">
         <v-col cols="12" md="6">
-          <div class="text-overline" id="this">Hi, I am</div>
+          <div class="text-overline" id="hi">Hi, I am</div>
           <div class="font-weight-bold">
-            <!-- style="font-size: 10rem; line-height: 10.4rem" -->
             <div
               class="split"
-              style="
-                font-size: 10rem;
-                line-height: 10.4rem;
-                height: 172px;
-                overflow: hidden !important;
-              "
+              style="font-size: 10rem; line-height: 10.4rem; height: 172px"
             >
               <span>Saroj</span>
             </div>
-            <div class="split">
+            <div
+              class="split"
+              style="font-size: 10rem; line-height: 10.4rem; height: 172px"
+            >
               <span>Poudel.</span>
             </div>
           </div>
           <div
+            id="line"
             class="mt-4"
             style="
               height: 8px;
@@ -160,7 +182,7 @@ onMounted(() => {
     ></v-img>
   </v-card>
 </template>
-<style>
+<style lang="scss">
 .split {
   position: relative;
   overflow: hidden;
