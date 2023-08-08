@@ -11,6 +11,7 @@ import { createVuetify } from "vuetify";
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   blueprint: md3,
+  // customVariables: ["~/styles/settings.scss"],
   icons: {
     defaultSet: "mdi",
     aliases,
@@ -37,7 +38,7 @@ export default createVuetify({
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          background: "#252734"
+          background: "#252734",
         },
       },
     },

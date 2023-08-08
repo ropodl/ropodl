@@ -1,5 +1,65 @@
 <script setup>
 import { mdiArrowRight } from "@mdi/js";
+import { reactive } from "vue";
+
+const rules = {
+  firstNameRules: [
+    (value) => {
+      if (value?.length > 3) return true;
+
+      return "Full name must be at least 3 characters.";
+    },
+  ],
+  emailRules: [
+    (value) => {
+      if (value?.length > 3) return true;
+      return "Email Address must be at least 3 characters.";
+    },
+    (v) =>
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        v
+      ) || "Email Address must be in a valid format",
+  ],
+  messageRules: [
+    (value) => {
+      if (value?.length > 3) return true;
+
+      return "Message must be at least 3 characters.";
+    },
+  ],
+};
+
+const templateParams = reactive({
+  from_name: "",
+  from_email: "",
+  to_name: "Saroj Poudel",
+  message: "",
+});
+
+const submitForm = async () => {
+  loading.value = true;
+  const { valid } = await contactForm.value.validate();
+  if (valid) {
+    emailjs
+      .send(
+        "service_orveamh",
+        "template_xc2xnr6",
+        templateParams,
+        "-xkHJckmH36raNsEo"
+      )
+      .then((response) => {
+        if (response.status == "200") {
+          snackbar["text"] = "Successfully sent, will reply soon.";
+          snackbar["show"] = true;
+          contactForm.value.reset();
+        }
+      })
+      .catch((err) => {
+        console.log("FAILED...", err);
+      });
+  } else console.log("failed");
+  loading.value = false;
+};
 </script>
 <template>
   <div style="background-color: #3a3d4f">
@@ -33,36 +93,48 @@ import { mdiArrowRight } from "@mdi/js";
         <v-col cols="12" md="5">
           <div class="text-h4">Estimate your project?</div>
           <div class="text-h4 mb-6">Let me know here.</div>
-
-          <v-text-field
-            bg-color="transparent"
-            placeholder="What's your name?"
-          ></v-text-field>
-          <v-text-field
-            bg-color="transparent"
-            placeholder="Your fancy email"
-          ></v-text-field
-          ><v-textarea
-            bg-color="transparent"
-            placeholder="Tell me about your project"
-          ></v-textarea>
-          <v-hover v-slot="{ isHovering, props }">
-            <v-btn
-              size="large"
-              variant="text"
-              color="primary"
-              class="text-capitalize"
-              v-bind="props"
-            >
-              <span>Send Message</span>
-              <v-icon
-                size="x-small"
-                :icon="mdiArrowRight"
-                :class="isHovering ? 'ml-4' : 'ml-2'"
-                style="transition: all 100ms linear"
-              ></v-icon>
-            </v-btn>
-          </v-hover>
+          <v-form
+            ref="contactForm"
+            :fast-fail="false"
+            @submit.prevent="submitForm"
+          >
+            <v-text-field
+              v-model="templateParams['from_name']"
+              :rules="rules['firstNameRules']"
+              bg-color="transparent"
+              placeholder="What's your name?"
+            ></v-text-field>
+            <v-text-field
+              v-model="templateParams['from_email']"
+              :rules="rules['emailRules']"
+              bg-color="transparent"
+              placeholder="Your fancy email"
+            ></v-text-field>
+            <v-textarea
+              v-model="templateParams['message']"
+              :rules="rules['messageRules']"
+              bg-color="transparent"
+              placeholder="Tell me about your project"
+            ></v-textarea>
+            <v-hover v-slot="{ isHovering, props }">
+              <v-btn
+                type="submit"
+                size="large"
+                variant="text"
+                color="primary"
+                class="text-capitalize"
+                v-bind="props"
+              >
+                <span>Send Message</span>
+                <v-icon
+                  size="x-small"
+                  :icon="mdiArrowRight"
+                  :class="isHovering ? 'ml-4' : 'ml-2'"
+                  style="transition: all 100ms linear"
+                ></v-icon>
+              </v-btn>
+            </v-hover>
+          </v-form>
         </v-col>
       </v-row>
     </v-container>
