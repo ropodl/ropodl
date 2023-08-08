@@ -44,7 +44,7 @@ const DashText = defineAsyncComponent(() =>
             <v-img cover height="400" src="/image/portfolio/api(new)/api.png">
               <v-overlay
                 contained
-                scrim="black"
+                scrim="transparent"
                 :model-value="true"
                 persistent
                 no-click-animation
