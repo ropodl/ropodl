@@ -57,7 +57,7 @@ const DashText = defineAsyncComponent(() =>
         </v-col>
         <v-col cols="12" md="5">
           <v-card color="#252734">
-            <v-img cover height="400" src="/image/portfolio/vuedash/test.png">
+            <v-img cover height="400" src="/image/portfolio/vuedash/vuedash.png">
               <v-overlay
                 contained
                 scrim="black"
