@@ -1,7 +1,7 @@
 <script setup>
-import { reactive, ref } from "vue";
-import { mdiSend } from "@mdi/js";
 import emailjs from "@emailjs/browser";
+import { mdiSend } from "@mdi/js";
+import { reactive, ref } from "vue";
 
 let loading = ref(false);
 const contactForm = ref(null);

@@ -43,8 +43,8 @@ const OfflineBanner = defineAsyncComponent(() =>
   </v-app>
 </template>
 <style lang="scss">
-.mf-cursor{
-  &::before{
+.mf-cursor {
+  &::before {
     transform: scale(0.5);
   }
 }
