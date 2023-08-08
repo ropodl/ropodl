@@ -40,7 +40,7 @@ const DashText = defineAsyncComponent(() =>
           </v-hover>
         </v-col>
         <v-col cols="12" md="5">
-          <v-card color="transparent">
+          <v-card elevation="0" color="transparent">
             <v-img cover height="400" src="/image/portfolio/api(new)/api.png">
               <v-overlay
                 contained
@@ -56,7 +56,7 @@ const DashText = defineAsyncComponent(() =>
           </v-card>
         </v-col>
         <v-col cols="12" md="5">
-          <v-card color="#252734">
+          <v-card elevation="0" color="#252734">
             <v-img cover height="400" src="/image/portfolio/vuedash/vuedash.png">
               <v-overlay
                 contained
@@ -72,7 +72,7 @@ const DashText = defineAsyncComponent(() =>
           </v-card>
         </v-col>
         <v-col cols="12" md="5">
-          <v-card class="mt-10" color="#252734">
+          <v-card elevation="0" class="mt-10" color="#252734">
             <v-img cover height="400" src="/image/portfolio/vuedash/vuedash.png">
               <v-overlay
                 contained
