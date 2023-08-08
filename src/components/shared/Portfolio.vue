@@ -40,7 +40,7 @@ const DashText = defineAsyncComponent(() =>
           </v-hover>
         </v-col>
         <v-col cols="12" md="5">
-          <v-card color="#252734">
+          <v-card color="transparent">
             <v-img cover height="400" src="/image/portfolio/api(new)/api.png">
               <v-overlay
                 contained
