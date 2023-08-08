@@ -47,7 +47,7 @@ const DashText = defineAsyncComponent(() =>
                 scrim="black"
                 :model-value="true"
                 persistent
-                no-click-animation=""
+                no-click-animation
               >
                 <div class="text-h3 mt-5 mx-5">VueDash</div>
                 <v-card-text class="mx-5">Web Design</v-card-text>
