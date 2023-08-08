@@ -33,9 +33,9 @@ const socials = [
 onMounted(() => {
   gsap
     .timeline()
-      // { repeat: -2, repeatDelay: 1, yoyo: true }
     .from("#image", {
       duration: 2,
+      // delay: 3,
       opacity: 0,
       ease: "Power4.out",
     })
@@ -58,7 +58,7 @@ onMounted(() => {
       "<"
     )
     .from(
-      ".split span",
+      ".elastic span",
       {
         y: 250,
         ease: "elastic",
@@ -80,6 +80,31 @@ onMounted(() => {
         delay: 1,
       },
       "<"
+    )
+    .from(
+      ".split span",
+      {
+        y: 250,
+        ease: "Power4.in",
+        duration: 2,
+        delay: 0,
+        skewY: 15,
+        stagger: {
+          amount: 0.4,
+        },
+      },
+      "<"
+    )
+    .from(".paragraph", { opacity: 0, duration: 1 })
+    .from(
+      "#btn",
+      {
+        duration: 0.5,
+        y: 40,
+        opacity: 0,
+        stagger: 0.2,
+      },
+      "<"
     );
 });
 </script>
@@ -91,27 +116,19 @@ onMounted(() => {
           <div class="text-overline" id="hi">Hi, I am</div>
           <div class="font-weight-bold">
             <div
-              class="split"
+              class="elastic"
               style="font-size: 10rem; line-height: 10.4rem; height: 172px"
             >
               <span>Saroj</span>
             </div>
             <div
-              class="split"
+              class="elastic"
               style="font-size: 10rem; line-height: 10.4rem; height: 172px"
             >
               <span>Poudel.</span>
             </div>
           </div>
-          <div
-            id="line"
-            class="mt-4"
-            style="
-              height: 8px;
-              width: 100px;
-              background-color: rgb(var(--v-theme-primary));
-            "
-          ></div>
+          <div id="line" class="mt-4"></div>
           <ul class="d-flex list-style-none mt-16">
             <li v-for="(social, i) in socials" class="social">
               <v-hover v-slot="{ isHovering, props }">
@@ -136,32 +153,36 @@ onMounted(() => {
         <v-col cols="12" md="5">
           <div class="pt-16 mt-16">
             <DashText text="Introduction" />
-            <div class="text-h4 font-weight-medium">
-              Fullstack developer<br />
-              based in Kathmandu, Nepal.
+            <div class="text-h4 font-weight-medium split" style="height: 40px">
+              <span>Fullstack developer</span>
             </div>
-            <v-card-text class="pl-0">
+            <div class="text-h4 font-weight-medium split" style="height: 40px">
+              <span>based in Kathmandu, Nepal.</span>
+            </div>
+            <v-card-text class="pl-0 paragraph">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quas
               culpa, similique sapiente consectetur suscipit eos totam in
               dignissimos labore.
             </v-card-text>
-            <v-hover v-slot="{ isHovering, props }">
-              <v-btn
-                size="large"
-                variant="text"
-                color="primary"
-                class="text-capitalize"
-                v-bind="props"
-              >
-                My Story
-                <v-icon
-                  size="x-small"
-                  :icon="mdiArrowRight"
-                  :class="isHovering ? 'ml-4' : 'ml-2'"
-                  style="transition: all 100ms linear"
-                ></v-icon>
-              </v-btn>
-            </v-hover>
+            <div id="btn">
+              <v-hover v-slot="{ isHovering, props }">
+                <v-btn
+                  size="large"
+                  variant="text"
+                  color="primary"
+                  class="text-capitalize"
+                  v-bind="props"
+                >
+                  My Story
+                  <v-icon
+                    size="x-small"
+                    :icon="mdiArrowRight"
+                    :class="isHovering ? 'ml-4' : 'ml-2'"
+                    style="transition: all 100ms linear"
+                  ></v-icon>
+                </v-btn>
+              </v-hover>
+            </div>
           </div>
         </v-col>
       </v-row>
@@ -182,7 +203,17 @@ onMounted(() => {
     ></v-img>
   </v-card>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
+.elastic {
+  position: relative;
+  overflow: hidden;
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
 .split {
   position: relative;
   overflow: hidden;
@@ -192,5 +223,11 @@ onMounted(() => {
     left: 0;
     right: 0;
   }
+}
+
+#line {
+  height: 8px;
+  width: 100px;
+  background-color: rgb(var(--v-theme-primary));
 }
 </style>
