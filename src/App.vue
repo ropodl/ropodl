@@ -46,6 +46,7 @@ const OfflineBanner = defineAsyncComponent(() =>
 .mf-cursor {
   &::before {
     transform: scale(0.5);
+    mix-blend-mode: difference;
   }
 }
 ::selection {
