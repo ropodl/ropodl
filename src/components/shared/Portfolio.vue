@@ -5,6 +5,24 @@ import { defineAsyncComponent } from "vue";
 const DashText = defineAsyncComponent(() =>
   import("@/components/shared/DashText.vue")
 );
+
+const works = [
+  {
+    image: "/image/portfolio/api(new)/api.png",
+    title: "API Technology",
+    text: "Web Design",
+  },
+  {
+    image: "/image/portfolio/vuedash/vuedash.png",
+    title: "VueDash",
+    text: "Web Design",
+  },
+  {
+    image: "/image/portfolio/animezone/animezone.png",
+    title: "Anime Zone",
+    text: "Web Design",
+  },
+];
 </script>
 <template>
   <div style="background-color: #333646">
@@ -39,50 +57,19 @@ const DashText = defineAsyncComponent(() =>
             </v-btn>
           </v-hover>
         </v-col>
-        <v-col cols="12" md="5">
+        <v-col cols="12" md="5" v-for="(work, i) in works">
           <v-card elevation="0" color="transparent">
-            <v-img cover height="400" src="/image/portfolio/api(new)/api.png">
+            <v-img cover height="400" :src="work['image']">
               <v-overlay
                 contained
-                scrim="transparent"
+                scrim="black"
                 :model-value="true"
                 persistent
                 no-click-animation
+                class="align-end"
               >
-                <div class="text-h3 mt-5 mx-5">VueDash</div>
-                <v-card-text class="mx-5">Web Design</v-card-text>
-              </v-overlay>
-            </v-img>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="5">
-          <v-card elevation="0" color="#252734">
-            <v-img cover height="400" src="/image/portfolio/vuedash/vuedash.png">
-              <v-overlay
-                contained
-                scrim="black"
-                :model-value="true"
-                persistent
-                no-click-animation=""
-              >
-                <div class="text-h3 mt-5 mx-5">VueDash</div>
-                <v-card-text class="mx-5">Web Design</v-card-text>
-              </v-overlay>
-            </v-img>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="5">
-          <v-card elevation="0" class="mt-10" color="#252734">
-            <v-img cover height="400" src="/image/portfolio/animezone/animezone.png">
-              <v-overlay
-                contained
-                scrim="black"
-                :model-value="true"
-                persistent
-                no-click-animation=""
-              >
-                <div class="text-h3 mt-5 mx-5">VueDash</div>
-                <v-card-text class="mx-5">Web Design</v-card-text>
+                <v-card-title  >{{ work["title"] }}</v-card-title>
+                <v-card-text>{{ work["text"] }}</v-card-text>
               </v-overlay>
             </v-img>
           </v-card>

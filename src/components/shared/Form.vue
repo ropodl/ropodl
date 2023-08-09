@@ -1,6 +1,15 @@
 <script setup>
+import emailjs from "@emailjs/browser";
 import { mdiArrowRight } from "@mdi/js";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+
+let loading = ref(false);
+const contactForm = ref(null);
+
+let snackbar = reactive({
+  show: false,
+  text: "",
+});
 
 const rules = {
   firstNameRules: [
@@ -23,7 +32,6 @@ const rules = {
   messageRules: [
     (value) => {
       if (value?.length > 3) return true;
-
       return "Message must be at least 3 characters.";
     },
   ],
@@ -40,7 +48,7 @@ const submitForm = async () => {
   loading.value = true;
   const { valid } = await contactForm.value.validate();
   if (valid) {
-    emailjs
+    await emailjs
       .send(
         "service_orveamh",
         "template_xc2xnr6",
@@ -48,6 +56,7 @@ const submitForm = async () => {
         "-xkHJckmH36raNsEo"
       )
       .then((response) => {
+        console.log(response);
         if (response.status == "200") {
           snackbar["text"] = "Successfully sent, will reply soon.";
           snackbar["show"] = true;
@@ -103,17 +112,24 @@ const submitForm = async () => {
               :rules="rules['firstNameRules']"
               bg-color="transparent"
               placeholder="What's your name?"
+              :loading="loading"
+              :disabled="loading"
             ></v-text-field>
             <v-text-field
               v-model="templateParams['from_email']"
               :rules="rules['emailRules']"
               bg-color="transparent"
               placeholder="Your fancy email"
+              :loading="loading"
+              :disabled="loading"
             ></v-text-field>
             <v-textarea
               v-model="templateParams['message']"
               :rules="rules['messageRules']"
               bg-color="transparent"
+              :loading="loading"
+              :disabled="loading"
+              rows="1"
               placeholder="Tell me about your project"
             ></v-textarea>
             <v-hover v-slot="{ isHovering, props }">
@@ -124,6 +140,8 @@ const submitForm = async () => {
                 color="primary"
                 class="text-capitalize"
                 v-bind="props"
+                :loading="loading"
+                :disabled="loading"
               >
                 <span>Send Message</span>
                 <v-icon
@@ -139,4 +157,17 @@ const submitForm = async () => {
       </v-row>
     </v-container>
   </div>
+  <v-snackbar v-model="snackbar['show']" theme="light">
+    {{ snackbar["text"] }}
+    <template v-slot:actions>
+      <v-btn
+        class="text-capitalize px-4"
+        color="teal"
+        variant="tonal"
+        @click="snackbar['show'] = false"
+      >
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>

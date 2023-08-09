@@ -56,9 +56,9 @@ const links = [
   </v-container>
 </template>
 <style>
-.v-btn--variant-tonal .v-btn__underlay {
+/* .v-btn--variant-tonal .v-btn__underlay {
   position: unset !important;
-}
+} */
 </style>
 <style lang="scss" scoped>
 ul.nav-link {
