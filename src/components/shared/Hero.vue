@@ -151,42 +151,48 @@ onMounted(() => {
         </v-col>
         <v-col cols="12" md="1"></v-col>
         <v-col cols="12" md="5">
-          <div class="d-flex align-end">
+          <div class="d-flex align-center h-100">
+            <!-- <div> -->
             <div>
-              <div class="pt-16 mt-16">
-                <DashText text="Introduction" />
-            <div class="text-h4 font-weight-medium split" style="height: 40px">
-              <span>Fullstack developer</span>
-            </div>
-            <div class="text-h4 font-weight-medium split" style="height: 40px">
-              <span>based in Kathmandu, Nepal.</span>
-            </div>
-            <v-card-text class="pl-0 paragraph">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quas
-              culpa, similique sapiente consectetur suscipit eos totam in
-              dignissimos labore.
-            </v-card-text>
-            <div id="btn">
-              <v-hover v-slot="{ isHovering, props }">
-                <v-btn
-                size="large"
-                variant="text"
-                  color="primary"
-                  class="text-capitalize"
-                  v-bind="props"
+              <DashText text="Introduction" />
+              <div
+                class="text-h4 font-weight-medium split"
+                style="height: 40px"
+              >
+                <span>Fullstack developer</span>
+              </div>
+              <div
+                class="text-h4 font-weight-medium split"
+                style="height: 40px"
+              >
+                <span>based in Kathmandu, Nepal.</span>
+              </div>
+              <v-card-text class="pl-0 paragraph">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut
+                quas culpa, similique sapiente consectetur suscipit eos totam in
+                dignissimos labore.
+              </v-card-text>
+              <div id="btn">
+                <v-hover v-slot="{ isHovering, props }">
+                  <v-btn
+                    size="large"
+                    variant="text"
+                    color="primary"
+                    class="text-capitalize"
+                    v-bind="props"
                   >
-                  My Story
-                  <v-icon
-                  size="x-small"
-                  :icon="mdiArrowRight"
-                  :class="isHovering ? 'ml-4' : 'ml-2'"
-                    style="transition: all 100ms linear"
+                    My Story
+                    <v-icon
+                      size="x-small"
+                      :icon="mdiArrowRight"
+                      :class="isHovering ? 'ml-4' : 'ml-2'"
+                      style="transition: all 100ms linear"
                     ></v-icon>
                   </v-btn>
                 </v-hover>
               </div>
             </div>
-            </div>
+            <!-- </div> -->
           </div>
         </v-col>
       </v-row>

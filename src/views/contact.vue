@@ -8,8 +8,7 @@ const contactForm = ref(null);
 let snackbar = reactive({
   show: false,
   text: "",
-});
-let text = ref("");
+}); 
 
 const rules = {
   firstNameRules: [
