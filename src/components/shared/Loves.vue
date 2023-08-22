@@ -23,12 +23,12 @@ const loves = [
   <div class="position-relative">
     <v-container class="pb-16">
       <v-row>
-        <v-col cols="12" md="4" v-for="(love, i) in loves">
+        <v-col cols="12" sm="6" md="4" v-for="(love, i) in loves">
           <v-card
             rounded="0"
             class="px-8 align-end pt-16 h-100"
-            :color="i == 0 ? 'primary' : '#424657'"
-            style="z-index: 1"
+            :color="i == 0 ? 'rgba(var(--v-theme-primary),0.5)' : '#42465755'"
+            style="z-index: 1;backdrop-filter: blur(10px);"
           >
             <v-row no-gutters align="start" class="mt-16 pt-16">
               <v-col cols="12" md="4">

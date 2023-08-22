@@ -59,15 +59,17 @@ const openDrawer = () => {
               <Logo :width="30" :height="60" />
             </v-btn>
           </span>
+          <v-divider vertical></v-divider>
         </v-col>
         <v-col cols="8" sm="10" md="8" lg="6">
           <div class="d-flex align-center justify-end">
-            <span class="d-inline-flex" style="backdrop-filter: blur(10px);">
+            <span class="d-inline-flex" style="backdrop-filter: blur(10px)">
               <v-btn
                 rounded="0"
                 variant="tonal"
                 height="60"
                 @click="openDrawer"
+                class="hidden-md-and-up"
               >
                 <v-icon v-if="drawer" :icon="mdiClose"></v-icon>
                 <v-icon v-else :icon="mdiMenu"></v-icon>
@@ -110,11 +112,13 @@ ul.nav-link {
   list-style: none;
   font-size: 25px;
   font-weight: 400;
+
   li {
     a {
       color: white;
       text-transform: capitalize;
       text-decoration: none;
+
       &::after {
         content: "";
         display: block;
@@ -126,11 +130,13 @@ ul.nav-link {
         background-color: rgba(var(--v-theme-primary));
         transition: width 200ms linear;
       }
+
       &:hover {
         &::after {
           width: 100%;
         }
       }
+
       &.router-link-exact-active {
         &::after {
           content: "";
@@ -143,6 +149,7 @@ ul.nav-link {
           background-color: rgba(var(--v-theme-primary));
           transition: width 200ms linear;
         }
+
         &:hover {
           &::after {
             width: 100%;
