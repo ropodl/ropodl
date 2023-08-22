@@ -44,6 +44,7 @@ const OfflineBanner = defineAsyncComponent(() =>
 </template>
 <style lang="scss">
 .mf-cursor {
+  z-index: 9999;
   &::before {
     transform: scale(0.5);
     mix-blend-mode: difference;
