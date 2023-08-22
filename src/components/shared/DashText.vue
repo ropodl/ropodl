@@ -4,23 +4,25 @@ import { onMounted } from "vue";
 defineProps({
   text: {
     type: String,
-    default: "Text",
   },
 });
 
 onMounted(() => {
-  gsap.timeline().fromTo(
-    ".dash",
-    {
-      width: 0,
-    },
-    {
-      width: 100,
-      duration: 3,
-      delay: 3,
-      ease: "elastic",
-    }
-  ).fromTo(".text",{opacity:0},{opacity:1},"<");
+  gsap
+    .timeline()
+    .fromTo(
+      ".dash",
+      {
+        width: 0,
+      },
+      {
+        width: 100,
+        duration: 3,
+        delay: 3,
+        ease: "elastic",
+      }
+    )
+    .fromTo(".text", { opacity: 0 }, { opacity: 1 }, "<");
 });
 </script>
 <template>
@@ -31,6 +33,7 @@ onMounted(() => {
     <span class="text">
       {{ text }}
     </span>
+    <slot></slot>
   </div>
 </template>
 

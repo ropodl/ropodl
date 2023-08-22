@@ -162,18 +162,19 @@ const closeDialog = (i) => {
     <v-row justify="center">
       <v-col cols="10">
         <v-card border flat>
-          <v-btn-group rounded="0" variant="outlined">
-            <v-btn
-              flat
-              class="text-capitalize mr-1"
-              :color="current == cat ? 'primary' : 'white'"
-              variant="text"
-              v-for="cat in categories"
-              @click="current = cat"
-            >
-              {{ cat }}
-            </v-btn>
-          </v-btn-group>
+          <v-tabs grow height="50" variant="tonal">
+            <template v-for="cat in categories">
+              <v-tab
+                rounded="0"
+                class="text-capitalize"
+                :color="current == cat ? 'primary' : 'white'"
+                variant="text"
+                @click="current = cat"
+              >
+                {{ cat }}
+              </v-tab>
+            </template>
+          </v-tabs>
         </v-card>
       </v-col>
     </v-row>
