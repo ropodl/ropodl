@@ -1,10 +1,26 @@
 <script setup>
 import {
-  mdiLightningBolt,
-  mdiBookOpenPageVariantOutline,
   mdiAnvil,
+  mdiBookOpenPageVariantOutline,
   mdiHandPeace,
+  mdiLightningBolt,
 } from "@mdi/js";
+import { defineAsyncComponent } from "vue";
+
+const PageTitle = defineAsyncComponent(() =>
+  import("@/components/layout/PageTitle.vue")
+);
+
+const items = [
+  {
+    title: "Home",
+    to: "/",
+  },
+  {
+    title: "Resume",
+    to: "/resume",
+  },
+];
 
 const experience = [
   {
@@ -67,11 +83,11 @@ const software = [
 ];
 
 const education = [
-  {
-    title: "BSCSIT",
-    year: "2021",
-    desc: "Sagarmatha College of Information Technology @ Sanepa, Lalitpur",
-  },
+  // {
+  //   title: "BSCSIT",
+  //   year: "2021",
+  //   desc: "Sagarmatha College of Information Technology @ Sanepa, Lalitpur",
+  // },
   {
     title: "BE.SE",
     year: "2014 - 2017",
@@ -90,7 +106,8 @@ const education = [
 ];
 </script>
 <template>
-  <v-container class="px-0">
+  <PageTitle title="Resume" :items="items" />
+  <v-container class="px-0 py-16">
     <v-row>
       <v-col cols="12" class="mb-3">
         <v-card-title class="d-flex align-center">
@@ -145,13 +162,7 @@ const education = [
           Skills
         </v-card-title>
         <v-row>
-          <v-col
-            cols="12"
-            sm="6"
-            md="4"
-            class="pb-0"
-            v-for="skill in skills"
-          >
+          <v-col cols="12" sm="6" md="4" class="pb-0" v-for="skill in skills">
             <v-card border flat class="h-100">
               <v-card-text v-text="skill['title']"></v-card-text>
             </v-card>
@@ -164,13 +175,7 @@ const education = [
           Software
         </v-card-title>
         <v-row>
-          <v-col
-            cols="12"
-            sm="6"
-            md="4"
-            class="pb-0"
-            v-for="sof in software"
-          >
+          <v-col cols="12" sm="6" md="4" class="pb-0" v-for="sof in software">
             <v-card border flat class="h-100">
               <v-card-text v-text="sof['title']"></v-card-text>
             </v-card>

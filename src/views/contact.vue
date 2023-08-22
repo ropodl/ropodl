@@ -1,14 +1,29 @@
 <script setup>
 import emailjs from "@emailjs/browser";
 import { mdiSend } from "@mdi/js";
-import { reactive, ref } from "vue";
+import { defineAsyncComponent, reactive, ref } from "vue";
+
+const PageTitle = defineAsyncComponent(() =>
+  import("@/components/layout/PageTitle.vue")
+);
 
 let loading = ref(false);
 const contactForm = ref(null);
 let snackbar = reactive({
   show: false,
   text: "",
-}); 
+});
+
+const items = [
+  {
+    title: "Home",
+    to: "/",
+  },
+  {
+    title: "Contact",
+    to: "/contact",
+  },
+];
 
 const rules = {
   firstNameRules: [
@@ -70,7 +85,8 @@ const submitForm = async () => {
 };
 </script>
 <template>
-  <v-container class="px-0">
+  <PageTitle title="Contact Me" :items="items" />
+  <v-container class="px-0 py-16">
     <v-row>
       <v-col cols="12">
         <v-card border flat rounded="xl" class="mb-6">
