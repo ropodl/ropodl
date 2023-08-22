@@ -68,7 +68,7 @@ const works = [
                 no-click-animation
                 class="align-end"
               >
-                <v-card-title  >{{ work["title"] }}</v-card-title>
+                <v-card-title>{{ work["title"] }}</v-card-title>
                 <v-card-text>{{ work["text"] }}</v-card-text>
               </v-overlay>
             </v-img>

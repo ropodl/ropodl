@@ -37,7 +37,7 @@ let works = [
     category: "Web",
     link: "https://rohan-website.vercel.app/",
     image: {
-      thumbnail: "/image/portfolio/rohan/thumb.webp",
+      thumbnail: "/image/portfolio/rohan/full.webp",
       full: "/image/portfolio/rohan/full.webp",
     },
   },
@@ -46,7 +46,7 @@ let works = [
     category: "Web",
     link: "https://www.apitechnology.com.np/",
     image: {
-      thumbnail: "/image/portfolio/api(new)/thumb.webp",
+      thumbnail: "/image/portfolio/api(new)/full.webp",
       full: "/image/portfolio/api(new)/full.webp",
     },
   },
@@ -142,7 +142,6 @@ const openDialog = (i) => {
   info.value = true;
   nextTick(() => {
     const elem = document.getElementById("scene");
-    console.log(elem);
     const panzoom = Panzoom(elem, {
       maxScale: 5,
     });
@@ -160,8 +159,8 @@ const closeDialog = (i) => {
 <template>
   <PageTitle title="Portfolio" :items="items" />
   <v-container class="px-0 pb-16">
-    <v-row>
-      <v-col cols="12">
+    <v-row justify="center">
+      <v-col cols="10">
         <v-card border flat>
           <v-btn-group rounded="0" variant="outlined">
             <v-btn
@@ -177,8 +176,10 @@ const closeDialog = (i) => {
           </v-btn-group>
         </v-card>
       </v-col>
-      <v-container class="pt-0">
-        <v-row v-auto-animate>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="10">
+        <v-row>
           <template v-for="(work, i) in works">
             <v-col
               cols="12"
@@ -199,7 +200,7 @@ const closeDialog = (i) => {
                   content-class="d-flex w-100"
                 >
                   <template v-slot:activator="{ props: overlay }">
-                    <v-card flat height="150" v-bind="{ ...hover }">
+                    <v-card flat height="280" v-bind="{ ...hover }">
                       <v-img cover :src="work['image'].thumbnail">
                         <v-overlay
                           contained
@@ -305,7 +306,7 @@ const closeDialog = (i) => {
             </v-col>
           </template>
         </v-row>
-      </v-container>
+      </v-col>
     </v-row>
   </v-container>
 </template>

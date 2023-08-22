@@ -88,7 +88,7 @@ const submitForm = async () => {
   <PageTitle title="Contact Me" :items="items" />
   <v-container class="px-0 py-16">
     <v-row>
-      <v-col cols="12">
+      <v-col cols="12" md="6">
         <v-card border flat rounded="xl" class="mb-6">
           <iframe
             class="w-100"
@@ -100,6 +100,8 @@ const submitForm = async () => {
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </v-card>
+      </v-col>
+      <v-col cols="12" md="6">
         <v-card border flat class="mb-3">
           <v-card-title>Contact Form</v-card-title>
         </v-card>

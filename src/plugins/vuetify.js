@@ -7,11 +7,15 @@ import { fa } from "vuetify/iconsets/fa-svg";
 import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
 // Composables
 import { createVuetify } from "vuetify";
+import * as labsComponents from "vuetify/labs/components";
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   blueprint: md3,
   // customVariables: ["~/styles/settings.scss"],
+  components: {
+    ...labsComponents,
+  },
   icons: {
     defaultSet: "mdi",
     aliases,

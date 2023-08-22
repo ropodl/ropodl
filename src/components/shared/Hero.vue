@@ -152,7 +152,6 @@ onMounted(() => {
         <v-col cols="12" md="1"></v-col>
         <v-col cols="12" md="5">
           <div class="d-flex align-center h-100">
-            <!-- <div> -->
             <div>
               <DashText text="Introduction" />
               <div
@@ -192,7 +191,6 @@ onMounted(() => {
                 </v-hover>
               </div>
             </div>
-            <!-- </div> -->
           </div>
         </v-col>
       </v-row>
