@@ -7,11 +7,26 @@ import {
   mdiLink,
 } from "@mdi/js";
 import Panzoom from "@panzoom/panzoom";
-import { nextTick, reactive, ref } from "vue";
+import { defineAsyncComponent, nextTick, reactive, ref } from "vue";
+
+const PageTitle = defineAsyncComponent(() =>
+  import("@/components/layout/PageTitle.vue")
+);
 
 let dialogs = reactive([]);
 let info = ref(true);
 let zoomLevel = ref(0);
+
+const items = [
+  {
+    title: "Home",
+    to: "/",
+  },
+  {
+    title: "Portfolio",
+    to: "/portfolio",
+  },
+];
 
 let current = ref("All");
 let categories = ["All", "Graphic Design", "Web", "Branding"];
@@ -143,7 +158,8 @@ const closeDialog = (i) => {
 };
 </script>
 <template>
-  <v-container class="px-0">
+  <PageTitle title="Portfolio" :items="items" />
+  <v-container class="px-0 pb-16">
     <v-row>
       <v-col cols="12">
         <v-card border flat>

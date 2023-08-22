@@ -1,18 +1,22 @@
 <script setup>
-import { defineProps } from "vue";
-
-defineProps({ title: { type: String, default: "No Title" } });
+defineProps({
+  title: { type: String, default: "Title" },
+  items: { type: Array, default: ["Home"] },
+});
 </script>
 <template>
-  <div>
-    <div class="text-h4 text-capitalize font-weight-bold mb-3">{{ title }}</div>
-    <div
-      class="rounded-xl"
-      style="
-        width: 50px;
-        height: 6px;
-        background-color: rgb(var(--v-theme-primary));
-      "
-    ></div>
-  </div>
+  <v-card
+    color="#3a3d4f"
+    rounded="0"
+    elevation="0"
+    class="d-flex align-end justify-center text-center"
+    height="300"
+  >
+    <v-card-text>
+      <v-card-title class="text-h3 text-uppercase">{{ title }}</v-card-title>
+      <v-breadcrumbs class="justify-center" :items="items"></v-breadcrumbs>
+    </v-card-text>
+  </v-card>
 </template>
+
+<style lang="scss" scoped></style>
