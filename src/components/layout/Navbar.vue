@@ -135,7 +135,7 @@ const openDrawer = () => {
           v-for="link in links"
           :prepend-icon="link.icon"
           :title="link.title"
-          :to="link.href"
+          :to="{name: link['title']}"
           @click="drawer = false"
         ></v-list-item>
       </v-list>
