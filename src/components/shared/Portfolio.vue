@@ -22,13 +22,34 @@ const works = [
     title: "Anime Zone",
     text: "Web Design",
   },
+  {
+    image:
+      "https://cdn.dribbble.com/users/1462542/screenshots/6586732/legends.png",
+    title: "Legends",
+    text: "Design",
+  },
+  {
+    image: "/image/portfolio/images/1.jpg",
+    title: "You a star",
+    text: "Design",
+  },
+  {
+    image: "/image/portfolio/images/2.png",
+    title: "Life's a prank",
+    text: "Design",
+  },
+  {
+    image: "/image/portfolio/images/3.png",
+    title: "Same person",
+    text: "Design",
+  },
 ];
 </script>
 <template>
   <div style="background-color: #333646">
     <v-container class="py-16">
-      <v-row justify="space-between">
-        <v-col cols="12" md="5">
+      <v-row>
+        <v-col cols="12" md="4">
           <DashText text="Portfolio" />
           <div class="text-h4">
             All Creative Works,<br />
@@ -46,6 +67,7 @@ const works = [
               color="primary"
               class="text-capitalize"
               v-bind="props"
+              :to="{ name: 'Portfolio' }"
             >
               Explore More
               <v-icon
@@ -57,8 +79,14 @@ const works = [
             </v-btn>
           </v-hover>
         </v-col>
-        <v-col cols="12" md="5" v-for="(work, i) in works">
-          <v-card elevation="0" color="transparent">
+        <v-col cols="12" md="2" v-for="(work, i) in works">
+          <v-card
+            v-tilt="{
+              gyroscope: false,
+            }"
+            elevation="0"
+            color="transparent"
+          >
             <v-img cover height="400" :src="work['image']">
               <v-overlay
                 contained
@@ -66,9 +94,11 @@ const works = [
                 :model-value="true"
                 persistent
                 no-click-animation
-                class="align-end"
+                class="align-end justify-center text-center"
               >
-                <v-card-title>{{ work["title"] }}</v-card-title>
+                <v-card-title style="transform: translateZ(30px)">{{
+                  work["title"]
+                }}</v-card-title>
                 <v-card-text>{{ work["text"] }}</v-card-text>
               </v-overlay>
             </v-img>
@@ -78,5 +108,3 @@ const works = [
     </v-container>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

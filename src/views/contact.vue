@@ -87,8 +87,8 @@ const submitForm = async () => {
 <template>
   <PageTitle title="Contact Me" :items="items" />
   <v-container class="px-0 py-16">
-    <v-row>
-      <v-col cols="12">
+    <v-row justify="center">
+      <v-col cols="10">
         <v-row>
           <v-col cols="12" md="6">
             <v-card border flat rounded="xl" class="mb-6 h-100">

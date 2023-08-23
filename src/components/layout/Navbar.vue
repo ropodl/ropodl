@@ -1,13 +1,18 @@
 <script setup>
+import { usePortfolioDialog } from "@/stores/portfolioDialog";
 import {
   mdiClose,
   mdiContacts,
   mdiFileCertificate,
   mdiFileDocument,
   mdiHome,
+  mdiInformationOutline,
   mdiMenu,
 } from "@mdi/js";
 import { defineAsyncComponent, ref } from "vue";
+
+// store init
+const dialog = usePortfolioDialog();
 
 const Logo = defineAsyncComponent(() => import("@/components/shared/Logo.vue"));
 
@@ -45,9 +50,9 @@ const openDrawer = () => {
     class="position-fixed"
     style="top: 0; left: 0; right: 0; z-index: 2031"
   >
-    <v-card flat height="60" color="transparent" class="d-flex align-center">
-      <v-row class="align-center justify-space-between">
-        <v-col cols="2" sm="2" md="4" lg="1">
+    <v-row>
+      <v-col class="d-flex align-center justify-space-between">
+        <v-card color="#42455a">
           <span
             style="
               display: inline-block;
@@ -55,14 +60,39 @@ const openDrawer = () => {
               backdrop-filter: blur(10px);
             "
           >
-            <v-btn rounded="0" variant="tonal" to="/" height="60">
+            <v-btn rounded="0" variant="text" color="transparent" to="/" height="60">
               <Logo :width="30" :height="60" />
             </v-btn>
           </span>
-          <v-divider vertical></v-divider>
-        </v-col>
-        <v-col cols="8" sm="10" md="8" lg="6">
+          <template v-if="dialog.currentDialog !== null">
+            <v-divider vertical inset class="mx-2"></v-divider>
+            <v-btn
+              icon
+              flat
+              variant="tonal"
+              color="primary"
+              class="mr-3"
+              @click="dialog.closeDialog(dialog.currentDialog)"
+            >
+              <v-icon :icon="mdiClose"></v-icon>
+            </v-btn>
+          </template>
+        </v-card>
+        <v-card color="#42455a">
           <div class="d-flex align-center justify-end">
+            <template v-if="dialog.currentDialog !== null">
+              <v-btn
+                icon
+                flat
+                variant="tonal"
+                color="primary"
+                class="ml-3"
+                @click="dialog.infoDialogToggle"
+              >
+                <v-icon :icon="mdiInformationOutline"></v-icon>
+              </v-btn>
+              <v-divider vertical inset class="ml-2"></v-divider>
+            </template>
             <span class="d-inline-flex" style="backdrop-filter: blur(10px)">
               <v-btn
                 rounded="0"
@@ -75,8 +105,8 @@ const openDrawer = () => {
                 <v-icon v-else :icon="mdiMenu"></v-icon>
               </v-btn>
               <v-tabs hide-slider height="60" class="hidden-sm-and-down">
-                <template v-for="(link, i) in links">
-                  <v-tab rounded="0" class="text-capitalize" :to="link['href']">
+                <template v-for="link in links">
+                  <v-tab rounded="0" class="text-lowercase" :to="link['href']">
                     {{ link.title }}
                   </v-tab>
                   <v-divider
@@ -88,9 +118,9 @@ const openDrawer = () => {
               </v-tabs>
             </span>
           </div>
-        </v-col>
-      </v-row>
-    </v-card>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
   <v-bottom-sheet v-model="drawer" scrim="black">
     <v-card rounded="0">

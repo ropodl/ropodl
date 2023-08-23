@@ -109,92 +109,92 @@ onMounted(() => {
 });
 </script>
 <template>
-  <v-card rounded="0" elevation="0" color="#333646" class="py-16">
-    <v-container class="pb-0 pt-10">
-      <v-row class="position-relative">
-        <v-col cols="12" md="6">
-          <div class="text-overline" id="hi">Hi, I am</div>
-          <div class="font-weight-bold">
-            <div
-              class="elastic"
-              style="font-size: 10rem; line-height: 10.4rem; height: 172px"
-            >
-              <span>Saroj</span>
-            </div>
-            <div
-              class="elastic"
-              style="font-size: 10rem; line-height: 10.4rem; height: 172px"
-            >
-              <span>Poudel.</span>
-            </div>
-          </div>
-          <div id="line" class="mt-4"></div>
-          <ul class="d-flex list-style-none mt-16">
-            <li v-for="(social, i) in socials" class="social">
-              <v-hover v-slot="{ isHovering, props }">
-                <v-btn
-                  rounded
-                  height="40"
-                  variant="text"
-                  target="_blank"
-                  :href="social['link']"
-                  :aria-label="social['name']"
-                  v-bind="props"
-                  :color="isHovering ? 'primary' : 'white'"
-                  size="small"
-                >
-                  <v-icon :icon="social['icon']"></v-icon>
-                </v-btn>
-              </v-hover>
-            </li>
-          </ul>
-        </v-col>
-        <v-col cols="12" md="1"></v-col>
-        <v-col cols="12" md="5">
-          <div class="d-flex align-center h-100">
-            <div>
-              <DashText text="Introduction" />
-              <div
-                class="text-h4 font-weight-medium split"
-                style="height: 40px"
-              >
-                <span>Fullstack developer</span>
+  <v-card rounded="0" elevation="0" color="#333646">
+    <div class="py-16"
+      v-tilt="{
+        gyroscope: false,
+      }"
+    >
+      <v-container class="pb-0 pt-10">
+        <v-row class="position-relative">
+          <v-col cols="12" md="6">
+            <div class="text-overline" id="hi">Hi, I am</div>
+            <div class="font-weight-bold">
+              <div class="elastic">
+                <span>Saroj</span>
               </div>
-              <div
-                class="text-h4 font-weight-medium split"
-                style="height: 40px"
-              >
-                <span>based in Kathmandu, Nepal.</span>
+              <div class="elastic">
+                <span>Poudel.</span>
               </div>
-              <v-card-text class="pl-0 paragraph">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut
-                quas culpa, similique sapiente consectetur suscipit eos totam in
-                dignissimos labore.
-              </v-card-text>
-              <div id="btn">
+            </div>
+            <div id="line" class="mt-4"></div>
+            <ul class="d-flex list-style-none mt-16">
+              <li v-for="(social, i) in socials" class="social">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-btn
-                    size="large"
+                    rounded
+                    height="40"
                     variant="text"
-                    color="primary"
-                    class="text-capitalize"
+                    target="_blank"
+                    :href="social['link']"
+                    :aria-label="social['name']"
                     v-bind="props"
+                    :color="isHovering ? 'primary' : 'white'"
+                    size="small"
                   >
-                    My Story
-                    <v-icon
-                      size="x-small"
-                      :icon="mdiArrowRight"
-                      :class="isHovering ? 'ml-4' : 'ml-2'"
-                      style="transition: all 100ms linear"
-                    ></v-icon>
+                    <v-icon :icon="social['icon']"></v-icon>
                   </v-btn>
                 </v-hover>
+              </li>
+            </ul>
+          </v-col>
+          <v-col cols="12" md="1"></v-col>
+          <v-col cols="12" md="5">
+            <div class="d-flex align-center h-100">
+              <div>
+                <DashText text="Introduction" />
+                <div
+                  class="text-h4 font-weight-medium split"
+                  style="height: 40px"
+                >
+                  <span>Fullstack developer</span>
+                </div>
+                <div
+                  class="text-h4 font-weight-medium split"
+                  style="height: 40px"
+                >
+                  <span>based in Kathmandu, Nepal.</span>
+                </div>
+                <v-card-text class="pl-0 paragraph">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut
+                  quas culpa, similique sapiente consectetur suscipit eos totam
+                  in dignissimos labore.
+                </v-card-text>
+                <div id="btn">
+                  <v-hover v-slot="{ isHovering, props }">
+                    <v-btn
+                      size="large"
+                      variant="text"
+                      color="primary"
+                      class="text-capitalize"
+                      v-bind="props"
+                    >
+                      My Story
+                      <v-icon
+                        size="x-small"
+                        :icon="mdiArrowRight"
+                        :class="isHovering ? 'ml-4' : 'ml-2'"
+                        style="transition: all 100ms linear"
+                      ></v-icon>
+                    </v-btn>
+                  </v-hover>
+                </div>
               </div>
             </div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
     <v-img
       id="image"
       src="/image/me2_no_bg.webp"
@@ -215,6 +215,12 @@ onMounted(() => {
 .elastic {
   position: relative;
   overflow: hidden;
+  font-size: 10rem;
+  line-height: 10.4rem;
+  height: 172px;
+  @media (max-width: 600px) {
+    font-size: 10px;
+  }
   span {
     position: absolute;
     top: 0;

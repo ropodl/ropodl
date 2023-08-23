@@ -3,60 +3,60 @@ import { mdiPaletteSwatch, mdiPencilRuler, mdiXml } from "@mdi/js";
 
 const loves = [
   {
-    title: "Web<br/>Design",
+    title: "Web Design",
     icon: mdiPaletteSwatch,
     desc: "Modern web design with help of design frameworks.",
   },
   {
-    title: "Web App<br/>Development",
+    title: "Web App Development",
     icon: mdiXml,
     desc: "High quality code with performance in mind.",
   },
   {
-    title: "Graphic<br/>Design",
+    title: "Graphic Design",
     icon: mdiPencilRuler,
     desc: "Any kind of high quality graphic from branding to every day use banner.",
   },
 ];
 </script>
+
 <template>
-  <div class="position-relative">
-    <v-container class="pb-16">
-      <v-row>
-        <v-col cols="12" sm="6" md="4" v-for="(love, i) in loves">
+  <div
+    class="position-relative"
+    style="
+      background: rgb(51, 54, 70);
+      background: linear-gradient(0deg, #333646 50%, transparent 0);
+    "
+  >
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="12" md="4" v-for="(love, i) in loves">
           <v-card
-            rounded="0"
-            class="px-8 align-end pt-16 h-100"
-            :color="i == 0 ? 'rgba(var(--v-theme-primary),0.5)' : '#42465755'"
-            style="z-index: 1;backdrop-filter: blur(10px);"
+            class="h-100 text-white"
+            elevation="0"
+            :color="i == 0 ? 'rgba(var(--v-theme-primary),1)' : '#424657'"
           >
-            <v-row no-gutters align="start" class="mt-16 pt-16">
-              <v-col cols="12" md="4">
-                <v-icon class="mr-3 text-h2" :icon="love['icon']"></v-icon>
-              </v-col>
-              <v-col cols="12" md="8">
-                <div
-                  class="text-h4 mb-3 font-weight-regular"
+            <v-list bg-color="transparent" class="pa-10">
+              <v-list-item lines="3" class="h-100">
+                <template v-slot:prepend>
+                  <v-avatar rounded="0" color="transparent">
+                    <v-icon size="50" :icon="love['icon']"></v-icon>
+                  </v-avatar>
+                </template>
+                <v-list-item-title
+                  class="text-h5 mb-3 font-weight-bold"
+                  style="line-height: normal; white-space: normal"
                   v-html="love['title']"
-                ></div>
-                <div class="mb-8 text-overline">24 projects</div>
-              </v-col>
-            </v-row>
+                ></v-list-item-title>
+                <v-list-item-subtitle
+                  style="line-height: normal; white-space: normal"
+                  v-html="love['desc']"
+                ></v-list-item-subtitle>
+              </v-list-item>
+            </v-list>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
-    <div class="bgbg"></div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.bgbg {
-  position: absolute;
-  width: 100%;
-  height: 50%;
-  bottom: 0;
-  background-color: #333646;
-  z-index: 0;
-}
-</style>

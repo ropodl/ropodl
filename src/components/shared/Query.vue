@@ -37,17 +37,17 @@ const DashText = defineAsyncComponent(() =>
         </v-hover>
       </v-col>
       <v-col cols="12" md="6">
-        <v-card-title class="text-h4 font-weight-medium mb-3 pl-0">
+        <v-card-text class="text-h4 font-weight-medium mb-3 pl-0">
           You can't use up creativity,<br />the more you use, more you have<br />in
           your significant mind.
-        </v-card-title>
+        </v-card-text>
         <v-card-text class="pl-0">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci at
           suscipit explicabo doloribus nemo sed voluptas nobis eaque facere
           illo.
         </v-card-text>
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="12" lg="6">
             <v-list bg-color="transparent">
               <v-list-item>
                 <v-card-title>Years of<br />Experience</v-card-title>
@@ -59,7 +59,7 @@ const DashText = defineAsyncComponent(() =>
               </v-list-item>
             </v-list>
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="12" lg="6">
             <v-list bg-color="transparent">
               <v-list-item>
                 <v-card-title>Satisfied<br />Clients</v-card-title>
