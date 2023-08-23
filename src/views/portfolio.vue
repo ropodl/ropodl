@@ -2,32 +2,44 @@
 import { mdiArrowRight, mdiLink } from "@mdi/js";
 import Panzoom from "@panzoom/panzoom";
 import { useWindowScroll } from "@vueuse/core";
-import { defineAsyncComponent, nextTick, ref } from "vue";
+import { nextTick, ref } from "vue";
 
 import { usePortfolioDialog } from "@/stores/portfolioDialog";
 
-const { x, y } = useWindowScroll();
+import { useTitle } from "@vueuse/core";
+useTitle("Portfolio | Saroj Poudel");
+
+const { y } = useWindowScroll();
 const dialog = usePortfolioDialog();
-
-const PageTitle = defineAsyncComponent(() =>
-  import("@/components/layout/PageTitle.vue")
-);
-
-const items = [
-  {
-    title: "Home",
-    to: "/",
-  },
-  {
-    title: "Portfolio",
-    to: "/portfolio",
-  },
-];
 
 let current = ref("All");
 let categories = ["All", "Graphic Design", "Web", "Branding"];
 
 let works = [
+  {
+    title: "Life's a prank",
+    category: "Design",
+    image: {
+      thumbnail: "/image/portfolio/images/2.png",
+      full: "/image/portfolio/images/2.png",
+    },
+  },
+  {
+    title: "Same Person",
+    category: "Design",
+    image: {
+      thumbnail: "/image/portfolio/images/3.png",
+      full: "/image/portfolio/images/3.png",
+    },
+  },
+  {
+    title: "You are star stuff",
+    category: "Design",
+    image: {
+      thumbnail: "/image/portfolio/images/1.jpg",
+      full: "/image/portfolio/images/1.jpg",
+    },
+  },
   {
     title: "Rohan Bhandari's Website",
     category: "Web",
@@ -115,9 +127,9 @@ let works = [
   {
     title: "Reno Website",
     category: "Web",
-    link: "https://vuedash.vercel.app/",
+    link: "https://renodesign.vercel.app/",
     image: {
-      thumbnail: "/image/portfolio/reno/thumb.webp",
+      thumbnail: "/image/portfolio/reno/reno-min.png",
       full: "/image/portfolio/reno/full.webp",
     },
   },
@@ -145,7 +157,6 @@ const openDialog = (i) => {
 };
 </script>
 <template>
-  <PageTitle title="Portfolio" :items="items" />
   <v-container class="px-0 pb-16">
     <v-row justify="center">
       <v-col cols="10"> </v-col>

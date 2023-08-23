@@ -4,6 +4,7 @@ import gsap from "gsap";
 import MouseFollower from "mouse-follower";
 
 import { defineAsyncComponent } from "vue";
+
 const { isOnline } = useNetwork();
 
 import "mouse-follower/src/scss/index.scss";
@@ -35,6 +36,7 @@ const OfflineBanner = defineAsyncComponent(() =>
   <v-app>
     <v-main>
       <Navbar />
+
       <OfflineBanner v-if="!isOnline" />
       <router-view />
       <Footer />

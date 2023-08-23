@@ -1,6 +1,9 @@
 <script setup>
 import { defineAsyncComponent } from "vue";
 
+import { useTitle } from "@vueuse/core";
+useTitle("Home Page | Saroj Poudel");
+
 const Hero = defineAsyncComponent(() => import("@/components/shared/Hero.vue"));
 const Query = defineAsyncComponent(() =>
   import("@/components/shared/Query.vue")

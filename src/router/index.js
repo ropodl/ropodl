@@ -7,19 +7,25 @@ const routes = [
     component: () => import("@/views/index"),
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("@/views/about"),
-  },
-  {
-    path: "/portfolio",
-    name: "Portfolio",
-    component: () => import("@/views/portfolio"),
-  },
-  {
-    path: "/contact",
-    name: "Contact",
-    component: () => import("@/views/contact"),
+    path: "/",
+    component: () => import("@/layouts/WithCard"),
+    children: [
+      {
+        path: "/about",
+        name: "About",
+        component: () => import("@/views/about"),
+      },
+      {
+        path: "/portfolio",
+        name: "Portfolio",
+        component: () => import("@/views/portfolio"),
+      },
+      {
+        path: "/contact",
+        name: "Contact",
+        component: () => import("@/views/contact"),
+      },
+    ],
   },
   {
     path: "/:pathMatch(.*)",

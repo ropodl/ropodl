@@ -11,6 +11,9 @@ import {
 } from "@mdi/js";
 import { defineAsyncComponent, ref } from "vue";
 
+import { useRoute } from "vue-router";
+const route = useRoute();
+
 // store init
 const dialog = usePortfolioDialog();
 
@@ -111,6 +114,7 @@ const openDrawer = () => {
                       'text-lowercase',
                     ]"
                     :to="{ name: link['title'] }"
+                    @click="dialog.closeDialog(dialog.currentDialog)"
                   >
                     {{ link.title }}
                   </v-tab>
