@@ -11,8 +11,6 @@ const PageTitle = defineAsyncComponent(() =>
   import("@/components/layout/PageTitle.vue")
 );
 
-let info = ref(true);
-
 const items = [
   {
     title: "Home",
@@ -42,7 +40,7 @@ let works = [
     category: "Web",
     link: "https://www.apitechnology.com.np/",
     image: {
-      thumbnail: "/image/portfolio/api(new)/full.webp",
+      thumbnail: "/image/portfolio/api(new)/api.png",
       full: "/image/portfolio/api(new)/full.webp",
     },
   },
@@ -81,7 +79,7 @@ let works = [
     category: "Web",
     link: "https://vuedash.vercel.app/",
     image: {
-      thumbnail: "/image/portfolio/vuedash/thumb.webp",
+      thumbnail: "/image/portfolio/vuedash/vuedash.png",
       full: "/image/portfolio/vuedash/full.webp",
     },
   },
@@ -94,21 +92,21 @@ let works = [
       full: "/image/portfolio/bishwaskhabar/full.webp",
     },
   },
-  {
-    title: "API Technology Website (Old)",
-    category: "Web",
-    link: "https://www.apitechnology.com.np/",
-    image: {
-      thumbnail: "/image/portfolio/api/thumb.webp",
-      full: "/image/portfolio/api/full.webp",
-    },
-  },
+  // {
+  //   title: "API Technology Website (Old)",
+  //   category: "Web",
+  //   link: "https://www.apitechnology.com.np/",
+  //   image: {
+  //     thumbnail: "/image/portfolio/api/thumb.webp",
+  //     full: "/image/portfolio/api/full.webp",
+  //   },
+  // },
   {
     title: "Anime Zone Website",
     category: "Web",
     link: "https://animezone.vercel.app/",
     image: {
-      thumbnail: "/image/portfolio/animezone/thumb.webp",
+      thumbnail: "/image/portfolio/animezone/animezone.png",
       full: "/image/portfolio/animezone/full.webp",
     },
   },
@@ -135,7 +133,6 @@ let works = [
 
 const openDialog = (i) => {
   dialog.openDialog(i);
-  // dialog.info = true;
   nextTick(() => {
     const elem = document.getElementById("scene");
     const panzoom = Panzoom(elem, {
@@ -161,15 +158,15 @@ const openDialog = (i) => {
           style="top: 80px; backdrop-filter: blur(10px); z-index: 10"
         >
           <v-tabs grow height="50" variant="tonal">
-            <template v-for="cat in categories">
+            <template v-for="catgory in categories">
               <v-tab
                 rounded="0"
                 class="text-capitalize"
-                :color="current == cat ? 'primary' : 'white'"
+                :color="current == catgory ? 'primary' : 'white'"
                 variant="text"
-                @click="current = cat"
+                @click="current = catgory"
               >
-                {{ cat }}
+                {{ catgory }}
               </v-tab>
             </template>
           </v-tabs>
@@ -195,8 +192,22 @@ const openDialog = (i) => {
                   content-class="d-flex w-100"
                 >
                   <template v-slot:activator="{ props: overlay }">
-                    <v-card flat height="400" v-tilt v-bind="{ ...hover }">
-                      <v-img cover :src="work['image'].full">
+                    <v-card
+                      flat
+                      height="400"
+                      v-tilt="{scale:1.05,
+                        gyroscope: false,
+                      }"
+                      v-bind="{ ...hover }"
+                    >
+                      <v-img
+                        cover
+                        class="w-100 h-100 align-end"
+                        :src="work['image'].thumbnail"
+                      >
+                        <v-card class="ma-4">
+                          <v-card-text style="white-space: normal;">{{ work['title'] }}</v-card-text>
+                        </v-card>
                         <v-overlay
                           contained
                           persistent
@@ -294,5 +305,32 @@ const openDialog = (i) => {
       transform: scale(2.1);
     }
   }
+}
+
+
+.single-product {
+    background-size: cover;
+    transform-style: preserve-3d;
+    background-position: center;
+    &.preserve {
+        transform-style: preserve-3d;
+    }
+    &.no-preserve {
+        transform-style: flat;
+    }
+    .hover-panel {
+        width: 90%;
+        margin: auto;
+        transition: all 0.5s;
+        &.top {
+            margin-top: 5%;
+        }
+        &.bottom {
+            margin-bottom: 5%;
+        }
+        &.transform {
+            transform: translateZ(30px);
+        }
+    }
 }
 </style>

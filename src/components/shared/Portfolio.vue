@@ -82,6 +82,7 @@ const works = [
         <v-col cols="12" md="2" v-for="(work, i) in works">
           <v-card
             v-tilt="{
+              scale: 1.1,
               gyroscope: false,
             }"
             elevation="0"
