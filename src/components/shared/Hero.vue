@@ -109,7 +109,13 @@ onMounted(() => {
 });
 </script>
 <template>
-  <v-card rounded="0" elevation="0" color="#333646">
+  <v-card
+    min-height="670"
+    height="100vh"
+    rounded="0"
+    elevation="0"
+    color="#333646"
+  >
     <div
       class="py-16"
       v-tilt="{
@@ -219,9 +225,9 @@ onMounted(() => {
   font-size: 10rem;
   line-height: 10.4rem;
   height: 172px;
-  @media (max-width: 600px) {
-    font-size: 10px;
-  }
+  // @media (max-width: 600px) {
+  //   font-size: 10px;
+  // }
   span {
     position: absolute;
     top: 0;

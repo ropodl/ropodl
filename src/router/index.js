@@ -7,9 +7,9 @@ const routes = [
     component: () => import("@/views/index"),
   },
   {
-    path: "/resume",
-    name: "Resume",
-    component: () => import("@/views/resume"),
+    path: "/about",
+    name: "About",
+    component: () => import("@/views/about"),
   },
   {
     path: "/portfolio",

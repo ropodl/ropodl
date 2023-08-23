@@ -1,10 +1,12 @@
 <script setup>
-import { mdiArrowRight, mdiEye, mdiLink } from "@mdi/js";
+import { mdiArrowRight, mdiLink } from "@mdi/js";
 import Panzoom from "@panzoom/panzoom";
+import { useWindowScroll } from "@vueuse/core";
 import { defineAsyncComponent, nextTick, ref } from "vue";
 
 import { usePortfolioDialog } from "@/stores/portfolioDialog";
 
+const { x, y } = useWindowScroll();
 const dialog = usePortfolioDialog();
 
 const PageTitle = defineAsyncComponent(() =>
@@ -88,7 +90,7 @@ let works = [
     category: "Branding",
     link: "https://bishwashkhabar.com/",
     image: {
-      thumbnail: "/image/portfolio/bishwaskhabar/thumb.webp",
+      thumbnail: "/image/portfolio/bishwaskhabar/full.webp",
       full: "/image/portfolio/bishwaskhabar/full.webp",
     },
   },
@@ -151,23 +153,22 @@ const openDialog = (i) => {
     <v-row justify="center">
       <v-col cols="10" class="position-relative">
         <v-card
-          border
-          flat
-          color="#3a3d4f99"
-          class="w-100 mb-10 position-sticky"
-          style="top: 80px; backdrop-filter: blur(10px); z-index: 10"
+          elevation="10"
+          color="#3a3d4f"
+          class="mb-10 position-sticky"
+          :width="y >= 250 ? '700' : '100%'"
+          style="top: 15px; backdrop-filter: blur(10px); z-index: 10"
         >
-          <v-tabs grow height="50" variant="tonal">
-            <template v-for="catgory in categories">
+          <v-tabs grow height="60" variant="tonal">
+            <template v-for="category in categories">
               <v-tab
                 rounded="0"
-                class="text-capitalize"
-                :color="current == catgory ? 'primary' : 'white'"
+                class="text-lowercase"
+                :color="current == category ? 'primary' : 'white'"
                 variant="text"
-                @click="current = catgory"
+                @click="current = category"
+                >{{ category }}</v-tab
               >
-                {{ catgory }}
-              </v-tab>
             </template>
           </v-tabs>
         </v-card>
@@ -180,100 +181,89 @@ const openDialog = (i) => {
               lg="4"
               v-if="work['category'] === current || current === 'All'"
             >
-              <v-hover v-slot="{ isHovering, props: hover }">
-                <v-dialog
-                  fullscreen
-                  persistent
-                  no-click-animation
-                  v-model="dialog.dialogs[i]"
-                  transition="fade-transition"
-                  scrim="black"
-                  width="auto"
-                  content-class="d-flex w-100"
-                >
-                  <template v-slot:activator="{ props: overlay }">
-                    <v-card
-                      flat
-                      height="400"
-                      v-tilt="{scale:1.05,
-                        gyroscope: false,
-                      }"
-                      v-bind="{ ...hover }"
+              <!-- <v-hover v-slot="{ isHovering, props: hover }"> -->
+              <v-dialog
+                fullscreen
+                persistent
+                no-click-animation
+                v-model="dialog.dialogs[i]"
+                transition="fade-transition"
+                scrim="black"
+                width="auto"
+                content-class="d-flex w-100"
+              >
+                <template v-slot:activator="{ props: overlay }">
+                  <v-card
+                    flat
+                    elevation="10"
+                    height="400"
+                    v-tilt="{ scale: 1.05, gyroscope: false }"
+                    @click="openDialog(i)"
+                    v-bind="{ overlay }"
+                  >
+                    <v-img
+                      cover
+                      class="w-100 h-100 align-end"
+                      :src="work['image'].thumbnail"
                     >
-                      <v-img
-                        cover
-                        class="w-100 h-100 align-end"
-                        :src="work['image'].thumbnail"
+                      <v-card elevation="10" class="ma-4">
+                        <v-card-text
+                          class="text-center"
+                          style="white-space: normal"
+                        >
+                          {{ work["title"] }}
+                        </v-card-text>
+                      </v-card>
+                    </v-img>
+                  </v-card>
+                </template>
+                <div class="w-100 h-100">
+                  <v-card
+                    flat
+                    color="rgba(0,0,0,0.8)"
+                    rounded="0"
+                    class="h-100 align-center justify-center"
+                    style="backdrop-filter: blur(2px)"
+                  >
+                    <div id="scene">
+                      <v-img :src="works[i].image['full']" />
+                    </div>
+                    <template v-if="dialog.info">
+                      <v-card
+                        border
+                        flat
+                        rounded="xl"
+                        width="400"
+                        class="position-absolute mx-auto"
+                        style="bottom: 20px; left: 0; right: 0"
                       >
-                        <v-card class="ma-4">
-                          <v-card-text style="white-space: normal;">{{ work['title'] }}</v-card-text>
-                        </v-card>
-                        <v-overlay
-                          contained
-                          persistent
-                          scrim="black"
-                          :model-value="isHovering"
-                          class="align-center justify-center"
+                        <v-card-title
+                          class="text-wrap"
+                          v-text="work['title']"
+                        ></v-card-title>
+                        <v-card-text>
+                          Category:
+                          {{ work["category"] }}
+                        </v-card-text>
+                        <v-btn
+                          block
+                          variant="tonal"
+                          rounded="0"
+                          height="50"
+                          class="text-capitalize"
+                          target="_blank"
+                          :href="work['link']"
                         >
-                          <v-btn
-                            icon
-                            flat
-                            v-bind="{ ...overlay }"
-                            @click="openDialog(i)"
-                          >
-                            <v-icon :icon="mdiEye"></v-icon>
-                          </v-btn>
-                        </v-overlay>
-                      </v-img>
-                    </v-card>
-                  </template>
-                  <div class="w-100 h-100">
-                    <v-card
-                      flat
-                      color="rgba(0,0,0,0.8)"
-                      rounded="0"
-                      class="h-100 align-center justify-center"
-                      style="backdrop-filter: blur(2px)"
-                    >
-                      <div id="scene">
-                        <v-img :src="works[i].image['full']" />
-                      </div>
-                      <template v-if="dialog.info">
-                        <v-card
-                          border
-                          flat
-                          rounded="xl"
-                          width="400"
-                          class="position-absolute mx-auto"
-                          style="bottom: 20px; left: 0; right: 0"
-                        >
-                          <v-card-title
-                            class="text-wrap"
-                            v-text="work['title']"
-                          ></v-card-title>
-                          <v-card-text>
-                            Category:
-                            {{ work["category"] }}
-                          </v-card-text>
-                          <v-btn
-                            block
-                            variant="tonal"
-                            rounded="0"
-                            height="50"
-                            class="text-capitalize"
-                            target="_blank"
-                            :href="work['link']"
-                          >
-                            <v-icon start :icon="mdiLink"></v-icon>
-                            Open link
-                            <v-icon end :icon="mdiArrowRight"></v-icon>
-                          </v-btn>
-                        </v-card>
-                      </template>
-                    </v-card>
-                  </div>
-                </v-dialog>
-              </v-hover>
+                          <v-icon start :icon="mdiLink"></v-icon>
+                          Open link
+                          <v-icon end :icon="mdiArrowRight"></v-icon>
+                        </v-btn>
+                      </v-card>
+                    </template>
+                  </v-card>
+                </div>
+              </v-dialog>
+              <!-- </v-hover> -->
             </v-col>
           </template>
         </v-row>
@@ -307,30 +297,29 @@ const openDialog = (i) => {
   }
 }
 
-
 .single-product {
-    background-size: cover;
+  background-size: cover;
+  transform-style: preserve-3d;
+  background-position: center;
+  &.preserve {
     transform-style: preserve-3d;
-    background-position: center;
-    &.preserve {
-        transform-style: preserve-3d;
+  }
+  &.no-preserve {
+    transform-style: flat;
+  }
+  .hover-panel {
+    width: 90%;
+    margin: auto;
+    transition: all 0.5s;
+    &.top {
+      margin-top: 5%;
     }
-    &.no-preserve {
-        transform-style: flat;
+    &.bottom {
+      margin-bottom: 5%;
     }
-    .hover-panel {
-        width: 90%;
-        margin: auto;
-        transition: all 0.5s;
-        &.top {
-            margin-top: 5%;
-        }
-        &.bottom {
-            margin-bottom: 5%;
-        }
-        &.transform {
-            transform: translateZ(30px);
-        }
+    &.transform {
+      transform: translateZ(30px);
     }
+  }
 }
 </style>
