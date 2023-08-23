@@ -110,7 +110,8 @@ onMounted(() => {
 </script>
 <template>
   <v-card rounded="0" elevation="0" color="#333646">
-    <div class="py-16"
+    <div
+      class="py-16"
       v-tilt="{
         gyroscope: false,
       }"

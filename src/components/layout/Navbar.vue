@@ -60,7 +60,13 @@ const openDrawer = () => {
               backdrop-filter: blur(10px);
             "
           >
-            <v-btn rounded="0" variant="text" color="transparent" to="/" height="60">
+            <v-btn
+              rounded="0"
+              variant="text"
+              color="transparent"
+              :to="{ name: 'Home' }"
+              height="60"
+            >
               <Logo :width="30" :height="60" />
             </v-btn>
           </span>
@@ -96,7 +102,7 @@ const openDrawer = () => {
             <span class="d-inline-flex" style="backdrop-filter: blur(10px)">
               <v-btn
                 rounded="0"
-                variant="tonal"
+                variant="text"
                 height="60"
                 @click="openDrawer"
                 class="hidden-md-and-up"
@@ -105,7 +111,7 @@ const openDrawer = () => {
                 <v-icon v-else :icon="mdiMenu"></v-icon>
               </v-btn>
               <v-tabs hide-slider height="60" class="hidden-sm-and-down">
-                <template v-for="link in links">
+                <template v-for="link,i in links">
                   <v-tab rounded="0" class="text-lowercase" :to="link['href']">
                     {{ link.title }}
                   </v-tab>
