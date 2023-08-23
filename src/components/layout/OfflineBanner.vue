@@ -7,6 +7,7 @@ import { mdiWifiStrengthAlertOutline } from "@mdi/js";
     rounded="pill"
     :model-value="true"
     theme="light"
+    color="#4c5068"
     :timeout="-1"
   >
     <v-icon class="mr-3" :icon="mdiWifiStrengthAlertOutline"></v-icon>

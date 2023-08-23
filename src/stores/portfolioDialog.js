@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { nextTick, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 
 export const usePortfolioDialog = defineStore("dialog", {
   state: () => ({
@@ -18,9 +18,6 @@ export const usePortfolioDialog = defineStore("dialog", {
     closeDialog(i) {
       this.currentDialog = null;
       this.dialogs[i] = false;
-      nextTick(() => {
-        this.info = true;
-      });
     },
     infoDialogToggle() {
       this.info = !this.info;
