@@ -226,11 +226,6 @@ onMounted(() => {
   font-size: 10rem;
   line-height: 10.4rem;
   height: 172px;
-  // @media (max-width: 600px) {
-  //   font-size: 5rem;
-  //   line-height: 5rem;
-  //   height: 90px;
-  // }
   span {
     position: absolute;
     top: 0;
