@@ -1,21 +1,17 @@
 <script setup>
-import {
-  mdiArrowRight,
-  mdiClose,
-  mdiEye,
-  mdiInformationOutline,
-  mdiLink,
-} from "@mdi/js";
+import { mdiArrowRight, mdiEye, mdiLink } from "@mdi/js";
 import Panzoom from "@panzoom/panzoom";
-import { defineAsyncComponent, nextTick, reactive, ref } from "vue";
+import { defineAsyncComponent, nextTick, ref } from "vue";
+
+import { usePortfolioDialog } from "@/stores/portfolioDialog";
+
+const dialog = usePortfolioDialog();
 
 const PageTitle = defineAsyncComponent(() =>
   import("@/components/layout/PageTitle.vue")
 );
 
-let dialogs = reactive([]);
 let info = ref(true);
-let zoomLevel = ref(0);
 
 const items = [
   {
@@ -138,8 +134,8 @@ let works = [
 ];
 
 const openDialog = (i) => {
-  dialogs[i] = true;
-  info.value = true;
+  dialog.openDialog(i);
+  // dialog.info = true;
   nextTick(() => {
     const elem = document.getElementById("scene");
     const panzoom = Panzoom(elem, {
@@ -148,20 +144,22 @@ const openDialog = (i) => {
     elem.parentElement.addEventListener("wheel", panzoom.zoomWithWheel);
   });
 };
-
-const closeDialog = (i) => {
-  dialogs[i] = false;
-  nextTick(() => {
-    info.value = true;
-  });
-};
 </script>
 <template>
   <PageTitle title="Portfolio" :items="items" />
   <v-container class="px-0 pb-16">
     <v-row justify="center">
-      <v-col cols="10">
-        <v-card border flat>
+      <v-col cols="10"> </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="10" class="position-relative">
+        <v-card
+          border
+          flat
+          color="#3a3d4f99"
+          class="w-100 mb-10 position-sticky"
+          style="top: 80px; backdrop-filter: blur(10px); z-index: 10"
+        >
           <v-tabs grow height="50" variant="tonal">
             <template v-for="cat in categories">
               <v-tab
@@ -176,10 +174,6 @@ const closeDialog = (i) => {
             </template>
           </v-tabs>
         </v-card>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="10">
         <v-row>
           <template v-for="(work, i) in works">
             <v-col
@@ -194,15 +188,15 @@ const closeDialog = (i) => {
                   fullscreen
                   persistent
                   no-click-animation
-                  v-model="dialogs[i]"
+                  v-model="dialog.dialogs[i]"
                   transition="fade-transition"
                   scrim="black"
                   width="auto"
                   content-class="d-flex w-100"
                 >
                   <template v-slot:activator="{ props: overlay }">
-                    <v-card flat height="280" v-bind="{ ...hover }">
-                      <v-img cover :src="work['image'].thumbnail">
+                    <v-card flat height="400" v-tilt v-bind="{ ...hover }">
+                      <v-img cover :src="work['image'].full">
                         <v-overlay
                           contained
                           persistent
@@ -230,76 +224,41 @@ const closeDialog = (i) => {
                       class="h-100 align-center justify-center"
                       style="backdrop-filter: blur(2px)"
                     >
-                      <v-card-text
-                        class="position-absolute z-index-1 pb-0 pr-0"
-                        style="top: 0"
-                      >
-                        <v-hover v-slot="{ isHovering, props: button }">
-                          <v-btn
-                            icon
-                            variant="tonal"
-                            :color="isHovering ? 'white' : 'black'"
-                            @click="closeDialog(i)"
-                            v-bind="button"
-                          >
-                            <v-icon color="white" :icon="mdiClose"></v-icon>
-                          </v-btn>
-                        </v-hover>
-                      </v-card-text>
-
-                      <v-card-text
-                        class="position-absolute z-index-1 pb-0 pl-0"
-                        style="top: 0; right: 0"
-                      >
-                        <v-hover v-slot="{ isHovering, props: button }">
-                          <v-btn
-                            icon
-                            variant="tonal"
-                            :color="isHovering ? 'white' : 'black'"
-                            @click="info = !info"
-                            v-bind="button"
-                          >
-                            <v-icon
-                              color="white"
-                              :icon="mdiInformationOutline"
-                            ></v-icon>
-                          </v-btn>
-                        </v-hover>
-                      </v-card-text>
                       <div id="scene">
                         <v-img :src="works[i].image['full']" />
                       </div>
-                      <v-card
-                        v-if="info"
-                        border
-                        flat
-                        rounded="xl"
-                        width="400"
-                        class="position-absolute mx-auto"
-                        style="bottom: 20px; left: 0; right: 0"
-                      >
-                        <v-card-title
-                          class="text-wrap"
-                          v-text="work['title']"
-                        ></v-card-title>
-                        <v-card-text>
-                          Category:
-                          {{ work["category"] }}
-                        </v-card-text>
-                        <v-btn
-                          block
-                          variant="tonal"
-                          rounded="0"
-                          height="50"
-                          class="text-capitalize"
-                          target="_blank"
-                          :href="work['link']"
+                      <template v-if="dialog.info">
+                        <v-card
+                          border
+                          flat
+                          rounded="xl"
+                          width="400"
+                          class="position-absolute mx-auto"
+                          style="bottom: 20px; left: 0; right: 0"
                         >
-                          <v-icon start :icon="mdiLink"></v-icon>
-                          Open link
-                          <v-icon end :icon="mdiArrowRight"></v-icon>
-                        </v-btn>
-                      </v-card>
+                          <v-card-title
+                            class="text-wrap"
+                            v-text="work['title']"
+                          ></v-card-title>
+                          <v-card-text>
+                            Category:
+                            {{ work["category"] }}
+                          </v-card-text>
+                          <v-btn
+                            block
+                            variant="tonal"
+                            rounded="0"
+                            height="50"
+                            class="text-capitalize"
+                            target="_blank"
+                            :href="work['link']"
+                          >
+                            <v-icon start :icon="mdiLink"></v-icon>
+                            Open link
+                            <v-icon end :icon="mdiArrowRight"></v-icon>
+                          </v-btn>
+                        </v-card>
+                      </template>
                     </v-card>
                   </div>
                 </v-dialog>

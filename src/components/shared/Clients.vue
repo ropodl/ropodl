@@ -12,7 +12,7 @@ const clients = [
 </script>
 <template>
   <div style="background-color: #333646">
-    <v-container class="pb-16">
+    <v-container class="py-16">
       <v-row justify="center">
         <v-col cols="12" md="2" v-for="(client, i) in clients">
           <v-img

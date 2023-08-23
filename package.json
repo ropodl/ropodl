@@ -15,10 +15,12 @@
     "@vueuse/core": "^9.13.0",
     "gsap": "^3.12.2",
     "mouse-follower": "^1.1.2",
+    "pinia": "^2.1.6",
     "roboto-fontface": "*",
     "vite-plugin-pwa": "^0.14.7",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
+    "vue-tilt.js": "^1.1.1",
     "vuetify": "^3.3.12",
     "webfontloader": "^1.0.0"
   },
