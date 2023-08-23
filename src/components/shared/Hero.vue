@@ -112,6 +112,7 @@ onMounted(() => {
   <v-card
     min-height="670"
     height="100vh"
+    max-height="700"
     rounded="0"
     elevation="0"
     color="#333646"
@@ -215,7 +216,7 @@ onMounted(() => {
         z-index: -1;
         filter: drop-shadow(0px 25px 15px #222);
       "
-    ></v-img>
+    />
   </v-card>
 </template>
 <style lang="scss" scoped>
@@ -226,7 +227,9 @@ onMounted(() => {
   line-height: 10.4rem;
   height: 172px;
   // @media (max-width: 600px) {
-  //   font-size: 10px;
+  //   font-size: 5rem;
+  //   line-height: 5rem;
+  //   height: 90px;
   // }
   span {
     position: absolute;

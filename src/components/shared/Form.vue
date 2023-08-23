@@ -71,25 +71,78 @@ const submitForm = async () => {
 };
 </script>
 <template>
-  <div style="background-color: #3a3d4f">
-    <v-container class="pb-16" style="padding-top: 100px">
-      <v-row justify="space-between">
-        <v-col cols="12" md="5">
-          <div class="text-h4 font-weight-medium mb-3">Got a project?</div>
-          <div class="text-h4 font-weight-medium mb-3">Let's talk.</div>
-          <div class="mb-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-            nemo?
-          </div>
+  <v-container class="pb-16" style="padding-top: 100px">
+    <v-row justify="space-between">
+      <v-col cols="12" md="5">
+        <div class="text-h4 font-weight-medium mb-3">Got a project?</div>
+        <div class="text-h4 font-weight-medium mb-3">Let's talk.</div>
+        <div class="mb-3">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
+          nemo?
+        </div>
+        <v-hover v-slot="{ isHovering, props }">
+          <v-btn
+            size="large"
+            variant="text"
+            color="primary"
+            class="text-capitalize"
+            v-bind="props"
+          >
+            <span class="text-lowercase">sarox14@gmail.com</span>
+            <v-icon
+              size="x-small"
+              :icon="mdiArrowRight"
+              :class="isHovering ? 'ml-4' : 'ml-2'"
+              style="transition: all 100ms linear"
+            ></v-icon>
+          </v-btn>
+        </v-hover>
+      </v-col>
+      <v-col cols="12" md="5">
+        <div class="text-h4 font-weight-bold">Estimate your project?</div>
+        <div class="text-h4 font-weight-bold mb-6">Let me know here.</div>
+        <v-form
+          ref="contactForm"
+          :fast-fail="false"
+          @submit.prevent="submitForm"
+        >
+          <v-text-field
+            v-model="templateParams['from_name']"
+            :rules="rules['firstNameRules']"
+            bg-color="transparent"
+            placeholder="What's your name?"
+            :loading="loading"
+            :disabled="loading"
+          ></v-text-field>
+          <v-text-field
+            v-model="templateParams['from_email']"
+            :rules="rules['emailRules']"
+            bg-color="transparent"
+            placeholder="Your fancy email"
+            :loading="loading"
+            :disabled="loading"
+          ></v-text-field>
+          <v-textarea
+            v-model="templateParams['message']"
+            :rules="rules['messageRules']"
+            bg-color="transparent"
+            :loading="loading"
+            :disabled="loading"
+            rows="1"
+            placeholder="Tell me about your project"
+          ></v-textarea>
           <v-hover v-slot="{ isHovering, props }">
             <v-btn
+              type="submit"
               size="large"
               variant="text"
               color="primary"
               class="text-capitalize"
               v-bind="props"
+              :loading="loading"
+              :disabled="loading"
             >
-              <span class="text-lowercase">sarox14@gmail.com</span>
+              <span>Send Message</span>
               <v-icon
                 size="x-small"
                 :icon="mdiArrowRight"
@@ -98,65 +151,10 @@ const submitForm = async () => {
               ></v-icon>
             </v-btn>
           </v-hover>
-        </v-col>
-        <v-col cols="12" md="5">
-          <div class="text-h4">Estimate your project?</div>
-          <div class="text-h4 mb-6">Let me know here.</div>
-          <v-form
-            ref="contactForm"
-            :fast-fail="false"
-            @submit.prevent="submitForm"
-          >
-            <v-text-field
-              v-model="templateParams['from_name']"
-              :rules="rules['firstNameRules']"
-              bg-color="transparent"
-              placeholder="What's your name?"
-              :loading="loading"
-              :disabled="loading"
-            ></v-text-field>
-            <v-text-field
-              v-model="templateParams['from_email']"
-              :rules="rules['emailRules']"
-              bg-color="transparent"
-              placeholder="Your fancy email"
-              :loading="loading"
-              :disabled="loading"
-            ></v-text-field>
-            <v-textarea
-              v-model="templateParams['message']"
-              :rules="rules['messageRules']"
-              bg-color="transparent"
-              :loading="loading"
-              :disabled="loading"
-              rows="1"
-              placeholder="Tell me about your project"
-            ></v-textarea>
-            <v-hover v-slot="{ isHovering, props }">
-              <v-btn
-                type="submit"
-                size="large"
-                variant="text"
-                color="primary"
-                class="text-capitalize"
-                v-bind="props"
-                :loading="loading"
-                :disabled="loading"
-              >
-                <span>Send Message</span>
-                <v-icon
-                  size="x-small"
-                  :icon="mdiArrowRight"
-                  :class="isHovering ? 'ml-4' : 'ml-2'"
-                  style="transition: all 100ms linear"
-                ></v-icon>
-              </v-btn>
-            </v-hover>
-          </v-form>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+        </v-form>
+      </v-col>
+    </v-row>
+  </v-container>
   <v-snackbar v-model="snackbar['show']" theme="light">
     {{ snackbar["text"] }}
     <template v-slot:actions>

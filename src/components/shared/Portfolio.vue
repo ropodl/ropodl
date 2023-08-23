@@ -22,27 +22,11 @@ const works = [
     title: "Anime Zone",
     text: "Web Design",
   },
-  // {
-  //   image:
-  //     "https://cdn.dribbble.com/users/1462542/screenshots/6586732/legends.png",
-  //   title: "Legends",
-  //   text: "Design",
-  // },
-  // {
-  //   image: "/image/portfolio/images/1.jpg",
-  //   title: "You a star",
-  //   text: "Design",
-  // },
   {
     image: "/image/portfolio/images/2.png",
     title: "Life's a prank",
     text: "Design",
   },
-  // {
-  //   image: "/image/portfolio/images/3.png",
-  //   title: "Same person",
-  //   text: "Design",
-  // },
 ];
 </script>
 <template>

@@ -5,22 +5,8 @@ import {
   mdiHandPeace,
   mdiLightningBolt,
 } from "@mdi/js";
-import { defineAsyncComponent } from "vue";
-
-const PageTitle = defineAsyncComponent(() =>
-  import("@/components/layout/PageTitle.vue")
-);
-
-const items = [
-  {
-    title: "Home",
-    to: "/",
-  },
-  {
-    title: "Resume",
-    to: "/resume",
-  },
-];
+import { useTitle } from "@vueuse/core";
+useTitle("About Me | Saroj Poudel");
 
 const experience = [
   {
@@ -106,7 +92,6 @@ const education = [
 ];
 </script>
 <template>
-  <PageTitle title="Resume" :items="items" />
   <v-container class="px-0 py-16">
     <v-row justify="center">
       <v-col cols="10">

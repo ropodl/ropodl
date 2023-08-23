@@ -1,11 +1,11 @@
 <script setup>
-import Title from "@/components/layout/Title.vue";
 import emailjs from "@emailjs/browser";
 import { defineAsyncComponent, reactive, ref } from "vue";
 
-const PageTitle = defineAsyncComponent(() =>
-  import("@/components/layout/PageTitle.vue")
-);
+import { useTitle } from "@vueuse/core";
+useTitle("Contact Me | Saroj Poudel");
+
+const Form = defineAsyncComponent(() => import("@/components/shared/Form.vue"));
 
 let loading = ref(false);
 const contactForm = ref(null);
@@ -13,17 +13,6 @@ let snackbar = reactive({
   show: false,
   text: "",
 });
-
-const items = [
-  {
-    title: "Home",
-    to: "/",
-  },
-  {
-    title: "Contact",
-    to: "/contact",
-  },
-];
 
 const rules = {
   firstNameRules: [
@@ -85,8 +74,8 @@ const submitForm = async () => {
 };
 </script>
 <template>
-  <PageTitle title="Contact Me" :items="items" />
-  <v-container class="px-0 py-16">
+  <Form />
+  <!-- <v-container class="px-0 py-16">
     <v-row justify="center">
       <v-col cols="10">
         <v-row>
@@ -167,5 +156,5 @@ const submitForm = async () => {
         Close
       </v-btn>
     </template>
-  </v-snackbar>
+  </v-snackbar> -->
 </template>
