@@ -6,8 +6,6 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
 
-//optimize css some day
-
 // Vite Pwa
 import { VitePWA } from "vite-plugin-pwa";
 
