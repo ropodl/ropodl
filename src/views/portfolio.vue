@@ -183,7 +183,7 @@ const openDialog = (i) => {
             </template>
           </v-tabs>
         </v-card>
-        <v-row>
+        <v-row v-auto-animate>
           <template v-for="(work, i) in works">
             <v-col
               cols="12"

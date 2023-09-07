@@ -117,11 +117,11 @@ onMounted(() => {
     elevation="0"
     color="#333646"
   >
-    <div
-      class="py-16"
-      v-tilt="{
-        gyroscope: false,
-      }"
+  <div
+  class="py-16"
+  v-tilt="{
+    gyroscope: false,
+  }"
     >
       <v-container class="pb-0 pt-10">
         <v-row class="position-relative">
@@ -162,7 +162,7 @@ onMounted(() => {
               <div>
                 <DashText text="Introduction" />
                 <div
-                  class="text-h4 font-weight-medium split"
+                  class="text-h4 font-weight-medium split w-100"
                   style="height: 40px"
                 >
                   <span>Fullstack developer</span>
