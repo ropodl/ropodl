@@ -137,7 +137,7 @@ onMounted(() => {
               </div>
             </div>
             <div id="line" class="mt-4"></div>
-            <ul class="d-flex list-style-none mt-16">
+            <ul class="d-flex list-style-none mt-10">
               <li v-for="(social, i) in socials" class="social">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-btn
@@ -175,9 +175,10 @@ onMounted(() => {
                   <span>based in Kathmandu, Nepal.</span>
                 </div>
                 <v-card-text class="pl-0 paragraph">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut
-                  quas culpa, similique sapiente consectetur suscipit eos totam
-                  in dignissimos labore.
+                  Hello, world. I am Web Designer and Web Application Developer.
+                  I have rich experience in web site design and building, also I
+                  am good at Vue JS. Recently I am enhancing my Express JS
+                  tricks.
                 </v-card-text>
                 <div id="btn">
                   <v-hover v-slot="{ isHovering, props }">
@@ -187,6 +188,7 @@ onMounted(() => {
                       color="primary"
                       class="text-capitalize"
                       v-bind="props"
+                      to="/about"
                     >
                       My Story
                       <v-icon

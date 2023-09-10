@@ -168,7 +168,7 @@ const education = [
               <v-col
                 cols="12"
                 sm="6"
-                md="4"
+                md="3"
                 class="pb-0"
                 v-for="frame in frameworks"
               >
