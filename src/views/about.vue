@@ -29,6 +29,22 @@ const experience = [
   },
 ];
 
+const frameworks = [
+  {
+    icon: "fa:fa-brands fa-laravel",
+    title: "Vue JS",
+  },
+  {
+    title: "Laravel",
+  },
+  {
+    title: "Express JS",
+  },
+  {
+    title: "React JS",
+  },
+];
+
 const skills = [
   {
     title: "Product Design",
@@ -137,6 +153,30 @@ const education = [
                 </v-timeline>
               </div>
             </v-card>
+          </v-col>
+          <v-col cols="12" class="mb-3">
+            <v-card-title class="d-flex align-center">
+              <v-icon
+                start
+                class="mr-3"
+                color="primary"
+                :icon="mdiHandPeace"
+              ></v-icon>
+              Platform/Frameworks
+            </v-card-title>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+                class="pb-0"
+                v-for="frame in frameworks"
+              >
+                <v-card border flat class="h-100">
+                  <v-card-text v-text="frame['title']"></v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-col>
           <v-col cols="12" class="mb-3">
             <v-card-title class="d-flex align-center">
