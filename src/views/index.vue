@@ -25,5 +25,5 @@ const Form = defineAsyncComponent(() => import("@/components/shared/Form.vue"));
   <Loves />
   <Clients />
   <Portfolio />
-  <Form />
+  <!-- <Form /> -->
 </template>

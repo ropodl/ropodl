@@ -36,7 +36,6 @@ const OfflineBanner = defineAsyncComponent(() =>
   <v-app>
     <v-main>
       <Navbar />
-
       <OfflineBanner v-if="!isOnline" />
       <router-view />
       <Footer />
