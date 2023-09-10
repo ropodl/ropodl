@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { mdiArrowRight } from "@mdi/js";
 import gsap from "gsap";
 import { defineAsyncComponent, onMounted } from "vue";
@@ -10,22 +11,22 @@ const DashText = defineAsyncComponent(() =>
 const socials = [
   {
     name: "Instagram",
-    icon: "fa:fa-brands fa-instagram",
+    icon: "fa6-brands:instagram",
     link: "https://instagram.com/ropodl/",
   },
   {
     name: "Dribbble",
-    icon: "fa:fa-brands fa-dribbble",
+    icon: "fa6-brands:dribbble",
     link: "https://dribbble.com/ropodl/",
   },
   {
     name: "Linkedin",
-    icon: "fa:fa-brands fa-linkedin-in",
+    icon: "fa6-brands:linkedin-in",
     link: "https://linkedin.com/in/ropodl/",
   },
   {
     name: "GitHub",
-    icon: "fa:fa-brands fa-github",
+    icon: "fa6-brands:github",
     link: "https://github.com/ropodl/",
   },
 ];
@@ -117,11 +118,11 @@ onMounted(() => {
     elevation="0"
     color="#333646"
   >
-  <div
-  class="py-16"
-  v-tilt="{
-    gyroscope: false,
-  }"
+    <div
+      class="py-16"
+      v-tilt="{
+        gyroscope: false,
+      }"
     >
       <v-container class="pb-0 pt-10">
         <v-row class="position-relative">
@@ -140,17 +141,17 @@ onMounted(() => {
               <li v-for="(social, i) in socials" class="social">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-btn
-                    rounded
-                    height="40"
+                    icon
                     variant="text"
                     target="_blank"
                     :href="social['link']"
                     :aria-label="social['name']"
                     v-bind="props"
                     :color="isHovering ? 'primary' : 'white'"
-                    size="small"
                   >
-                    <v-icon :icon="social['icon']"></v-icon>
+                    <v-icon size="20">
+                      <Icon :icon="social['icon']" />
+                    </v-icon>
                   </v-btn>
                 </v-hover>
               </li>
