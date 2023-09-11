@@ -1,7 +1,7 @@
 <script setup>
+import { useTitle } from "@vueuse/core";
 import { defineAsyncComponent } from "vue";
 
-import { useTitle } from "@vueuse/core";
 useTitle("Home Page | Saroj Poudel");
 
 const Hero = defineAsyncComponent(() => import("@/components/shared/Hero.vue"));
@@ -17,7 +17,6 @@ const Portfolio = defineAsyncComponent(() =>
 const Clients = defineAsyncComponent(() =>
   import("@/components/shared/Clients.vue")
 );
-const Form = defineAsyncComponent(() => import("@/components/shared/Form.vue"));
 </script>
 <template>
   <Hero />
@@ -25,5 +24,4 @@ const Form = defineAsyncComponent(() => import("@/components/shared/Form.vue"));
   <Loves />
   <Clients />
   <Portfolio />
-  <!-- <Form /> -->
 </template>

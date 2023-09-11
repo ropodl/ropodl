@@ -1,25 +1,28 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { defineAsyncComponent } from "vue";
+
 const Logo = defineAsyncComponent(() => import("@/components/shared/Logo.vue"));
+
 const socials = [
   {
     name: "Instagram",
-    icon: "fa:fa-brands fa-instagram",
+    icon: "fa6-brands:instagram",
     link: "https://instagram.com/ropodl/",
   },
   {
     name: "Dribbble",
-    icon: "fa:fa-brands fa-dribbble",
+    icon: "fa6-brands:dribbble",
     link: "https://dribbble.com/ropodl/",
   },
   {
     name: "Linkedin",
-    icon: "fa:fa-brands fa-linkedin-in",
+    icon: "fa6-brands:linkedin-in",
     link: "https://linkedin.com/in/ropodl/",
   },
   {
     name: "GitHub",
-    icon: "fa:fa-brands fa-github",
+    icon: "fa6-brands:github",
     link: "https://github.com/ropodl/",
   },
 ];
@@ -47,7 +50,9 @@ const socials = [
               size="small"
               class="mr-3"
             >
-              <v-icon :icon="social['icon']"></v-icon>
+              <v-icon>
+                <Icon :icon="social['icon']" />
+              </v-icon>
             </v-btn>
           </v-hover>
         </li>

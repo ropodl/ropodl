@@ -102,11 +102,14 @@ const submitForm = async () => {
         <div class="text-h4 font-weight-bold">Estimate your project?</div>
         <div class="text-h4 font-weight-bold mb-6">Let me know here.</div>
         <v-form
+          fast-fail
           ref="contactForm"
           :fast-fail="false"
           @submit.prevent="submitForm"
         >
           <v-text-field
+            flat
+            variant="solo-filled"
             v-model="templateParams['from_name']"
             :rules="rules['firstNameRules']"
             bg-color="transparent"
@@ -115,6 +118,8 @@ const submitForm = async () => {
             :disabled="loading"
           ></v-text-field>
           <v-text-field
+            flat
+            variant="solo-filled"
             v-model="templateParams['from_email']"
             :rules="rules['emailRules']"
             bg-color="transparent"
@@ -123,6 +128,8 @@ const submitForm = async () => {
             :disabled="loading"
           ></v-text-field>
           <v-textarea
+            flat
+            variant="solo-filled"
             v-model="templateParams['message']"
             :rules="rules['messageRules']"
             bg-color="transparent"
