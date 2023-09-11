@@ -50,7 +50,7 @@ let works = [
     },
   },
   {
-    title: "API Technology Website (New)",
+    title: "API Technology Website",
     category: "Web",
     link: "https://www.apitechnology.com.np/",
     image: {

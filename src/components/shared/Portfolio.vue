@@ -40,9 +40,7 @@ const works = [
             Selected projects.
           </div>
           <v-card-text class="pl-0">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus
-            ducimus saepe eveniet voluptatibus rem voluptatum asperiores vel
-            tempora sit sunt!
+            Here are some cherry picked portfolio items, check them out.
           </v-card-text>
           <v-hover v-slot="{ isHovering, props }">
             <v-btn
