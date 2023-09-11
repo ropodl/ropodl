@@ -101,12 +101,7 @@ const submitForm = async () => {
       <v-col cols="12" md="5">
         <div class="text-h4 font-weight-bold">Estimate your project?</div>
         <div class="text-h4 font-weight-bold mb-6">Let me know here.</div>
-        <v-form
-          fast-fail
-          ref="contactForm"
-          :fast-fail="false"
-          @submit.prevent="submitForm"
-        >
+        <v-form fast-fail ref="contactForm" @submit.prevent="submitForm">
           <v-text-field
             flat
             variant="solo-filled"
