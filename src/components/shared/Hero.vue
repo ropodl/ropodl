@@ -3,7 +3,6 @@ import { Icon } from "@iconify/vue";
 import { mdiArrowRight } from "@mdi/js";
 import gsap from "gsap";
 import { defineAsyncComponent, onMounted } from "vue";
-import VideoBackground from 'vue-responsive-video-background-player'
 
 const DashText = defineAsyncComponent(() =>
   import("@/components/shared/DashText.vue")
@@ -178,8 +177,8 @@ onMounted(() => {
                 <v-card-text class="pl-0 paragraph">
                   Hello, world. I am Web Designer and Web Application Developer.
                   I have rich experience in web site design and building, also I
-                  am good at Vue JS. Recently I am enhancing my Express JS
-                  tricks.
+                  am good at Vue JS. Recently I am enhancing my ExpressJS
+                  skills.
                 </v-card-text>
                 <div id="btn">
                   <v-hover v-slot="{ isHovering, props }">

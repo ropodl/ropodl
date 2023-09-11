@@ -17,8 +17,8 @@ const DashText = defineAsyncComponent(() =>
             & Discussion.
           </v-card-title>
           <v-card-text class="pl-0">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
-            cum.
+            Whether it's questions, requests, or discussions on any topic or
+            subject matter feel free to contact me.
           </v-card-text>
           <v-hover v-slot="{ isHovering, props }">
             <v-btn
@@ -39,14 +39,18 @@ const DashText = defineAsyncComponent(() =>
           </v-hover>
         </v-col>
         <v-col cols="12" md="6">
-          <v-card-text class="text-h4 font-weight-medium mb-3 pl-0">
+          <v-card-text class="text-h4 font-weight-medium pl-0 pb-0">
             You can't use up creativity,<br />the more you use, more you have<br />in
             your significant mind.
           </v-card-text>
           <v-card-text class="pl-0">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci at
-            suscipit explicabo doloribus nemo sed voluptas nobis eaque facere
-            illo.
+            Every creative endeavor, every idea explored, every project
+            undertaken, and every problem solved is a catalyst for the expansion
+            of your creative capacity. It's like a muscle that grows stronger
+            with exercise, or a tree that bears more fruit as it matures. The
+            more you nurture and harness your creativity, the more you unlock
+            its potential and discover fresh, uncharted territories of
+            imagination.
           </v-card-text>
           <v-row>
             <v-col cols="12" md="12" lg="6">
