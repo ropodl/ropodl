@@ -3,6 +3,7 @@ import { Icon } from "@iconify/vue";
 import { mdiArrowRight } from "@mdi/js";
 import gsap from "gsap";
 import { defineAsyncComponent, onMounted } from "vue";
+import VideoBackground from 'vue-responsive-video-background-player'
 
 const DashText = defineAsyncComponent(() =>
   import("@/components/shared/DashText.vue")
