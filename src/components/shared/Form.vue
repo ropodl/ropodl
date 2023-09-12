@@ -77,8 +77,7 @@ const submitForm = async () => {
         <div class="text-h4 font-weight-medium mb-3">Got a project?</div>
         <div class="text-h4 font-weight-medium mb-3">Let's talk.</div>
         <div class="mb-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-          nemo?
+          I'm here to help you with your project. Let me know what you need.
         </div>
         <v-hover v-slot="{ isHovering, props }">
           <v-btn
