@@ -17,7 +17,7 @@ const DashText = defineAsyncComponent(() =>
             & Discussion.
           </v-card-title>
           <v-card-text class="pl-0">
-            Whether it's questions, requests, or discussions on any topic or
+            Whether it's questions, requests, or discussions<br/>on any topic or
             subject matter feel free to contact me.
           </v-card-text>
           <v-hover v-slot="{ isHovering, props }">
