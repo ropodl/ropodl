@@ -1,19 +1,10 @@
 <script setup>
 import { usePortfolioDialog } from "@/stores/portfolioDialog";
-import {
-  mdiClose,
-  mdiContacts,
-  mdiFileCertificate,
-  mdiFileDocument,
-  mdiHome,
-  mdiInformationOutline,
-  mdiMenu,
-} from "@mdi/js";
+import { Icon } from "@iconify/vue";
 import { defineAsyncComponent, ref } from "vue";
-
 import { useRoute } from "vue-router";
-const route = useRoute();
 
+const route = useRoute();
 // store init
 const dialog = usePortfolioDialog();
 
@@ -21,19 +12,19 @@ const Logo = defineAsyncComponent(() => import("@/components/shared/Logo.vue"));
 
 const links = [
   {
-    icon: mdiHome,
+    icon: "mdi:home",
     title: "Home",
   },
   {
-    icon: mdiFileDocument,
+    icon: "mdi:file-document",
     title: "About",
   },
   {
-    icon: mdiFileCertificate,
+    icon: "mdi:file-certificate",
     title: "Portfolio",
   },
   {
-    icon: mdiContacts,
+    icon: "mdi:contacts",
     title: "Contact",
   },
 ];
@@ -63,6 +54,7 @@ const openDrawer = () => {
             color="transparent"
             :to="{ name: 'Home' }"
             height="60"
+            aria-label="Home"
           >
             <Logo :width="30" :height="60" />
           </v-btn>
@@ -75,7 +67,9 @@ const openDrawer = () => {
               color="white"
               @click="dialog.closeDialog(dialog.currentDialog)"
             >
-              <v-icon :icon="mdiClose"></v-icon>
+              <v-icon>
+                <Icon icon="mdi:close" />
+              </v-icon>
             </v-btn>
           </template>
         </v-card>
@@ -89,7 +83,9 @@ const openDrawer = () => {
                 color="white"
                 @click="dialog.infoDialogToggle"
               >
-                <v-icon :icon="mdiInformationOutline"></v-icon>
+                <v-icon>
+                  <Icon icon="mdi:information-outline" />
+                </v-icon>
               </v-btn>
               <v-divider vertical></v-divider>
             </template>
@@ -100,8 +96,12 @@ const openDrawer = () => {
               @click="openDrawer"
               class="hidden-md-and-up"
             >
-              <v-icon v-if="drawer" :icon="mdiClose"></v-icon>
-              <v-icon v-else :icon="mdiMenu"></v-icon>
+              <v-icon v-if="drawer">
+                <Icon icon="mdi:close" />
+              </v-icon>
+              <v-icon v-else>
+                <Icon icon="mdi:menu" />
+              </v-icon>
             </v-btn>
             <v-tabs hide-slider height="60" class="hidden-sm-and-down">
               <template v-for="(link, i) in links">
@@ -133,11 +133,17 @@ const openDrawer = () => {
         <v-list-subheader>Navigate to</v-list-subheader>
         <v-list-item
           v-for="link in links"
-          :prepend-icon="link.icon"
           :title="link.title"
-          :to="{name: link['title']}"
+          :to="{ name: link['title'] }"
           @click="drawer = false"
-        ></v-list-item>
+        >
+          <template v-slot:prepend>
+            <v-icon>
+
+              <Icon :icon="link['icon']" />
+            </v-icon>
+          </template>
+        </v-list-item>
       </v-list>
     </v-card>
   </v-bottom-sheet>

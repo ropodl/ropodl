@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from "vue";
 import { useScrollTo } from "@/composables/scrollToId";
-import { mdiArrowUp } from "@mdi/js";
+import { Icon } from "@iconify/vue";
+import { ref } from "vue";
 
 let show = ref(false);
 
@@ -27,6 +27,8 @@ const onScroll = (e) => {
       transition: 'all 250ms cubic-bezier(.17,.26,1,.32) 0s',
     }"
   >
-    <v-icon :icon="mdiArrowUp"></v-icon>
+    <v-icon>
+      <Icon icon="mdi:arrow-up" />
+    </v-icon>
   </v-btn>
 </template>

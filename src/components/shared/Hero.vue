@@ -1,6 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { mdiArrowRight } from "@mdi/js";
 import gsap from "gsap";
 import { defineAsyncComponent, onMounted } from "vue";
 
@@ -193,10 +192,11 @@ onMounted(() => {
                       My Story
                       <v-icon
                         size="x-small"
-                        :icon="mdiArrowRight"
                         :class="isHovering ? 'ml-4' : 'ml-2'"
                         style="transition: all 100ms linear"
-                      ></v-icon>
+                      >
+                        <Icon icon="material-symbols:arrow-right-alt" />
+                      </v-icon>
                     </v-btn>
                   </v-hover>
                 </div>
@@ -210,6 +210,7 @@ onMounted(() => {
       id="image"
       src="/image/me2_no_bg.webp"
       height="700"
+      alt="Saroj Poudel"
       style="
         position: absolute;
         bottom: 0;
