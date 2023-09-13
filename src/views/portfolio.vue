@@ -1,5 +1,5 @@
 <script setup>
-import { mdiArrowRight, mdiLink } from "@mdi/js";
+import { Icon } from "@iconify/vue";
 import Panzoom from "@panzoom/panzoom";
 import { useWindowScroll } from "@vueuse/core";
 import { nextTick, ref } from "vue";
@@ -192,7 +192,6 @@ const openDialog = (i) => {
               lg="4"
               v-if="work['category'] === current || current === 'All'"
             >
-              <!-- <v-hover v-slot="{ isHovering, props: hover }"> -->
               <v-dialog
                 fullscreen
                 persistent
@@ -265,16 +264,19 @@ const openDialog = (i) => {
                           target="_blank"
                           :href="work['link']"
                         >
-                          <v-icon start :icon="mdiLink"></v-icon>
+                          <v-icon start>
+                            <Icon icon="mdi:link" />
+                          </v-icon>
                           Open link
-                          <v-icon end :icon="mdiArrowRight"></v-icon>
+                          <v-icon end>
+                            <Icon icon="mdi:arrow-right" />
+                          </v-icon>
                         </v-btn>
                       </v-card>
                     </template>
                   </v-card>
                 </div>
               </v-dialog>
-              <!-- </v-hover> -->
             </v-col>
           </template>
         </v-row>

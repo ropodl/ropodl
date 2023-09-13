@@ -3,8 +3,8 @@ import vue from "@vitejs/plugin-vue";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
 // Utilities
-import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "vite";
 
 // Vite Pwa
 import { VitePWA } from "vite-plugin-pwa";
@@ -25,7 +25,7 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",
-      // includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
+      includeAssets: ["favicon.ico", "favicon-512.png"],
       workbox: {
         cleanupOutdatedCaches: true,
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
@@ -34,7 +34,8 @@ export default defineConfig({
         name: "Saroj Poudel",
         short_name: "ropodl",
         description: "Portfolio Website of Saroj Poudel",
-        theme_color: "#ff7800",
+        theme_color: "#FF7800",
+        start_url: "/",
         icons: [
           {
             src: "favicon-192.png",

@@ -1,5 +1,5 @@
 <script setup>
-import { mdiArrowRight } from "@mdi/js";
+import { Icon } from "@iconify/vue";
 import { defineAsyncComponent } from "vue";
 
 const DashText = defineAsyncComponent(() =>
@@ -17,8 +17,8 @@ const DashText = defineAsyncComponent(() =>
             & Discussion.
           </v-card-title>
           <v-card-text class="pl-0">
-            Whether it's questions, requests, or discussions<br/>on any topic or
-            subject matter feel free to contact me.
+            Whether it's questions, requests, or discussions<br />on any topic
+            or subject matter feel free to contact me.
           </v-card-text>
           <v-hover v-slot="{ isHovering, props }">
             <v-btn
@@ -31,10 +31,11 @@ const DashText = defineAsyncComponent(() =>
               <span class="text-lowercase">sarox14@gmail.com</span>
               <v-icon
                 size="x-small"
-                :icon="mdiArrowRight"
                 :class="isHovering ? 'ml-4' : 'ml-2'"
                 style="transition: all 100ms linear"
-              ></v-icon>
+              >
+                <Icon icon="material-symbols:arrow-right-alt" />
+              </v-icon>
             </v-btn>
           </v-hover>
         </v-col>

@@ -1,6 +1,6 @@
 <script setup>
 import emailjs from "@emailjs/browser";
-import { mdiArrowRight } from "@mdi/js";
+import { Icon } from "@iconify/vue";
 import { reactive, ref } from "vue";
 
 let loading = ref(false);
@@ -90,10 +90,11 @@ const submitForm = async () => {
             <span class="text-lowercase">sarox14@gmail.com</span>
             <v-icon
               size="x-small"
-              :icon="mdiArrowRight"
               :class="isHovering ? 'ml-4' : 'ml-2'"
               style="transition: all 100ms linear"
-            ></v-icon>
+            >
+          <Icon icon="mdi:arrow-right"/>
+          </v-icon>
           </v-btn>
         </v-hover>
       </v-col>
@@ -146,10 +147,9 @@ const submitForm = async () => {
               <span>Send Message</span>
               <v-icon
                 size="x-small"
-                :icon="mdiArrowRight"
                 :class="isHovering ? 'ml-4' : 'ml-2'"
                 style="transition: all 100ms linear"
-              ></v-icon>
+              ><Icon icon="mdi:arrow-right"/></v-icon>
             </v-btn>
           </v-hover>
         </v-form>

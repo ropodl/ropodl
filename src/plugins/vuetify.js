@@ -3,26 +3,26 @@ import { md3 } from "vuetify/blueprints";
 import colors from "vuetify/lib/util/colors";
 import "vuetify/styles";
 // Icons
-import { fa } from "vuetify/iconsets/fa-svg";
-import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
+// import { fa } from "vuetify/iconsets/fa-svg";
+// import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
 // Composables
 import { createVuetify } from "vuetify";
-import * as labsComponents from "vuetify/labs/components";
+import { VBottomSheet } from "vuetify/labs/VBottomSheet";
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   blueprint: md3,
   // customVariables: ["~/styles/settings.scss"],
   components: {
-    ...labsComponents,
+    VBottomSheet,
   },
   icons: {
     defaultSet: "mdi",
-    aliases,
-    sets: {
-      fa,
-      mdi,
-    },
+    //   aliases,
+    //   sets: {
+    //     fa,
+    //     mdi,
+    //   },
   },
   theme: {
     defaultTheme: "dark",

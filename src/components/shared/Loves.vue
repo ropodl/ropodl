@@ -1,20 +1,20 @@
 <script setup>
-import { mdiPaletteSwatch, mdiPencilRuler, mdiXml } from "@mdi/js";
+import { Icon } from "@iconify/vue";
 
 const loves = [
   {
     title: "Web Design",
-    icon: mdiPaletteSwatch,
+    icon: "mdi:palette-swatch",
     desc: "Modern web design with help of design frameworks.",
   },
   {
     title: "Web App Development",
-    icon: mdiXml,
+    icon: "mdi:code-braces",
     desc: "High quality code with performance in mind.",
   },
   {
     title: "Graphic Design",
-    icon: mdiPencilRuler,
+    icon: "mdi:pencil-ruler-outline",
     desc: "Any kind of high quality graphic from branding to every day use banner.",
   },
 ];
@@ -34,13 +34,17 @@ const loves = [
           <v-card
             class="h-100 text-white"
             elevation="0"
-            :color="i == 0 ? 'rgba(var(--v-theme-primary),1)' : '#424657'"
+            :color="
+              i == 0 ? 'rgba(var(--v-theme-primary-darken-1),1)' : '#424657'
+            "
           >
             <v-list bg-color="transparent" class="pa-10">
               <v-list-item lines="3" class="h-100">
                 <template v-slot:prepend>
-                  <v-avatar rounded="0" color="transparent">
-                    <v-icon size="50" :icon="love['icon']"></v-icon>
+                  <v-avatar size="50" rounded="0" color="transparent">
+                    <v-icon size="50">
+                      <Icon :icon="love.icon" />
+                    </v-icon>
                   </v-avatar>
                 </template>
                 <v-list-item-title
