@@ -118,25 +118,6 @@ const openDrawer = () => {
               </v-btn>
               <v-divider vertical v-if="i !== links.length - 1"></v-divider>
             </template>
-            <!-- <v-tabs hide-slider height="60" class="hidden-sm-and-down">
-              <template v-for="(link, i) in links">
-                <v-hover v-slot="{ isHovering, props }">
-                  <v-tab
-                    v-bind="props"
-                    rounded="0"
-                    :class="[
-                      isHovering ? 'text-primary' : 'text-white',
-                      'text-lowercase',
-                    ]"
-                    :to="{ name: link['title'] }"
-                    @click="dialog.closeDialog(dialog.currentDialog)"
-                  >
-                    {{ link.title }}
-                  </v-tab>
-                </v-hover>
-                <v-divider vertical v-if="i !== links.length - 1"></v-divider>
-              </template>
-            </v-tabs> -->
           </div>
         </v-card>
       </v-col>
