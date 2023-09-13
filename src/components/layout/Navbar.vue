@@ -103,7 +103,22 @@ const openDrawer = () => {
                 <Icon icon="mdi:menu" />
               </v-icon>
             </v-btn>
-            <v-tabs hide-slider height="60" class="hidden-sm-and-down">
+            <template v-for="(link, i) in links">
+              <v-btn
+                exact
+                rounded="0"
+                variant="text"
+                color="white"
+                height="60"
+                class="text-lowercase hidden-sm-and-down"
+                :to="{ name: link['title'] }"
+                @click="dialog.closeDialog(dialog.currentDialog)"
+              >
+                {{ link["title"] }}
+              </v-btn>
+              <v-divider vertical v-if="i !== links.length - 1"></v-divider>
+            </template>
+            <!-- <v-tabs hide-slider height="60" class="hidden-sm-and-down">
               <template v-for="(link, i) in links">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-tab
@@ -121,7 +136,7 @@ const openDrawer = () => {
                 </v-hover>
                 <v-divider vertical v-if="i !== links.length - 1"></v-divider>
               </template>
-            </v-tabs>
+            </v-tabs> -->
           </div>
         </v-card>
       </v-col>
@@ -147,3 +162,8 @@ const openDrawer = () => {
     </v-card>
   </v-bottom-sheet>
 </template>
+<style lang="scss">
+.v-btn--active {
+  color: rgb(var(--v-theme-primary)) !important;
+}
+</style>
