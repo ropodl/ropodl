@@ -11,8 +11,8 @@ import { Icon } from "@iconify/vue";
     :timeout="-1"
   >
     <v-icon class="mr-3">
-      <Icon icon="mdi:wifi-strength-alert-outline"
-    /></v-icon>
+      <Icon icon="mdi:wifi-strength-alert-outline" />
+    </v-icon>
     Looks like you are currently offline.
   </v-snackbar>
 </template>

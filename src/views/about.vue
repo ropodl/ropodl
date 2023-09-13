@@ -1,11 +1,7 @@
 <script setup>
-import {
-  mdiAnvil,
-  mdiBookOpenPageVariantOutline,
-  mdiHandPeace,
-  mdiLightningBolt,
-} from "@mdi/js";
+import { Icon } from "@iconify/vue";
 import { useTitle } from "@vueuse/core";
+
 useTitle("About Me | Saroj Poudel");
 
 const experience = [
@@ -114,12 +110,9 @@ const education = [
         <v-row>
           <v-col cols="12" class="mb-3">
             <v-card-title class="d-flex align-center">
-              <v-icon
-                start
-                class="mr-3"
-                color="primary"
-                :icon="mdiLightningBolt"
-              ></v-icon>
+              <v-icon start class="mr-3" color="primary">
+                <Icon icon="mdi:lightning-bolt" />
+              </v-icon>
               Experience
             </v-card-title>
             <v-divider></v-divider>
@@ -156,12 +149,9 @@ const education = [
           </v-col>
           <v-col cols="12" class="mb-3">
             <v-card-title class="d-flex align-center">
-              <v-icon
-                start
-                class="mr-3"
-                color="primary"
-                :icon="mdiHandPeace"
-              ></v-icon>
+              <v-icon start class="mr-3" color="primary">
+                <Icon icon="mdi:hand-peace" />
+              </v-icon>
               Platform/Frameworks
             </v-card-title>
             <v-row>
@@ -180,12 +170,9 @@ const education = [
           </v-col>
           <v-col cols="12" class="mb-3">
             <v-card-title class="d-flex align-center">
-              <v-icon
-                start
-                class="mr-3"
-                color="primary"
-                :icon="mdiHandPeace"
-              ></v-icon>
+              <v-icon start class="mr-3" color="primary">
+                <Icon icon="mdi:hand-peace" />
+              </v-icon>
               Skills
             </v-card-title>
             <v-row>
@@ -204,12 +191,9 @@ const education = [
           </v-col>
           <v-col cols="12" class="mb-3">
             <v-card-title class="d-flex align-center">
-              <v-icon
-                start
-                class="mr-3"
-                color="primary"
-                :icon="mdiAnvil"
-              ></v-icon>
+              <v-icon start class="mr-3" color="primary">
+                <Icon icon="mdi:anvil" />
+              </v-icon>
               Software
             </v-card-title>
             <v-row>
@@ -228,12 +212,9 @@ const education = [
           </v-col>
           <v-col cols="12">
             <v-card-title class="d-flex align-center">
-              <v-icon
-                start
-                class="mr-3"
-                color="primary"
-                :icon="mdiBookOpenPageVariantOutline"
-              ></v-icon>
+              <v-icon start class="mr-3" color="primary">
+                <Icon icon="mdi:book-open-page-variant-outline" />
+              </v-icon>
               Education
             </v-card-title>
             <v-divider></v-divider>
