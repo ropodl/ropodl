@@ -2,11 +2,11 @@
 const clients = [
   {
     name: "API Technology",
-    img: "image/clients/apitech.webp",
+    img: "image/clients/apitech.avif",
   },
   {
     name: "Genese Solution",
-    img: "image/clients/genese.svg",
+    img: "image/clients/genese.avif",
   },
 ];
 </script>
