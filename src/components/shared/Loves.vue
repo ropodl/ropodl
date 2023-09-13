@@ -38,7 +38,26 @@ const loves = [
               i == 0 ? 'rgba(var(--v-theme-primary-darken-1),1)' : '#424657'
             "
           >
-            <v-list bg-color="transparent" class="pa-10">
+            <v-row no-gutters class="pa-10">
+              <v-col cols="12" md="2">
+                <v-avatar size="50" rounded="0" color="transparent">
+                  <v-icon size="50">
+                    <Icon :icon="love.icon" />
+                  </v-icon>
+                </v-avatar>
+              </v-col>
+              <v-col cols="12" md="10">
+                <v-card-title
+                  class="text-h5 mb-3 font-weight-bold py-0"
+                  style="line-height: normal; white-space: normal"
+                  >{{ love["title"] }}</v-card-title
+                >
+                <v-card-text>
+                  {{ love["desc"] }}
+                </v-card-text>
+              </v-col>
+            </v-row>
+            <!-- <v-list bg-color="transparent" class="pa-10">
               <v-list-item lines="3" class="h-100">
                 <template v-slot:prepend>
                   <v-avatar size="50" rounded="0" color="transparent">
@@ -57,7 +76,7 @@ const loves = [
                   v-html="love['desc']"
                 ></v-list-item-subtitle>
               </v-list-item>
-            </v-list>
+            </v-list> -->
           </v-card>
         </v-col>
       </v-row>
