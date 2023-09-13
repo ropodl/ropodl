@@ -1,5 +1,5 @@
 <script setup>
-import { mdiWifiStrengthAlertOutline } from "@mdi/js";
+import { Icon } from "@iconify/vue";
 </script>
 <template>
   <v-snackbar
@@ -10,7 +10,9 @@ import { mdiWifiStrengthAlertOutline } from "@mdi/js";
     color="#4c5068"
     :timeout="-1"
   >
-    <v-icon class="mr-3" :icon="mdiWifiStrengthAlertOutline"></v-icon>
+    <v-icon class="mr-3">
+      <Icon icon="mdi:wifi-strength-alert-outline"
+    /></v-icon>
     Looks like you are currently offline.
   </v-snackbar>
 </template>
