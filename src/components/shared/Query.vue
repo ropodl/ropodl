@@ -55,28 +55,30 @@ const DashText = defineAsyncComponent(() =>
           </v-card-text>
           <v-row>
             <v-col cols="12" md="12" lg="6">
-              <v-list bg-color="transparent">
-                <v-list-item>
+              <v-row no-gutters align="center" justify="center">
+                <v-col cols="4">
+                  <div
+                    class="text-primary text-h3 font-weight-black pr-4 text-center"
+                  >
+                    5+
+                  </div>
+                </v-col>
+                <v-col cols="8">
                   <v-card-title>Years of<br />Experience</v-card-title>
-                  <template v-slot:prepend>
-                    <div class="text-primary text-h3 font-weight-black pr-4">
-                      5+
-                    </div>
-                  </template>
-                </v-list-item>
-              </v-list>
+                </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" lg="6">
-              <v-list bg-color="transparent">
-                <v-list-item>
+              <v-row no-gutters align="center" justify="center">
+                <v-col cols="4">
+                  <div class="text-primary text-h3 font-weight-black pr-4 text-center">
+                    10+
+                  </div>
+                </v-col>
+                <v-col cols="8">
                   <v-card-title>Satisfied<br />Clients</v-card-title>
-                  <template v-slot:prepend>
-                    <div class="text-primary text-h3 font-weight-black pr-4">
-                      10+
-                    </div>
-                  </template>
-                </v-list-item>
-              </v-list>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-col>
