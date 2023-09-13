@@ -139,7 +139,6 @@ const openDrawer = () => {
         >
           <template v-slot:prepend>
             <v-icon>
-
               <Icon :icon="link['icon']" />
             </v-icon>
           </template>
