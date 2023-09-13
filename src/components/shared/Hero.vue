@@ -208,7 +208,7 @@ onMounted(() => {
     </div>
     <v-img
       id="image"
-      src="/image/me2_no_bg.webp"
+      src="/image/me2_no_bg.avif"
       height="700"
       alt="Saroj Poudel"
       style="
