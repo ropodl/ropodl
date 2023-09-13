@@ -8,22 +8,22 @@ const DashText = defineAsyncComponent(() =>
 
 const works = [
   {
-    image: "/image/portfolio/api(new)/api.png",
+    image: "/image/portfolio/api(new)/api.webp",
     title: "API Technology",
     text: "Web Design",
   },
   {
-    image: "/image/portfolio/vuedash/vuedash.png",
+    image: "/image/portfolio/vuedash/vuedash.webp",
     title: "VueDash",
     text: "Web Design",
   },
   {
-    image: "/image/portfolio/animezone/animezone.png",
+    image: "/image/portfolio/animezone/animezone.webp",
     title: "Anime Zone",
     text: "Web Design",
   },
   {
-    image: "/image/portfolio/images/2.png",
+    image: "/image/portfolio/images/2.webp",
     title: "Life's a prank",
     text: "Design",
   },
