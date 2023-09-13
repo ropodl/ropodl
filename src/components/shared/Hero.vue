@@ -118,7 +118,7 @@ onMounted(() => {
     color="#333646"
   >
     <div
-      class="py-16"
+      class="py-16 h-100 w-100"
       v-tilt="{
         gyroscope: false,
       }"
