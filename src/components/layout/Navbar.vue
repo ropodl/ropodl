@@ -49,6 +49,7 @@ const openDrawer = () => {
           style="pointer-events: all"
         >
           <v-btn
+            :active="false"
             rounded="0"
             variant="text"
             color="transparent"
