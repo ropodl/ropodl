@@ -3,9 +3,6 @@ import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
-  mongoose: {
-    devtools: true,
-  },
   app: {
     head: {
       charset: "utf-8",

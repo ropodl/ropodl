@@ -80,7 +80,7 @@ const submitForm = async () => {
         <v-hover v-slot="{ isHovering, props }">
           <v-btn
             size="large"
-            variant="text"
+            variant="tonal"
             color="primary"
             class="text-capitalize"
             v-bind="props"
@@ -135,7 +135,7 @@ const submitForm = async () => {
             <v-btn
               type="submit"
               size="large"
-              variant="text"
+              variant="tonal"
               color="primary"
               class="text-capitalize"
               v-bind="props"
