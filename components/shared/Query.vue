@@ -18,7 +18,7 @@ import { Icon } from "@iconify/vue";
           <v-hover v-slot="{ isHovering, props }">
             <v-btn rounded="pill"
               size="large"
-              variant="text"
+              variant="tonal"
               color="primary"
               class="text-capitalize"
               v-bind="props"
