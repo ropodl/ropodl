@@ -1,17 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-useHead({
-  title: "Portfolio Page | Saroj Poudel",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Graphic Designer and Web Developer from Nepal specializing in VueJs and Express JS",
-    },
-  ],
-});
-
 const works = [
   {
     image: "/image/portfolio/api(new)/api.avif",
@@ -68,7 +57,7 @@ const works = [
             </v-btn>
           </v-hover>
         </v-col>
-        <v-col cols="12" md="2" v-for="(work, i) in works">
+        <!-- <v-col cols="12" md="2" v-for="(work, i) in works">
           <v-card
             v-tilt="{
               scale: 1.1,
@@ -93,7 +82,7 @@ const works = [
               </v-overlay>
             </v-img>
           </v-card>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-container>
   </div>

@@ -73,6 +73,8 @@ export default defineNuxtConfig({
     "@invictus.codes/nuxt-vuetify",
     "@pinia/nuxt",
     "@nuxtjs/google-fonts",
-    "nuxt-mongoose",
+    "@vite-pwa/nuxt",
+    "@formkit/auto-animate/nuxt",
+    "nuxt-capo",
   ],
 });

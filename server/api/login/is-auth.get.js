@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 export default defineEventHandler(async (event) => {
+  console.log(event);
   const header = event.req.headers.authorization;
   const token = header.split("Bearer ")[1];
 

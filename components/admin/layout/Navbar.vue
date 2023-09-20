@@ -15,9 +15,8 @@ const routes = [
 
 const logout = () => {
   localStorage.removeItem("user_auth_token");
-  user.user.length = [];
+  user.userData = [];
   navigateTo("/", { replace: true });
-  console.log(user.user);
 };
 </script>
 <template>

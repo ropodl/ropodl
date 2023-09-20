@@ -178,7 +178,7 @@ onMounted(() => {
                   <v-hover v-slot="{ isHovering, props }">
                     <v-btn
                       size="large"
-                      variant="text"
+                      variant="tonal"
                       color="primary"
                       class="text-capitalize"
                       v-bind="props"
