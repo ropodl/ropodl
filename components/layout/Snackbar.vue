@@ -7,14 +7,13 @@ const snackbar = useSnackbar();
     dense
     rounded="pill"
     theme="light"
-    :model-value="true"
+    v-model="snackbar.snackbar.show"
     :color="snackbar.snackbar.color"
     class="global-snackbar"
   >
-    <!-- v-model="snackbar.snackbar.show" -->
-    {{ snackbar.snackbar.text }}a
+    {{ snackbar.snackbar.text }}
     <template v-slot:actions>
-      <v-btn icon variant="tonal" theme="dark" color="primary">
+      <v-btn icon variant="tonal" theme="dark" color="white">
         <v-icon>
           <Icon icon="mdi:close" />
         </v-icon>
@@ -22,8 +21,8 @@ const snackbar = useSnackbar();
     </template>
   </v-snackbar>
 </template>
-<style scoped>
-.v-snackbar__actions {
+<style>
+.global-snackbar .v-snackbar__actions {
   margin: 0 !important;
 }
 </style>

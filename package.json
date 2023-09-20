@@ -9,20 +9,22 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@formkit/auto-animate": "^0.8.0",
     "@invictus.codes/nuxt-vuetify": "latest",
     "@nuxt/devtools": "latest",
     "@nuxtjs/google-fonts": "latest",
     "@pinia/nuxt": "latest",
+    "@vite-pwa/nuxt": "^0.1.1",
     "@vueuse/nuxt": "latest",
     "nuxt": "^3.7.3",
-    "nuxt-mongoose": "latest",
+    "nuxt-capo": "^0.1.0",
     "sass": "^1.67.0"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
-    "@formkit/auto-animate": "^0.8.0",
     "@iconify/vue": "^4.1.1",
     "@panzoom/panzoom": "^4.5.1",
+    "bcryptjs": "^2.4.3",
     "gsap": "^3.12.2",
     "jsonwebtoken": "^9.0.2",
     "vue-tilt.js": "^1.1.1"

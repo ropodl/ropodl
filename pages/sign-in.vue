@@ -25,9 +25,7 @@ const submit = async () => {
       <v-col cols="12" md="4">
         <v-form @submit.prevent="submit">
           <v-card class="py-5 pb-0">
-            <v-card-title class="mb-3 text-center"
-              >Sign In{{ snackbar.snackbar.show }}</v-card-title
-            >
+            <v-card-title class="mb-3 text-center">Sign In</v-card-title>
             <v-card-text class="pb-0">
               <v-text-field
                 v-model="form.email"

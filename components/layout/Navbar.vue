@@ -110,9 +110,9 @@ const openDrawer = () => {
             <template v-for="(page, i) in pages">
               <v-btn
                 exact
-                rounded="0"
-                variant="text"
                 color="white"
+                rounded="0"
+                variant="tonal"
                 height="60"
                 class="text-lowercase hidden-sm-and-down"
                 :to="page['link']"
@@ -122,10 +122,16 @@ const openDrawer = () => {
               </v-btn>
               <v-divider vertical v-if="i !== pages.length - 1"></v-divider>
             </template>
-            <template v-if="user.user.id">
+            <template v-if="user.userData?.token">
               <v-menu>
                 <template v-slot:activator="{ props }">
-                  <v-btn rounded="0" height="50" width="40" v-bind="props">
+                  <v-btn
+                    rounded="0"
+                    height="60"
+                    width="40"
+                    variant="tonal"
+                    v-bind="props"
+                  >
                     <v-avatar size="40">
                       <v-img src="/favicon.ico"></v-img>
                     </v-avatar>
@@ -133,11 +139,11 @@ const openDrawer = () => {
                 </template>
                 <v-list>
                   <v-list-item
-                    v-for="(item, index) in routes"
+                    v-for="(item, index) in 10"
                     :key="index"
                     :value="index"
                   >
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-list-item-title>{{ index }}</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>

@@ -55,7 +55,6 @@ const submitForm = async () => {
         "-xkHJckmH36raNsEo"
       )
       .then((response) => {
-        console.log(response);
         if (response.status == "200") {
           snackbar["text"] = "Successfully sent, will reply soon.";
           snackbar["show"] = true;
@@ -92,8 +91,8 @@ const submitForm = async () => {
               :class="isHovering ? 'ml-4' : 'ml-2'"
               style="transition: all 100ms linear"
             >
-          <Icon icon="mdi:arrow-right"/>
-          </v-icon>
+              <Icon icon="mdi:arrow-right" />
+            </v-icon>
           </v-btn>
         </v-hover>
       </v-col>
@@ -148,7 +147,8 @@ const submitForm = async () => {
                 size="x-small"
                 :class="isHovering ? 'ml-4' : 'ml-2'"
                 style="transition: all 100ms linear"
-              ><Icon icon="mdi:arrow-right"/></v-icon>
+                ><Icon icon="mdi:arrow-right"
+              /></v-icon>
             </v-btn>
           </v-hover>
         </v-form>
