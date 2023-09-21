@@ -4,8 +4,11 @@ const user = useUser();
 
 onMounted(() => {
   const token = localStorage.getItem("user_auth_token");
+  console.log(token)
   if (!token) return;
-  user.checkAuth(token);
+  nextTick(() => {
+    user.checkAuth(token);
+  })
 });
 </script>
 
