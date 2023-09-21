@@ -7,6 +7,8 @@ useSeoMeta({
   description:
     "Graphic Designer and Web Developer specializing in VueJs and Express JS",
 });
+
+
 </script>
 <template>
   <LazySharedHero />

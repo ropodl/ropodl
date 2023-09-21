@@ -8,9 +8,9 @@ definePageMeta({
   <v-container>
     <v-row>
       <v-col cols="12">
-        <div class="text-h5 font-weight-bold">
-          Welcome Home, 
-          <!-- {{ user.user.name }} -->
+        <div class="text-h4 font-weight-bold">
+          Welcome back,
+          {{ user.userData.name }}
         </div>
       </v-col>
     </v-row>
