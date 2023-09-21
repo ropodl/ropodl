@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   },
   vuetify: {
     vuetifyOptions: {
-      blueprint:md3,
+      blueprint: md3,
       icons: {
         defaultSet: "mdi",
       },
@@ -43,7 +43,7 @@ export default defineNuxtConfig({
               warning: colors.amber.base,
               error: colors.deepOrange.accent4,
               success: colors.green.accent3,
-              background: "#252734",
+              // background: "#252734",
             },
           },
         },
@@ -60,7 +60,7 @@ export default defineNuxtConfig({
     },
   },
   pinia: {
-    autoImports: ["getActivePinia","defineStore","acceptHMRUpdate"]
+    autoImports: ["getActivePinia", "defineStore", "acceptHMRUpdate"]
   },
   imports: {
     dirs: ['stores']
@@ -74,4 +74,9 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
     "nuxt-capo",
   ],
+  runtimeConfig: {
+    public: {
+      api_url: process.env.api_url,
+    },
+  },
 });

@@ -23,10 +23,7 @@ const logout = () => {
   <v-app-bar height="50" class="px-5">
     <v-container fluid class>
       <v-row align="center">
-        <v-app-bar-nav-icon
-          rounded="0"
-          @click="drawer = !drawer"
-        ></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon rounded="0" @click="drawer = !drawer"></v-app-bar-nav-icon>
         This is vue project
         <v-spacer></v-spacer>
         <v-menu>
@@ -38,11 +35,7 @@ const logout = () => {
             </v-btn>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in routes"
-              :key="index"
-              :value="index"
-            >
+            <v-list-item v-for="(item, index) in routes" :key="index" :value="index">
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
