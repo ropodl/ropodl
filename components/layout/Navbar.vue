@@ -80,7 +80,7 @@ const openDrawer = () => {
               </v-btn>
               <v-divider vertical v-if="i !== pages.length - 1"></v-divider>
             </template>
-            <template v-if="user.userData">
+            <template v-if="user.userData?.id">
               <LazyAdminSharedAdminNavDrop :routes="routes" />
             </template>
           </div>
