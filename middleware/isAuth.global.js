@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware((to) => {
     const token = localStorage.getItem("user_auth_token");
 
     if (!token && to.fullPath.includes("/admin")) {
-      return navigateTo("/", { replace: true });
+      return navigateTo("/", { external: true });
     }
 
     // console.log(token && to.fullPath === "/sign-in");

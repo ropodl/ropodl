@@ -28,7 +28,7 @@ const socials = [
 
 const goToAdmin = () => {
   i.value++;
-  if (i.value === 30) navigateTo("/sign-in");
+  if (i.value === 10) navigateTo("/sign-in");
   else return;
 };
 </script>
