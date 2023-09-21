@@ -28,11 +28,13 @@ const rules = {
 }
 
 const formSubmit = async () => {
-  loading.value = true
   const { valid } = await loginForm.value.validate()
   if (!valid) return;
 
-  user.login(form);
+  loading.value = true
+  nextTick(() => {
+    user.login(form);
+  })
   loading.value = false
 };
 </script>

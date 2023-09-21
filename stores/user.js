@@ -25,19 +25,18 @@ export const useUser = defineStore("user", {
     async checkAuth(token) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar()
-      console.log(typeof token)
+      console.log("token call")
 
       const { data, error } = await useFetch(runtimeConfig.public.api_url + "/login/is-auth", {
         headers: {
-          Authorization: `Bearer ${token}`,
-          // Accept: "*/*",
+          authorization: `Bearer ${token}`,
         },
       });
       if (error.value) return snackbar.showSnackbar(error.value?.error || error.value.message, "error")
 
       console.log(data)
 
-      snackbar.showSnackbar("Welcome back Saroj", "success")
+      snackbar.showSnackbar("Welcome back " + data.value?.user.name, "success")
       this.userData = data.value?.user;
     },
   },
