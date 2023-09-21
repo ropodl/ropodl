@@ -39,6 +39,11 @@ export const useUser = defineStore("user", {
       snackbar.showSnackbar("Welcome back " + data.value?.user.name, "success")
       this.userData = data.value?.user;
     },
+    logout() {
+      localStorage.removeItem("user_auth_token")
+      this.userData = [];
+      navigateTo("/", { replace: true })
+    }
   },
 });
 
