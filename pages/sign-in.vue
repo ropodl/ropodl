@@ -5,6 +5,7 @@ const snackbar = useSnackbar();
 
 let showPass = ref(false);
 const loginForm = ref()
+let loading = ref(false)
 
 const form = reactive({
   email: "",
@@ -27,10 +28,12 @@ const rules = {
 }
 
 const formSubmit = async () => {
+  loading.value = true
   const { valid } = await loginForm.value.validate()
   if (!valid) return;
 
   user.login(form);
+  loading.value = false
 };
 </script>
 <template>
@@ -41,8 +44,8 @@ const formSubmit = async () => {
           <v-card class="py-5 pb-0">
             <v-card-title class="mb-3 text-center">Sign In</v-card-title>
             <v-card-text class="pb-0">
-              <v-text-field required v-model="form.email" :rules="rules.email" placeholder="Email Address"></v-text-field>
-              <v-text-field required v-model="form.password" :rules="rules.password" placeholder="Password" :type="showPass ? 'text' : 'password'" :append-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @click:appendInner="showPass = !showPass"></v-text-field>
+              <v-text-field required v-model="form.email" :rules="rules.email" placeholder="Email Address" :loading="loading" :disabled="loading"></v-text-field>
+              <v-text-field required v-model="form.password" :rules="rules.password" placeholder="Password" :loading="loading" :disabled="loading" :type="showPass ? 'text' : 'password'" :append-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @click:appendInner="showPass = !showPass"></v-text-field>
             </v-card-text>
             <v-btn block rounded="0" variant="tonal" color="primary" height="50" type="submit">Submit</v-btn>
           </v-card>
