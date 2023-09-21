@@ -2,10 +2,10 @@
 const { isOnline } = useNetwork();
 const user = useUser();
 
-onMounted(async () => {
-   const token = localStorage.getItem("user_auth_token");
-   if (!token) return; 
-   await user.checkAuth(token);
+onMounted(() => {
+  const token = localStorage.getItem("user_auth_token");
+  if (!token) return;
+  user.checkAuth(token);
 });
 </script>
 
