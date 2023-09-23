@@ -2,14 +2,14 @@ import { md3 } from "vuetify/blueprints";
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: true,
+  ssr: false,
   app: {
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   googleFonts: {
     download: false,
     families: {
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
-    "nuxt-capo",
+    process.env.prod ? "nuxt-capo" : "",
   ],
   runtimeConfig: {
     public: {

@@ -25,18 +25,21 @@ export const useUser = defineStore("user", {
     async checkAuth(token) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar()
-      console.log("token call")
 
       const { data, error } = await useFetch(runtimeConfig.public.api_url + "/login/is-auth", {
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
-      if (error.value) return snackbar.showSnackbar(error.value?.error || error.value.message, "error")
+      if (error.value) {
+        if (error.value.data.message === "Token Expired") {
+          snackbar.showSnackbar(error.value.data.message + " ,please login again", "error")
+          return this.logout()
+        }
+        return snackbar.showSnackbar(error.value?.error || error.value.message, "error")
+      }
 
-      console.log(data)
-
-      snackbar.showSnackbar("Welcome back " + data.value?.user.name, "success")
+      // snackbar.showSnackbar("Welcome back " + data.value?.user.name, "success")
       this.userData = data.value?.user;
     },
     logout() {

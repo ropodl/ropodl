@@ -24,9 +24,9 @@
     "@emailjs/browser": "^3.11.0",
     "@iconify/vue": "^4.1.1",
     "@panzoom/panzoom": "^4.5.1",
-    "bcryptjs": "^2.4.3",
+    "@tinymce/tinymce-vue": "latest",
+    "@vueup/vue-quill": "^1.2.0",
     "gsap": "^3.12.2",
-    "jsonwebtoken": "^9.0.2",
     "vue-tilt.js": "^1.1.1"
   }
 }

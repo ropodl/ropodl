@@ -1,8 +1,3 @@
-<script setup>
-onBeforeRouteLeave(() => {
-  alert("test")
-})
-</script>
 <template>
   <v-main>
     <LazyLayoutNavbar />
