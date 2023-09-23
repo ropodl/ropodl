@@ -4,7 +4,6 @@ const user = useUser();
 
 onMounted(() => {
   const token = localStorage.getItem("user_auth_token");
-  console.log(token)
   if (!token) return;
   nextTick(() => {
     user.checkAuth(token);

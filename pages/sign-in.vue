@@ -1,7 +1,5 @@
 <script setup>
-const runtimeConfig = useRuntimeConfig();
 const user = useUser();
-const snackbar = useSnackbar();
 
 let showPass = ref(false);
 const loginForm = ref()
