@@ -7,7 +7,7 @@ import { Icon } from "@iconify/vue";
       <v-row class="pt-16">
         <v-col cols="12" md="6">
           <LazySharedDashText text="Contact" />
-          <v-card-title class="text-h4 font-weight-medium mb-3 pl-0">
+          <v-card-title class="target text-h4 font-weight-medium mb-3 pl-0">
             Any Type of Query<br />
             & Discussion.
           </v-card-title>
@@ -16,19 +16,9 @@ import { Icon } from "@iconify/vue";
             or subject matter feel free to contact me.
           </v-card-text>
           <v-hover v-slot="{ isHovering, props }">
-            <v-btn rounded="pill"
-              size="large"
-              variant="tonal"
-              color="primary"
-              class="text-capitalize"
-              v-bind="props"
-            >
+            <v-btn rounded="pill" size="large" variant="tonal" color="primary" class="text-capitalize" v-bind="props">
               <span class="text-lowercase">sarox14@gmail.com</span>
-              <v-icon
-                size="x-small"
-                :class="isHovering ? 'ml-4' : 'ml-2'"
-                style="transition: all 100ms linear"
-              >
+              <v-icon size="x-small" :class="isHovering ? 'ml-4' : 'ml-2'" style="transition: all 100ms linear">
                 <Icon icon="material-symbols:arrow-right-alt" />
               </v-icon>
             </v-btn>
@@ -52,9 +42,7 @@ import { Icon } from "@iconify/vue";
             <v-col cols="12" md="12" lg="6">
               <v-row no-gutters align="center" justify="center">
                 <v-col cols="4">
-                  <div
-                    class="text-primary text-h3 font-weight-black pr-4 text-center"
-                  >
+                  <div class="text-primary text-h3 font-weight-black pr-4 text-center">
                     5+
                   </div>
                 </v-col>
@@ -66,9 +54,7 @@ import { Icon } from "@iconify/vue";
             <v-col cols="12" md="12" lg="6">
               <v-row no-gutters align="center" justify="center">
                 <v-col cols="4">
-                  <div
-                    class="text-primary text-h3 font-weight-black pr-4 text-center"
-                  >
+                  <div class="text-primary text-h3 font-weight-black pr-4 text-center">
                     10+
                   </div>
                 </v-col>

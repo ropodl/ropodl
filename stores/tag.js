@@ -1,16 +1,16 @@
-export const useBlog = defineStore("blog", {
+export const useTag = defineStore("tag", {
     state: () => ({
-        blogs: reactive([]),
+        tags: reactive([]),
     }),
     getters: {
-        getBlogs: (state) => state.blogs
+        getTags: (state) => state.tags
     },
     actions: {
         async create(formData) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
             const token = localStorage.getItem("user_auth_token");
-            const { error } = await useFetch(runtimeConfig.public.api_url + "/blog/create", {
+            const { error } = await useFetch(runtimeConfig.public.api_url + "/tag/create", {
                 method: "post",
                 body: formData,
                 headers: {
@@ -20,20 +20,24 @@ export const useBlog = defineStore("blog", {
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
             snackbar.showSnackbar("Blog added successfully", "success");
-            navigateTo("/admin/blog");
+            navigateTo("/admin/tag");
         },
         async latest() {
             const runtimeConfig = useRuntimeConfig()
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/latest")
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/tag/latest", {
+            })
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            this.blogs = data.value;
+            this.tags = data.value;
         },
+        // async all(){
+
+        // },
         async remove(id) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
             const token = localStorage.getItem("user_auth_token");
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/" + id, {
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/tag/" + id, {
                 method: "delete",
                 headers: {
                     authorization: `Bearer ${token}`,
@@ -47,5 +51,5 @@ export const useBlog = defineStore("blog", {
 })
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useBlog, import.meta.hot));
+    import.meta.hot.accept(acceptHMRUpdate(useTag, import.meta.hot));
 }

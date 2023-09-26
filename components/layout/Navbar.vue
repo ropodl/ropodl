@@ -23,6 +23,10 @@ const pages = [
   },
   {
     icon: "mdi:file-certificate",
+    title: "blog",
+    link: "/blog",
+  }, {
+    icon: "mdi:file-certificate",
     title: "portfolio",
     link: "/portfolio",
   },

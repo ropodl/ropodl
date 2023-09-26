@@ -26,6 +26,7 @@
     "@panzoom/panzoom": "^4.5.1",
     "@tinymce/tinymce-vue": "latest",
     "@vueup/vue-quill": "^1.2.0",
+    "@vueuse/motion": "^2.0.0",
     "gsap": "^3.12.2",
     "vue-tilt.js": "^1.1.1"
   }
