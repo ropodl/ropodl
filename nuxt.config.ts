@@ -2,7 +2,7 @@ import { md3 } from "vuetify/blueprints";
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   app: {
     head: {
       charset: "utf-8",
