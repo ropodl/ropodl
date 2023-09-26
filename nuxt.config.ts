@@ -73,7 +73,7 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
     "@vueuse/motion/nuxt",
-    process.env.prod ? "nuxt-capo" : "",
+    "nuxt-capo"
   ],
   runtimeConfig: {
     public: {
