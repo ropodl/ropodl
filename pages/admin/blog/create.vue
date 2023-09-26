@@ -1,8 +1,9 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import Editor from '@tinymce/tinymce-vue';
+import { tinymceConfig } from "../../../utils/tinymce";
 
-// const blog = useBlog()
+const blog = useBlog()
 
 definePageMeta({
     layout: "admin",
@@ -14,54 +15,32 @@ useHead({
 
 const form = reactive({
     title: "",
-    content: ""
+    excerpt: "",
+    content: "",
+    image: null,
+    visibility: "public",
+    status: "published"
 })
 
-const init = reactive({
-    promotion: false,
-    skin: "oxide-dark",
-    content_css: "dark",
-    theme: 'silver',
-    plugins: 'lists link image table code help wordcount autoresize accordion advlist anchor autolink autosave charmap',
-    toolbar_sticky: true,
-    toolbar1: 'undo redo styles bold italic strikethrough forecolor backcolor alignleft aligncenter alignright alignjustify bullist numlist outdent indent removeformat link image media code charmap restoredraft',
-    branding: false,
-    min_height: 500,
-    /* enable title field in the Image dialog*/
-    image_title: true,
-    /* enable automatic uploads of images represented by blob or data URIs*/
-    automatic_uploads: true,
-    file_picker_types: 'image',
-    file_picker_callback: function (cb, value, meta) {
-        var input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.setAttribute('accept', 'image/*');
-        input.onchange = function () {
-            var file = this.files[0];
+// temporary for thumbnail
+const file = shallowRef()
+const url = useObjectUrl(file)
+// temporary for thumbnail
 
-            var reader = new FileReader();
-            reader.onload = function () {
-                /*
-                  Note: Now we need to register the blob in TinyMCEs image blob
-                  registry. In the next release this part hopefully won't be
-                  necessary, as we are looking to handle it internally.
-                */
-                var id = 'blobid' + (new Date()).getTime();
-                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                var base64 = reader.result.split(',')[1];
-                var blobInfo = blobCache.create(id, file, base64);
-                blobCache.add(blobInfo);
-                /* call the callback and populate the Title field with the file name */
-                cb(blobInfo.blobUri(), { title: file.name });
-            };
-            reader.readAsDataURL(file);
-        };
-        input.click();
-    },
-});
-
+const selectFeaturedImage = ({ target }) => {
+    const { value, files, name } = target;
+    if (name === "image") {
+        file.value = files[0]
+        return form.image = files[0]
+    }
+}
 const addBlog = () => {
-    console.log("first")
+    const formData = new FormData();
+    for (const key in form) {
+        const value = form[key];
+        formData.append(key, value)
+    }
+    blog.create(formData)
 }
 </script>
 <template>
@@ -72,10 +51,11 @@ const addBlog = () => {
                     <div class="text-h4 font-weight-bold">Add New Blog</div>
                 </v-col>
                 <v-col cols="12" md="8">
-                    <v-text-field placeholder="Title" v-model="form.title"></v-text-field>
+                    <v-text-field placeholder="Blog Title" v-model="form.title"></v-text-field>
+                    <v-textarea placeholder="Blog Excerpt" v-model="form.excerpt"></v-textarea>
                     <v-card class="ext-editor">
                         <client-only placeholder="Loading TinyMCE Cloud">
-                            <Editor v-model="form.content" api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6" :init="init" />
+                            <Editor v-model="form.content" placeholder="Blog Content" api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6" :init="tinymceConfig" />
                         </client-only>
                     </v-card>
                 </v-col>
@@ -124,8 +104,21 @@ const addBlog = () => {
                     <v-card class="mb-3">
                         <v-card-title>Featured Image</v-card-title>
                         <v-divider></v-divider>
-                        <v-card-text class="d-flex align-center justify-center" style="height: 200px;">
-                            Drag and Drop a file
+                        <v-card-text class="d-flex align-center justify-center position-relative pa-0">
+                            <template v-if="form.image !== null">
+                                <v-hover v-slot="{ isHovering, props }">
+                                    <v-img v-bind="props" :src="url" height="200">
+                                        <v-overlay contained :model-value="isHovering" content-class="w-100 h-100 d-flex align-center justify-center" scrim="black">
+                                            <v-btn icon color="error" @click="form.image = null">
+                                                <Icon icon="mdi:close" />
+                                            </v-btn>
+                                        </v-overlay>
+                                    </v-img>
+                                </v-hover>
+                            </template>
+                            <template v-else>
+                                <input @change="selectFeaturedImage" type="file" name="image" class="py-4" />
+                            </template>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -162,6 +155,10 @@ const addBlog = () => {
 
     .tox-edit-area iframe.tox-edit-area__iframe body#tinymce.mce-content-body {
         background-color: rgb(var(--v-theme-surface)) !important;
+    }
+
+    .tox-statusbar {
+        background-color: unset;
     }
 }
 </style>

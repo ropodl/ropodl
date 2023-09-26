@@ -17,7 +17,7 @@ onMounted(() => {
     <NuxtLoadingIndicator color="rgb(var(--v-theme-primary))" />
     <v-app>
       <NuxtLayout>
-        <NuxtPage keepalive />
+        <NuxtPage />
       </NuxtLayout>
       <LazyLayoutOfflineBanner v-if="!isOnline" />
       <LazyLayoutGoTop />

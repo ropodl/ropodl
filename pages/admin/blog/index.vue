@@ -12,13 +12,14 @@ useHead({
 const loading = ref(true)
 
 onMounted(() => {
-    nextTick(() => {
-        callLatestBlogs()
-    })
+    // nextTick(() => {
+    callLatestBlogs()
+    // })
     loading.value = false
 });
 
 const headers = reactive([
+    { title: "Featured Image", sortable: false, key: "image", width: 200 },
     {
         title: "Title",
         align: "start",
@@ -51,20 +52,25 @@ const callLatestBlogs = () => {
         </v-row>
         <v-row>
             <v-col cols="12">
-                <v-data-table :headers="headers" :items="blog.blogData" :loading="loading" item-value="name">
+                <v-data-table :headers="headers" :items="blog.blogs" :loading="loading" item-value="name">
+                    <template v-slot:item.image="{ item }">
+                        <div class="py-3" style="width:200px;height: 150px;">
+                            <v-img cover class="w-100 h-100" :src="item.raw.image.url"></v-img>
+                        </div>
+                    </template>
+                    <template v-slot:item.title="{ item }">
+                        <v-card-title>{{ item.raw.title }}</v-card-title>
+                        <v-card-text>Excerpt</v-card-text>
+                    </template>
                     <template v-slot:item.actions="{ item }">
                         <!-- {{ item.raw }} -->
-                        <v-btn icon size="x-small" variant="tonal" class="mr-2" :to="`/admin/blog/${item.raw.id}`">
-                            <v-icon>
-                                mdi-pencil
-                            </v-icon>
+                        <v-btn icon size="x-small" variant="tonal" class="mr-2" :to="`/admin/blog/${item.raw.slug}`">
+                            <v-icon>mdi-pencil</v-icon>
                         </v-btn>
                         <v-dialog persistent scrim="black" width="500">
                             <template v-slot:activator="{ props }">
                                 <v-btn v-bind="props" icon color="error" size="x-small" variant="tonal">
-                                    <v-icon>
-                                        mdi-delete
-                                    </v-icon>
+                                    <v-icon>mdi-delete</v-icon>
                                 </v-btn>
                             </template>
                             <template v-slot:default="{ isActive }">

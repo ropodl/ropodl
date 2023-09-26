@@ -1,18 +1,18 @@
 export const useBlog = defineStore("blog", {
     state: () => ({
-        blogData: reactive([])
+        blogs: reactive([]),
     }),
     getters: {
-        getBlogs: (state) => state.blogData,
+        getBlogs: (state) => state.blogs
     },
     actions: {
-        async create({ title, content }) {
+        async create(formData) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
             const token = localStorage.getItem("user_auth_token");
             const { error } = await useFetch(runtimeConfig.public.api_url + "/blog/create", {
                 method: "post",
-                body: { title, content },
+                body: formData,
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
@@ -24,11 +24,10 @@ export const useBlog = defineStore("blog", {
         },
         async latest() {
             const runtimeConfig = useRuntimeConfig()
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/latest", {
-            })
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/latest")
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            this.blogData = data.value;
+            this.blogs = data.value;
         },
         async remove(id) {
             const runtimeConfig = useRuntimeConfig()
@@ -43,8 +42,6 @@ export const useBlog = defineStore("blog", {
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
             console.log(data)
-            // snackbar.showSnackbar("Blog added successfully", "success");
-            // navigateTo("/admin/blog");
         }
     }
 })

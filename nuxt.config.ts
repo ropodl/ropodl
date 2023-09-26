@@ -72,6 +72,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
+    "@vueuse/motion/nuxt",
     process.env.prod ? "nuxt-capo" : "",
   ],
   runtimeConfig: {

@@ -19,11 +19,12 @@ const form = reactive({
 })
 
 onMounted(() => {
-    const { data, error } = useFetch("http://127.0.0.1:3001/api/v1/blog/" + route.params.id)
-    if (error.value)
-        return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-    form.title = data.value.title
-    form.content = data.value.content
+    // const { data, error } = useFetch("http://127.0.0.1:3001/api/v1/blog/" + route.params.id)
+    // if (error.value)
+    //     return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
+    // console.log(data)
+    // form.title = data.value.title
+    // form.content = data.value.content
 })
 
 const init = reactive({
