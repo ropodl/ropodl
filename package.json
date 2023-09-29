@@ -11,14 +11,14 @@
   "devDependencies": {
     "@formkit/auto-animate": "^0.8.0",
     "@invictus.codes/nuxt-vuetify": "latest",
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^0.8.5",
     "@nuxtjs/google-fonts": "latest",
     "@pinia/nuxt": "latest",
     "@vite-pwa/nuxt": "^0.1.1",
     "@vueuse/nuxt": "latest",
-    "nuxt": "^3.7.3",
+    "nuxt": "^3.7.4",
     "nuxt-capo": "^0.1.0",
-    "sass": "^1.67.0"
+    "sass": "^1.68.0"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
