@@ -24,6 +24,7 @@ export const useTag = defineStore("tag", {
         },
         async latest() {
             const runtimeConfig = useRuntimeConfig()
+            const snackbar = useSnackbar();
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/tag/latest", {
             })
             if (error.value)

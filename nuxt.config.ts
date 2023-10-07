@@ -51,12 +51,12 @@ export default defineNuxtConfig({
     },
     moduleOptions: {
       /* nuxt-vuetify module options */
-      // treeshaking: true,
+      treeshaking: true,
       // useIconCDN: true | false,
       /* vite-plugin-vuetify options */
       // styles: true | 'none' | 'expose' | 'sass' | { configFile: string },
       autoImport: true,
-      useVuetifyLabs: true,
+      // useVuetifyLabs: true,
     },
   },
   pinia: {
@@ -73,11 +73,16 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
     "@vueuse/motion/nuxt",
-    "nuxt-capo"
+    // Only in production
+    // "nuxt-capo",
+    // "nuxt-security",
   ],
   runtimeConfig: {
     public: {
       api_url: process.env.api_url,
     },
+    private: {
+      oop: "test"
+    }
   },
 });

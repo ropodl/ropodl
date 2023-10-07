@@ -18,6 +18,7 @@
     "@vueuse/nuxt": "latest",
     "nuxt": "^3.7.4",
     "nuxt-capo": "^0.1.0",
+    "nuxt-security": "^0.14.4",
     "sass": "^1.68.0"
   },
   "dependencies": {
@@ -28,6 +29,8 @@
     "@vueup/vue-quill": "^1.2.0",
     "@vueuse/motion": "^2.0.0",
     "gsap": "^3.12.2",
-    "vue-tilt.js": "^1.1.1"
+    "vue-social-sharing": "next",
+    "vue-tilt.js": "^1.1.1",
+    "vuetify": "3.3.20"
   }
 }

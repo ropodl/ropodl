@@ -1,21 +1,18 @@
 <script setup>
 import { Icon } from '@iconify/vue';
-const drawer = ref(true);
 
 const user = useUser();
-// const routes = [
-//   {
-//     title: "Dashboard",
-//     link: "/admin",
-//   },
-//   {
-//     title: "Clients",
-//     link: "/admin/client",
-//   }, {
-//     title: "Blogs",
-//     link: "/admin/blog",
-//   },
-// ];
+const router = useRouter();
+
+const drawer = ref(true);
+let searchItems = reactive([])
+onMounted(() => {
+  for (let route of router.options.routes) {
+    if (route.path.includes("/admin/")) {
+      searchItems.push(route)
+    }
+  }
+})
 
 const navitems = reactive([
   {
@@ -51,6 +48,8 @@ const navitems = reactive([
             <v-list-item title="Visit Site" to="/"></v-list-item>
           </v-list>
         </v-menu>
+        <v-spacer></v-spacer>
+        <v-autocomplete :items="searchItems" item-title="name" hide-details hide-no-data placeholder="Search" prepend-inner-icon="mdi-magnify"></v-autocomplete>
         <v-spacer></v-spacer>
         <LazyAdminSharedAdminNavDrop />
       </v-row>
