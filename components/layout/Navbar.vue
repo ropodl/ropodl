@@ -2,6 +2,7 @@
 import { usePortfolioDialog } from "@/stores/portfolioDialog";
 import { Icon } from "@iconify/vue";
 import { useRoute } from "vue-router";
+import { VBottomSheet } from "vuetify/labs/VBottomSheet";
 
 const route = useRoute();
 // store init

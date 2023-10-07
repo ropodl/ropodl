@@ -1,5 +1,7 @@
 <script setup>
 const { isOnline } = useNetwork();
+
+const route = useRoute();
 const user = useUser();
 
 onMounted(() => {
@@ -20,7 +22,7 @@ onMounted(() => {
         <NuxtPage />
       </NuxtLayout>
       <LazyLayoutOfflineBanner v-if="!isOnline" />
-      <LazyLayoutGoTop />
+      <LazyLayoutGoTop v-if="!route.fullPath.includes('/admin/')" />
       <LazyLayoutSnackbar />
     </v-app>
   </div>

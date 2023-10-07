@@ -1,8 +1,7 @@
 export const tinymceConfig = {
     promotion: false,
-    skin: "oxide-dark",
-    content_css: "dark",
-    theme: 'silver',
+    skin_url: "/assets/editor/ropodl/skins/ui/ropodl/",
+    content_css: "/assets/editor/ropodl/skins/content/ropodl/content.css",
     plugins: 'lists link image table code help wordcount autoresize accordion advlist anchor autolink autosave charmap',
     toolbar_sticky: true,
     toolbar1: 'undo redo styles bold italic strikethrough forecolor backcolor alignleft aligncenter alignright alignjustify bullist numlist outdent indent removeformat link image media code charmap restoredraft',

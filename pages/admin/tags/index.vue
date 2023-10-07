@@ -1,4 +1,5 @@
 <script setup>
+import { VDataTable } from 'vuetify/labs/VDataTable';
 const tag = useTag();
 definePageMeta({
     layout: "admin"
@@ -20,8 +21,9 @@ let headers = [
 ];
 
 onMounted(() => {
-    tag.latest();
-    console.log("test")
+    nextTick(() => {
+        tag.latest();
+    });
 });
 </script>
 <template>
@@ -35,9 +37,9 @@ onMounted(() => {
         </v-row>
         <v-row>
             <v-col cols="12" md="4">
-                <v-text-field placeholder="Tag Name"></v-text-field>
-                <v-text-field placeholder="Slug"></v-text-field>
-                <v-textarea placeholder="Tag Description"></v-textarea>
+                <v-text-field persistent-hint label="Tag Name"></v-text-field>
+                <v-text-field persistent-hint label="Slug"></v-text-field>
+                <v-textarea persistent-hint label="Tag Description"></v-textarea>
                 <v-btn block height="50" variant="tonal" class="text-capitalize">Add New Tag</v-btn>
             </v-col>
             <v-col cols="12" md="8">
@@ -46,6 +48,3 @@ onMounted(() => {
         </v-row>
     </v-container>
 </template>
-
-
-<style lang="scss" scoped></style>

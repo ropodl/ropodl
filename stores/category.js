@@ -19,20 +19,27 @@ export const useCategory = defineStore("category", {
             })
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            snackbar.showSnackbar("Blog added successfully", "success");
+            snackbar.showSnackbar("Category added successfully", "success");
             navigateTo("/admin/blog");
         },
         async latest() {
             const runtimeConfig = useRuntimeConfig()
+            const snackbar = useSnackbar();
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/category/latest", {
             })
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
             this.categories = data.value;
         },
-        // async all(){
-
-        // },
+        async getAllCategories(page, itemsPerPage) {
+            const runtimeConfig = useRuntimeConfig()
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + `/category?page=${page}&per_page=${itemsPerPage}`)
+            if (error.value)
+                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
+            this.categories = data.value;
+            console.log(this.categories)
+            return data.value;
+        },
         async remove(id) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
