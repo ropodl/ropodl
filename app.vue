@@ -9,7 +9,7 @@ onMounted(() => {
   if (!token) return;
   nextTick(() => {
     user.checkAuth(token);
-  })
+  });
 });
 </script>
 
@@ -30,5 +30,8 @@ onMounted(() => {
 <style lang="scss">
 .list-style-none {
   list-style: none;
+}
+.v-skeleton-loader__image {
+  height: 100% !important;
 }
 </style>
