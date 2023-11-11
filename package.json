@@ -11,7 +11,7 @@
   "devDependencies": {
     "@formkit/auto-animate": "^0.8.0",
     "@invictus.codes/nuxt-vuetify": "latest",
-    "@nuxt/devtools": "^0.8.5",
+    "@nuxt/devtools": "^1.0.1",
     "@nuxtjs/google-fonts": "latest",
     "@pinia/nuxt": "latest",
     "@vite-pwa/nuxt": "^0.1.1",
