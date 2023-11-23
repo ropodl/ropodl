@@ -110,15 +110,9 @@ onMounted(() => {
     max-height="700"
     rounded="0"
     elevation="0"
-    color="#333646"
     class="hidden-sm-and-down"
   >
-    <div
-      class="py-16 h-100 w-100"
-      v-tilt="{
-        gyroscope: false,
-      }"
-    >
+    <div class="py-16 h-100 w-100">
       <v-container class="pb-0 pt-10">
         <v-row class="position-relative">
           <v-col cols="12" md="6">
@@ -205,7 +199,7 @@ onMounted(() => {
     <v-img
       id="image"
       src="/image/me2_no_bg.avif"
-      height="700"
+      height="600"
       alt="Saroj Poudel"
       style="
         position: absolute;
@@ -219,7 +213,7 @@ onMounted(() => {
     />
   </v-card>
   <!-- Small Device -->
-  <v-card class="rounded-t-0">
+  <v-card class="rounded-t-0 hidden-md-and-up">
     <v-container class="py-16">
       <v-row class="position-relative pt-16">
         <v-col cols="12" md="6">

@@ -1,6 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import Panzoom from "@panzoom/panzoom";
+// import Panzoom from "@panzoom/panzoom";
 
 definePageMeta({
   layout: "with-page-title",
@@ -156,11 +156,11 @@ let works = [
 const openDialog = (i) => {
   dialog.openDialog(i);
   nextTick(() => {
-    const elem = document.getElementById("scene");
-    const panzoom = Panzoom(elem, {
-      maxScale: 5,
-    });
-    elem.parentElement.addEventListener("wheel", panzoom.zoomWithWheel);
+    // const elem = document.getElementById("scene");
+    // const panzoom = Panzoom(elem, {
+    //   maxScale: 5,
+    // });
+    // elem.parentElement.addEventListener("wheel", panzoom.zoomWithWheel);
   });
 };
 </script>
@@ -215,7 +215,6 @@ const openDialog = (i) => {
                     flat
                     elevation="10"
                     height="400"
-                    v-tilt="{ scale: 1.05, gyroscope: false }"
                     @click="openDialog(i)"
                     v-bind="{ overlay }"
                   >

@@ -25,17 +25,17 @@ const loves = [
     class="position-relative"
     style="
       background: rgb(51, 54, 70);
-      background: linear-gradient(0deg, #333646 50%, transparent 0);
+      background: linear-gradient(0deg, #313131 50%, transparent 0);
     "
   >
     <v-container>
       <v-row justify="center">
         <v-col cols="12" md="4" v-for="(love, i) in loves">
-          <v-card
+          <v-card border rounded="xl"
             class="h-100 text-white"
             elevation="0"
             :color="
-              i == 0 ? 'rgba(var(--v-theme-primary-darken-1),1)' : '#424657'
+              i == 0 ? 'rgba(var(--v-theme-primary),1)' : '#313131'
             "
           >
             <v-row no-gutters class="pa-10">

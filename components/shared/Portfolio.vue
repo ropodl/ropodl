@@ -25,7 +25,7 @@ const works = [
 ];
 </script>
 <template>
-  <div style="background-color: #333646">
+  <div>
     <v-container class="py-16">
       <v-row>
         <v-col cols="12" md="4">
@@ -39,7 +39,7 @@ const works = [
           </v-card-text>
           <v-hover v-slot="{ isHovering, props }">
             <v-btn
-              size="large"
+              height="50"
               variant="tonal"
               color="primary"
               class="text-capitalize"
@@ -48,7 +48,6 @@ const works = [
             >
               Explore More
               <v-icon
-                size="x-small"
                 :class="isHovering ? 'ml-4' : 'ml-2'"
                 style="transition: all 100ms linear"
               >
@@ -57,15 +56,8 @@ const works = [
             </v-btn>
           </v-hover>
         </v-col>
-        <!-- <v-col cols="12" md="2" v-for="(work, i) in works">
-          <v-card
-            v-tilt="{
-              scale: 1.1,
-              gyroscope: false,
-            }"
-            elevation="0"
-            color="transparent"
-          >
+        <v-col cols="12" md="2" v-for="(work, i) in works">
+          <v-card elevation="0" color="transparent">
             <v-img cover height="400" :src="work['image']">
               <v-overlay
                 contained
@@ -82,7 +74,7 @@ const works = [
               </v-overlay>
             </v-img>
           </v-card>
-        </v-col> -->
+        </v-col>
       </v-row>
     </v-container>
   </div>

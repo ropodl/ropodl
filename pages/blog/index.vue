@@ -46,7 +46,6 @@ const test = () => {
       <template v-if="blog.blogs.blogs">
         <v-col cols="12" md="3" v-for="item in blog.blogs.blogs">
           <v-card
-            v-tilt="{ scale: 1.05, gyroscope: false }"
             flat
             elevation="10"
             height="400"

@@ -9,28 +9,25 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@formkit/auto-animate": "^0.8.0",
-    "@invictus.codes/nuxt-vuetify": "latest",
-    "@nuxt/devtools": "^0.8.5",
+    "@formkit/auto-animate": "^0.8.1",
+    "@nuxt/devtools": "^1.0.3",
     "@nuxtjs/google-fonts": "latest",
-    "@pinia/nuxt": "latest",
-    "@vite-pwa/nuxt": "^0.1.1",
+    "@pinia/nuxt": "^0.5.1",
+    "@vite-pwa/nuxt": "^0.2.3",
     "@vueuse/nuxt": "latest",
     "nuxt": "^3.7.4",
     "nuxt-capo": "^0.1.0",
-    "nuxt-security": "^0.14.4",
-    "sass": "^1.68.0"
+    "nuxt-lucide-icons": "^1.0.3",
+    "nuxt-security": "^1.0.0-rc.4",
+    "sass": "^1.69.5"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@iconify/vue": "^4.1.1",
-    "@panzoom/panzoom": "^4.5.1",
     "@tinymce/tinymce-vue": "latest",
-    "@vueup/vue-quill": "^1.2.0",
-    "@vueuse/motion": "^2.0.0",
     "gsap": "^3.12.2",
-    "vue-social-sharing": "next",
-    "vue-tilt.js": "^1.1.1",
-    "vuetify": "3.3.20"
+    "nuxt-mongoose": "^1.0.3",
+    "vite-plugin-vuetify": "^1.0.2",
+    "vuetify": "^3.4.3"
   }
 }
