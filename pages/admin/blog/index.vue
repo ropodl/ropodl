@@ -1,6 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { VDataTableServer } from "vuetify/labs/VDataTable";
+// import { VDataTableServer } from "vuetify/labs/VDataTable";
 
 const runtimeConfig = useRuntimeConfig();
 const blog = useBlog();
