@@ -1,6 +1,6 @@
 <script setup>
 import { formatTimeAgo } from "@vueuse/core";
-import { VSkeletonLoader } from "vuetify/labs/VSkeletonLoader";
+// import { VSkeletonLoader } from "vuetify/labs/VSkeletonLoader";
 
 const route = useRoute();
 const blog = useBlog();
