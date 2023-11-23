@@ -1,8 +1,9 @@
 <script setup>
 import { usePortfolioDialog } from "@/stores/portfolioDialog";
+import { socials } from "@/utils/socials";
 import { Icon } from "@iconify/vue";
 import { useRoute } from "vue-router";
-import { VBottomSheet } from "vuetify/labs/VBottomSheet";
+// import { VBottomSheet } from "vuetify/labs/VBottomSheet";
 
 const route = useRoute();
 // store init
@@ -12,11 +13,11 @@ const dialog = usePortfolioDialog();
 let drawer = ref(false);
 
 const pages = [
-  {
-    icon: "mdi:home",
-    title: "home",
-    link: "/",
-  },
+  // {
+  //   icon: "mdi:home",
+  //   title: "home",
+  //   link: "/",
+  // },
   {
     icon: "mdi:file-document",
     title: "about",
@@ -46,9 +47,84 @@ const openDrawer = () => {
 };
 </script>
 <template>
-  <v-container
+  <v-layout class="w-100" style="height: 65px; position: fixed; top: 0">
+    <v-app-bar
+      border
+      elevation="0"
+      rounded="0"
+      style="
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+        background-color: rgba(33, 33, 33, 0.8);
+        backdrop-filter: blur(8px);
+      "
+    >
+      <v-container>
+        <v-row>
+          <v-btn
+            height="50"
+            rounded="lg"
+            variant="tonal"
+            class="text-capitalize"
+            to="/"
+          >
+            <LazySharedLogo :width="30" :height="50" />
+          </v-btn>
+          <v-spacer></v-spacer>
+          <template v-for="page in pages">
+            <v-hover v-slot="{ isHovering, props }">
+              <v-btn
+                v-bind="props"
+                height="50"
+                rounded="lg"
+                class="text-capitalize hidden-sm-and-down"
+                :variant="isHovering ? 'tonal' : 'text'"
+                :text="page.title"
+                :active="route.fullPath.includes(page.title)"
+                :to="page.link"
+              />
+            </v-hover>
+          </template>
+          <v-spacer></v-spacer>
+          <template v-for="social in socials">
+            <v-tooltip theme="light" location="bottom" :text="social.name">
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  icon
+                  v-bind="props"
+                  variant="plain"
+                  rounded="lg"
+                  size="48"
+                  target="_blank"
+                  class="hidden-xs"
+                  :href="social.link"
+                >
+                  <v-icon size="sm">
+                    <Icon :icon="social.icon" />
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-tooltip>
+          </template>
+          <v-btn
+            height="50"
+            rounded="lg"
+            variant="tonal"
+            class="hidden-md-and-up"
+            @click="openDrawer"
+          >
+            <v-icon>
+              <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
+            </v-icon>
+          </v-btn>
+        </v-row>
+      </v-container>
+    </v-app-bar>
+  </v-layout>
+  <!-- <v-container
     class="position-fixed"
-    style="top: 0; left: 0; right: 0; z-index: 2999; pointer-events: none"
+    style="top: 40px; left: 0; right: 0; z-index: 2999; pointer-events: none"
   >
     <v-row>
       <v-col class="d-flex align-center justify-space-between">
@@ -58,18 +134,6 @@ const openDrawer = () => {
           color="#42455a"
           style="pointer-events: all"
         >
-          <v-btn
-            :active="false"
-            rounded="0"
-            variant="text"
-            color="transparent"
-            to="/"
-            height="60"
-            aria-label="Home"
-            @click="dialog.closeDialog(dialog.currentDialog)"
-          >
-            <LazySharedLogo :width="30" :height="60" />
-          </v-btn>
           <template v-if="dialog.currentDialog !== null">
             <v-divider vertical></v-divider>
             <v-btn
@@ -141,11 +205,18 @@ const openDrawer = () => {
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </v-container> -->
   <v-bottom-sheet v-model="drawer" scrim="black">
     <v-card rounded="0">
       <v-list>
         <v-list-subheader>Navigate to</v-list-subheader>
+        <v-list-item title="Home">
+          <template v-slot:prepend>
+            <v-icon>
+              <Icon icon="mdi:home" />
+            </v-icon>
+          </template>
+        </v-list-item>
         <v-list-item
           v-for="page in pages"
           :title="page.title"

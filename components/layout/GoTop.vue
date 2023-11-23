@@ -12,7 +12,7 @@ const onScroll = (e) => {
 </script>
 <template>
   <v-btn
-    icon
+    icon rounded="lg"
     size="x-large"
     variant="tonal"
     class="position-fixed"
