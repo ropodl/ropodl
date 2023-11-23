@@ -1,5 +1,5 @@
 <script setup>
-import { VDataTableServer } from "vuetify/labs/VDataTable";
+// import { VDataTableServer } from "vuetify/labs/VDataTable";
 
 const category = useCategory();
 

@@ -1,5 +1,5 @@
 <script setup>
-import { VDataTable } from 'vuetify/labs/VDataTable';
+// import { VDataTable } from 'vuetify/labs/VDataTable';
 definePageMeta({
   layout: "admin",
 });
@@ -105,7 +105,11 @@ const desserts = reactive([
     <v-row>
       <v-col cols="12">
         <!-- v-model:items-per-page="itemsPerPage" -->
-        <v-data-table :headers="headers" :items="desserts" item-value="name"></v-data-table>
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          item-value="name"
+        ></v-data-table>
       </v-col>
     </v-row>
   </v-container>
