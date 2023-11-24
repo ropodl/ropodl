@@ -10,14 +10,14 @@ useHead({
   title: "Blogs",
 });
 
-let page = ref(1);
-let itemsPerPage = ref(10);
+const page = ref(1);
+const itemsPerPage = ref(10);
 
 const blogs = ref([]);
 
 onMounted(() => {
   nextTick(async () => {
-    const { data, error } = await useFetch("/api/blogs");
+    const { data, error } = await useFetch("/api/blog");
     if (error.value) return console.log(error.value);
     blogs.value = data.value;
   });

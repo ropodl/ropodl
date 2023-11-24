@@ -170,13 +170,17 @@ const openDialog = (i) => {
       <v-col cols="10"> </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="10" class="position-relative">
+      <v-col cols="12" class="position-relative">
         <v-card
+          border
           elevation="10"
-          color="#3a3d4f"
           class="mb-10 position-sticky"
-          :width="y >= 250 ? '700' : '100%'"
-          style="top: 15px; backdrop-filter: blur(10px); z-index: 10"
+          style="
+            top: 70px;
+            background-color: rgba(31, 31, 31, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+          "
         >
           <v-tabs grow height="60" variant="tonal">
             <template v-for="category in categories">
@@ -195,13 +199,12 @@ const openDialog = (i) => {
           <template v-for="(work, i) in works">
             <v-col
               cols="12"
-              sm="6"
-              md="6"
-              lg="4"
+              sm="4"
+              md="4"
+              lg="3"
               v-if="work['category'] === current || current === 'All'"
             >
               <v-dialog
-                fullscreen
                 persistent
                 no-click-animation
                 v-model="dialog.dialogs[i]"
@@ -213,10 +216,9 @@ const openDialog = (i) => {
                 <template v-slot:activator="{ props: overlay }">
                   <v-card
                     flat
-                    elevation="10"
                     height="400"
                     @click="openDialog(i)"
-                    v-bind="{ overlay }"
+                    v-bind="{ ...overlay }"
                   >
                     <v-img
                       cover
@@ -234,55 +236,56 @@ const openDialog = (i) => {
                     </v-img>
                   </v-card>
                 </template>
-                <div class="w-100 h-100">
-                  <v-card
-                    flat
-                    color="rgba(0,0,0,0.8)"
-                    rounded="0"
-                    class="h-100 align-center justify-center"
-                    style="backdrop-filter: blur(2px)"
-                  >
-                    <div id="scene">
-                      <v-img :src="works[i].image['full']" />
-                    </div>
-                    <template v-if="dialog.info">
-                      <v-card
-                        border
-                        flat
-                        rounded="xl"
-                        width="400"
-                        class="position-absolute mx-auto"
-                        style="bottom: 20px; left: 0; right: 0"
+                <!-- <div class="w-100 h-100"> -->
+                <v-card
+                  flat
+                  height="200"
+                  width="300"
+                  color="rgba(0,0,0,0.8)"
+                  rounded="0"
+                  class="h-100 align-center justify-center"
+                  style="backdrop-filter: blur(2px)"
+                >
+                  <v-img :src="works[i].image['full']" />
+
+                  <template v-if="dialog.info">
+                    <v-card
+                      border
+                      flat
+                      rounded="xl"
+                      width="400"
+                      class="position-absolute mx-auto"
+                      style="bottom: 20px; left: 0; right: 0"
+                    >
+                      <v-card-title
+                        class="text-wrap"
+                        v-text="work['title']"
+                      ></v-card-title>
+                      <v-card-text>
+                        Category:
+                        {{ work["category"] }}
+                      </v-card-text>
+                      <v-btn
+                        block
+                        variant="tonal"
+                        rounded="0"
+                        height="50"
+                        class="text-capitalize"
+                        target="_blank"
+                        :href="work['link']"
                       >
-                        <v-card-title
-                          class="text-wrap"
-                          v-text="work['title']"
-                        ></v-card-title>
-                        <v-card-text>
-                          Category:
-                          {{ work["category"] }}
-                        </v-card-text>
-                        <v-btn
-                          block
-                          variant="tonal"
-                          rounded="0"
-                          height="50"
-                          class="text-capitalize"
-                          target="_blank"
-                          :href="work['link']"
-                        >
-                          <v-icon start>
-                            <Icon icon="mdi:link" />
-                          </v-icon>
-                          Open link
-                          <v-icon end>
-                            <Icon icon="mdi:arrow-right" />
-                          </v-icon>
-                        </v-btn>
-                      </v-card>
-                    </template>
-                  </v-card>
-                </div>
+                        <v-icon start>
+                          <Icon icon="mdi:link" />
+                        </v-icon>
+                        Open link
+                        <v-icon end>
+                          <Icon icon="mdi:arrow-right" />
+                        </v-icon>
+                      </v-btn>
+                    </v-card>
+                  </template>
+                </v-card>
+                <!-- </div> -->
               </v-dialog>
             </v-col>
           </template>
