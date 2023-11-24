@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   googleFonts: {
     download: false,
     families: {
@@ -30,7 +30,6 @@ export default defineNuxtConfig({
     // "nuxt-capo",
     // "nuxt-security",
     "nuxt-mongoose",
-    "nuxt-lucide-icons",
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         // @ts-expect-error

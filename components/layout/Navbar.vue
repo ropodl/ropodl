@@ -3,7 +3,6 @@ import { usePortfolioDialog } from "@/stores/portfolioDialog";
 import { socials } from "@/utils/socials";
 import { Icon } from "@iconify/vue";
 import { useRoute } from "vue-router";
-// import { VBottomSheet } from "vuetify/labs/VBottomSheet";
 
 const route = useRoute();
 // store init
@@ -13,11 +12,6 @@ const dialog = usePortfolioDialog();
 let drawer = ref(false);
 
 const pages = [
-  // {
-  //   icon: "mdi:home",
-  //   title: "home",
-  //   link: "/",
-  // },
   {
     icon: "mdi:file-document",
     title: "about",
@@ -25,8 +19,8 @@ const pages = [
   },
   {
     icon: "mdi:file-certificate",
-    title: "blog",
-    link: "/blog",
+    title: "blogs",
+    link: "/blogs",
   },
   {
     icon: "mdi:file-certificate",

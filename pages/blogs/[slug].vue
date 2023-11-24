@@ -1,12 +1,11 @@
 <script setup>
 import { formatTimeAgo } from "@vueuse/core";
-// import { VSkeletonLoader } from "vuetify/labs/VSkeletonLoader";
 
 const route = useRoute();
 const blog = useBlog();
 
-let post = ref({});
-let loading = ref(true);
+const post = ref({});
+const loading = ref(true);
 
 onMounted(() => {
   nextTick(async () => {
@@ -16,7 +15,7 @@ onMounted(() => {
 
 const getBlog = async () => {
   const res = await blog.getBlog(route.params.slug);
-  post.value = res.blog;
+  post.value = res;
   useServerSeoMeta({
     title: post.value.title,
     meta: [{ name: "description", content: post.value.excerpt }],
@@ -25,32 +24,28 @@ const getBlog = async () => {
 };
 </script>
 <template>
-  <!-- <Head>
-    <Title>{{ post.title }}</Title>
-  </Head> -->
   <v-skeleton-loader :loading="loading" width="100%" height="600" type="image">
-    <template v-if="post.featuredImage">
-      <v-img
-        cover
-        class="d-flex align-end"
-        height="600"
-        :src="post.featuredImage?.url"
-      >
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-card-title
-                class="text-h2"
-                style="white-space: unset !important"
-                >{{ post.title }}</v-card-title
-              >
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-img>
-    </template>
+    <!-- <template v-if="post.featuredImage.length"> -->
+    <v-img
+      cover
+      class="d-flex align-end"
+      height="600"
+      :src="post.featuredImage?.url"
+    >
+      <v-container>
+        <v-row>
+          <v-col cols="12">
+            <v-card-title
+              class="text-h2"
+              style="white-space: unset !important"
+              >{{ post.title }}</v-card-title
+            >
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-img>
+    <!-- </template> -->
   </v-skeleton-loader>
-  <!-- {{ post }} -->
   <v-container>
     <v-row v-if="post.excerpt">
       <v-col cols="12" md="12">

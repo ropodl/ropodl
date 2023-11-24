@@ -2,14 +2,13 @@
 defineProps({
   title: { type: String, default: "Title" },
   items: { type: Array, default: [{ title: "Home", to: "/" }] },
-  height: { type: Number, default: 300 },
+  height: { type: Number, default: 250 },
 });
 </script>
 <template>
   <v-card
     border
     rounded="0"
-    elevation="10"
     class="d-flex align-end justify-center text-center"
     :height="height"
     style="border-top: 0; border-left: 0; border-right: 0"
