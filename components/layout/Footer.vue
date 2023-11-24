@@ -10,8 +10,13 @@ const goToAdmin = () => {
 };
 </script>
 <template>
-  <v-divider></v-divider>
-  <v-card flat class="pt-6 pb-16" rounded="0" color="#313131">
+  <v-card
+    border
+    flat
+    class="pt-6 pb-16"
+    rounded="0"
+    style="border-bottom: 0; border-left: 0; border-right: 0"
+  >
     <v-card-text class="text-center">
       <LazySharedLogo @click="goToAdmin" />
     </v-card-text>

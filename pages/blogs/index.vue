@@ -1,6 +1,6 @@
 <script setup>
-const blog = useBlog();
 import { formatTimeAgo } from "@vueuse/core";
+const blog = useBlog();
 
 definePageMeta({
   layout: "with-page-title",
@@ -13,11 +13,16 @@ useHead({
 let page = ref(1);
 let itemsPerPage = ref(10);
 
+const blogs = ref([]);
+
 onMounted(() => {
-  nextTick(() => {
-    blog.getAllBlogs(page.value, 10);
+  nextTick(async () => {
+    const { data, error } = await useFetch("/api/blogs");
+    if (error.value) return console.log(error.value);
+    blogs.value = data.value;
   });
 });
+// blog.getAllBlogs(page.value, 10);
 
 const test = () => {
   blog.getAllBlogs(page.value, 10);
@@ -43,13 +48,13 @@ const test = () => {
       </v-col>
     </v-row>
     <v-row>
-      <template v-if="blog.blogs.blogs">
-        <v-col cols="12" md="3" v-for="item in blog.blogs.blogs">
+      <template v-if="blogs.length">
+        <v-col cols="12" md="3" v-for="item in blogs">
           <v-card
             flat
             elevation="10"
             height="400"
-            :to="'/blog/' + item['slug']"
+            :to="'/blogs/' + item['slug']"
           >
             <v-img
               cover
@@ -95,5 +100,3 @@ const test = () => {
     </template>
   </v-container>
 </template>
-
-<style lang="scss" scoped></style>
