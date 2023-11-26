@@ -11,13 +11,12 @@ useHead({
 });
 
 const page = ref(1);
-const itemsPerPage = ref(10);
 
 const blogs = ref([]);
 
 onMounted(() => {
   nextTick(async () => {
-    const { data, error } = await useFetch("/api/blog");
+    const { data, error } = await useFetch("/api/frontend/blog");
     if (error.value) return console.log(error.value);
     blogs.value = data.value;
   });
@@ -32,59 +31,51 @@ const test = () => {
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="6"></v-col>
-      <v-col cols="12" md="6">
-        <div class="d-flex">
-          <v-spacer></v-spacer>
-          <v-select
-            hide-details
-            hide-no-data
-            v-model="itemsPerPage"
-            label="Items Per Page"
-            :items="['10', '20', '30']"
-            style="max-width: 150px"
-          ></v-select>
-        </div>
-      </v-col>
-    </v-row>
-    <v-row>
       <template v-if="blogs.length">
-        <v-col cols="12" md="3" v-for="item in blogs">
-          <v-card
-            flat
-            elevation="10"
-            height="400"
-            :to="'/blogs/' + item['slug']"
-          >
-            <v-img
-              cover
-              class="w-100 h-100 pa-2"
-              :src="item['featuredImage'].url"
-              :alt="item['featuredImage'].alt"
-            >
-              <div class="d-flex justify-space-between flex-column h-100">
-                <div class="d-flex justify-space-between">
-                  <v-chip
-                    variant="elevated"
-                    rounded="pill"
-                    color="#212121"
-                    class="ml-auto"
+        <template v-for="item in blogs">
+          {{ item }}
+          <v-col cols="12" md="3">
+            <v-hover v-slot="{ isHovering, props }">
+              <v-card
+                v-bind="props"
+                variant="text"
+                color="transparent"
+                class="h-100"
+                :to="`/blogs/${item['slug']}`"
+              >
+                <v-card border flat>
+                  <v-img
+                    cover
+                    class="w-100 h-100 pa-2"
+                    :class="isHovering ? 'zoom-image' : ''"
+                    :aspect-ratio="1"
+                    :src="item.featuredImage?.url"
+                    :alt="item.featuredImage?.alt"
                   >
-                    {{ formatTimeAgo(new Date(item["createdAt"])) }}
-                  </v-chip>
-                </div>
-                <v-card>
-                  <v-card-text
-                    class="text-h6 font-weight-bold"
-                    style="line-height: normal; white-space: normal"
-                  >
-                    {{ item["title"] }}
-                  </v-card-text>
+                    <div class="d-flex justify-space-between flex-column h-100">
+                      <div class="d-flex justify-space-between">
+                        <v-chip
+                          variant="flat"
+                          rounded="pill"
+                          color="#212121"
+                          class="ml-auto"
+                        >
+                          {{ formatTimeAgo(new Date(item["createdAt"])) }}
+                        </v-chip>
+                      </div>
+                    </div>
+                  </v-img>
                 </v-card>
-              </div>
-            </v-img>
-          </v-card>
-        </v-col>
+                <v-card-text
+                  class="text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
+                  style="line-height: normal; white-space: normal"
+                >
+                  {{ item["title"] }}
+                </v-card-text>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </template>
       </template>
     </v-row>
     <template v-if="blog.blogs.pagination">
@@ -92,7 +83,7 @@ const test = () => {
         <v-pagination
           v-model="page"
           density="compact"
-          :length="blog.blogs.pagination.totalPages"
+          :length="blog.pagination.totalPage"
           show-first-last-page
           @update:modelValue="test"
         ></v-pagination>

@@ -1,12 +1,11 @@
 import { defineMongooseModel } from "#nuxt/mongoose";
 
-export const BlogSchema = defineMongooseModel({
-  name: "Blog",
+export const PortfolioSchema = defineMongooseModel({
+  name: "Portfolio",
   schema: {
     title: {
       type: "string",
       required: true,
-      min: [3, "Title must be minimum 3 characters"],
     },
     slug: {
       type: "string",
@@ -16,13 +15,10 @@ export const BlogSchema = defineMongooseModel({
     excerpt: {
       type: "string",
     },
-    featuredImage: { type: Object, url: String, name: String },
+    featuredImage: {},
     status: {
       type: String,
       enum: ["Draft", "Published"],
     },
-  },
-  options: {
-    timestamps: true,
   },
 });

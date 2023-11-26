@@ -1,34 +1,21 @@
 import { paginate } from "~/server/utils/paginate";
-
 export default defineEventHandler(async (event) => {
   const paginatedBlogs = await paginate(
     BlogSchema,
     1,
-    8,
-    {},
+    10,
+    { status: "Published" },
     { createdAt: "-1" }
   );
   const blogs = Promise.all(
     await paginatedBlogs.documents.map(async (blog) => {
-      const {
-        id,
-        title,
-        slug,
-        excerpt,
-        featuredImage,
-        status,
-        createdAt,
-        updatedAt,
-      } = blog;
+      console.log(blog.createdAt);
+      const { title, slug, featuredImage, createdAt } = blog;
       return {
-        id,
         title,
         slug,
-        excerpt,
         featuredImage,
-        status,
         createdAt,
-        updatedAt,
       };
     })
   );

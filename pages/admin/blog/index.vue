@@ -1,8 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-// import { VDataTableServer } from "vuetify/labs/VDataTable";
 
-const runtimeConfig = useRuntimeConfig();
 const blog = useBlog();
 
 definePageMeta({
@@ -14,7 +12,6 @@ useHead({
 });
 
 const loading = ref(true);
-const itemsPerPage = ref(10);
 
 const headers = [
   {
@@ -107,11 +104,11 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="itemsPerPage"
+          v-model:items-per-page="blog.pagination.itemsPerPage"
           :headers="headers"
-          :items="blog.blogs.blogs"
+          :items="blog.blogs"
           :loading="loading"
-          :items-length="blog.blogs.pagination?.totalItems"
+          :items-length="blog.pagination.totalItems"
           :search="search"
           item-value="id"
           @update:options="loadBlogs"

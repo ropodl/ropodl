@@ -50,7 +50,7 @@ const openDrawer = () => {
         border-top: 0;
         border-right: 0;
         border-left: 0;
-        background-color: rgba(33, 33, 33, 0.8);
+        background-color: rgba(var(--v-theme-surface), 0.8);
         backdrop-filter: blur(8px);
       "
     >
