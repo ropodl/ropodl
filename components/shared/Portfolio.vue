@@ -57,23 +57,33 @@ const works = [
           </v-hover>
         </v-col>
         <v-col cols="12" md="2" v-for="(work, i) in works">
-          <v-card elevation="0" color="transparent">
-            <v-img cover height="400" :src="work['image']">
-              <v-overlay
-                contained
-                scrim="black"
-                :model-value="true"
-                persistent
-                no-click-animation
-                class="align-end justify-center text-center"
-              >
-                <v-card-title style="transform: translateZ(30px)">
-                  {{ work["title"] }}
-                </v-card-title>
-                <v-card-text>{{ work["text"] }}</v-card-text>
-              </v-overlay>
-            </v-img>
-          </v-card>
+          <v-hover v-slot="{ isHovering, props }">
+            <v-card
+              border
+              rounded="lg"
+              elevation="0"
+              color="transparent"
+              v-bind="props"
+            >
+              <v-img cover height="400" :src="work['image']">
+                <div
+                  class="d-flex align-end w-100 h-100"
+                  :class="isHovering ? 'blur-8' : ''"
+                >
+                  <!-- :style="
+                    ((backgroundColor = `rgba(var(--v-theme-surface), 0.3)`),
+                    (backdropFilter = `blur(8px)`))
+                  " -->
+                  <div v-if="isHovering">
+                    <v-card-title style="transform: translateZ(30px)">
+                      {{ work["title"] }}
+                    </v-card-title>
+                    <v-card-text>{{ work["text"] }}</v-card-text>
+                  </div>
+                </div>
+              </v-img>
+            </v-card>
+          </v-hover>
         </v-col>
       </v-row>
     </v-container>

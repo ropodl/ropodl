@@ -28,7 +28,7 @@ const getBlog = async () => {
     <!-- <template v-if="post.featuredImage.length"> -->
     <v-img
       cover
-      class="d-flex align-end"
+      class="d-flex align-end rounded-0 border border-t-0 border-e-0 border-s-0"
       height="600"
       :src="post.featuredImage?.url"
     >

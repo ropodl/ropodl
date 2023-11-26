@@ -33,7 +33,11 @@ const navitems = reactive([
 ]);
 </script>
 <template>
-  <v-app-bar height="50">
+  <v-app-bar
+    border
+    height="50"
+    style="border-top: 0; border-left: 0; border-right: 0"
+  >
     <v-container fluid class>
       <v-row align="center">
         <v-app-bar-nav-icon
@@ -69,7 +73,7 @@ const navitems = reactive([
           hide-details
           hide-no-data
           placeholder="Search"
-          prepend-inner-icon="mdi-magnify"
+          prepend-inner-icon="mdi:magnify"
         ></v-autocomplete>
         <v-spacer></v-spacer>
         <LazyAdminSharedAdminNavDrop />

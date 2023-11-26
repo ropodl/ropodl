@@ -164,9 +164,8 @@ onMounted(() => {
                   <span>based in Kathmandu, Nepal.</span>
                 </div>
                 <v-card-text class="pl-0 paragraph">
-                  Hello, world. I am Web Designer and Web Application Developer.
-                  I have rich experience in web site design and building, also I
-                  am good at Vue JS. Recently I am enhancing my ExpressJS
+                  Hello, world. I am Full Stack Developer. I have rich
+                  experience in Vue JS. Recently I am enhancing my ExpressJS
                   skills.
                 </v-card-text>
                 <div id="btn">

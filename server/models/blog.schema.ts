@@ -6,6 +6,7 @@ export const BlogSchema = defineMongooseModel({
     title: {
       type: "string",
       required: true,
+      min: [3, "Title must be minimum 3 characters"],
     },
     slug: {
       type: "string",
@@ -15,10 +16,13 @@ export const BlogSchema = defineMongooseModel({
     excerpt: {
       type: "string",
     },
-    featuredImage: {},
+    featuredImage: { type: Object, url: String, name: String },
     status: {
       type: String,
       enum: ["Draft", "Published"],
     },
+  },
+  options: {
+    timestamps: true,
   },
 });

@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const paginatedBlogs = await paginate(
     BlogSchema,
     1,
-    10,
+    8,
     {},
     { createdAt: "-1" }
   );

@@ -1,6 +1,35 @@
 export const useBlog = defineStore("blog", {
   state: () => ({
     blogs: reactive([]),
+    pagination: reactive({
+      totalPage: 1,
+      totalItems: 0,
+      itemsPerPage: 10,
+      currentPage: 1,
+    }),
+    headers: reactive([
+      {
+        title: "Featured Image",
+        key: "image",
+        align: "start",
+        sortable: false,
+        width: 0,
+      },
+      {
+        title: "Title",
+        align: "start",
+        sortable: false,
+        key: "title",
+        // width: 300,
+      },
+      {
+        title: "Actions",
+        align: "center",
+        sortable: false,
+        width: 200,
+        key: "actions",
+      },
+    ]),
   }),
   getters: {
     getBlogs: (state) => state.blogs,

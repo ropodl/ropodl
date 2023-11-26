@@ -1,5 +1,5 @@
 <script setup>
-import { Icon } from "@iconify/vue";
+// import { Icon } from "@iconify/vue";
 // import Panzoom from "@panzoom/panzoom";
 
 definePageMeta({
@@ -17,13 +17,10 @@ useHead({
   ],
 });
 
-const { y } = useWindowScroll();
-const dialog = usePortfolioDialog();
+const current = ref("All");
+const categories = ["All", "Graphic Design", "Web", "Branding"];
 
-let current = ref("All");
-let categories = ["All", "Graphic Design", "Web", "Branding"];
-
-let works = [
+const works = [
   {
     title: "Life's a prank",
     category: "Design",
@@ -152,17 +149,6 @@ let works = [
     },
   },
 ];
-
-const openDialog = (i) => {
-  dialog.openDialog(i);
-  nextTick(() => {
-    // const elem = document.getElementById("scene");
-    // const panzoom = Panzoom(elem, {
-    //   maxScale: 5,
-    // });
-    // elem.parentElement.addEventListener("wheel", panzoom.zoomWithWheel);
-  });
-};
 </script>
 <template>
   <v-container class="px-0 pb-16">
@@ -173,25 +159,26 @@ const openDialog = (i) => {
       <v-col cols="12" class="position-relative">
         <v-card
           border
+          height="65"
           elevation="10"
-          class="mb-10 position-sticky"
+          class="mb-10 position-sticky blur-8 pa-2"
           style="
             top: 70px;
-            background-color: rgba(31, 31, 31, 0.8);
-            backdrop-filter: blur(10px);
+            background-color: rgba(var(--v-theme-surface), 0.8);
             z-index: 10;
           "
         >
-          <v-tabs grow height="60" variant="tonal">
+          <v-tabs grow hide-slider variant="tonal">
             <template v-for="category in categories">
               <v-tab
-                rounded="0"
+                rounded="lg"
                 class="text-lowercase"
-                :color="current == category ? 'primary' : 'white'"
-                variant="text"
+                :color="current === category ? 'primary' : 'white'"
+                :variant="current === category ? 'tonal' : 'text'"
                 @click="current = category"
-                >{{ category }}</v-tab
               >
+                {{ category }}
+              </v-tab>
             </template>
           </v-tabs>
         </v-card>
@@ -201,91 +188,85 @@ const openDialog = (i) => {
               cols="12"
               sm="4"
               md="4"
-              lg="3"
+              lg="4"
               v-if="work['category'] === current || current === 'All'"
             >
-              <v-dialog
-                persistent
-                no-click-animation
-                v-model="dialog.dialogs[i]"
-                transition="fade-transition"
-                scrim="black"
-                width="auto"
-                content-class="d-flex w-100"
-              >
-                <template v-slot:activator="{ props: overlay }">
-                  <v-card
-                    flat
-                    height="400"
-                    @click="openDialog(i)"
-                    v-bind="{ ...overlay }"
-                  >
-                    <v-img
-                      cover
-                      class="w-100 h-100 align-end"
-                      :src="work['image'].thumbnail"
-                    >
-                      <v-card elevation="10" class="ma-4">
-                        <v-card-text
-                          class="text-center"
-                          style="white-space: normal"
-                        >
-                          {{ work["title"] }}
-                        </v-card-text>
-                      </v-card>
-                    </v-img>
-                  </v-card>
-                </template>
-                <!-- <div class="w-100 h-100"> -->
-                <v-card
-                  flat
-                  height="200"
-                  width="300"
-                  color="rgba(0,0,0,0.8)"
-                  rounded="0"
-                  class="h-100 align-center justify-center"
-                  style="backdrop-filter: blur(2px)"
-                >
-                  <v-img :src="works[i].image['full']" />
-
-                  <template v-if="dialog.info">
+              <v-dialog scrim="black" fullscreen>
+                <template v-slot:activator="{ props: dialog }">
+                  <v-hover v-slot="{ isHovering, props: hover }">
                     <v-card
                       border
                       flat
-                      rounded="xl"
-                      width="400"
-                      class="position-absolute mx-auto"
-                      style="bottom: 20px; left: 0; right: 0"
+                      rounded="lg"
+                      v-bind="{ ...dialog, ...hover }"
                     >
-                      <v-card-title
-                        class="text-wrap"
-                        v-text="work['title']"
-                      ></v-card-title>
-                      <v-card-text>
-                        Category:
-                        {{ work["category"] }}
-                      </v-card-text>
-                      <v-btn
-                        block
-                        variant="tonal"
-                        rounded="0"
-                        height="50"
-                        class="text-capitalize"
-                        target="_blank"
-                        :href="work['link']"
+                      <v-img
+                        cover
+                        :aspect-ratio="16 / 9"
+                        class="w-100 h-100 align-end"
+                        :class="isHovering ? 'zoom-image' : ''"
+                        :src="work['image'].thumbnail"
                       >
-                        <v-icon start>
-                          <Icon icon="mdi:link" />
-                        </v-icon>
-                        Open link
-                        <v-icon end>
-                          <Icon icon="mdi:arrow-right" />
-                        </v-icon>
-                      </v-btn>
+                        <v-card
+                          rounded="0"
+                          elevation="10"
+                          class="blur-8 border border-s-0 border-e-0 border-b-0"
+                          style="
+                            background-color: rgba(var(--v-theme-surface), 0.8);
+                          "
+                        >
+                          <v-card-text
+                            class="text-center"
+                            style="white-space: normal"
+                          >
+                            {{ work["title"] }}
+                          </v-card-text>
+                        </v-card>
+                      </v-img>
                     </v-card>
-                  </template>
-                </v-card>
-                <!-- </div> -->
+                  </v-hover>
+                </template>
+
+                <template v-slot:default="{ isActive }">
+                  <v-card
+                    class="blur-8"
+                    style="background-color: rgba(var(--v-theme-surface), 0.8)"
+                  >
+                    <v-btn
+                      color="primary"
+                      icon="mdi-close"
+                      class="rounded-t-0 rounded-e-0 position-fixed top-0 right-0"
+                      @click="isActive.value = false"
+                    ></v-btn>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="12">
+                            <v-card-title>
+                              <div class="text-h4">
+                                {{ work.title }}
+                              </div>
+                            </v-card-title>
+                          </v-col>
+                          <v-col cols="12" md="6">
+                            <v-card flat border>
+                              <v-img :src="work.image?.full"></v-img>
+                            </v-card>
+                          </v-col>
+                          <v-col cols="12" md="6">
+                            <v-card-title class="px-0">
+                              <v-chip>
+                                {{ work.category }}
+                              </v-chip>
+                            </v-card-title>
+                            {{ work.title }}
+                            {{ work }}
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                  </v-card>
+                </template>
               </v-dialog>
             </v-col>
           </template>
@@ -294,55 +275,3 @@ const openDialog = (i) => {
     </v-row>
   </v-container>
 </template>
-<style lang="scss">
-.z-index-1 {
-  z-index: 1;
-}
-// image zoom effect
-.v-img {
-  .v-img__img {
-    transform: scale(1);
-  }
-  &.zoom-scale-1 {
-    .v-img__img {
-      transform: scale(1.3);
-    }
-  }
-  &.zoom-scale-2 {
-    .v-img__img {
-      transform: scale(1.7);
-    }
-  }
-  &.zoom-scale-3 {
-    .v-img__img {
-      transform: scale(2.1);
-    }
-  }
-}
-
-.single-product {
-  background-size: cover;
-  transform-style: preserve-3d;
-  background-position: center;
-  &.preserve {
-    transform-style: preserve-3d;
-  }
-  &.no-preserve {
-    transform-style: flat;
-  }
-  .hover-panel {
-    width: 90%;
-    margin: auto;
-    transition: all 0.5s;
-    &.top {
-      margin-top: 5%;
-    }
-    &.bottom {
-      margin-bottom: 5%;
-    }
-    &.transform {
-      transform: translateZ(30px);
-    }
-  }
-}
-</style>
