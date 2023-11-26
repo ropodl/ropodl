@@ -73,7 +73,6 @@ const openDrawer = () => {
                 height="50"
                 rounded="lg"
                 class="text-capitalize hidden-sm-and-down"
-                :variant="isHovering ? 'tonal' : 'text'"
                 :text="page.title"
                 :active="route.fullPath.includes(page.title)"
                 :to="page.link"
