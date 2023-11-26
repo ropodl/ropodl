@@ -1,4 +1,4 @@
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     display: "swap",
   },
   imports: {
-    dirs: ['stores']
+    dirs: ["stores"],
   },
   modules: [
     "@vueuse/nuxt",
@@ -31,10 +31,10 @@ export default defineNuxtConfig({
     // "nuxt-security",
     "nuxt-mongoose",
     (_options, nuxt) => {
-      nuxt.hooks.hook('vite:extendConfig', (config) => {
+      nuxt.hooks.hook("vite:extendConfig", (config) => {
         // @ts-expect-error
-        config.plugins.push(vuetify({ autoImport: true }))
-      })
+        config.plugins.push(vuetify({ autoImport: true }));
+      });
     },
   ],
   // pinia: {
@@ -45,8 +45,8 @@ export default defineNuxtConfig({
       api_url: process.env.api_url,
     },
     private: {
-      oop: "test"
-    }
+      oop: "test",
+    },
   },
   vite: {
     vue: {
@@ -56,12 +56,15 @@ export default defineNuxtConfig({
     },
   },
   build: {
-    transpile: ['vuetify'],
+    transpile: ["vuetify"],
   },
   mongoose: {
     uri: process.env.MONGODB_URI,
     options: {},
-    modelsDir: 'models',
+    modelsDir: "models",
     devtools: true,
+  },
+  experimentals: {
+    viewTransition: true,
   },
 });
