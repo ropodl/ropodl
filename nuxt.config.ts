@@ -64,7 +64,7 @@ export default defineNuxtConfig({
     modelsDir: "models",
     devtools: true,
   },
-  experimentals: {
+  experimental: {
     viewTransition: true,
   },
 });
