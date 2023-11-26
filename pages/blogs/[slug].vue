@@ -13,8 +13,8 @@ onMounted(() => {
   });
 });
 
+const res = await blog.getBlog(route.params.slug);
 const getBlog = async () => {
-  const res = await blog.getBlog(route.params.slug);
   post.value = res;
   useSeoMeta({
     title: post.value.title,
