@@ -16,7 +16,7 @@ onMounted(() => {
 const getBlog = async () => {
   const res = await blog.getBlog(route.params.slug);
   post.value = res;
-  useServerSeoMeta({
+  useSeoMeta({
     title: post.value.title,
     meta: [{ name: "description", content: post.value.excerpt }],
   });
