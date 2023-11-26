@@ -228,43 +228,40 @@ const works = [
                 </template>
 
                 <template v-slot:default="{ isActive }">
+                  <v-btn variant="tonal"
+                    color="primary"
+                    icon="mdi-close"
+                    class="rounded-t-0 rounded-e-0 position-fixed top-0 right-0 z-index-11"
+                    @click="isActive.value = false"
+                  ></v-btn>
                   <v-card
                     class="blur-8"
                     style="background-color: rgba(var(--v-theme-surface), 0.8)"
                   >
-                    <v-btn
-                      color="primary"
-                      icon="mdi-close"
-                      class="rounded-t-0 rounded-e-0 position-fixed top-0 right-0"
-                      @click="isActive.value = false"
-                    ></v-btn>
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col cols="12">
-                            <v-card-title>
-                              <div class="text-h4">
-                                {{ work.title }}
-                              </div>
-                            </v-card-title>
-                          </v-col>
-                          <v-col cols="12" md="6">
-                            <v-card flat border>
-                              <v-img :src="work.image?.full"></v-img>
-                            </v-card>
-                          </v-col>
-                          <v-col cols="12" md="6">
-                            <v-card-title class="px-0">
-                              <v-chip>
-                                {{ work.category }}
-                              </v-chip>
-                            </v-card-title>
-                            {{ work.title }}
-                            {{ work }}
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12"> </v-col>
+                        <v-col cols="12" md="5">
+                          <v-card flat border>
+                            <v-img :src="work.image?.full"></v-img>
+                          </v-card>
+                        </v-col>
+                        <v-col cols="12" md="7">
+                          <v-card-title class="px-0">
+                            <div class="text-h4">
+                              {{ work.title }}
+                            </div>
+                          </v-card-title>
+                          <v-card-title class="px-0">
+                            <v-chip>
+                              {{ work.category }}
+                            </v-chip>
+                          </v-card-title>
+                          {{ work.title }}
+                          {{ work }}
+                        </v-col>
+                      </v-row>
+                    </v-container>
                   </v-card>
                 </template>
               </v-dialog>
