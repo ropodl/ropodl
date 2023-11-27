@@ -13,23 +13,30 @@
     "@nuxt/devtools": "^1.0.3",
     "@nuxtjs/google-fonts": "latest",
     "@pinia/nuxt": "^0.5.1",
+    "@sidebase/nuxt-auth": "latest",
     "@vite-pwa/nuxt": "^0.2.3",
     "@vueuse/nuxt": "latest",
     "nuxt": "^3.7.4",
     "nuxt-capo": "^0.1.0",
+    "nuxt-delay-hydration": "latest",
     "nuxt-security": "^1.0.0-rc.4",
+    "nuxt-simple-sitemap": "latest",
     "sass": "^1.69.5"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@iconify/vue": "^4.1.1",
     "@mdi/font": "^7.3.67",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@tinymce/tinymce-vue": "latest",
     "cloudinary": "^1.41.0",
     "gsap": "^3.12.2",
+    "next-auth": "4.21.1",
     "nuxt-mongoose": "^1.0.3",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
     "vite-plugin-vuetify": "^1.0.2",
-    "vuetify": "^3.4.3"
+    "vuetify": "^3.4.3",
+    "vuetify-nuxt-module": "^0.7.0"
   }
 }

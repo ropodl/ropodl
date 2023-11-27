@@ -56,14 +56,14 @@ const addBlog = () => {
   blog.create(formData);
 };
 
-const searchCategories = () => {
-  alert("test");
-};
+// const searchCategories = () => {
+//   alert("test");
+// };
 
-let statusEdit = ref(false);
-let statusTemp = ref("Draft");
-let visibilityEdit = ref(false);
-let visibilityTemp = ref("Public");
+// let statusEdit = ref(false);
+// let statusTemp = ref("Draft");
+// let visibilityEdit = ref(false);
+// let visibilityTemp = ref("Public");
 </script>
 <template>
   <v-container>
@@ -87,171 +87,7 @@ let visibilityTemp = ref("Public");
           <v-textarea label="Blog Excerpt" v-model="form.excerpt"></v-textarea>
         </v-col>
         <v-col cols="12" md="4">
-          <v-card class="mb-3">
-            <v-card-title>Actions</v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-              <ul class="list-style-none">
-                <v-hover v-slot="{ isHovering, props }">
-                  <li
-                    class="d-flex align-center justify-space-between mb-3"
-                    v-bind="props"
-                  >
-                    <div>
-                      <v-icon start>
-                        <Icon icon="mdi:key" />
-                      </v-icon>
-                      Status:
-                      <span class="text-capitalize">{{ form.status }}</span>
-                    </div>
-                    <template v-if="isHovering && statusEdit == false">
-                      <v-btn
-                        variant="tonal"
-                        size="x-small"
-                        class="text-capitalize px-5"
-                        @click="statusEdit = true"
-                        >Edit</v-btn
-                      >
-                    </template>
-                  </li>
-                </v-hover>
-                <div v-auto-animate>
-                  <template v-if="statusEdit">
-                    <div class="mb-3">
-                      <v-select
-                        v-model="statusTemp"
-                        :items="['Draft', 'Published']"
-                      ></v-select>
-                      <div class="d-flex justify-space-between">
-                        <v-btn
-                          variant="tonal"
-                          class="text-capitalize"
-                          @click="
-                            () => {
-                              form.status = statusTemp;
-                              statusEdit = false;
-                            }
-                          "
-                          >OK</v-btn
-                        >
-                        <v-btn
-                          variant="tonal"
-                          class="text-capitalize"
-                          @click="
-                            () => {
-                              statusTemp = 'Draft';
-                              statusEdit = false;
-                            }
-                          "
-                          >Cancel</v-btn
-                        >
-                      </div>
-                    </div>
-                  </template>
-                </div>
-                <v-hover v-slot="{ isHovering, props }">
-                  <li
-                    class="d-flex align-center justify-space-between mb-3"
-                    v-bind="props"
-                  >
-                    <div>
-                      <v-icon start>
-                        <Icon icon="mdi:eye" />
-                      </v-icon>
-                      Visibility:
-                      <span class="text-capitalize">{{ form.visibility }}</span>
-                    </div>
-                    <template v-if="isHovering && visibilityEdit == false">
-                      <v-btn
-                        variant="tonal"
-                        size="x-small"
-                        class="text-capitalize px-5 ml-3"
-                        @click="visibilityEdit = true"
-                        >Edit</v-btn
-                      >
-                    </template>
-                  </li>
-                </v-hover>
-                <div v-auto-animate>
-                  <template v-if="visibilityEdit">
-                    <div class="mb-3">
-                      <v-radio-group hide-details v-model="visibilityTemp">
-                        <v-radio label="Public" value="Public"></v-radio>
-                        <v-radio label="Private" value="Private"></v-radio>
-                      </v-radio-group>
-                      <div class="d-flex justify-space-between">
-                        <v-btn
-                          variant="tonal"
-                          class="text-capitalize"
-                          @click="
-                            () => {
-                              form.visibility = visibilityTemp;
-                              visibilityEdit = false;
-                            }
-                          "
-                          >OK</v-btn
-                        >
-                        <v-btn
-                          variant="tonal"
-                          class="text-capitalize"
-                          @click="
-                            () => {
-                              visibilityTemp = 'Public';
-                              visibilityEdit = false;
-                            }
-                          "
-                          >Cancel</v-btn
-                        >
-                      </div>
-                    </div>
-                  </template>
-                </div>
-                <v-hover v-slot="{ isHovering, props }">
-                  <li
-                    class="d-flex align-center justify-space-between"
-                    v-bind="props"
-                  >
-                    <div>
-                      <v-icon start>
-                        <Icon icon="mdi:calendar" />
-                      </v-icon>
-                      Publish: immediately
-                    </div>
-                    <template v-if="isHovering">
-                      <v-btn
-                        variant="tonal"
-                        size="x-small"
-                        class="text-capitalize px-5"
-                        >Edit</v-btn
-                      >
-                    </template>
-                  </li>
-                </v-hover>
-              </ul>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions class="justify-space-between">
-              <v-btn
-                rounded="sm"
-                class="text-capitalize px-5"
-                color="error"
-                variant="text"
-                @click="
-                  () => {
-                    navigateTo('/admin/blog/');
-                  }
-                "
-                >Move to Trash</v-btn
-              >
-              <v-btn
-                rounded="sm"
-                class="text-capitalize px-5"
-                variant="flat"
-                type="submit"
-                >Publish</v-btn
-              >
-            </v-card-actions>
-          </v-card>
+          <LazyAdminSharedActions :form="form" />
           <!-- <v-card class="mb-3">
             <v-card-title>Categories</v-card-title>
             <v-divider></v-divider>

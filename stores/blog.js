@@ -20,14 +20,20 @@ export const useBlog = defineStore("blog", {
         align: "start",
         sortable: false,
         key: "title",
-        // width: 300,
       },
+      // {
+      //   title: "Categories",
+      //   align: "center",
+      //   sortable: false,
+      //   key: "categories",
+      // },
+      // { title: "Tags", align: "center", sortable: false, key: "tags" },
       {
         title: "Actions",
         align: "center",
         sortable: false,
-        width: 200,
         key: "actions",
+        width: 200,
       },
     ]),
   }),
@@ -36,7 +42,6 @@ export const useBlog = defineStore("blog", {
   },
   actions: {
     async create(formData) {
-      const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("user_auth_token");
       const { error } = await useFetch("/api/blog/create", {

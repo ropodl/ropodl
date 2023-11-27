@@ -1,15 +1,11 @@
 <script setup>
-import { usePortfolioDialog } from "@/stores/portfolioDialog";
 import { socials } from "@/utils/socials";
 import { Icon } from "@iconify/vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-// store init
-const user = useUser();
-const dialog = usePortfolioDialog();
 
-let drawer = ref(false);
+const drawer = ref(false);
 
 const pages = [
   {
@@ -115,90 +111,6 @@ const openDrawer = () => {
       </v-container>
     </v-app-bar>
   </v-layout>
-  <!-- <v-container
-    class="position-fixed"
-    style="top: 40px; left: 0; right: 0; z-index: 2999; pointer-events: none"
-  >
-    <v-row>
-      <v-col class="d-flex align-center justify-space-between">
-        <v-card
-          class="d-flex align-center"
-          elevation="10"
-          color="#42455a"
-          style="pointer-events: all"
-        >
-          <template v-if="dialog.currentDialog !== null">
-            <v-divider vertical></v-divider>
-            <v-btn
-              rounded="0"
-              size="60"
-              variant="tonal"
-              color="white"
-              @click="dialog.closeDialog(dialog.currentDialog)"
-            >
-              <v-icon>
-                <Icon icon="mdi:close" />
-              </v-icon>
-            </v-btn>
-          </template>
-        </v-card>
-        <v-card elevation="10" color="#42455a" style="pointer-events: all">
-          <div class="d-flex align-center justify-end">
-            <template v-if="dialog.currentDialog !== null">
-              <v-btn
-                rounded="0"
-                size="60"
-                variant="tonal"
-                color="white"
-                @click="dialog.infoDialogToggle"
-              >
-                <v-icon>
-                  <Icon icon="mdi:information-outline" />
-                </v-icon>
-              </v-btn>
-              <v-divider vertical></v-divider>
-            </template>
-            <v-btn
-              rounded="0"
-              variant="text"
-              height="60"
-              @click="openDrawer"
-              class="hidden-md-and-up"
-            >
-              <v-icon v-if="drawer">
-                <Icon icon="mdi:close" />
-              </v-icon>
-              <v-icon v-else>
-                <Icon icon="mdi:menu" />
-              </v-icon>
-            </v-btn>
-            <template v-for="(page, i) in pages">
-              <v-btn
-                exact
-                color="white"
-                rounded="0"
-                variant="tonal"
-                height="60"
-                class="text-lowercase hidden-sm-and-down"
-                :to="page['link']"
-                @click="dialog.closeDialog(dialog.currentDialog)"
-              >
-                {{ page["title"] }}
-              </v-btn>
-              <v-divider
-                class="hidden-sm-and-down"
-                vertical
-                v-if="i !== pages.length - 1"
-              ></v-divider>
-            </template>
-            <template v-if="user.userData?.id">
-              <LazyAdminSharedAdminNavDrop :routes="routes" />
-            </template>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container> -->
   <v-bottom-sheet v-model="drawer" scrim="black">
     <v-card rounded="0">
       <v-list>
