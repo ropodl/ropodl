@@ -32,7 +32,7 @@ const getBlog = async () => {
     <!-- <template v-if="post.featuredImage.length"> -->
     <v-img
       cover
-      class="d-flex align-end rounded-0 border border-t-0 border-e-0 border-s-0"
+      class="d-flex align-end rounded-0 border border-t-0 border-e-0 border-s-0 active"
       height="600"
       :src="post.featuredImage?.url"
     >
@@ -106,6 +106,13 @@ const getBlog = async () => {
 </template>
 
 <style lang="scss">
+.active {
+  view-transition-name: selected-film;
+}
+::view-transition-old(header),
+::view-transition-new(header) {
+  width: auto;
+}
 div.dynamic-content {
   font-size: 18px;
   line-height: 1.6rem !important;
