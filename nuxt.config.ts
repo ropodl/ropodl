@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     "nuxt-mongoose",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
-    "nuxt-capo",
+    // "nuxt-capo",
     // "nuxt-security",
     "nuxt-delay-hydration",
   ],
