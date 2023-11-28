@@ -25,7 +25,6 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     // "nuxt-capo",
     // "nuxt-security",
-    "@sidebase/nuxt-auth",
     "nuxt-delay-hydration",
   ],
   googleFonts: {
