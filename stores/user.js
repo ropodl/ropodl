@@ -7,10 +7,9 @@ export const useUser = defineStore("user", {
   },
   actions: {
     async login({ email, password }) {
-      const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
 
-      const { data, error } = await useFetch("/api/sign-in", {
+      const { data, error } = await useFetch("/api/user/signin", {
         method: "post",
         body: { email, password },
       });
