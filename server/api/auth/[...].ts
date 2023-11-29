@@ -6,11 +6,11 @@ import { MongoClient } from "mongodb";
 
 // ---------------------------------------
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
-}
+// if (!process.env.MONGODB_URI) {
+//   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
+// }
 
-const uri = process.env.MONGODB_URI;
+const uri = <string>process.env.MONGODB_URI;
 const options = {};
 let client, clientPromise;
 client = new MongoClient(uri, options);
@@ -26,7 +26,7 @@ const runtimeConfig = useRuntimeConfig();
 // Refer to Auth.js docs for more details
 export const authOptions: AuthConfig = {
   secret: runtimeConfig.authJs.secret,
-  adapter: MongoDBAdapter(clientPromise),
+  // adapter: MongoDBAdapter(clientPromise),
   providers: [
     GithubProvider({
       clientId: runtimeConfig.github.clientId,
