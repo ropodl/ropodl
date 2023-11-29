@@ -102,15 +102,15 @@ export default defineNuxtConfig({
       },
     },
   },
-  // Just because auth requires it
-  alias: {
-    cookie: "cookie",
-  },
+  // // Just because auth requires it
+  // alias: {
+  //   cookie: "cookie",
+  // },
   authJs: {
     verifyClientOnEveryRequest: false,
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
-    //  baseUrl: "" // should be something like https://www.my-app.com
+    baseUrl: process.env.BASE_URL, // should be something like https://www.my-app.com
   },
   runtimeConfig: {
     authJs: {
