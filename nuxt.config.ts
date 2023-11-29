@@ -108,7 +108,7 @@ export default defineNuxtConfig({
   // },
   csurf: {
     methodsToProtect: ["POST", "PUT", "PATCH", "DELETE"], // Protect these methods
-    excludedUrls: ["/api/login/.*"], // Exclude specific routes from CSRF protection
+    excludedUrls: ["/api/auth/.*"], // Exclude specific routes from CSRF protection
     // encryptSecret:
     //   "mo4+MrFaeXP7fhAie0o2qw==:tLUaqtHW6evx/coGQVAhtGAR+v6cxgFtrqmkOsuAMag8PHRnMwpbGGUO0TPJjL+4", // Encrypt the token for added security
 
