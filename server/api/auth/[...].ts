@@ -1,8 +1,8 @@
 import GithubProvider from "@auth/core/providers/github";
 import type { AuthConfig } from "@auth/core/types";
 import { NuxtAuthHandler } from "#auth";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import { MongoClient } from "mongodb";
+// import { MongoDBAdapter } from "@auth/mongodb-adapter";
+// import { MongoClient } from "mongodb";
 
 // ---------------------------------------
 
@@ -10,11 +10,11 @@ import { MongoClient } from "mongodb";
 //   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 // }
 
-const uri = <string>process.env.MONGODB_URI;
-const options = {};
-let client, clientPromise;
-client = new MongoClient(uri, options);
-clientPromise = client.connect();
+// const uri = <string>process.env.MONGODB_URI;
+// const options = {};
+// let client, clientPromise;
+// client = new MongoClient(uri, options);
+// clientPromise = client.connect();
 // ---------------------------------------
 
 // The #auth virtual import comes from this module. You can use it on the client
