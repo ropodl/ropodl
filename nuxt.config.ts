@@ -106,6 +106,11 @@ export default defineNuxtConfig({
   // alias: {
   //   cookie: "cookie",
   // },
+  csurf: {
+    methodsToProtect: ["POST", "PUT", "PATCH", "DELETE"], // Protect these methods
+    excludedUrls: ["/api/login/*"], // Exclude specific routes from CSRF protection
+    encryptSecret: "a823e345-008b-4686-a0c7-5983c7793ae3", // Encrypt the token for added security
+  },
   authJs: {
     verifyClientOnEveryRequest: false,
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
