@@ -90,14 +90,14 @@ export default defineNuxtConfig({
   },
   mail: {
     message: {
-      to: "sarox14@gmail.com",
+      to: process.env.SMTP_USER,
     },
     smtp: {
       host: "smtp.gmail.com",
       port: 587,
       auth: {
-        user: "sarox14@gmail.com",
-        pass: "rvukpuynrrtnqkbw",
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
       },
     },
   },
