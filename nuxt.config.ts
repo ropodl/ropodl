@@ -29,7 +29,6 @@ export default defineNuxtConfig({
     // "nuxt-capo",
     // "nuxt-security",
     "@hebilicious/authjs-nuxt",
-    "nuxt-csurf",
   ],
   googleFonts: {
     download: false,
@@ -110,7 +109,7 @@ export default defineNuxtConfig({
     verifyClientOnEveryRequest: true,
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
-    baseUrl: process.env.BASE_URL, // should be something like https://www.my-app.com
+    baseUrl: process.env.NODE_ENV === "production" ? process.env.BASE_URL : "", // should be something like https://www.my-app.com
   },
   runtimeConfig: {
     authJs: {
