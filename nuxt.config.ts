@@ -104,26 +104,7 @@ export default defineNuxtConfig({
   },
   // // Just because auth requires it
   alias: {
-    cookie: "cookie",
-  },
-  csurf: {
-    methodsToProtect: ["POST", "PUT", "PATCH", "DELETE"], // Protect these methods
-    excludedUrls: ["/api/login/.*"], // Exclude specific routes from CSRF protection
-    // encryptSecret:
-    //   "mo4+MrFaeXP7fhAie0o2qw==:tLUaqtHW6evx/coGQVAhtGAR+v6cxgFtrqmkOsuAMag8PHRnMwpbGGUO0TPJjL+4", // Encrypt the token for added security
-
-    https: true, // default true if in production
-    // cookieKey: "", // "__Host-csrf" if https is true otherwise just "csrf"
-    cookie: {
-      // CookieSerializeOptions from unjs/cookie-es
-      path: "/",
-      httpOnly: false,
-      sameSite: "lax",
-    },
-    // methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
-    // excludedUrls: ["/nocsrf1", ["/nocsrf2/.*", "i"]], // any URLs we want to exclude from CSRF protection
-    // encryptSecret: "" /** a 32 bits secret */, // only for non serverless runtime, random bytes by default
-    // encryptAlgorithm: "AES-CBC", // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
+    cookie: resolve(__dirname, "node_modules/cookie"),
   },
   authJs: {
     verifyClientOnEveryRequest: true,
