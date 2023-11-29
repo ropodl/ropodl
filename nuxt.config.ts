@@ -117,7 +117,7 @@ export default defineNuxtConfig({
     cookie: {
       // CookieSerializeOptions from unjs/cookie-es
       path: "/",
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "strict",
     },
     // methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
