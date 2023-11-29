@@ -17,7 +17,6 @@
     "@vueuse/nuxt": "latest",
     "nuxt": "^3.7.4",
     "nuxt-capo": "^0.1.0",
-    "nuxt-csurf": "latest",
     "nuxt-delay-hydration": "latest",
     "nuxt-mail": "latest",
     "nuxt-payload-analyzer": "latest",
