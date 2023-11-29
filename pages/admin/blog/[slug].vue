@@ -10,6 +10,7 @@ const route = useRoute();
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({

@@ -5,6 +5,7 @@ const blog = useBlog();
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({
@@ -116,13 +117,15 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
             @update:options="loadBlogs"
           >
             <template v-slot:item.image="{ item }">
-              <v-img
-                cover
-                width="160"
-                class="border rounded-lg"
-                :aspect-ratio="16 / 9"
-                :src="item.featuredImage?.url"
-              ></v-img>
+              <div>
+                <v-img
+                  cover
+                  width="160"
+                  class="border rounded-lg"
+                  :aspect-ratio="16 / 9"
+                  :src="item.featuredImage?.url"
+                ></v-img>
+              </div>
             </template>
             <template v-slot:item.title="{ item }">
               <v-list lines="three">

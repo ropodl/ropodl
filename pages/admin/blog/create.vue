@@ -4,11 +4,12 @@ import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "../../../utils/tinymce";
 
 const blog = useBlog();
-const category = useCategory();
-const tag = useTag();
+// const category = useCategory();
+// const tag = useTag();
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({
