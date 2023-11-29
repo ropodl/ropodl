@@ -104,7 +104,7 @@ export default defineNuxtConfig({
   },
   // Just because auth requires it
   alias: {
-    cookie: resolve(__dirname, "node_modules/cookie"),
+    cookie: "cookie",
   },
   authJs: {
     verifyClientOnEveryRequest: false,
