@@ -113,7 +113,7 @@ export default defineNuxtConfig({
     //   "mo4+MrFaeXP7fhAie0o2qw==:tLUaqtHW6evx/coGQVAhtGAR+v6cxgFtrqmkOsuAMag8PHRnMwpbGGUO0TPJjL+4", // Encrypt the token for added security
 
     https: false, // default true if in production
-    cookieKey: "", // "__Host-csrf" if https is true otherwise just "csrf"
+    // cookieKey: "", // "__Host-csrf" if https is true otherwise just "csrf"
     cookie: {
       // CookieSerializeOptions from unjs/cookie-es
       path: "/",
