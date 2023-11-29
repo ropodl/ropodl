@@ -102,14 +102,12 @@ export default defineNuxtConfig({
     },
   },
   // // Just because auth requires it
-  alias: {
-    cookie: resolve(__dirname, "node_modules/cookie"),
-  },
+  // alias: {
+  //   cookie: resolve(__dirname, "node_modules/cookie"),
+  // },
   authJs: {
-    verifyClientOnEveryRequest: true,
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
-    baseUrl: process.env.NODE_ENV === "production" ? process.env.BASE_URL : "", // should be something like https://www.my-app.com
   },
   runtimeConfig: {
     authJs: {
@@ -121,8 +119,8 @@ export default defineNuxtConfig({
     },
     public: {
       authJs: {
-        // baseUrl: process.env.NUXT_NEXTAUTH_URL, // The URL of your deployed app (used for origin Check in production)
-        // verifyClientOnEveryRequest: false, // whether to hit the /auth/session endpoint on every client request
+        baseUrl: process.env.BASE_URL, // The URL of your deployed app (used for origin Check in production)
+        verifyClientOnEveryRequest: true, // whether to hit the /auth/session endpoint on every client request
       },
     },
   },

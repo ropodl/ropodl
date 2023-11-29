@@ -27,7 +27,7 @@ const runtimeConfig = useRuntimeConfig();
 export const authOptions: AuthConfig = {
   secret: runtimeConfig.authJs.secret,
   adapter: MongoDBAdapter(clientPromise),
-  trustHost: true,
+  // trustHost: true,
   providers: [
     GithubProvider({
       clientId: runtimeConfig.github.clientId,
