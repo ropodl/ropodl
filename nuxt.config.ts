@@ -103,9 +103,9 @@ export default defineNuxtConfig({
     },
   },
   // // Just because auth requires it
-  // alias: {
-  //   cookie: "cookie",
-  // },
+  alias: {
+    cookie: "cookie",
+  },
   csurf: {
     methodsToProtect: ["POST", "PUT", "PATCH", "DELETE"], // Protect these methods
     excludedUrls: ["/api/login/.*"], // Exclude specific routes from CSRF protection
@@ -118,7 +118,7 @@ export default defineNuxtConfig({
       // CookieSerializeOptions from unjs/cookie-es
       path: "/",
       httpOnly: false,
-      sameSite: "strict",
+      sameSite: "lax",
     },
     // methodsToProtect: ['POST', 'PUT', 'PATCH'], // the request methods we want CSRF protection for
     // excludedUrls: ["/nocsrf1", ["/nocsrf2/.*", "i"]], // any URLs we want to exclude from CSRF protection
@@ -126,7 +126,7 @@ export default defineNuxtConfig({
     // encryptAlgorithm: "AES-CBC", // by default 'aes-256-cbc' (node), 'AES-CBC' (serverless)
   },
   authJs: {
-    verifyClientOnEveryRequest: false,
+    verifyClientOnEveryRequest: true,
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
     baseUrl: process.env.BASE_URL, // should be something like https://www.my-app.com
