@@ -1,9 +1,9 @@
 export const useUser = defineStore("user", {
   state: () => ({
-    userData: reactive({}),
+    me: reactive({}),
   }),
   getters: {
-    getUser: (state) => state.userData,
+    getUser: (state) => state.me,
   },
   actions: {
     async login({ email, password }) {
@@ -21,25 +21,21 @@ export const useUser = defineStore("user", {
 
       snackbar.showSnackbar("Log In Successfull", "success");
       localStorage.setItem("user_auth_token", data.value.token);
-      this.userData = data.value.user;
+      this.me = data.value.user;
       navigateTo("/admin/", { replace: true });
     },
     async checkAuth(token) {
-      const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
 
-      const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/login/is-auth",
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data, error } = await useFetch("/api/user/is-auth", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       if (error.value) {
         if (error.value.data.message === "Token Expired") {
           snackbar.showSnackbar(
-            error.value.data.message + " ,please login again",
+            error.value.data.message + ", please login again",
             "error"
           );
           return this.logout();
@@ -51,11 +47,11 @@ export const useUser = defineStore("user", {
       }
 
       // snackbar.showSnackbar("Welcome back " + data.value?.user.name, "success")
-      this.userData = data.value?.user;
+      this.me = data.value?.user;
     },
     logout() {
       localStorage.removeItem("user_auth_token");
-      this.userData = [];
+      this.me = [];
       navigateTo("/", { replace: true });
     },
   },

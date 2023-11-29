@@ -5,11 +5,14 @@ const i = ref(0);
 
 const goToAdmin = () => {
   i.value++;
-  if (i.value === 10) navigateTo("/sign-in");
-  else return;
+  if (i.value === 10) {
+    navigateTo("/admin/");
+    i.value = 0;
+  } else return;
 };
 </script>
 <template>
+  {{ i }}
   <v-card
     border
     flat

@@ -2,6 +2,7 @@
 definePageMeta({
   layout: "default",
 });
+
 useSeoMeta({
   title: "Home Page | Saroj Poudel",
   description:

@@ -67,14 +67,14 @@ const navitems = reactive([
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
-        <v-autocomplete
+        <!-- <v-autocomplete
           :items="searchItems"
           item-title="name"
           hide-details
           hide-no-data
           placeholder="Search"
           prepend-inner-icon="mdi:magnify"
-        ></v-autocomplete>
+        ></v-autocomplete> -->
         <v-spacer></v-spacer>
         <LazyAdminSharedAdminNavDrop />
       </v-row>

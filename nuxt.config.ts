@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -23,9 +24,11 @@ export default defineNuxtConfig({
     "nuxt-mongoose",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
+    "nuxt-delay-hydration",
+    "nuxt-mail",
+    "@hebilicious/authjs-nuxt",
     // "nuxt-capo",
     // "nuxt-security",
-    "nuxt-delay-hydration",
   ],
   googleFonts: {
     download: false,
@@ -46,14 +49,10 @@ export default defineNuxtConfig({
     devtools: true,
   },
   piniaPersistedstate: {
-    // cookieOptions: {
-    //   sameSite: "strict",
-    // },
     storage: "localStorage",
   },
   vuetify: {
     vuetifyOptions: {
-      ssr: true,
       icons: {
         defaultSet: "mdi",
       },
@@ -89,17 +88,42 @@ export default defineNuxtConfig({
       },
     },
   },
-  auth: {
-    provider: {
-      type: "authjs",
+  mail: {
+    message: {
+      to: "sarox14@gmail.com",
+    },
+    smtp: {
+      host: "smtp.gmail.com",
+      port: 587,
+      auth: {
+        user: "sarox14@gmail.com",
+        pass: "rvukpuynrrtnqkbw",
+      },
     },
   },
-  // runtimeConfig: {
-  //   public: {
-  //     api_url: process.env.api_url,
-  //   },
-  //   private: {
-  //     oop: "test",
-  //   },
-  // },
+  // Just because auth requires it
+  alias: {
+    cookie: resolve(__dirname, "node_modules/cookie"),
+  },
+  authJs: {
+    verifyClientOnEveryRequest: false,
+    guestRedirectTo: "/", // where to redirect if the user is not authenticated
+    authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
+    //  baseUrl: "" // should be something like https://www.my-app.com
+  },
+  runtimeConfig: {
+    authJs: {
+      secret: process.env.NUXT_NEXTAUTH_SECRET,
+    },
+    github: {
+      clientId: process.env.NUXT_GITHUB_CLIENT_ID,
+      clientSecret: process.env.NUXT_GITHUB_CLIENT_SECRET,
+    },
+    public: {
+      authJs: {
+        baseUrl: process.env.NUXT_NEXTAUTH_URL, // The URL of your deployed app (used for origin Check in production)
+        // verifyClientOnEveryRequest: false, // whether to hit the /auth/session endpoint on every client request
+      },
+    },
+  },
 });

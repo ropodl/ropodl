@@ -1,7 +1,7 @@
 <script setup>
-// import { VDataTable } from 'vuetify/labs/VDataTable';
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 const headers = reactive([

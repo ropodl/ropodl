@@ -4,6 +4,7 @@ import { Icon } from "@iconify/vue";
 
 let loading = ref(false);
 const contactForm = ref(null);
+const mail = useMail();
 
 let snackbar = reactive({
   show: false,
@@ -47,23 +48,28 @@ const submitForm = async () => {
   loading.value = true;
   const { valid } = await contactForm.value.validate();
   if (valid) {
-    await emailjs
-      .send(
-        "service_orveamh",
-        "template_xc2xnr6",
-        templateParams,
-        "-xkHJckmH36raNsEo"
-      )
-      .then((response) => {
-        if (response.status == "200") {
-          snackbar["text"] = "Successfully sent, will reply soon.";
-          snackbar["show"] = true;
-          contactForm.value.reset();
-        }
-      })
-      .catch((err) => {
-        console.log("FAILED...", err);
-      });
+    await mail.send({
+      from: "sarox14@live.com",
+      subject: "Incredible",
+      text: "This is an incredible test message",
+    });
+    // await emailjs
+    //   .send(
+    //     "service_orveamh",
+    //     "template_xc2xnr6",
+    //     templateParams,
+    //     "-xkHJckmH36raNsEo"
+    //   )
+    //   .then((response) => {
+    //     if (response.status == "200") {
+    //       snackbar["text"] = "Successfully sent, will reply soon.";
+    //       snackbar["show"] = true;
+    //       contactForm.value.reset();
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log("FAILED...", err);
+    //   });
   } else console.log("failed");
   loading.value = false;
 };

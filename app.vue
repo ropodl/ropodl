@@ -2,15 +2,15 @@
 const { isOnline } = useNetwork();
 
 const route = useRoute();
-const user = useUser();
+// const user = useUser();
 
-onMounted(() => {
-  const token = localStorage.getItem("user_auth_token");
-  if (!token) return;
-  nextTick(() => {
-    user.checkAuth(token);
-  });
-});
+// onMounted(() => {
+//   const token = localStorage.getItem("user_auth_token");
+//   if (!token) return;
+//   nextTick(() => {
+//     user.checkAuth(token);
+//   });
+// });
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import gsap from "gsap";
+// import gsap from "gsap";
 
 const socials = [
   {
@@ -25,83 +25,83 @@ const socials = [
   },
 ];
 
-onMounted(() => {
-  gsap
-    .timeline()
-    .from("#image", {
-      duration: 2,
-      // delay: 3,
-      opacity: 0,
-      ease: "Power4.out",
-    })
-    .from(
-      ".social",
-      {
-        duration: 0.5,
-        y: 100,
-        stagger: 0.2,
-      },
-      "<"
-    )
-    .from(
-      "#hi",
-      {
-        y: -40,
-        opacity: 0,
-        duration: 1,
-      },
-      "<"
-    )
-    .from(
-      ".elastic span",
-      {
-        y: 250,
-        ease: "elastic",
-        duration: 2,
-        delay: 0,
-        skewY: 15,
-        stagger: {
-          amount: 0.4,
-        },
-      },
-      "<"
-    )
-    .from(
-      "#line",
-      {
-        width: 0,
-        opacity: 0,
-        duration: 0.3,
-        delay: 1,
-      },
-      "<"
-    )
-    .from(
-      ".split span",
-      {
-        y: 250,
-        ease: "Power4.in",
-        duration: 2,
-        delay: 0,
-        skewY: 15,
-        stagger: {
-          amount: 0.4,
-        },
-      },
-      "<"
-    )
-    .from(".paragraph", { opacity: 0, duration: 1 })
-    .from(
-      "#btn",
-      {
-        duration: 0.5,
-        y: 40,
-        opacity: 0,
-        stagger: 0.2,
-      },
-      "<"
-    );
-});
+// onMounted(() => {
+//   gsap
+//     .timeline()
+//     .from("#image", {
+//       duration: 2,
+//       // delay: 3,
+//       opacity: 0,
+//       ease: "Power4.out",
+//     })
+//     .from(
+//       ".social",
+//       {
+//         duration: 0.5,
+//         y: 100,
+//         stagger: 0.2,
+//       },
+//       "<"
+//     )
+//     .from(
+//       "#hi",
+//       {
+//         y: -40,
+//         opacity: 0,
+//         duration: 1,
+//       },
+//       "<"
+//     )
+//     .from(
+//       ".elastic span",
+//       {
+//         y: 250,
+//         ease: "elastic",
+//         duration: 2,
+//         delay: 0,
+//         skewY: 15,
+//         stagger: {
+//           amount: 0.4,
+//         },
+//       },
+//       "<"
+//     )
+//     .from(
+//       "#line",
+//       {
+//         width: 0,
+//         opacity: 0,
+//         duration: 0.3,
+//         delay: 1,
+//       },
+//       "<"
+//     )
+//     .from(
+//       ".split span",
+//       {
+//         y: 250,
+//         ease: "Power4.in",
+//         duration: 2,
+//         delay: 0,
+//         skewY: 15,
+//         stagger: {
+//           amount: 0.4,
+//         },
+//       },
+//       "<"
+//     )
+//     .from(".paragraph", { opacity: 0, duration: 1 })
+//     .from(
+//       "#btn",
+//       {
+//         duration: 0.5,
+//         y: 40,
+//         opacity: 0,
+//         stagger: 0.2,
+//       },
+//       "<"
+//     );
+// });
 </script>
 <template>
   <v-card
