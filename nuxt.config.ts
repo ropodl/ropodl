@@ -102,9 +102,9 @@ export default defineNuxtConfig({
     },
   },
   // // Just because auth requires it
-  // alias: {
-  //   cookie: resolve(__dirname, "node_modules/cookie"),
-  // },
+  alias: {
+    cookie: resolve(__dirname, "node_modules/cookie"),
+  },
   authJs: {
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
