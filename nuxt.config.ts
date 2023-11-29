@@ -26,9 +26,10 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-mail",
-    "@hebilicious/authjs-nuxt",
     // "nuxt-capo",
     // "nuxt-security",
+    "@hebilicious/authjs-nuxt",
+    "nuxt-csurf",
   ],
   googleFonts: {
     download: false,
@@ -110,6 +111,11 @@ export default defineNuxtConfig({
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
     //  baseUrl: "" // should be something like https://www.my-app.com
+  },
+  csurf: {
+    methodsToProtect: ["POST", "PUT", "PATCH", "DELETE"], // Protect these methods
+    excludedUrls: ["/api/login"], // Exclude specific routes from CSRF protection
+    encryptSecret: process.env.JWT_SECRET, // Encrypt the token for added security
   },
   runtimeConfig: {
     authJs: {
