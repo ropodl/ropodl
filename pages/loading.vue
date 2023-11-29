@@ -39,7 +39,7 @@ const callUser = () => {
         <v-img class="mb-9" height="100" src="/favicon-192.png"></v-img>
         <v-progress-linear indeterminate color="primary"></v-progress-linear>
         <v-card-title class="text-center mt-3">Loading</v-card-title>
-        <v-btn @click="test">click</v-btn>
+        <!-- <v-btn @click="test">click</v-btn> -->
         {{ session }}
       </v-col>
     </v-row>
