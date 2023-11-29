@@ -112,11 +112,6 @@ export default defineNuxtConfig({
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
     //  baseUrl: "" // should be something like https://www.my-app.com
   },
-  csurf: {
-    methodsToProtect: ["POST", "PUT", "PATCH", "DELETE"], // Protect these methods
-    excludedUrls: ["/api/login"], // Exclude specific routes from CSRF protection
-    encryptSecret: process.env.JWT_SECRET, // Encrypt the token for added security
-  },
   runtimeConfig: {
     authJs: {
       secret: process.env.NUXT_NEXTAUTH_SECRET,
