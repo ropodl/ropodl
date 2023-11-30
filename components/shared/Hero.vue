@@ -3,14 +3,14 @@ import { Icon } from "@iconify/vue";
 import { socials } from "@/utils/socials";
 </script>
 <template>
-  <v-card flat rounded="0">
+  <v-card flat rounded="0" class="position-relative">
     <v-container class="py-16">
       <v-row class="position-relative py-16">
         <v-col cols="12" md="6">
-          <div class="text-overline" id="hi">Hi, I am</div>
+          <div class="text-overline" id="hi">Hello, World! I am</div>
           <div class="text-h1 font-weight-bold mb-3">Saroj Poudel.</div>
-          <div id="line" class="mt-4"></div>
-          <ul class="d-flex list-style-none mt-10">
+          <div id="line" class="mt-4 mb-10 rounded-pill"></div>
+          <ul class="d-flex list-style-none">
             <li v-for="(social, i) in socials" class="social">
               <v-hover v-slot="{ isHovering, props }">
                 <v-btn
