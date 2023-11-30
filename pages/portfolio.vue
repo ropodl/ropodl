@@ -16,7 +16,11 @@ useHead({
     },
   ],
 });
-
+defineOgImage({
+  title: "Saroj Poudel",
+  description:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+});
 const current = ref("All");
 const categories = ["All", "Graphic Design", "Web", "Branding"];
 
@@ -228,7 +232,8 @@ const works = [
                 </template>
 
                 <template v-slot:default="{ isActive }">
-                  <v-btn variant="tonal"
+                  <v-btn
+                    variant="tonal"
                     color="primary"
                     icon="mdi-close"
                     class="rounded-t-0 rounded-e-0 position-fixed top-0 right-0 z-index-11"
