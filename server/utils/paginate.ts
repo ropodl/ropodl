@@ -1,4 +1,10 @@
-exports.paginate = async (model, page, itemsPerPage, query, sort) => {
+exports.paginate = async (
+  model: any,
+  page: number,
+  itemsPerPage: number,
+  query: any,
+  sort: any
+) => {
   // Get the total number of documents in the collection
   const totalItems = await model.countDocuments(query);
 

@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 defineProps({
   width: { type: Number, default: 90 },
   height: { type: Number, default: 90 },

@@ -16,7 +16,7 @@ const route = useRoute();
 <template>
   <div>
     <VitePwaManifest />
-    <NuxtLoadingIndicator height="1" color="rgb(var(--v-theme-primary))" />
+    <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
     <v-app>
       <NuxtLayout>
         <NuxtPage />

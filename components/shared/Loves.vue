@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { Icon } from "@iconify/vue";
 
 const loves = [
@@ -31,12 +31,12 @@ const loves = [
     <v-container>
       <v-row justify="center">
         <v-col cols="12" md="4" v-for="(love, i) in loves">
-          <v-card border rounded="xl"
+          <v-card
+            border
+            rounded="xl"
             class="h-100 text-white"
             elevation="0"
-            :color="
-              i == 0 ? 'rgba(var(--v-theme-primary),1)' : '#313131'
-            "
+            :color="i == 0 ? 'rgba(var(--v-theme-primary),1)' : '#313131'"
           >
             <v-row no-gutters class="pa-10">
               <v-col cols="12" md="2">

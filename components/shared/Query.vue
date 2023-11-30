@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { Icon } from "@iconify/vue";
 </script>
 <template>

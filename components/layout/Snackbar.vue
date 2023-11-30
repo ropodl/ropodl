@@ -1,12 +1,26 @@
-<script setup>
+<script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-const snackbar = useSnackbar();
+const snack = useSnackbar();
+const { snackbar } = snack;
 </script>
 <template>
-  <v-snackbar dense rounded="pill" theme="light" v-model="snackbar.snackbar.show" :color="snackbar.snackbar.color" class="global-snackbar">
-    {{ snackbar.snackbar.text }}
+  <v-snackbar
+    dense
+    rounded="pill"
+    theme="light"
+    v-model="snackbar.show"
+    :color="snackbar?.color"
+    class="global-snackbar"
+  >
+    {{ snackbar?.text }}
     <template v-slot:actions>
-      <v-btn icon variant="tonal" theme="dark" color="white" @click="snackbar.snackbar.show = false">
+      <v-btn
+        icon
+        variant="tonal"
+        theme="dark"
+        color="white"
+        @click="snackbar.show = false"
+      >
         <v-icon>
           <Icon icon="mdi:close" />
         </v-icon>

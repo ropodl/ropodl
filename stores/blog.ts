@@ -41,7 +41,7 @@ export const useBlog = defineStore("blog", {
     getBlogs: (state) => state.blogs,
   },
   actions: {
-    async create(formData) {
+    async create(formData: any) {
       const snackbar = useSnackbar();
       const token = localStorage.getItem("user_auth_token");
       const { error } = await useFetch("/api/blog/create", {
@@ -61,6 +61,7 @@ export const useBlog = defineStore("blog", {
     },
     async latest() {
       const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
       const { data, error } = await useFetch(
         runtimeConfig.public.api_url + "/blog/latest"
       );
@@ -71,8 +72,9 @@ export const useBlog = defineStore("blog", {
         );
       this.blogs = data.value;
     },
-    async getAllBlogs(page, itemsPerPage) {
+    async getAllBlogs(page: number, itemsPerPage: number) {
       const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
       const { data, error } = await useFetch(
         `/api/blog?page=${page}&per_page=${itemsPerPage}`
       );
@@ -84,7 +86,7 @@ export const useBlog = defineStore("blog", {
       this.blogs = data.value;
       return data.value;
     },
-    async remove(id) {
+    async remove(id: string) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("user_auth_token");
@@ -106,7 +108,7 @@ export const useBlog = defineStore("blog", {
       snackbar.showSnackbar(data.value.message, "success");
       this.getAllBlogs(1, 10);
     },
-    async removeBulk(ids) {
+    async removeBulk(ids: Array<any>) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("user_auth_token");
@@ -131,7 +133,7 @@ export const useBlog = defineStore("blog", {
       snackbar.showSnackbar(data.value.message, "success");
       this.getAllBlogs(1, 10);
     },
-    async getBlog(slug) {
+    async getBlog(slug: string) {
       const snackbar = useSnackbar();
       const { data, error } = await useFetch("/api/blog/" + slug);
       if (error.value)
@@ -141,7 +143,7 @@ export const useBlog = defineStore("blog", {
         );
       return data.value;
     },
-    async updateBlog(formData, id) {
+    async updateBlog(formData: any, id: string) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("user_auth_token");

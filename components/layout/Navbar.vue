@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { socials } from "@/utils/socials";
 import { Icon } from "@iconify/vue";
 import { useRoute } from "vue-router";
