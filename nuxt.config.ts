@@ -106,5 +106,34 @@ export default defineNuxtConfig({
       },
     },
   },
+  pwa: {
+    registerType: "autoUpdate",
+    workbox: {
+      cleanupOutdatedCaches: true,
+      navigateFallback: "/",
+      globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+    },
+    manifest: {
+      name: "Saroj Poudel",
+      short_name: "ropodl",
+      theme_color: "#ff7a03",
+      description: "Official Website of Saroj Poudel",
+      icons: [
+        {
+          src: "/favicon-192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "/favicon-512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+      ],
+    },
+    client: {
+      installPrompt: true,
+    },
+  },
   runtimeConfig: {},
 });
