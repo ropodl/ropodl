@@ -1,28 +1,28 @@
 <script setup>
-import gsap from "gsap";
+// import gsap from "gsap";
 defineProps({
   text: {
     type: String,
   },
 });
 
-onMounted(() => {
-  gsap
-    .timeline()
-    .fromTo(
-      ".dash",
-      {
-        width: 0,
-      },
-      {
-        width: 100,
-        duration: 3,
-        delay: 3,
-        ease: "elastic",
-      }
-    )
-    .fromTo(".text", { opacity: 0 }, { opacity: 1 }, "<");
-});
+// onMounted(() => {
+//   gsap
+//     .timeline()
+//     .fromTo(
+//       ".dash",
+//       {
+//         width: 0,
+//       },
+//       {
+//         width: 100,
+//         duration: 3,
+//         delay: 3,
+//         ease: "elastic",
+//       }
+//     )
+//     .fromTo(".text", { opacity: 0 }, { opacity: 1 }, "<");
+// });
 </script>
 <template>
   <div

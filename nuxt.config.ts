@@ -1,4 +1,3 @@
-import { resolve } from "node:path";
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -13,6 +12,7 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     inlineSSRStyles: false,
+    componentIslands: true,
   },
   modules: [
     "@vueuse/nuxt",
@@ -28,7 +28,6 @@ export default defineNuxtConfig({
     "nuxt-mail",
     // "nuxt-capo",
     // "nuxt-security",
-    "@hebilicious/authjs-nuxt",
   ],
   googleFonts: {
     download: false,
@@ -101,23 +100,5 @@ export default defineNuxtConfig({
       },
     },
   },
-  // // Just because auth requires it
-  // alias: {
-  //   cookie: resolve(__dirname, "node_modules/cookie"),
-  // },
-  authJs: {
-    guestRedirectTo: "/login", // where to redirect if the user is not authenticated
-    authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
-    baseUrl: process.env.NUXT_NEXTAUTH_URL, // The URL of your deployed app (used for origin Check in production)
-    verifyClientOnEveryRequest: true, // whether to hit the /auth/session endpoint on every client request
-  },
-  runtimeConfig: {
-    authJs: {
-      secret: process.env.NUXT_NEXTAUTH_SECRET,
-    },
-    github: {
-      clientId: process.env.NUXT_GITHUB_CLIENT_ID,
-      clientSecret: process.env.NUXT_GITHUB_CLIENT_SECRET,
-    },
-  },
+  runtimeConfig: {},
 });
