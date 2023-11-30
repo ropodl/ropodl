@@ -6,7 +6,13 @@ definePageMeta({
 useSeoMeta({
   title: "Home Page | Saroj Poudel",
   description:
-    "Graphic Designer and Web Developer specializing in VueJs and Express JS",
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+});
+
+defineOgImage({
+  title: "Saroj Poudel",
+  description:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
 });
 </script>
 <template>

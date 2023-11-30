@@ -71,24 +71,19 @@ const pages = [
           </template>
           <v-spacer></v-spacer>
           <template v-for="social in socials">
-            <v-tooltip theme="light" location="bottom" :text="social.name">
-              <template v-slot:activator="{ props }">
-                <v-btn
-                  icon
-                  v-bind="props"
-                  variant="plain"
-                  rounded="lg"
-                  size="48"
-                  target="_blank"
-                  class="hidden-xs"
-                  :href="social.link"
-                >
-                  <v-icon size="sm">
-                    <Icon :icon="social.icon" />
-                  </v-icon>
-                </v-btn>
-              </template>
-            </v-tooltip>
+            <v-btn
+              icon
+              variant="plain"
+              rounded="lg"
+              size="48"
+              target="_blank"
+              class="hidden-xs"
+              :href="social.link"
+            >
+              <v-icon size="sm">
+                <Icon :icon="social.icon" />
+              </v-icon>
+            </v-btn>
           </template>
           <v-btn
             height="50"
