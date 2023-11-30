@@ -1,18 +1,8 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 import { socials } from "@/utils/socials";
-const i = ref(0);
-
-const goToAdmin = () => {
-  i.value++;
-  if (i.value === 10) {
-    navigateTo("/admin/");
-    i.value = 0;
-  } else return;
-};
 </script>
 <template>
-  {{ i }}
   <v-card
     border
     flat
@@ -21,7 +11,7 @@ const goToAdmin = () => {
     style="border-bottom: 0; border-left: 0; border-right: 0"
   >
     <v-card-text class="text-center">
-      <LazySharedLogo @click="goToAdmin" />
+      <LazySharedLogo />
     </v-card-text>
     <v-card-text class="text-center">
       <strong> Thanks for scrolling,</strong>&nbsp;that's all folks.

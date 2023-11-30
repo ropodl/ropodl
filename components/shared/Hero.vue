@@ -1,107 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-// import gsap from "gsap";
-
-const socials = [
-  {
-    name: "Instagram",
-    icon: "fa6-brands:instagram",
-    link: "https://instagram.com/ropodl/",
-  },
-  {
-    name: "Dribbble",
-    icon: "fa6-brands:dribbble",
-    link: "https://dribbble.com/ropodl/",
-  },
-  {
-    name: "Linkedin",
-    icon: "fa6-brands:linkedin-in",
-    link: "https://linkedin.com/in/ropodl/",
-  },
-  {
-    name: "GitHub",
-    icon: "fa6-brands:github",
-    link: "https://github.com/ropodl/",
-  },
-];
-
-// onMounted(() => {
-//   gsap
-//     .timeline()
-//     .from("#image", {
-//       duration: 2,
-//       // delay: 3,
-//       opacity: 0,
-//       ease: "Power4.out",
-//     })
-//     .from(
-//       ".social",
-//       {
-//         duration: 0.5,
-//         y: 100,
-//         stagger: 0.2,
-//       },
-//       "<"
-//     )
-//     .from(
-//       "#hi",
-//       {
-//         y: -40,
-//         opacity: 0,
-//         duration: 1,
-//       },
-//       "<"
-//     )
-//     .from(
-//       ".elastic span",
-//       {
-//         y: 250,
-//         ease: "elastic",
-//         duration: 2,
-//         delay: 0,
-//         skewY: 15,
-//         stagger: {
-//           amount: 0.4,
-//         },
-//       },
-//       "<"
-//     )
-//     .from(
-//       "#line",
-//       {
-//         width: 0,
-//         opacity: 0,
-//         duration: 0.3,
-//         delay: 1,
-//       },
-//       "<"
-//     )
-//     .from(
-//       ".split span",
-//       {
-//         y: 250,
-//         ease: "Power4.in",
-//         duration: 2,
-//         delay: 0,
-//         skewY: 15,
-//         stagger: {
-//           amount: 0.4,
-//         },
-//       },
-//       "<"
-//     )
-//     .from(".paragraph", { opacity: 0, duration: 1 })
-//     .from(
-//       "#btn",
-//       {
-//         duration: 0.5,
-//         y: 40,
-//         opacity: 0,
-//         stagger: 0.2,
-//       },
-//       "<"
-//     );
-// });
+import { socials } from "@/utils/socials";
 </script>
 <template>
   <v-card
@@ -171,10 +70,10 @@ const socials = [
                 <div id="btn">
                   <v-hover v-slot="{ isHovering, props }">
                     <v-btn
-                      size="large"
                       variant="tonal"
+                      height="50"
                       color="primary"
-                      class="text-capitalize"
+                      class="text-capitalize px-10"
                       v-bind="props"
                       to="/about"
                     >

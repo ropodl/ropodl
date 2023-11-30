@@ -42,7 +42,7 @@ const works = [
               height="50"
               variant="tonal"
               color="primary"
-              class="text-capitalize"
+              class="text-capitalize px-10"
               v-bind="props"
               to="/portfolio"
             >
