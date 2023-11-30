@@ -19,7 +19,7 @@
     "nuxt-capo": "^0.1.0",
     "nuxt-delay-hydration": "latest",
     "nuxt-mail": "latest",
-    "nuxt-og-image": "^3.0.0-beta.12",
+    "nuxt-og-image": "^2.0.0",
     "nuxt-payload-analyzer": "latest",
     "nuxt-security": "^1.0.0-rc.4",
     "nuxt-simple-sitemap": "latest",
