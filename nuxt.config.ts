@@ -108,7 +108,7 @@ export default defineNuxtConfig({
   authJs: {
     guestRedirectTo: "/login", // where to redirect if the user is not authenticated
     authenticatedRedirectTo: "/loading/", // where to redirect if the user is authenticated
-    baseUrl: "https://ropodl.vercel.app/", // The URL of your deployed app (used for origin Check in production)
+    baseUrl: "https://ropodl.vercel.app/api/auth/", // The URL of your deployed app (used for origin Check in production)
   },
   runtimeConfig: {
     authJs: {
