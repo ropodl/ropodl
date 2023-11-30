@@ -29,9 +29,6 @@ export default defineNuxtConfig({
     // "nuxt-security",
     // "nuxt-capo",
   ],
-  ogImage: {
-    runtimeBrowser: false,
-  },
   googleFonts: {
     download: true,
     families: {
