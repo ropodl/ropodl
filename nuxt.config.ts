@@ -28,6 +28,9 @@ export default defineNuxtConfig({
     // "nuxt-capo",
     "nuxt-og-image",
   ],
+  ogImage: {
+    runtimeBrowser: true,
+  },
   googleFonts: {
     download: true,
     families: {
