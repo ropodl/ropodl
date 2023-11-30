@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useFrontendBlogStore = defineStore({
   id: "frontendBlog",
   state: () => ({
-    blogs: reactive([]),
+    blogs: reactive<any>([]),
   }),
   actions: {
     async getAllBlogs(page: number, itemsPerPage: number) {
