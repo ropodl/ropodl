@@ -1,11 +1,13 @@
 <script setup>
-const { user, signOut } = useAuth();
-
 defineProps({
   routes: {
     type: Array,
   },
 });
+
+const { signOut } = useAuth();
+const user = useUserStore();
+const { me } = user;
 </script>
 <template>
   <v-menu>
@@ -19,7 +21,7 @@ defineProps({
         v-bind="props"
       >
         <v-avatar size="35">
-          <v-img :src="user?.image"></v-img>
+          <v-img :src="me?.image"></v-img>
         </v-avatar>
       </v-btn>
     </template>

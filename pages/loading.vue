@@ -15,22 +15,6 @@ onMounted(() => {
     user.getMe(session.value.user.email);
   });
 });
-
-const callUser = () => {
-  console.log(session.value);
-  const { data, error } = useFetch("/api/user/me", {
-    method: "POST",
-    body: { email: session.value.user.email },
-  });
-  if (error.value) return console.log(error.value);
-  console.log(data);
-  if (data.value.role === "admin") {
-    navigateTo("/admin/");
-  } else {
-    navigateTo("/");
-    signOut();
-  }
-};
 </script>
 <template>
   <v-container class="h-100">
