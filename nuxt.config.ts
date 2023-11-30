@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-mail",
-    // "nuxt-og-image",
+    "nuxt-og-image",
     // "nuxt-security",
     // "nuxt-capo",
   ],
