@@ -13,6 +13,11 @@ useHead({
     },
   ],
 });
+defineOgImage({
+  title: "Saroj Poudel",
+  description:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+});
 </script>
 <template>
   <LazySharedForm />
