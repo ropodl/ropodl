@@ -119,7 +119,7 @@ export default defineNuxtConfig({
     },
     public: {
       authJs: {
-        baseUrl: process.env.BASE_URL, // The URL of your deployed app (used for origin Check in production)
+        baseUrl: "https://ropodl.vercel.app/", // The URL of your deployed app (used for origin Check in production)
         verifyClientOnEveryRequest: true, // whether to hit the /auth/session endpoint on every client request
       },
     },
