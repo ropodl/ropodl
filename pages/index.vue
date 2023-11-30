@@ -9,7 +9,7 @@ useSeoMeta({
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
 });
 
-defineOgImageWithoutCache({
+defineOgImage({
   provider: "satori",
   title: "Saroj Poudel",
   description:
