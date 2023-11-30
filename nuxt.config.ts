@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   experimental: {
     viewTransition: true,
+    componentIslands: true,
   },
   modules: [
     "@vueuse/nuxt",
