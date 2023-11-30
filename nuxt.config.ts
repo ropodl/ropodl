@@ -24,13 +24,13 @@ export default defineNuxtConfig({
     "nuxt-mongoose",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
-
+    "nuxt-delay-hydration",
     "nuxt-mail",
     "nuxt-capo",
     // "nuxt-security",
   ],
   googleFonts: {
-    download: false,
+    download: true,
     families: {
       Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
