@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 defineProps({
   title: { type: String, default: "Title" },
   items: { type: Array, default: [{ title: "Home", to: "/" }] },

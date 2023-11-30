@@ -6,7 +6,7 @@ export const useFrontendBlogStore = defineStore({
     blogs: reactive([]),
   }),
   actions: {
-    async getAllBlogs(page, itemsPerPage) {
+    async getAllBlogs(page: number, itemsPerPage: number) {
       const { data, error } = await useFetch("/api/frontend/blog", {
         params: {
           page,

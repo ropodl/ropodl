@@ -1,10 +1,10 @@
-<script setup>
-// import emailjs from "@emailjs/browser";
+<script lang="ts" setup>
+import emailjs from "@emailjs/browser";
 import { Icon } from "@iconify/vue";
 
 let loading = ref(false);
-const contactForm = ref(null);
-const mail = useMail();
+const contactForm = ref<HTMLElement | null>(null);
+// const mail = useMail();
 
 let snackbar = reactive({
   show: false,
@@ -13,24 +13,24 @@ let snackbar = reactive({
 
 const rules = {
   firstNameRules: [
-    (value) => {
+    (value: String) => {
       if (value?.length > 3) return true;
 
       return "Full name must be at least 3 characters.";
     },
   ],
   emailRules: [
-    (value) => {
+    (value: String) => {
       if (value?.length > 3) return true;
       return "Email Address must be at least 3 characters.";
     },
-    (v) =>
+    (value: string) =>
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        v
+        value
       ) || "Email Address must be in a valid format",
   ],
   messageRules: [
-    (value) => {
+    (value: String) => {
       if (value?.length > 3) return true;
       return "Message must be at least 3 characters.";
     },
@@ -44,32 +44,32 @@ const templateParams = reactive({
   message: "",
 });
 
-const submitForm = async () => {
+const submitForm = async (): Promise<void> => {
   loading.value = true;
   const { valid } = await contactForm.value.validate();
   if (valid) {
-    await mail.send({
-      from: "sarox14@live.com",
-      subject: "Incredible",
-      text: "This is an incredible test message",
-    });
-    // await emailjs
-    //   .send(
-    //     "service_orveamh",
-    //     "template_xc2xnr6",
-    //     templateParams,
-    //     "-xkHJckmH36raNsEo"
-    //   )
-    //   .then((response) => {
-    //     if (response.status == "200") {
-    //       snackbar["text"] = "Successfully sent, will reply soon.";
-    //       snackbar["show"] = true;
-    //       contactForm.value.reset();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log("FAILED...", err);
+    //   await mail.send({
+    //     from: "sarox14@live.com",
+    //     subject: "Incredible",
+    //     text: "This is an incredible test message",
     //   });
+    await emailjs
+      .send(
+        "service_orveamh",
+        "template_xc2xnr6",
+        templateParams,
+        "-xkHJckmH36raNsEo"
+      )
+      .then((response: any) => {
+        if (response.status == "200") {
+          snackbar["text"] = "Successfully sent, will reply soon.";
+          snackbar["show"] = true;
+          contactForm.value.reset();
+        }
+      })
+      .catch((err) => {
+        console.log("FAILED...", err);
+      });
   } else console.log("failed");
   loading.value = false;
 };
@@ -168,14 +168,14 @@ const submitForm = async () => {
       </v-col>
     </v-row>
   </v-container>
-  <v-snackbar v-model="snackbar['show']" theme="light">
-    {{ snackbar["text"] }}
+  <v-snackbar :model-value="snackbar.show" theme="light">
+    {{ snackbar.text }}
     <template v-slot:actions>
       <v-btn
         class="text-capitalize px-4"
         color="teal"
         variant="tonal"
-        @click="snackbar['show'] = false"
+        @click="snackbar.show = false"
       >
         Close
       </v-btn>

@@ -1,10 +1,10 @@
-<script setup>
+<script lang="ts" setup>
 import { useScrollTo } from "@/composables/scrollToId";
 import { Icon } from "@iconify/vue";
 
-let show = ref(false);
+const show = ref(false);
 
-const onScroll = (e) => {
+const onScroll = (e: Event) => {
   if (typeof window === "undefined") return;
   const top = window.scrollY || 0;
   show.value = top > 500 ? true : false;
