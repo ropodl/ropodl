@@ -1,5 +1,5 @@
 <script setup>
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 import { Icon } from "@iconify/vue";
 
 let loading = ref(false);
@@ -85,10 +85,11 @@ const submitForm = async () => {
         </div>
         <v-hover v-slot="{ isHovering, props }">
           <v-btn
-            size="large"
+            height="50"
+            rounded="lg"
             variant="tonal"
             color="primary"
-            class="text-capitalize"
+            class="text-capitalize px-10"
             v-bind="props"
           >
             <span class="text-lowercase">sarox14@gmail.com</span>
@@ -105,7 +106,12 @@ const submitForm = async () => {
       <v-col cols="12" md="5">
         <div class="text-h4 font-weight-bold">Estimate your project?</div>
         <div class="text-h4 font-weight-bold mb-6">Let me know here.</div>
-        <v-form fast-fail ref="contactForm" @submit.prevent="submitForm">
+        <v-form
+          fast-fail
+          lazy-validation
+          ref="contactForm"
+          @submit.prevent="submitForm"
+        >
           <v-text-field
             flat
             variant="solo-filled"
@@ -140,15 +146,16 @@ const submitForm = async () => {
           <v-hover v-slot="{ isHovering, props }">
             <v-btn
               type="submit"
-              size="large"
+              height="50"
+              rounded="lg"
               variant="tonal"
               color="primary"
-              class="text-capitalize"
+              class="text-capitalize px-10"
               v-bind="props"
               :loading="loading"
               :disabled="loading"
             >
-              <span>Send Message</span>
+              Send Message
               <v-icon
                 size="x-small"
                 :class="isHovering ? 'ml-4' : 'ml-2'"

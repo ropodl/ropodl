@@ -15,24 +15,31 @@ import { Icon } from "@iconify/vue";
             Whether it's questions, requests, or discussions<br />on any topic
             or subject matter feel free to contact me.
           </v-card-text>
-          <!-- <v-hover v-slot="{ isHovering, props }">
-            <v-btn
-              rounded="lg"
-              height="50"
-              variant="tonal"
-              color="primary"
-              class="text-capitalize px-10"
-              v-bind="props"
-              >Let's Chat
-              <v-icon
-                size="x-small"
-                :class="isHovering ? 'ml-4' : 'ml-2'"
-                style="transition: all 100ms linear"
-              >
-                <Icon icon="material-symbols:arrow-right-alt" />
-              </v-icon>
-            </v-btn>
-          </v-hover> -->
+          <v-row>
+            <v-col cols="6">
+              <v-hover v-slot="{ isHovering, props }">
+                <v-btn
+                  block
+                  rounded="lg"
+                  height="50"
+                  variant="tonal"
+                  color="primary"
+                  class="text-capitalize px-10"
+                  to="contact"
+                  v-bind="props"
+                >
+                  Let's Chat
+                  <v-icon
+                    size="x-small"
+                    :class="isHovering ? 'ml-4' : 'ml-2'"
+                    style="transition: all 100ms linear"
+                  >
+                    <Icon icon="material-symbols:arrow-right-alt" />
+                  </v-icon>
+                </v-btn>
+              </v-hover>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="12" md="6">
           <v-card-text class="text-h4 font-weight-medium pl-0 pb-0">
@@ -50,29 +57,29 @@ import { Icon } from "@iconify/vue";
           </v-card-text>
           <v-row>
             <v-col cols="12" md="12" lg="6">
-              <v-row no-gutters align="center" justify="center">
-                <v-col cols="4">
+              <v-row align="center" justify="center">
+                <v-col cols="5">
                   <div
-                    class="text-primary text-h3 font-weight-black pr-4 text-center"
+                    class="text-primary text-h2 font-weight-black text-center"
                   >
                     5+
                   </div>
                 </v-col>
-                <v-col cols="8">
+                <v-col cols="7">
                   <v-card-title>Years of<br />Experience</v-card-title>
                 </v-col>
               </v-row>
             </v-col>
             <v-col cols="12" md="12" lg="6">
               <v-row no-gutters align="center" justify="center">
-                <v-col cols="4">
+                <v-col cols="5">
                   <div
-                    class="text-primary text-h3 font-weight-black pr-4 text-center"
+                    class="text-primary text-h2 font-weight-black text-center"
                   >
                     10+
                   </div>
                 </v-col>
-                <v-col cols="8">
+                <v-col cols="7">
                   <v-card-title>Satisfied<br />Clients</v-card-title>
                 </v-col>
               </v-row>
