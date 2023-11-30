@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
-  const headers = await getRequestHeaders(event);
+  // const headers = await getRequestHeaders(event);
   // setResponseHeaders(event, "Access-Control-Allow-Credentials:true");
-  console.log(headers);
+  // console.log(headers);
 });
 
 // res.setHeader('Access-Control-Allow-Credentials', true)
