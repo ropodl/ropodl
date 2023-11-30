@@ -4,7 +4,8 @@ definePageMeta({
   middleware: "auth",
 });
 
-const { user } = useAuth();
+const user = useUserStore();
+const { me } = user;
 // onMounted(async () => {
 //   const { data, error } = await useFetch("http://127.0.0.1:3001/api/v1/");
 //   console.log(data)
@@ -15,8 +16,7 @@ const { user } = useAuth();
     <v-row>
       <v-col cols="12">
         <div class="text-h4 font-weight-bold">
-          Welcome back, {{ user.name || "User" }}
-          {{ user }}
+          Welcome back, {{ me.name || "User" }}
         </div>
       </v-col>
     </v-row>
