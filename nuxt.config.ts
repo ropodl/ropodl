@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     inlineSSRStyles: false,
+    renderJsonPayloads: true,
   },
   modules: [
     "@vueuse/nuxt",
