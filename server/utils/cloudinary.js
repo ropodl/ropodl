@@ -12,10 +12,10 @@ exports.uploadImage = async (path) => {
   const { secure_url: url, public_id } = await cloudinary.v2.uploader.upload(
     path,
     {
-      gravity: "face",
+      // gravity: "face",
       height: 500,
       width: 500,
-      crop: "thumb",
+      // crop: "thumb",
       folder: "ropodl",
     }
   );

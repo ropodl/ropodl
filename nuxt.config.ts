@@ -11,8 +11,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   experimental: {
     viewTransition: true,
-    inlineSSRStyles: false,
-    componentIslands: true,
   },
   modules: [
     "@vueuse/nuxt",
