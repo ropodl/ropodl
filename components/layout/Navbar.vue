@@ -29,12 +29,6 @@ const pages = [
     link: "/contact",
   },
 ];
-
-const routes = [{ title: "Dashboard", to: "/admin/" }];
-
-const openDrawer = () => {
-  drawer.value = !drawer.value;
-};
 </script>
 <template>
   <v-layout class="w-100" style="height: 65px; position: fixed; top: 0">
@@ -101,7 +95,7 @@ const openDrawer = () => {
             rounded="lg"
             variant="tonal"
             class="hidden-md-and-up"
-            @click="openDrawer"
+            @click="drawer = !drawer"
           >
             <v-icon>
               <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
