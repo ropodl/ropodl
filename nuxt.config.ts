@@ -29,7 +29,7 @@ export default defineNuxtConfig({
     "nuxt-og-image",
   ],
   ogImage: {
-    runtimeBrowser: true,
+    runtimeBrowser: false,
   },
   googleFonts: {
     download: true,
