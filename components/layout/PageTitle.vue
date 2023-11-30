@@ -14,11 +14,11 @@ defineProps({
     style="border-top: 0; border-left: 0; border-right: 0"
   >
     <v-card-text>
-      <v-card-title class="text-h3 font-weight-black text-uppercase">
+      <v-card-title class="text-h3 font-weight-black">
         {{ title }}
       </v-card-title>
       <v-breadcrumbs
-        class="text-uppercase justify-center"
+        class="text-lowercase justify-center"
         :items="items"
       ></v-breadcrumbs>
     </v-card-text>

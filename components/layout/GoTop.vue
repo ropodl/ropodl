@@ -22,8 +22,8 @@ const onScroll = (e) => {
     @click="useScrollTo('__nuxt', 0)"
     aria-label="Go to top button"
     :style="{
-      bottom: show ? '40px' : '-70px',
-      right: '40px',
+      bottom: show ? '20px' : '-70px',
+      right: '20px',
       zIndex: '999',
       transition: 'all 250ms cubic-bezier(.17,.26,1,.32) 0s',
     }"

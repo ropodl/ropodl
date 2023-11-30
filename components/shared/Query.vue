@@ -2,9 +2,9 @@
 import { Icon } from "@iconify/vue";
 </script>
 <template>
-  <div class="position-relative">
-    <v-container class="py-16">
-      <v-row class="pt-16">
+  <div class="position-relative py-16">
+    <v-container>
+      <v-row>
         <v-col cols="12" md="6">
           <LazySharedDashText text="Contact" />
           <v-card-title class="target text-h4 font-weight-medium mb-3 pl-0">
