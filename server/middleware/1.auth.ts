@@ -1,3 +1,4 @@
 export default defineEventHandler(async (event) => {
-  // return 'Hello Nitro'
+  const headers = await getRequestHeaders(event);
+  console.log(headers);
 });

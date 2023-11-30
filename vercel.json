@@ -1,0 +1,10 @@
+{
+    "version":0.1,
+    "routes":[{
+        "src":"/api/auth/(.*)",
+        "methods": ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
+        "headers":{
+            "Access-Control-Allow-Origin":"*"
+        }
+    }]
+}
