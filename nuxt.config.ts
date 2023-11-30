@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-mail",
-    // "nuxt-capo",
+    "nuxt-capo",
     // "nuxt-security",
   ],
   googleFonts: {
@@ -86,6 +86,12 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  sitemap: {
+    sitemapName: "sitemap.xml",
+    route: "sitemap.xml",
+    defaults: {},
+    exclude: ["/_nuxt/**", "/admin/**", "/login", "/api/**"],
   },
   mail: {
     message: {
