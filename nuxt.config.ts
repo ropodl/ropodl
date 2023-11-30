@@ -44,9 +44,6 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["stores", "stores/frontend"],
   },
-  site: {
-    url: process.env.BASE_URL,
-  },
   mongoose: {
     uri: process.env.MONGODB_URI,
     options: {},
