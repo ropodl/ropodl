@@ -5,9 +5,16 @@ defineProps({
   },
 });
 
-const { signOut } = useAuth();
+const { loggedIn, session, clear } = useUserSession();
 const user = useUserStore();
 const { me } = user;
+
+const routes = [
+  {
+    title: "Dashboard",
+    to: "/admin/",
+  },
+];
 </script>
 <template>
   <v-menu>
@@ -16,7 +23,7 @@ const { me } = user;
         rounded="0"
         variant="tonal"
         color="transparent"
-        height="60"
+        height="50"
         width="40"
         v-bind="props"
       >
@@ -29,8 +36,9 @@ const { me } = user;
       <v-list-item v-for="(item, index) in routes" :to="item['to']">
         <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
+      {{ loggedIn }}{{ session }}
       <v-divider></v-divider>
-      <v-list-item title="Sign Out" @click="signOut()"></v-list-item>
+      <v-list-item title="Sign Out" @click="clear()"></v-list-item>
     </v-list>
   </v-menu>
 </template>
