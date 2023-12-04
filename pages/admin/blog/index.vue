@@ -5,7 +5,7 @@ const blog = useBlog();
 
 definePageMeta({
   layout: "admin",
-  middleware: "auth",
+  middleware: "admin",
 });
 
 useHead({

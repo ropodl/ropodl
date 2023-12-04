@@ -1,5 +1,5 @@
 import { defineMongooseModel } from "#nuxt/mongoose";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 
 export const UserSchema = defineMongooseModel({
   name: "User",
@@ -16,25 +16,37 @@ export const UserSchema = defineMongooseModel({
     password: {
       type: String,
       required: true,
-      // select: false,
+      select: false,
+    },
+    image: {
+      type: Object,
+      url: String,
+      name: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      required: true,
+      enum: ["admin", "user"],
+      default: "user",
     },
   },
-  options: {
-    methods: {
-      async comparePassword(password) {
-        // console.log("this", this.pass);
+  // options: {
+  //   methods: {
+  //     async comparePassword(password) {
+  //       // console.log("this", this.pass);
 
-        const result = await bcrypt.compare(password, this.password);
-        return result;
-      },
-    },
-  },
-  hooks(schema) {
-    schema.pre("save", async function (this, next) {
-      if (this.isModified("password")) {
-        this.password = await bcrypt.hash(this.password, 10);
-      }
-      next();
-    });
-  },
+  //       const result = await bcrypt.compare(password, this.password);
+  //       return result;
+  //     },
+  //   },
+  // },
+  // hooks(schema) {
+  //   schema.pre("save", async function (this, next) {
+  //     if (this.isModified("password")) {
+  //       this.password = await bcrypt.hash(this.password, 10);
+  //     }
+  //     next();
+  //   });
+  // },
 });

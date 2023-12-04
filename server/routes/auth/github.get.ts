@@ -3,21 +3,42 @@ export default oauth.githubEventHandler({
     emailRequired: true,
   },
   async onSuccess(event, { user, tokens }) {
-    console.log(user);
-    if (user.email !== "sarox14@gmail.com") {
-      createError({
-        statusCode: 404,
-        statusMessage: "Only Admin Users are allowed",
-      });
+    const oldUser = UserSchema.findOne({ email: user.email });
+    if (oldUser) {
+      setSession(event, oldUser);
     } else {
-      await setUserSession(event, {
-        user: {
+      if (user.email !== "sarox14@gmail.com") {
+        const newUser = new UserSchema({
           name: user.name,
           email: user.email,
-        },
-      });
-      // githubId: user.id,
-      return sendRedirect(event, "/admin/");
+          password: "password",
+          image: {
+            url: user.avatar_url,
+            name: user.name,
+          },
+          role: "user",
+        });
+      } else {
+        const newUser = new UserSchema({
+          name: "Saroj Poudel",
+          email: "sarox14@gmail.com",
+          password: "password",
+          image: {
+            url: user.avatar_url,
+            name: user.name,
+          },
+          role: "user",
+        });
+        const { id } = await newUser.save();
+        // setSession(event, newUser);
+        await setUserSession(event, {
+          user: {
+            name: user.name,
+            email: user.email,
+          },
+        });
+        return sendRedirect(event, "/admin/");
+      }
     }
   },
   // Optional, will return a json error and 401 status code by default
@@ -26,3 +47,4 @@ export default oauth.githubEventHandler({
     return sendRedirect(event, "/");
   },
 });
+const setSession = async (event: any, user: any) => {};
