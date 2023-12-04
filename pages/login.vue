@@ -2,12 +2,10 @@
 import { Icon } from "@iconify/vue";
 
 definePageMeta({
-  layout: "blank",
-  middleware: "guest-only",
-  auth: { authenticatedRedirectTo: "/loading" },
+  middleware: "guest",
 });
 
-const { signIn } = useAuth();
+const { user, loggedIn } = useUserSession();
 </script>
 <template>
   <v-container class="h-100">
@@ -15,13 +13,18 @@ const { signIn } = useAuth();
       <v-col cols="2" class="d-flex align-center h-100">
         <div class="w-100">
           <v-card-title class="text-center">Sign In With</v-card-title>
+          {{ loggedIn }}
+          {{ user }}
           <v-btn
             block
+            elevation="0"
             rounded="lg"
             class="text-capitalize"
-            @click="signIn('github')"
+            href="/auth/github"
           >
-            <v-icon start> <Icon icon="fa6-brands:github" /> </v-icon>
+            <v-icon start>
+              <Icon icon="fa6-brands:github" />
+            </v-icon>
             GitHub
           </v-btn>
         </div>

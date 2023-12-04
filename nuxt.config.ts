@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     "nuxt-delay-hydration",
     "nuxt-mail",
     "nuxt-og-image",
+    "nuxt-auth-utils",
     // "nuxt-security",
     // "nuxt-capo",
   ],
@@ -134,5 +135,6 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
   },
+  auth: {},
   runtimeConfig: {},
 });

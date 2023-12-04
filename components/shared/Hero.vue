@@ -35,44 +35,41 @@ import { socials } from "@/utils/socials";
           <div class="d-flex align-center h-100">
             <div>
               <LazySharedDashText text="Introduction" />
-              <div
-                class="text-h4 font-weight-medium split w-100"
-                style="height: 40px"
-              >
+              <div class="text-h4 font-weight-medium split w-100">
                 <span>Fullstack developer</span>
               </div>
-              <div
-                class="text-h4 font-weight-medium split"
-                style="height: 40px"
-              >
-                <span>based in Kathmandu, Nepal.</span>
+              <div class="text-h4 font-weight-medium">
+                based in Kathmandu, Nepal.
               </div>
-              <v-card-text class="pl-0 paragraph">
+              <v-card-text class="pl-0">
                 Hello, world. I am Web Designer and Web Application Developer. I
                 have rich experience in web site design and building, also I am
                 good at Vue JS. Recently I am enhancing my ExpressJS skills.
               </v-card-text>
-              <div id="btn">
-                <v-hover v-slot="{ isHovering, props }">
-                  <v-btn
-                    size="large"
-                    variant="tonal"
-                    color="primary"
-                    class="text-capitalize"
-                    v-bind="props"
-                    to="/about"
-                  >
-                    My Story
-                    <v-icon
-                      size="x-small"
-                      :class="isHovering ? 'ml-4' : 'ml-2'"
-                      style="transition: all 100ms linear"
+              <v-row id="btn">
+                <v-col cols="5">
+                  <v-hover v-slot="{ isHovering, props }">
+                    <v-btn
+                      block
+                      size="large"
+                      variant="tonal"
+                      color="primary"
+                      class="text-capitalize"
+                      v-bind="props"
+                      to="/about"
                     >
-                      <Icon icon="material-symbols:arrow-right-alt" />
-                    </v-icon>
-                  </v-btn>
-                </v-hover>
-              </div>
+                      My Story
+                      <v-icon
+                        size="x-small"
+                        :class="isHovering ? 'ml-4' : 'ml-2'"
+                        style="transition: all 100ms linear"
+                      >
+                        <Icon icon="material-symbols:arrow-right-alt" />
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+                </v-col>
+              </v-row>
             </div>
           </div>
         </v-col>
