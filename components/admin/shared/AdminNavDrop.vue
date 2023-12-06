@@ -38,7 +38,7 @@ const routes = [
       </v-list-item>
       {{ loggedIn }}{{ session }}
       <v-divider></v-divider>
-      <v-list-item title="Sign Out" @click="clear()"></v-list-item>
+      <v-list-item title="Sign Out" @click="clear"></v-list-item>
     </v-list>
   </v-menu>
 </template>
