@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const user = useUser();
+// const user = useUser();
 const router = useRouter();
 
 const drawer = ref(true);

@@ -8,7 +8,7 @@ const loading = ref(true);
 onMounted(() => {
   nextTick(() => {
     loading.value = true;
-    if (loggedIn.value && user.value.role === "admin") {
+    if (loggedIn.value && user?.value?.role === "admin") {
       navigateTo("/admin/", { replace: true });
     }
     loading.value = false;
