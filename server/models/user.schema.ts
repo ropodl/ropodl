@@ -13,11 +13,6 @@ export const UserSchema = defineMongooseModel({
       required: true,
       unique: true,
     },
-    // password: {
-    //   type: String,
-    //   required: true,
-    //   select: false,
-    // },
     image: {
       type: Object,
       url: String,
@@ -31,22 +26,4 @@ export const UserSchema = defineMongooseModel({
       enum: ["admin", "user"],
     },
   },
-  // options: {
-  //   methods: {
-  //     async comparePassword(password) {
-  //       // console.log("this", this.pass);
-
-  //       const result = await bcrypt.compare(password, this.password);
-  //       return result;
-  //     },
-  //   },
-  // },
-  // hooks(schema) {
-  //   schema.pre("save", async function (this, next) {
-  //     if (this.isModified("password")) {
-  //       this.password = await bcrypt.hash(this.password, 10);
-  //     }
-  //     next();
-  //   });
-  // },
 });
