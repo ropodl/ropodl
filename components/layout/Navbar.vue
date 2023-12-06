@@ -57,8 +57,6 @@ const pages = [
           >
             <LazySharedLogo :width="30" :height="50" />
           </v-btn>
-          <!-- <v-btn to="/admin/">Admin</v-btn>
-          <v-btn to="/login/">login</v-btn> -->
           <v-spacer></v-spacer>
           <template v-for="page in pages">
             <v-hover v-slot="{ isHovering, props }">
@@ -73,7 +71,6 @@ const pages = [
               />
             </v-hover>
           </template>
-          <v-btn to="/login">Login</v-btn>
           <v-spacer></v-spacer>
           <template v-for="social in socials">
             <v-btn

@@ -4,10 +4,8 @@ export default oauth.githubEventHandler({
   },
   async onSuccess(event, { user, tokens }) {
     const { name, email, avatar_url } = user;
-    console.log(user);
 
     const oldUser = await UserSchema.findOne({ email });
-    console.log(oldUser);
 
     if (oldUser) {
       await setUserSession(event, {
