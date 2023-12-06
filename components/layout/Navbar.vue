@@ -57,8 +57,8 @@ const pages = [
           >
             <LazySharedLogo :width="30" :height="50" />
           </v-btn>
-          <v-btn to="/admin/">Admin</v-btn>
-          <v-btn to="/login/">login</v-btn>
+          <!-- <v-btn to="/admin/">Admin</v-btn>
+          <v-btn to="/login/">login</v-btn> -->
           <v-spacer></v-spacer>
           <template v-for="page in pages">
             <v-hover v-slot="{ isHovering, props }">
@@ -100,7 +100,7 @@ const pages = [
               <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
             </v-icon>
           </v-btn>
-          {{ loggedIn }}
+          <!-- {{ loggedIn }} -->
           <template v-if="loggedIn">
             <LazyAdminSharedAdminNavDrop />
           </template>
