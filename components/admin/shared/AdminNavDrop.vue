@@ -5,9 +5,7 @@ defineProps({
   },
 });
 
-const { loggedIn, session, clear } = useUserSession();
-const user = useUserStore();
-const { me } = user;
+const { loggedIn, user, clear } = useUserSession();
 
 const routes = [
   {
@@ -15,6 +13,11 @@ const routes = [
     to: "/admin/",
   },
 ];
+
+const signOut = () => {
+  navigateTo("/", { replace: true, external: true });
+  clear();
+};
 </script>
 <template>
   <v-menu>
@@ -28,7 +31,7 @@ const routes = [
         v-bind="props"
       >
         <v-avatar size="35">
-          <v-img :src="me?.image"></v-img>
+          <v-img :src="user?.image?.url"></v-img>
         </v-avatar>
       </v-btn>
     </template>
@@ -36,9 +39,8 @@ const routes = [
       <v-list-item v-for="(item, index) in routes" :to="item['to']">
         <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
-      {{ loggedIn }}{{ session }}
       <v-divider></v-divider>
-      <v-list-item title="Sign Out" @click="clear"></v-list-item>
+      <v-list-item title="Sign Out" @click="signOut"></v-list-item>
     </v-list>
   </v-menu>
 </template>

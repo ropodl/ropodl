@@ -4,18 +4,47 @@ export default oauth.githubEventHandler({
   },
   async onSuccess(event, { user, tokens }) {
     const { name, email, avatar_url } = user;
-    console.log(name);
+    console.log(user);
 
-    if (email === "sarox14@gmail.com") {
+    const oldUser = await UserSchema.findOne({ email });
+    console.log(oldUser);
+
+    if (oldUser) {
       await setUserSession(event, {
         user: {
-          // githubId: user.id,
+          id: oldUser.id,
           name,
           email,
           image: {
             url: avatar_url,
             name,
           },
+          role: oldUser.role,
+        },
+      });
+      const route = oldUser.role == "admin" ? "/admin/" : "/";
+      return sendRedirect(event, route);
+    } else {
+      const user = new UserSchema({
+        name,
+        email,
+        image: {
+          url: avatar_url,
+          name,
+        },
+        role: email === process.env.ADMIN_USER ? "admin" : "user",
+      });
+      const { id } = await user.save();
+      await setUserSession(event, {
+        user: {
+          id,
+          name,
+          email,
+          image: {
+            url: avatar_url,
+            name,
+          },
+          role: email === process.env.ADMIN_USER ? "admin" : "user",
         },
       });
       return sendRedirect(event, "/admin/");
@@ -27,4 +56,3 @@ export default oauth.githubEventHandler({
     return sendRedirect(event, "/");
   },
 });
-const setSession = async (event: any, user: any) => {};

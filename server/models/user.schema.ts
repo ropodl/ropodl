@@ -13,11 +13,11 @@ export const UserSchema = defineMongooseModel({
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-      select: false,
-    },
+    // password: {
+    //   type: String,
+    //   required: true,
+    //   select: false,
+    // },
     image: {
       type: Object,
       url: String,
@@ -27,8 +27,8 @@ export const UserSchema = defineMongooseModel({
     role: {
       type: String,
       required: true,
-      enum: ["admin", "user"],
       default: "user",
+      enum: ["admin", "user"],
     },
   },
   // options: {
