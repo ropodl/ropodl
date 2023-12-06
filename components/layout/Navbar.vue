@@ -66,13 +66,14 @@ const pages = [
                 v-bind="props"
                 height="50"
                 rounded="lg"
-                class="text-capitalize hidden-sm-and-down"
+                class="text-lowercase hidden-sm-and-down"
                 :text="page.title"
                 :active="route.fullPath.includes(page.title)"
                 :to="page.link"
               />
             </v-hover>
           </template>
+          <v-btn to="/login">Login</v-btn>
           <v-spacer></v-spacer>
           <template v-for="social in socials">
             <v-btn
@@ -100,7 +101,6 @@ const pages = [
               <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
             </v-icon>
           </v-btn>
-          <!-- {{ loggedIn }} -->
           <template v-if="loggedIn">
             <LazyAdminSharedAdminNavDrop />
           </template>

@@ -1,11 +1,19 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-definePageMeta({
-  middleware: "guest",
-});
+const { loggedIn, user } = useUserSession();
 
-const { user, loggedIn } = useUserSession();
+const loading = ref(true);
+
+onMounted(() => {
+  nextTick(() => {
+    loading.value = true;
+    if (loggedIn.value && user.value.role === "admin") {
+      navigateTo("/admin/", { replace: true });
+    }
+    loading.value = false;
+  });
+});
 </script>
 <template>
   <v-container class="h-100">
@@ -13,8 +21,6 @@ const { user, loggedIn } = useUserSession();
       <v-col cols="2" class="d-flex align-center h-100">
         <div class="w-100">
           <v-card-title class="text-center">Sign In With</v-card-title>
-          {{ loggedIn }}
-          {{ user }}
           <v-btn
             block
             elevation="0"
@@ -32,5 +38,3 @@ const { user, loggedIn } = useUserSession();
     </v-row>
   </v-container>
 </template>
-
-<style></style>

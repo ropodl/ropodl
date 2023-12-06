@@ -3,24 +3,22 @@ import { useScrollTo } from "@/composables/scrollToId";
 import { Icon } from "@iconify/vue";
 
 const show = ref(false);
+const progress = ref(0);
 
 const onScroll = (e: Event) => {
   if (typeof window === "undefined") return;
   const top = window.scrollY || 0;
-  show.value = top > 500 ? true : false;
+  show.value = top > 100 ? true : false;
+  // Scroll Progress
+  const scrollTop = window.pageYOffset;
+  const documentHeight = document.documentElement.scrollHeight;
+  const viewportHeight = window.innerHeight;
+  progress.value = (scrollTop / (documentHeight - viewportHeight)) * 100;
 };
 </script>
 <template>
-  <v-btn
-    border
-    icon
-    rounded="lg"
-    size="x-large"
-    variant="tonal"
+  <div
     class="position-fixed"
-    v-scroll="onScroll"
-    @click="useScrollTo('__nuxt', 0)"
-    aria-label="Go to top button"
     :style="{
       bottom: show ? '20px' : '-70px',
       right: '20px',
@@ -28,8 +26,21 @@ const onScroll = (e: Event) => {
       transition: 'all 250ms cubic-bezier(.17,.26,1,.32) 0s',
     }"
   >
-    <v-icon>
-      <Icon icon="mdi:arrow-up" />
-    </v-icon>
-  </v-btn>
+    <v-btn
+      border
+      icon
+      rounded="lg"
+      size="x-large"
+      variant="tonal"
+      v-scroll="onScroll"
+      @click="useScrollTo('__nuxt', 0)"
+      aria-label="Go to top button"
+    >
+      <v-progress-circular size="50" width="1" :model-value="progress">
+        <v-icon>
+          <Icon icon="mdi:arrow-up" />
+        </v-icon>
+      </v-progress-circular>
+    </v-btn>
+  </div>
 </template>

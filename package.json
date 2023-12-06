@@ -13,15 +13,15 @@
     "@nuxt/devtools": "^1.0.3",
     "@nuxtjs/google-fonts": "latest",
     "@pinia/nuxt": "^0.5.1",
-    "@vite-pwa/nuxt": "^0.3.3",
-    "@vueuse/nuxt": "latest",
+    "@vite-pwa/nuxt": "^0.3.4",
+    "@vueuse/nuxt": "^10.7.0",
     "nuxt": "^3.7.4",
     "nuxt-capo": "^0.1.0",
     "nuxt-delay-hydration": "latest",
     "nuxt-mail": "latest",
     "nuxt-og-image": "^2.0.0",
     "nuxt-payload-analyzer": "latest",
-    "nuxt-security": "^1.0.0-rc.4",
+    "nuxt-security": "^1.0.0-rc.5",
     "nuxt-simple-sitemap": "latest",
     "sass": "^1.69.5"
   },
@@ -40,7 +40,7 @@
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",
     "vite-plugin-vuetify": "^1.0.2",
-    "vuetify": "^3.4.3",
-    "vuetify-nuxt-module": "^0.7.0"
+    "vuetify": "^3.4.5",
+    "vuetify-nuxt-module": "^0.7.2"
   }
 }
