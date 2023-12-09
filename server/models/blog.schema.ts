@@ -16,7 +16,7 @@ export const BlogSchema = defineMongooseModel({
     excerpt: {
       type: "string",
     },
-    featuredImage: { type: Object, url: String, name: String },
+    // featuredImage: { type: Object, required: true, url: String, name: String },
     status: {
       type: String,
       enum: ["Draft", "Published"],
