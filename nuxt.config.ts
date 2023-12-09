@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
     },
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   experimental: {
     viewTransition: true,
     componentIslands: true,
@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     "nuxt-mail",
     "nuxt-og-image",
     "nuxt-auth-utils",
+    "@nuxtjs/cloudinary",
     // "nuxt-security",
     // "nuxt-capo",
   ],

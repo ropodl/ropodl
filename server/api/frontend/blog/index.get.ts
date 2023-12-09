@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     BlogSchema,
     1,
     10,
-    { status: "Draft" },
+    { status: "Published" },
     { createdAt: "-1" }
   );
   const blogs = Promise.all(

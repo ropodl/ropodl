@@ -1,12 +1,19 @@
+import { uploadBlogImage } from "~/server/utils/cloudinary";
+import objectify from "~/server/utils/objectify";
+
 export default defineEventHandler(async (event) => {
-  const form = await readMultipartFormData(event);
+  const form = await readFormData(event);
   console.log(form);
 
-  let data;
-  for (item of form) {
-    console.log(item);
-  }
-  // const { file } = req;
+  const { title, image, status } = await objectify(form);
+
+  console.log(image);
+  const slug = title;
+
+  // cloudify here
+  const { secure_url, public_id } = await uploadBlogImage(image);
+
+  console.log(secure_url, public_id);
 
   // let featuredImage = {
   //   url:
@@ -18,16 +25,10 @@ export default defineEventHandler(async (event) => {
   //   name: file.filename,
   // };
 
-  const blog = new BlogSchema({
-    // title,
-    // content,
-    // excerpt,
-    // slug,
-    // categories,
-    // tags,
-    // status,
-    // visibility,
-    // featuredImage,
+  const blog = await new BlogSchema({
+    title,
+    slug,
+    status,
   });
 
   // if (categories) {
@@ -48,7 +49,8 @@ export default defineEventHandler(async (event) => {
   //   blog.tags = tags.split(",");
   // }
 
-  // await blog.save();
+  const { id } = await blog.save();
+  // console.log(id);
 
   // res.json({
   //   success: true,
@@ -64,5 +66,5 @@ export default defineEventHandler(async (event) => {
   //     tags,
   //   },
   // });
-  return 0;
+  return id;
 });

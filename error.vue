@@ -23,7 +23,7 @@ const props = defineProps({
                   variant="tonal"
                   class="text-capitalize px-10"
                   to="/"
-                  replace="true"
+                  :replace="true"
                   >Let's go home</v-btn
                 >
               </div>

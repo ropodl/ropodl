@@ -14,25 +14,6 @@ useHead({
 
 const loading = ref(true);
 
-const headers = [
-  {
-    title: "Featured Image",
-    key: "image",
-    align: "start",
-    sortable: false,
-    width: 0,
-  },
-  {
-    title: "Title",
-    align: "start",
-    sortable: false,
-    key: "title",
-  },
-  { title: "Categories", align: "center", sortable: false, key: "categories" },
-  { title: "Tags", align: "center", sortable: false, key: "tags" },
-  { title: "Actions", align: "center", sortable: false, key: "actions" },
-];
-
 const refresh = ref(false);
 const reload = () => {
   refresh.value = true;
@@ -60,15 +41,13 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
       <v-col cols="12" md="4">
         <div class="text-h4 font-weight-bold">Blogs</div>
       </v-col>
-      <v-col cols="12" md="4">
-        <!-- {{ searchBlog }}{{ searchItem }} -->
-        <!-- <v-autocomplete hide-details hide-no-data v-model="searchItem" @update:modelValue="search" rounded="pill" variant="solo-filled" placeholder="Search Blog" menu-icon="" prepend-inner-icon="mdi-magnify"></v-autocomplete> -->
-      </v-col>
+      <v-col cols="12" md="4"></v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
           <template v-if="selected.length > 0">
             <v-btn
               icon
+              rounded="lg"
               variant="tonal"
               class="mr-3"
               :loading="refresh"
@@ -80,19 +59,8 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
             </v-btn>
           </template>
           <v-btn
-            icon
             variant="tonal"
-            class="mr-3"
-            :loading="refresh"
-            @click="reload"
-          >
-            <v-icon>
-              <Icon icon="mdi:reload" />
-            </v-icon>
-          </v-btn>
-          <v-btn
-            variant="tonal"
-            height="48"
+            height="50"
             class="text-capitalize px-10"
             to="/admin/blog/create"
           >

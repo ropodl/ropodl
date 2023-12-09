@@ -9,26 +9,26 @@ const blog = useBlog();
 
 definePageMeta({
   layout: "admin",
-  middleware: "auth",
+  middleware: "admin",
 });
 
 useHead({
   title: "Add New Blog",
 });
 
+const file = shallowRef();
 const form = reactive({
   title: "",
   excerpt: "",
   content: "",
-  categories: [],
-  tags: [],
+  // categories: [],
+  // tags: [],
   image: null,
   visibility: "Public",
   status: "Draft",
 });
 // Image Upload
-const file = shallowRef();
-const url = useObjectUrl(file);
+// const url = useObjectUrl(file);
 // Image Upload
 
 onMounted(() => {
@@ -38,15 +38,26 @@ onMounted(() => {
   // })
 });
 
+// const file = shallowRef()
+// const url = useObjectUrl(file)
+
+// function onFileChange(event) {
+//   file.value = event.target.files[0]
+// }
+
 // temporary for thumbnail
 const selectFeaturedImage = ({ target }) => {
+  console.log("asd asd " + target);
   const { value, files, name } = target;
   if (name === "image") {
     file.value = files[0];
-    form.image = files[0];
-    console.log(form.image);
+    form.image = file.value.name;
     return;
   }
+};
+const updateImage = ({ target }) => {
+  form.image = target.files[0].name;
+  console.log(target.files[0].name);
 };
 const addBlog = () => {
   const formData = new FormData();
@@ -89,49 +100,13 @@ const addBlog = () => {
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form="form" />
-          <!-- <v-card class="mb-3">
-            <v-card-title>Categories</v-card-title>
-            <v-divider></v-divider>
-            <v-autocomplete
-              hide-details
-              hide-no-data
-              rounded="0"
-              density="comfortable"
-              placeholder="Search Categories"
-              menu-icon=""
-              append-inner-icon="mdi-magnify"
-              @click:append-inner="searchCategories"
-            >
-            </v-autocomplete>
-            <v-card-text>
-              <template v-for="(item, i) in category.categories">
-                <v-checkbox
-                  v-model="form.categories"
-                  hide-details
-                  :label="item['title']"
-                  :value="item['id']"
-                  density="compact"
-                  class="text-capitalize"
-                ></v-checkbox>
-              </template>
-            </v-card-text>
-          </v-card> -->
-          <!-- <v-card class="mb-3">
-            <v-card-title>Tags</v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-              <template v-for="(item, i) in tag.tags">
-                <v-checkbox
-                  v-model="form.tags"
-                  hide-details
-                  :label="item['title']"
-                  :value="item['id']"
-                  density="compact"
-                  class="text-capitalize"
-                ></v-checkbox>
-              </template>
-            </v-card-text>
-          </v-card> -->
+          <CldUploadWidget
+            v-slot="{ open }"
+            uploadPreset="nuxt-cloudinary-unsigned"
+          >
+            <button type="button" @click="open">Upload an Image</button>
+          </CldUploadWidget>
+          <!-- <input type="file" @change="updateImage" /> -->
           <v-card class="mb-3">
             <v-card-title>Featured Image</v-card-title>
             <v-divider></v-divider>
@@ -140,7 +115,7 @@ const addBlog = () => {
             >
               <template v-if="form.image !== null">
                 <v-hover v-slot="{ isHovering, props }">
-                  <v-img cover v-bind="props" :src="url" height="200">
+                  <v-img cover v-bind="props" :src="form.image" height="200">
                     <v-overlay
                       contained
                       :model-value="isHovering"
