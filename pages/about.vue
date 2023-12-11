@@ -127,6 +127,10 @@ const education = [
 ];
 </script>
 <template>
+  <LazySharedQuery />
+  <LazySharedLoves />
+  <LazySharedClients />
+  <LazySharedPortfolio />
   <v-container class="px-0 py-16">
     <v-row justify="center">
       <v-col cols="10">

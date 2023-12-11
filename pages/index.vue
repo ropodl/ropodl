@@ -17,8 +17,4 @@ defineOgImage({
 </script>
 <template>
   <LazySharedHero />
-  <LazySharedQuery />
-  <LazySharedLoves />
-  <LazySharedClients />
-  <LazySharedPortfolio />
 </template>
