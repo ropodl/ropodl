@@ -32,6 +32,7 @@
     "@nuxtjs/cloudinary": "^2.4.3",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@tinymce/tinymce-vue": "latest",
+    "@vercel/speed-insights": "^1.0.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.0",
     "gsap": "^3.12.2",

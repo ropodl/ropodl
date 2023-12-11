@@ -1,4 +1,6 @@
 <script setup>
+import { SpeedInsights } from "@vercel/speed-insights/nuxt";
+
 const { isOnline } = useNetwork();
 
 const route = useRoute();
@@ -15,6 +17,7 @@ const route = useRoute();
 
 <template>
   <div>
+    <SpeedInsights/>
     <VitePwaManifest />
     <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
     <v-app>
