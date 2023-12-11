@@ -3,11 +3,11 @@ import { Icon } from "@iconify/vue";
 import { socials } from "@/utils/socials";
 </script>
 <template>
-  <v-card flat rounded="0" class="position-relative">
-    <v-container class="py-16">
-      <v-row class="position-relative py-16">
+  <v-card flat rounded="0" class="position-relative py-10 h-100">
+    <v-container class="py-16 h-100">
+      <v-row class="position-relative py-16 h-100">
         <v-col cols="12" md="6">
-          <div class="text-overline" id="hi">Hello, World! I am</div>
+          <div class="text-overline">Hello, World! I am</div>
           <div class="text-h1 font-weight-bold mb-3">Saroj Poudel.</div>
           <div id="line" class="mt-4 mb-10 rounded-pill"></div>
           <ul class="d-flex list-style-none">
@@ -75,6 +75,12 @@ import { socials } from "@/utils/socials";
         </v-col>
       </v-row>
     </v-container>
+    <v-img
+      height="550"
+      class="position-absolute w-100"
+      src="/image/me2_no_bg.png"
+      style="bottom: 0; z-index: -1"
+    ></v-img>
   </v-card>
 </template>
 <style scoped>
