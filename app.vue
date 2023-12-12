@@ -17,7 +17,7 @@ const route = useRoute();
 
 <template>
   <div>
-    <SpeedInsights/>
+    <SpeedInsights />
     <VitePwaManifest />
     <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
     <v-app>
@@ -31,6 +31,11 @@ const route = useRoute();
   </div>
 </template>
 <style lang="scss">
+body {
+  font-family: "Ubuntu", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
 .v-skeleton-loader__image {
   height: 100% !important;
 }

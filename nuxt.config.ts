@@ -16,7 +16,6 @@ export default defineNuxtConfig({
   modules: [
     "@vueuse/nuxt",
     "@pinia/nuxt",
-    "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
@@ -31,15 +30,6 @@ export default defineNuxtConfig({
     // "nuxt-security",
     // "nuxt-capo",
   ],
-  googleFonts: {
-    download: true,
-    families: {
-      Roboto: {
-        wght: [100, 300, 400, 500, 700, 900],
-      },
-    },
-    display: "swap",
-  },
   imports: {
     dirs: ["stores", "stores/frontend"],
   },
