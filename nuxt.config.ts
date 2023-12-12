@@ -8,10 +8,10 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   experimental: {
     viewTransition: true,
-    componentIslands: true,
+    // componentIslands: true,
   },
   modules: [
     "@vueuse/nuxt",
@@ -29,7 +29,7 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     "@nuxtjs/cloudinary",
     // "nuxt-security",
-    "nuxt-capo",
+    // "nuxt-capo",
   ],
   imports: {
     dirs: ["stores", "stores/frontend"],
@@ -43,12 +43,15 @@ export default defineNuxtConfig({
     },
     display: "swap",
   },
-  // mongoose: {
-  //   uri: process.env.MONGODB_URI,
-  //   options: {},
-  //   modelsDir: "models",
-  //   devtools: true,
-  // },
+  ogImage: {
+    fonts: ["Roboto:400"],
+  },
+  mongoose: {
+    uri: process.env.MONGODB_URI,
+    options: {},
+    modelsDir: "models",
+    devtools: true,
+  },
   piniaPersistedstate: {
     storage: "localStorage",
   },
