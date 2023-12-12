@@ -33,17 +33,29 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["stores", "stores/frontend"],
   },
-  mongoose: {
-    uri: process.env.MONGODB_URI,
-    options: {},
-    modelsDir: "models",
-    devtools: true,
+  googleFonts: {
+    download: true,
+    families: {
+      Ubuntu: {
+        wght: [100, 300, 400, 500, 700, 900],
+      },
+    },
+    display: "swap",
   },
+  // mongoose: {
+  //   uri: process.env.MONGODB_URI,
+  //   options: {},
+  //   modelsDir: "models",
+  //   devtools: true,
+  // },
   piniaPersistedstate: {
     storage: "localStorage",
   },
   vuetify: {
     vuetifyOptions: {
+      styles: {
+        configFile: "assets/styles/settings.scss",
+      },
       icons: {
         defaultSet: "mdi",
       },
