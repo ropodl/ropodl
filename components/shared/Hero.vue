@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-import { socials } from "@/utils/socials";
 </script>
 <template>
   <v-card
@@ -15,7 +14,7 @@ import { socials } from "@/utils/socials";
           <div class="d-flex align-center justify-center h-100">
             <div>
               <div class="text-overline text-center">Hello, World! I am</div>
-              <div class="text-h2 font-weight-bold mb-3 text-center">
+              <div class="text-h1 font-weight-bold mb-3 text-center">
                 Saroj Poudel.
               </div>
               <div>
@@ -28,12 +27,13 @@ import { socials } from "@/utils/socials";
                   am good at Vue JS. Recently I am enhancing my ExpressJS
                   skills.
                 </v-card-text>
-                <v-row justify="center" id="btn">
-                  <v-col cols="4">
+                <v-row justify="center">
+                  <v-col cols="3">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         block
-                        size="large"
+                        height="50"
+                        rounded="lg"
                         variant="tonal"
                         color="primary"
                         class="text-capitalize font-weight-medium"
@@ -42,7 +42,6 @@ import { socials } from "@/utils/socials";
                       >
                         About
                         <v-icon
-                          size="x-small"
                           :class="isHovering ? 'ml-4' : 'ml-2'"
                           style="transition: all 100ms linear"
                         >
@@ -51,11 +50,12 @@ import { socials } from "@/utils/socials";
                       </v-btn>
                     </v-hover>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col cols="3">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         block
-                        size="large"
+                        height="50"
+                        rounded="lg"
                         variant="text"
                         color="primary"
                         class="text-capitalize font-weight-medium"
@@ -64,7 +64,6 @@ import { socials } from "@/utils/socials";
                       >
                         Contact
                         <v-icon
-                          size="x-small"
                           :class="isHovering ? 'ml-4' : 'ml-2'"
                           style="transition: all 100ms linear"
                         >
@@ -82,10 +81,3 @@ import { socials } from "@/utils/socials";
     </v-container>
   </v-card>
 </template>
-<style scoped>
-#line {
-  height: 8px;
-  width: 100px;
-  background-color: rgb(var(--v-theme-primary));
-}
-</style>

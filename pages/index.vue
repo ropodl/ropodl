@@ -9,7 +9,7 @@ useSeoMeta({
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
 });
 
-defineOgImage({
+defineOgImageComponent("Main", {
   title: "Saroj Poudel",
   description:
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
