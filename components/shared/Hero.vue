@@ -19,7 +19,7 @@ import { socials } from "@/utils/socials";
                 Saroj Poudel.
               </div>
               <div>
-                <div class="text-h4 font-weight-medium">
+                <div class="text-h4 font-weight-medium text-center">
                   Fullstack developer from Kathmandu, Nepal.
                 </div>
                 <v-card-text class="pl-0 text-center">
