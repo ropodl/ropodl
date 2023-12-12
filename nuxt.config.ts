@@ -15,6 +15,7 @@ export default defineNuxtConfig({
   },
   modules: [
     "@vueuse/nuxt",
+    "@nuxtjs/google-fonts",
     "@pinia/nuxt",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
@@ -28,7 +29,7 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     "@nuxtjs/cloudinary",
     // "nuxt-security",
-    // "nuxt-capo",
+    "nuxt-capo",
   ],
   imports: {
     dirs: ["stores", "stores/frontend"],
@@ -36,7 +37,7 @@ export default defineNuxtConfig({
   googleFonts: {
     download: true,
     families: {
-      Ubuntu: {
+      Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
       },
     },
@@ -53,9 +54,6 @@ export default defineNuxtConfig({
   },
   vuetify: {
     vuetifyOptions: {
-      styles: {
-        configFile: "assets/styles/settings.scss",
-      },
       icons: {
         defaultSet: "mdi",
       },
