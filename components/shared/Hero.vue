@@ -3,84 +3,83 @@ import { Icon } from "@iconify/vue";
 import { socials } from "@/utils/socials";
 </script>
 <template>
-  <v-card flat rounded="0" class="position-relative py-10 h-100">
-    <v-container class="py-16 h-100">
-      <v-row class="position-relative py-16 h-100">
-        <v-col cols="12" md="6">
-          <div class="text-overline">Hello, World! I am</div>
-          <div class="text-h1 font-weight-bold mb-3">Saroj Poudel.</div>
-          <div id="line" class="mt-4 mb-10 rounded-pill"></div>
-          <ul class="d-flex list-style-none">
-            <li v-for="(social, i) in socials" class="social">
-              <v-hover v-slot="{ isHovering, props }">
-                <v-btn
-                  icon
-                  variant="text"
-                  target="_blank"
-                  :href="social['link']"
-                  :aria-label="social['name']"
-                  v-bind="props"
-                  :color="isHovering ? 'primary' : 'white'"
-                >
-                  <v-icon size="20">
-                    <Icon :icon="social['icon']" />
-                  </v-icon>
-                </v-btn>
-              </v-hover>
-            </li>
-          </ul>
-        </v-col>
-        <v-col cols="12" md="1"></v-col>
-        <v-col cols="12" md="5">
-          <div class="d-flex align-center h-100">
+  <v-card
+    flat
+    rounded="0"
+    class="position-relative h-100"
+    style="padding-top: 50px"
+  >
+    <v-container class="h-100">
+      <v-row justify="center" class="position-relative h-100">
+        <v-col cols="12" md="8">
+          <div class="d-flex align-center justify-center h-100">
             <div>
-              <LazySharedDashText text="Introduction" />
-              <div class="text-h4 font-weight-medium split w-100">
-                <span>Fullstack developer</span>
+              <div class="text-overline text-center">Hello, World! I am</div>
+              <div class="text-h2 font-weight-bold mb-3 text-center">
+                Saroj Poudel.
               </div>
-              <div class="text-h4 font-weight-medium">
-                based in Kathmandu, Nepal.
-              </div>
-              <v-card-text class="pl-0">
-                Hello, world. I am Web Designer and Web Application Developer. I
-                have rich experience in web site design and building, also I am
-                good at Vue JS. Recently I am enhancing my ExpressJS skills.
-              </v-card-text>
-              <v-row id="btn">
-                <v-col cols="5">
-                  <v-hover v-slot="{ isHovering, props }">
-                    <v-btn
-                      block
-                      size="large"
-                      variant="tonal"
-                      color="primary"
-                      class="text-capitalize"
-                      v-bind="props"
-                      to="/about"
-                    >
-                      My Story
-                      <v-icon
-                        size="x-small"
-                        :class="isHovering ? 'ml-4' : 'ml-2'"
-                        style="transition: all 100ms linear"
+              <div>
+                <div class="text-h4 font-weight-medium">
+                  Fullstack developer from Kathmandu, Nepal.
+                </div>
+                <v-card-text class="pl-0 text-center">
+                  Hello, world. I am Web Designer and Web Application Developer.
+                  I have rich experience in web site design and building, also I
+                  am good at Vue JS. Recently I am enhancing my ExpressJS
+                  skills.
+                </v-card-text>
+                <v-row justify="center" id="btn">
+                  <v-col cols="4">
+                    <v-hover v-slot="{ isHovering, props }">
+                      <v-btn
+                        block
+                        size="large"
+                        variant="tonal"
+                        color="primary"
+                        class="text-capitalize font-weight-medium"
+                        v-bind="props"
+                        to="/about"
                       >
-                        <Icon icon="material-symbols:arrow-right-alt" />
-                      </v-icon>
-                    </v-btn>
-                  </v-hover>
-                </v-col>
-              </v-row>
+                        About
+                        <v-icon
+                          size="x-small"
+                          :class="isHovering ? 'ml-4' : 'ml-2'"
+                          style="transition: all 100ms linear"
+                        >
+                          <Icon icon="material-symbols:arrow-right-alt" />
+                        </v-icon>
+                      </v-btn>
+                    </v-hover>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-hover v-slot="{ isHovering, props }">
+                      <v-btn
+                        block
+                        size="large"
+                        variant="text"
+                        color="primary"
+                        class="text-capitalize font-weight-medium"
+                        v-bind="props"
+                        to="/about"
+                      >
+                        Contact
+                        <v-icon
+                          size="x-small"
+                          :class="isHovering ? 'ml-4' : 'ml-2'"
+                          style="transition: all 100ms linear"
+                        >
+                          <Icon icon="material-symbols:arrow-right-alt" />
+                        </v-icon>
+                      </v-btn>
+                    </v-hover>
+                  </v-col>
+                </v-row>
+              </div>
             </div>
           </div>
         </v-col>
       </v-row>
     </v-container>
-    <v-img
-      height="550"
-      class="position-absolute w-100"
-      src="/image/me2_no_bg.png"
-      style="bottom: 0; z-index: -1"
-    ></v-img>
   </v-card>
 </template>
 <style scoped>
