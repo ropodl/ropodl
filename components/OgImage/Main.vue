@@ -65,8 +65,8 @@ const title = computed(() => props.title.slice(0, 60));
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
       class="absolute top-[160px] right-[90px]"
-      width="160"
-      height="160"
+      width="256"
+      height="256"
       viewBox="0 0 512.000000 512.000000"
       preserveAspectRatio="xMidYMid meet"
     >
