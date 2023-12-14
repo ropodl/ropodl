@@ -13,14 +13,8 @@ const route = useRoute();
 //     user.checkAuth(token);
 //   });
 // });
-</script>
 
-<template>
-  <div>
-    <SpeedInsights />
-    <VitePwaManifest />
-    <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
-    <div
+const html = `<div
       class="position-fixed w-100 h-100"
       style="
         opacity: 0.1;
@@ -42,7 +36,17 @@ const route = useRoute();
         </defs>
         <rect width="100%" height="100%" fill="url(#:Rem:)"></rect>
       </svg>
-    </div>
+    </div>`;
+</script>
+
+<template>
+  <div>
+    <SpeedInsights />
+    <VitePwaManifest />
+    <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
+    <template v-if="!route.fullPath.includes('/admin/')">
+      <div v-html="html"></div>
+    </template>
     <v-app>
       <NuxtLayout>
         <NuxtPage />
