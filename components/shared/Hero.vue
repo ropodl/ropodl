@@ -10,33 +10,11 @@ const startAnimation = () => {
 <template>
   <v-card
     flat
+    color="transparent"
     rounded="0"
     class="position-relative h-100"
     style="padding-top: 50px"
   >
-    <div
-      class="position-absolute w-100 h-100"
-      style="
-        mask-image: radial-gradient(circle, #fff, transparent);
-        opacity: 0.1;
-      "
-    >
-      <svg aria-hidden="true" class="position-absolute w-100 h-100">
-        <defs>
-          <pattern
-            id=":Rem:"
-            width="128"
-            height="128"
-            patternUnits="userSpaceOnUse"
-            x="50%"
-            y="100%"
-          >
-            <path d="M0 128V.5H128" fill="none" stroke="currentColor"></path>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#:Rem:)"></rect>
-      </svg>
-    </div>
     <v-container class="h-100">
       <v-row justify="center" class="position-relative h-100">
         <v-col cols="12" md="4">
@@ -94,7 +72,7 @@ const startAnimation = () => {
                         block
                         height="50"
                         rounded="lg"
-                        variant="tonal"
+                        variant="text"
                         color="primary"
                         class="text-capitalize font-weight-medium"
                         v-bind="props"
