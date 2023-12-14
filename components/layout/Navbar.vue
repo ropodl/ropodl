@@ -56,6 +56,7 @@ const pages = [
             :active="false"
             class="text-capitalize"
             to="/"
+            aria-label="home"
           >
             <LazySharedLogo :width="30" :height="50" />
           </v-btn>
