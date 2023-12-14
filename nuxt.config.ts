@@ -28,8 +28,8 @@ export default defineNuxtConfig({
     "nuxt-og-image",
     "nuxt-auth-utils",
     "@nuxtjs/cloudinary",
-    // "nuxt-security",
-    // "nuxt-capo",
+    "nuxt-security",
+    "nuxt-capo",
   ],
   imports: {
     dirs: ["stores", "stores/frontend"],
