@@ -20,3 +20,8 @@ export const useFrontendBlogStore = defineStore({
   },
   persist: true,
 });
+if (import.meta.hot) {
+  import.meta.hot.accept(
+    acceptHMRUpdate(useFrontendBlogStore, import.meta.hot)
+  );
+}
