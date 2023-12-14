@@ -13,10 +13,10 @@ export const BlogSchema = defineMongooseModel({
       required: true,
       unique: true,
     },
-    excerpt: {
-      type: "string",
-    },
-    // featuredImage: { type: Object, required: true, url: String, name: String },
+    // excerpt: {
+    //   type: "string",
+    // },
+    featuredImage: { type: Object, required: true, url: String, name: String },
     status: {
       type: String,
       enum: ["Draft", "Published"],

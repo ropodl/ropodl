@@ -5,7 +5,10 @@ definePageMeta({
 });
 
 const { user } = useUserSession();
-// })
+
+useHead({
+  title: "Admin Dashboard",
+});
 </script>
 <template>
   <v-container>

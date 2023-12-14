@@ -21,7 +21,6 @@ const getBlog = async () => {
     ogTitle: post.value.title,
     description: post.value.excerpt,
     ogDescription: post.value.excerpt,
-    // ogImage: "https://example.com/image.png",
     twitterCard: "summary_large_image",
   });
   loading.value = false;

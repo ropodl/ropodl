@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/vue";
 import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "../../../utils/tinymce";
+import getBase64 from "~/utils/getBase64";
 
 const blog = useBlog();
 // const category = useCategory();
@@ -19,7 +20,7 @@ useHead({
 const file = shallowRef();
 const form = reactive({
   title: "",
-  excerpt: "",
+  // excerpt: "",
   content: "",
   // categories: [],
   // tags: [],
@@ -27,36 +28,15 @@ const form = reactive({
   visibility: "Public",
   status: "Draft",
 });
-// Image Upload
-// const url = useObjectUrl(file);
-// Image Upload
-
-onMounted(() => {
-  // nextTick(() => {
-  //     category.latest()
-  //     tag.latest()
-  // })
-});
-
-// const file = shallowRef()
-// const url = useObjectUrl(file)
-
-// function onFileChange(event) {
-//   file.value = event.target.files[0]
-// }
 
 // temporary for thumbnail
-const selectFeaturedImage = ({ target }) => {
-  console.log("asd asd " + target);
+const selectFeaturedImage = async ({ target }) => {
   const { value, files, name } = target;
-  if (name === "image") {
-    file.value = files[0];
-    form.image = file.value.name;
-    return;
-  }
+  file.value = files[0];
+  form.image = await getBase64(file.value);
 };
 const updateImage = ({ target }) => {
-  form.image = target.files[0].name;
+  form.image = target.files[0];
   console.log(target.files[0].name);
 };
 const addBlog = () => {
@@ -67,15 +47,6 @@ const addBlog = () => {
   }
   blog.create(formData);
 };
-
-// const searchCategories = () => {
-//   alert("test");
-// };
-
-// let statusEdit = ref(false);
-// let statusTemp = ref("Draft");
-// let visibilityEdit = ref(false);
-// let visibilityTemp = ref("Public");
 </script>
 <template>
   <v-container>
@@ -100,12 +71,6 @@ const addBlog = () => {
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form="form" />
-          <CldUploadWidget
-            v-slot="{ open }"
-            uploadPreset="nuxt-cloudinary-unsigned"
-          >
-            <button type="button" @click="open">Upload an Image</button>
-          </CldUploadWidget>
           <!-- <input type="file" @change="updateImage" /> -->
           <v-card class="mb-3">
             <v-card-title>Featured Image</v-card-title>

@@ -51,7 +51,9 @@ const pages = [
           <v-btn
             height="50"
             rounded="lg"
-            variant="tonal"
+            variant="text"
+            color="white"
+            :active="false"
             class="text-capitalize"
             to="/"
           >

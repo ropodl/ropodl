@@ -1,20 +1,27 @@
 // const cloudinary = require("cloudinary").v2;
 import { v2 as cloudinary } from "cloudinary";
 
+const config = useRuntimeConfig();
+
+// const { cloudinary_name, cloudinary_key, cloudinary_secret } = config;
+
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: config.cloudinary_name,
+  api_key: config.cloudinary_key,
+  api_secret: config.cloudinary_secret,
   secure: true,
 });
 
 export async function uploadBlogImage(file: string) {
+  console.log(config.cloudinary_name);
+
   const { secure_url, public_id } = await cloudinary.uploader.upload(file, {
     // gravity: "face",
-    height: 500,
-    width: 500,
-    // crop: "thumb",
-    // folder: "ropodl",
+    height: 600,
+    // width: 500,
+    crop: "scale",
+    folder: "ropodl/blog",
+    resource_type: "image",
   });
 
   return { secure_url, public_id };
