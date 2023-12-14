@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     dirs: ["stores", "stores/frontend"],
   },
   googleFonts: {
-    download: true,
+    // download: true,
     families: {
       Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
