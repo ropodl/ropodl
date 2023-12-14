@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     { createdAt: "-1" }
   );
   const blogs = Promise.all(
-    await paginatedBlogs.documents.map(async (blog) => {
+    await paginatedBlogs.documents.map(async (blog: any) => {
       const { title, slug, featuredImage, createdAt } = blog;
       return {
         title,

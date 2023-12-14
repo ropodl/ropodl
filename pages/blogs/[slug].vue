@@ -2,29 +2,27 @@
 import { formatTimeAgo } from "@vueuse/core";
 
 const route = useRoute();
-const blog = useBlog();
 
-const post = ref({});
-const loading = ref(true);
+const {
+  data: post,
+  error,
+  pending: loading,
+} = await useFetch(`/api/frontend/blog/${route.params.slug}`);
 
-onMounted(() => {
-  nextTick(async () => {
-    await getBlog();
-  });
+const { title, excerpt, content, featuredImage, createdAt } = post.value;
+
+await defineOgImageComponent("Main", {
+  title: post.value.title,
+  description: post.value.excerpt,
 });
 
-const res = await blog.getBlog(route.params.slug);
-const getBlog = async () => {
-  post.value = res;
-  useSeoMeta({
-    title: post.value.title,
-    ogTitle: post.value.title,
-    description: post.value.excerpt,
-    ogDescription: post.value.excerpt,
-    twitterCard: "summary_large_image",
-  });
-  loading.value = false;
-};
+await useSeoMeta({
+  title: post.value.title,
+  ogTitle: post.value.title,
+  description: post.value.excerpt,
+  ogDescription: post.value.excerpt,
+  twitterCard: "summary_large_image",
+});
 </script>
 <template>
   <v-skeleton-loader :loading="loading" width="100%" height="600" type="image">
@@ -33,7 +31,7 @@ const getBlog = async () => {
       cover
       class="d-flex align-end rounded-0 border border-t-0 border-e-0 border-s-0 active"
       height="600"
-      :src="post.featuredImage?.url"
+      :src="featuredImage?.secure_url"
     >
       <v-container>
         <v-row>
@@ -41,7 +39,7 @@ const getBlog = async () => {
             <v-card-title
               class="text-h2"
               style="white-space: unset !important"
-              >{{ post.title }}</v-card-title
+              >{{ title }}</v-card-title
             >
           </v-col>
         </v-row>
@@ -53,7 +51,7 @@ const getBlog = async () => {
     <v-row v-if="post.excerpt">
       <v-col cols="12" md="12">
         <div class="text-h4 font-weight-light">
-          {{ post.excerpt }}
+          {{ excerpt }}
         </div>
       </v-col>
     </v-row>
@@ -61,8 +59,7 @@ const getBlog = async () => {
       <v-col cols="12" md="3">
         <v-card flat color="transparent">
           <v-card-text class="px-0 text-overline"
-            >Published at:
-            {{ formatTimeAgo(new Date(post.createdAt)) }}</v-card-text
+            >Published at: {{ formatTimeAgo(new Date(createdAt)) }}</v-card-text
           >
         </v-card>
         <v-divider></v-divider>
@@ -89,14 +86,13 @@ const getBlog = async () => {
       <v-col cols="12" md="9">
         <v-card flat color="transparent">
           <v-card-text class="pb-0">
-            <div class="dynamic-content" v-html="post['content']"></div>
+            <div class="dynamic-content" v-html="content"></div>
           </v-card-text>
         </v-card>
         <v-divider></v-divider>
         <v-card flat color="transparent">
           <v-card-text class="text-overline" style="white-space: normal"
-            >Published at:
-            {{ formatTimeAgo(new Date(post.createdAt)) }}</v-card-text
+            >Published at: {{ formatTimeAgo(new Date(createdAt)) }}</v-card-text
           >
         </v-card>
       </v-col>

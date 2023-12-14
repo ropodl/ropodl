@@ -5,7 +5,7 @@ import slugify from "slugify";
 export default defineEventHandler(async (event) => {
   const form = await readFormData(event);
 
-  const { title, image, status } = await objectify(form);
+  const { title, content, image, status } = await objectify(form);
 
   const slug = slugify(title, {
     lower: true,
@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
   const blog = await new BlogSchema({
     title,
     slug,
+    content,
     featuredImage,
     status,
   });
@@ -40,21 +41,9 @@ export default defineEventHandler(async (event) => {
   // }
 
   const { id } = await blog.save();
-  // console.log(id);
 
   return {
     id,
     success: true,
-    // blog: {
-    //   title,
-    //   // content,
-    //   // excerpt,
-    //   status,
-    //   // slug,
-    //   // visibility,
-    //   featuredImage,
-    //   // categories,
-    //   // tags,
-    // },
   };
 });

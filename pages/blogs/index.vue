@@ -4,6 +4,8 @@ import { formatTimeAgo } from "@vueuse/core";
 const blog = useFrontendBlogStore();
 const active = useState();
 
+const { blogs, pagination } = storeToRefs(blog);
+
 definePageMeta({
   layout: "with-page-title",
 });
@@ -28,8 +30,8 @@ const getBlogs = () => {
 <template>
   <v-container>
     <v-row>
-      <template v-if="blog.blogs.length">
-        <template v-for="item in blog.blogs">
+      <template v-if="blogs.length">
+        <template v-for="item in blogs">
           <v-col cols="12" md="3">
             <v-hover v-slot="{ isHovering, props }">
               <v-card
@@ -49,8 +51,8 @@ const getBlogs = () => {
                       { active: active === item.title },
                     ]"
                     :aspect-ratio="1"
-                    :src="item.featuredImage?.url"
-                    :alt="item.featuredImage?.alt"
+                    :src="item.featuredImage?.secure_url"
+                    :alt="item.featuredImage?.public_id"
                   >
                     <div class="d-flex justify-space-between flex-column h-100">
                       <div class="d-flex justify-space-between">
@@ -77,12 +79,12 @@ const getBlogs = () => {
         </template>
       </template>
     </v-row>
-    <template v-if="blog.pagination?.length">
+    <template v-if="pagination?.length">
       <v-row justify="center">
         <v-pagination
           v-model="page"
           density="compact"
-          :length="blog.pagination.totalPage"
+          :length="pagination.totalPage"
           show-first-last-page
           @update:modelValue="test"
         ></v-pagination>

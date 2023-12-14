@@ -13,13 +13,6 @@ useHead({
 });
 
 const loading = ref(true);
-
-const refresh = ref(false);
-const reload = () => {
-  refresh.value = true;
-  blog.getAllBlogs({ page: 1 });
-  refresh.value = false;
-};
 // Search
 const search = ref("");
 // Table item select / delete
@@ -50,7 +43,6 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               rounded="lg"
               variant="tonal"
               class="mr-3"
-              :loading="refresh"
               @click="deleteBulk"
             >
               <v-icon>
@@ -91,7 +83,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                   width="160"
                   class="border rounded-lg"
                   :aspect-ratio="16 / 9"
-                  :src="item.featuredImage?.url"
+                  :src="item.featuredImage?.secure_url"
                 ></v-img>
               </div>
             </template>
