@@ -31,7 +31,7 @@ const signOut = () => {
         v-bind="props"
       >
         <v-avatar size="35">
-          <v-img :src="user?.image?.url"></v-img>
+          <v-img :src="user.image?.url"></v-img>
         </v-avatar>
       </v-btn>
     </template>

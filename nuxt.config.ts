@@ -29,7 +29,7 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     "@nuxtjs/cloudinary",
     "nuxt-security",
-    "nuxt-capo",
+    // "nuxt-capo",
   ],
   imports: {
     dirs: ["stores", "stores/frontend"],
@@ -142,5 +142,11 @@ export default defineNuxtConfig({
   auth: {},
   runtimeConfig: {},
   // nuxt security
-  security: {},
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        "img-src": ["'self'", "https://avatars.githubusercontent.com"],
+      },
+    },
+  },
 });
