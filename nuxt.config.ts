@@ -141,4 +141,6 @@ export default defineNuxtConfig({
   },
   auth: {},
   runtimeConfig: {},
+  // nuxt security
+  security: {},
 });
