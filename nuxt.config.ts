@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       charset: "utf-8",
+      lang: "en",
       viewport: "width=device-width, initial-scale=1",
     },
   },

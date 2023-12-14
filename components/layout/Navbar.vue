@@ -95,6 +95,7 @@ const pages = [
             variant="tonal"
             class="hidden-md-and-up"
             @click="drawer = !drawer"
+            aria-label="drawer opener"
           >
             <v-icon>
               <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
