@@ -32,7 +32,9 @@ const startAnimation = () => {
           <div class="d-flex align-center justify-center h-100">
             <div>
               <div class="text-overline">Hello, World! I am</div>
-              <div class="text-h1 font-weight-bold mb-3">Saroj Poudel.</div>
+              <div class="text-h1 font-weight-bold mb-3">
+                Saroj Poudel<span class="text-primary">.</span>
+              </div>
               <div>
                 <div class="text-h4 font-weight-medium">
                   Fullstack developer from Kathmandu, Nepal.
