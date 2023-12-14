@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   experimental: {
     viewTransition: true,
-    // componentIslands: true,
+    componentIslands: true,
   },
   modules: [
     "@vueuse/nuxt",
@@ -27,8 +27,8 @@ export default defineNuxtConfig({
     "nuxt-mail",
     "nuxt-og-image",
     "nuxt-auth-utils",
-    "@nuxtjs/cloudinary",
-    "nuxt-security",
+    // "nuxt-security",
+    "nuxt-gtag",
     // "nuxt-capo",
   ],
   imports: {
@@ -45,6 +45,9 @@ export default defineNuxtConfig({
   },
   ogImage: {
     fonts: ["Roboto:400"],
+  },
+  gtag: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
   },
   mongoose: {
     uri: process.env.MONGODB_URI,
@@ -140,7 +143,11 @@ export default defineNuxtConfig({
     },
   },
   auth: {},
-  runtimeConfig: {},
+  runtimeConfig: {
+    cloudinary_name: process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinary_key: process.env.CLOUDINARY_API_KEY,
+    cloudinary_secret: process.env.CLOUDINARY_API_SECRET,
+  },
   // nuxt security
   security: {
     headers: {
