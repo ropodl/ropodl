@@ -84,6 +84,7 @@ const pages = [
               target="_blank"
               class="hidden-xs"
               :href="social.link"
+              :aria-label="social.name"
             >
               <v-icon size="sm">
                 <Icon :icon="social.icon" />
