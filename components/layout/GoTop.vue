@@ -36,7 +36,12 @@ const onScroll = (e: Event) => {
       @click="useScrollTo('__nuxt', 0)"
       aria-label="Go to top button"
     >
-      <v-progress-circular size="50" width="1" :model-value="progress">
+      <v-progress-circular
+        size="50"
+        width="1"
+        :model-value="progress"
+        aria-label="document scroll position"
+      >
         <v-icon>
           <Icon icon="mdi:arrow-up" />
         </v-icon>
