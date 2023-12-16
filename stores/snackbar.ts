@@ -1,4 +1,4 @@
-export const useSnackbar = defineStore("snackbar", {
+export const useSnackbarStore = defineStore("snackbar", {
   state: () => ({
     snackbar: reactive({ show: false, text: "", color: "" }),
   }),
@@ -6,10 +6,13 @@ export const useSnackbar = defineStore("snackbar", {
     // getSnackbar: (state) => state.snackbar,
   },
   actions: {
-    showSnackbar(text, color) {
+    showSnackbar(text: string, color: string) {
       this.snackbar.show = true;
       this.snackbar.text = text;
       this.snackbar.color = color;
     },
   },
 });
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useSnackbarStore, import.meta.hot));
+}

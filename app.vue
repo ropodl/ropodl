@@ -4,15 +4,6 @@ import { SpeedInsights } from "@vercel/speed-insights/nuxt";
 const { isOnline } = useNetwork();
 
 const route = useRoute();
-// const user = useUser();
-
-// onMounted(() => {
-//   const token = localStorage.getItem("user_auth_token");
-//   if (!token) return;
-//   nextTick(() => {
-//     user.checkAuth(token);
-//   });
-// });
 
 const html = `<div
       class="position-fixed w-100 h-100"

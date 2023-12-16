@@ -1,62 +1,47 @@
-export const useCategory = defineStore("category", {
-    state: () => ({
-        categories: reactive([]),
-    }),
-    getters: {
-        getCategories: (state) => state.categories
+export const useCategoryStore = defineStore("category", {
+  state: () => ({
+    categories: reactive([]),
+    pagination: reactive([]),
+  }),
+  getters: {
+    getCategories: (state) => state.categories,
+  },
+  actions: {
+    async create(formData) {
+      const snackbar = useSnackbarStore();
+      const { data, error } = await useFetch("/api/category/create", {
+        method: "POST",
+        body: formData,
+      });
+      if (error.value)
+        return snackbar.showSnackbar(error.value.message, "error");
+      snackbar.showSnackbar("Category added successfully", "success");
+      navigateTo("/admin/blog/" + data.id);
     },
-    actions: {
-        async create(formData) {
-            const runtimeConfig = useRuntimeConfig()
-            const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
-            const { error } = await useFetch(runtimeConfig.public.api_url + "/category/create", {
-                method: "post",
-                body: formData,
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            if (error.value)
-                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            snackbar.showSnackbar("Category added successfully", "success");
-            navigateTo("/admin/blog");
-        },
-        async latest() {
-            const runtimeConfig = useRuntimeConfig()
-            const snackbar = useSnackbar();
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/category/latest", {
-            })
-            if (error.value)
-                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            this.categories = data.value;
-        },
-        async getAllCategories(page, itemsPerPage) {
-            const runtimeConfig = useRuntimeConfig()
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + `/category?page=${page}&per_page=${itemsPerPage}`)
-            if (error.value)
-                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            this.categories = data.value;
-            console.log(this.categories)
-            return data.value;
-        },
-        async remove(id) {
-            const runtimeConfig = useRuntimeConfig()
-            const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/category/" + id, {
-                method: "delete",
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            if (error.value)
-                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            console.log(data)
-        }
-    }
-})
+    async getAllCategories(page: number, itemsPerPage: number) {
+      const snackbar = useSnackbarStore();
+      const { data, error } = await useFetch(
+        `/api/category?page=${page}&per_page=${itemsPerPage}`
+      );
+      if (error.value)
+        return snackbar.showSnackbar(error.value.message, "error");
+      this.categories = data.value?.category;
+      this.pagination = data.value?.pagination;
+      return data.value;
+    },
+    async remove(id: string) {
+      const snackbar = useSnackbarStore();
+      const { data, error } = await useFetch("/api/category/" + id, {
+        method: "DELETE",
+      });
+      if (error.value)
+        return snackbar.showSnackbar(error.value.message, "error");
+      return snackbar.showSnackbar("Category deleted successfully", "success");
+      console.log(data);
+    },
+  },
+});
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useCategory, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useCategoryStore, import.meta.hot));
 }

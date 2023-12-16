@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-const snack = useSnackbar();
+const snack = useSnackbarStore();
 const { snackbar } = snack;
 </script>
 <template>

@@ -1,7 +1,8 @@
 export default defineEventHandler(async (event) => {
-  // const headers = await getRequestHeaders(event);
+  console.log("rewrite auth properly");
+  // const { user } = await requireUserSession(event);
   // setResponseHeaders(event, "Access-Control-Allow-Credentials:true");
-  // console.log(headers);
+  // if (user.role !== "admin") return sendRedirect(event, "/", 401);
 });
 
 // res.setHeader('Access-Control-Allow-Credentials', true)

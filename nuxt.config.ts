@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   experimental: {
     viewTransition: true,
     componentIslands: true,
@@ -52,7 +52,7 @@ export default defineNuxtConfig({
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
   mongoose: {
-    uri: process.env.MONGODB_URI,
+    // uri: process.env.MONGODB_URI,
     options: {},
     modelsDir: "models",
     devtools: true,
