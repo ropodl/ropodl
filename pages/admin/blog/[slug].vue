@@ -3,7 +3,7 @@ import { Icon } from "@iconify/vue";
 import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "~/utils/tinymce";
 
-const blog = useBlog();
+const blog = useBlogStore();
 // const category = useCategory();
 // const tag = useTag();
 const route = useRoute();

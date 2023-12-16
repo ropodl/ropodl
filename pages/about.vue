@@ -5,6 +5,7 @@ import { Icon } from "@iconify/vue";
 // useTitle("About Me | Saroj Poudel");
 definePageMeta({
   layout: "with-page-title",
+  keepalive: true,
 });
 
 useHead({
@@ -16,15 +17,6 @@ useHead({
         "Graphic Designer and Web Developer from Nepal specializing in VueJs and Express JS",
     },
   ],
-});
-defineOgImage({
-  title: "Saroj Poudel",
-  description:
-    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-  renderer: "satori",
-  extension: "jpeg",
-  provider: "satori",
-  cache: true,
 });
 
 const experience = [

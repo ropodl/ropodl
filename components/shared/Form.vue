@@ -4,7 +4,7 @@ import { Icon } from "@iconify/vue";
 
 let loading = ref(false);
 const contactForm = ref<HTMLElement | null>(null);
-// const mail = useMail();
+const mail = useMail();
 
 let snackbar = reactive({
   show: false,
@@ -48,11 +48,11 @@ const submitForm = async (): Promise<void> => {
   loading.value = true;
   const { valid } = await contactForm.value.validate();
   if (valid) {
-    //   await mail.send({
-    //     from: "sarox14@live.com",
-    //     subject: "Incredible",
-    //     text: "This is an incredible test message",
-    //   });
+      await mail.send({
+        from: "sarox14@live.com",
+        subject: "Incredible",
+        text: "This is an incredible test message",
+      });
     await emailjs
       .send(
         "service_orveamh",

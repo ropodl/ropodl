@@ -19,6 +19,20 @@ const navitems = reactive([
       { title: "Tags", routes: "/admin/tags" },
     ],
   },
+  {
+    icon: "mdi:image",
+    title: "Portfolio",
+    subitems: [
+      { title: "All Blogs", routes: "/admin/portfolio" },
+      { title: "Add New", routes: "/admin/portfolio/create" },
+      { title: "Work Type", routes: "/admin/portfolio/type" },
+    ],
+  },
+  {
+    icon: "mdi:phone",
+    title: "Contact Request",
+    routes: "/admin/contact-request",
+  },
 ]);
 </script>
 <template>

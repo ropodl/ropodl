@@ -1,13 +1,14 @@
 <script setup>
 import { formatTimeAgo } from "@vueuse/core";
 
-const blog = useFrontendBlogStore();
-const active = useState();
+// const blog = useFrontendBlogStore();
+// const active = useState();
 
-const { blogs, pagination } = storeToRefs(blog);
+// const { blogs, pagination } = storeToRefs(blog);
 
 definePageMeta({
   layout: "with-page-title",
+  // keepalive: true,
 });
 
 useHead({
@@ -16,11 +17,15 @@ useHead({
 
 const page = ref(1);
 
-onMounted(() => {
-  nextTick(async () => {
-    await getBlogs();
-  });
-});
+// const getBlogs = async () => {
+//   await blog.getAllBlogs(page.value, 10);
+// };
+
+// getBlogs();
+
+const { data, error, pending: loading } = await useFetch("/api/frontend/blog");
+const { blogs, pagination } = data.value;
+// console.log(data);
 
 const getBlogs = () => {
   blog.getAllBlogs(page.value, 10);
@@ -46,28 +51,18 @@ const getBlogs = () => {
                   <v-img
                     cover
                     class="w-100 h-100 pa-2"
+                    :aspect-ratio="16 / 9"
                     :class="[
                       isHovering ? 'zoom-image active' : '',
-                      { active: active === item.title },
+                      // { active: active === item.title },
                     ]"
-                    :aspect-ratio="1"
                     :src="item.featuredImage?.secure_url"
                     :alt="item.featuredImage?.public_id"
-                  >
-                    <div class="d-flex justify-space-between flex-column h-100">
-                      <div class="d-flex justify-space-between">
-                        <v-chip
-                          variant="flat"
-                          rounded="pill"
-                          color="#212121"
-                          class="ml-auto"
-                        >
-                          {{ formatTimeAgo(new Date(item["createdAt"])) }}
-                        </v-chip>
-                      </div>
-                    </div>
-                  </v-img>
+                  ></v-img>
                 </v-card>
+                <v-card-text class="ps-0 pb-0 text-primary">
+                  [ {{ formatTimeAgo(new Date(item["createdAt"])) }} ]
+                </v-card-text>
                 <v-card-text
                   class="text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
                   style="line-height: normal; white-space: normal"
@@ -78,27 +73,17 @@ const getBlogs = () => {
           </v-col>
         </template>
       </template>
+      <template v-if="pagination?.totalPage > 1">
+        <v-col cols="12" md="12">
+          <v-pagination
+            v-model="page"
+            density="compact"
+            :length="pagination.totalPage"
+            show-first-last-page
+            @update:modelValue="test"
+          ></v-pagination>
+        </v-col>
+      </template>
     </v-row>
-    <template v-if="pagination?.length">
-      <v-row justify="center">
-        <v-pagination
-          v-model="page"
-          density="compact"
-          :length="pagination.totalPage"
-          show-first-last-page
-          @update:modelValue="test"
-        ></v-pagination>
-      </v-row>
-    </template>
   </v-container>
 </template>
-<style lang="scss">
-img.active {
-  view-transition-name: selected-film;
-  contain: layout;
-}
-::view-transition-old(header),
-::view-transition-new(header) {
-  width: auto;
-}
-</style>

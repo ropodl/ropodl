@@ -1,7 +1,10 @@
 // import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
 export default defineEventHandler(async (event) => {
-  console.log(process.env.GOOGLE_ANALYTICS_ID);
+  // console.log(process.env.GOOGLE_ANALYTICS_ID);
+
+  const blogCount = await BlogSchema.countDocuments();
+  const portfolioCount = await BlogSchema.countDocuments();
   // const analyticsDataClient = new BetaAnalyticsDataClient();
 
   // const response = await analyticsDataClient.runReport({
@@ -26,5 +29,32 @@ export default defineEventHandler(async (event) => {
 
   // console.log(response);
 
-  return { test: "Hello Nitro" };
+  return {
+    stats: [
+      {
+        title: "Blogs",
+        number: blogCount,
+        icon: "mdi:newspaper",
+        color: "error",
+      },
+      {
+        title: "Portfolio",
+        number: portfolioCount,
+        icon: "mdi:image",
+        color: "primary",
+      },
+      {
+        title: "Total",
+        number: "0",
+        icon: "mdi:user",
+        color: "purple",
+      },
+      {
+        title: "Contact Request",
+        number: "0",
+        icon: "mdi:email",
+        color: "warning",
+      },
+    ],
+  };
 });

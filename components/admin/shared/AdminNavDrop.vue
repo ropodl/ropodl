@@ -23,14 +23,14 @@ const signOut = () => {
   <v-menu>
     <template v-slot:activator="{ props }">
       <v-btn
-        rounded="0"
+        rounded="lg"
         variant="tonal"
         color="transparent"
         height="50"
-        width="40"
+        width="50"
         v-bind="props"
       >
-        <v-avatar size="35">
+        <v-avatar rounded="lg" size="35">
           <v-img :src="user.image?.url"></v-img>
         </v-avatar>
       </v-btn>
