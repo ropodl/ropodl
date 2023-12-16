@@ -33,7 +33,7 @@ const pages = [
 ];
 </script>
 <template>
-  <v-layout class="w-100" style="height: 65px; position: fixed; top: 0">
+  <v-layout class="w-100 position-fixed" style="height: 65px; top: 0">
     <v-app-bar
       border
       elevation="0"
