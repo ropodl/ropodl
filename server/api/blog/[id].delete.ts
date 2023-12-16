@@ -1,13 +1,14 @@
 import { isValidObjectId } from "../../utils/mongoose";
 
 export default defineEventHandler(async (event) => {
-  // console.log(event);
-  const { slug: id } = getRouterParams(event);
+  const id = <string>getRouterParam(event, "id");
 
-  if (!isValidObjectId(id)) return createError("Blog ID not valid");
+  if (!isValidObjectId(id))
+    return createError({ statusCode: 404, statusMessage: "Blog ID not valid" });
 
   const blog = await BlogSchema.findById(id);
-  if (!blog) return createError("Blog not found");
+  if (!blog)
+    return createError({ statusCode: 404, statusMessage: "Blog not found" });
 
   await BlogSchema.findByIdAndDelete(id);
 

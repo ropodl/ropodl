@@ -1,6 +1,6 @@
+import slugify from "slugify";
 import { uploadBlogImage } from "~/server/utils/cloudinary";
 import objectify from "~/server/utils/objectify";
-import slugify from "slugify";
 
 export default defineEventHandler(async (event) => {
   const form = await readFormData(event);

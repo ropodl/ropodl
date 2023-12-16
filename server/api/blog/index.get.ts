@@ -1,5 +1,16 @@
 import { paginate } from "~/server/utils/paginate";
 
+interface Blog {
+  id: String;
+  title: String;
+  slug: String;
+  excerpt: String;
+  featuredImage: Object;
+  status: String;
+  createdAt: String;
+  updatedAt: String;
+}
+
 export default defineEventHandler(async (event) => {
   const paginatedBlogs = await paginate(
     BlogSchema,
@@ -8,8 +19,9 @@ export default defineEventHandler(async (event) => {
     {},
     { createdAt: "-1" }
   );
-  const blogs = Promise.all(
-    await paginatedBlogs.documents.map(async (blog) => {
+  console.log(JSON.stringify(paginatedBlogs));
+  const blogs = await Promise.all(
+    await paginatedBlogs.documents.map(async (blog: Blog) => {
       const {
         id,
         title,
@@ -32,5 +44,5 @@ export default defineEventHandler(async (event) => {
       };
     })
   );
-  return blogs;
+  return { blogs, pagination: paginatedBlogs.pagination };
 });
