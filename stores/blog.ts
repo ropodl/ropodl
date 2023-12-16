@@ -49,13 +49,6 @@ export const useBlogStore = defineStore("blog", {
       snackbar.showSnackbar("Blog added successfully", "success");
       navigateTo("/admin/blog");
     },
-    async latest() {
-      const snackbar = useSnackbarStore();
-      const { data, error } = await useFetch("/api/blog/latest");
-      if (error.value)
-        return snackbar.showSnackbar(error.value.message, "error");
-      this.blogs = data.value;
-    },
     async getAllBlogs(page: number, itemsPerPage: number) {
       const snackbar = useSnackbarStore();
       const { data, error } = await useFetch(
@@ -63,7 +56,9 @@ export const useBlogStore = defineStore("blog", {
       );
       if (error.value)
         return snackbar.showSnackbar(error.value.message, "error");
-      this.blogs = data.value;
+      console.log(data.value?.pagination);
+      this.blogs = data.value?.blogs;
+      this.pagination = data.value?.pagination;
       return data.value;
     },
     async getBlog(slug: string) {

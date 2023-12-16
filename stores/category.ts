@@ -1,7 +1,12 @@
 export const useCategoryStore = defineStore("category", {
   state: () => ({
     categories: reactive([]),
-    pagination: reactive([]),
+    pagination: reactive({
+      totalPage: 1,
+      totalItems: 0,
+      itemsPerPage: 10,
+      currentPage: 1,
+    }),
   }),
   getters: {
     getCategories: (state) => state.categories,

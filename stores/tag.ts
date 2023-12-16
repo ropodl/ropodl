@@ -1,6 +1,12 @@
 export const useTagStore = defineStore("tag", {
   state: () => ({
     tags: reactive([]),
+    pagination: reactive({
+      totalPage: 1,
+      totalItems: 0,
+      itemsPerPage: 10,
+      currentPage: 1,
+    }),
   }),
   actions: {
     async create(formData: any) {

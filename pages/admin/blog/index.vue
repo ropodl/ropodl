@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
 const blog = useBlogStore();
+const { headers, blogs, pagination } = storeToRefs(blog);
 
 definePageMeta({
   layout: "admin",
@@ -24,13 +25,9 @@ const deleteBulk = () => {
 // server side table
 const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
+  console.log(page, itemsPerPage);
   await blog.getAllBlogs(page, itemsPerPage);
   loading.value = false;
-};
-
-const test = () => {
-  console.log("tes");
-  blog.remove(item.id);
 };
 </script>
 <template>
@@ -66,18 +63,20 @@ const test = () => {
         </div>
       </v-col>
     </v-row>
+    {{ JSON.stringify(blogs) }}
+    {{ JSON.stringify(pagination) }}
+    {{ JSON.stringify(headers) }}
     <v-row>
       <v-col cols="12">
         <v-card border rounded="lg">
           <v-data-table-server
             show-select
             v-model="selected"
-            v-model:items-per-page="blog.pagination.itemsPerPage"
-            :headers="blog.headers"
-            :items="blog.blogs"
+            :items-per-page="pagination.itemsPerPage"
+            :headers="headers"
+            :items="blogs"
             :loading="loading"
-            :items-length="blog.pagination.totalItems"
-            :search="search"
+            :items-length="pagination.totalItems"
             item-value="id"
             @update:options="loadBlogs"
           >
@@ -132,7 +131,7 @@ const test = () => {
                 rounded="lg"
                 variant="tonal"
                 class="mr-2"
-                :to="`/admin/blog/${item.slug}`"
+                :to="`/admin/blog/${item.id}`"
               >
                 <v-icon>
                   <Icon icon="mdi:pencil" />
