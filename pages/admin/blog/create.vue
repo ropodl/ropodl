@@ -4,7 +4,7 @@ import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "../../../utils/tinymce";
 import getBase64 from "~/utils/getBase64";
 
-const blog = useBlog();
+const blog = useBlogStore();
 // const category = useCategory();
 // const tag = useTag();
 

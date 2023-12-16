@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: "default",
+  keepalive: true,
 });
 
 useSeoMeta({

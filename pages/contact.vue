@@ -1,6 +1,9 @@
-<script setup>
+<script setup lang="ts">
+import { Icon } from "@iconify/vue";
+
 definePageMeta({
   layout: "with-page-title",
+  keepalive: true,
 });
 
 useHead({
@@ -13,12 +16,179 @@ useHead({
     },
   ],
 });
-defineOgImage({
+
+defineOgImageComponent("Main", {
   title: "Saroj Poudel",
   description:
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
 });
+
+let loading = ref(false);
+const contactForm = ref();
+
+const form = reactive({
+  from_name: "",
+  from_email: "",
+  message: "",
+});
+
+let snackbar = reactive({
+  show: false,
+  text: "",
+});
+
+const rules = {
+  firstNameRules: [
+    (value: String) => {
+      if (value?.length > 3) return true;
+
+      return "Full name must be at least 3 characters.";
+    },
+  ],
+  emailRules: [
+    (value: String) => {
+      if (value?.length > 3) return true;
+      return "Email Address must be at least 3 characters.";
+    },
+    (value: string) =>
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        value
+      ) || "Email Address must be in a valid format",
+  ],
+  messageRules: [
+    (value: String) => {
+      if (value?.length > 3) return true;
+      return "Message must be at least 3 characters.";
+    },
+  ],
+};
+
+const submitForm = async (): Promise<void> => {
+  loading.value = true;
+  const { valid } = await contactForm.value.validate();
+  if (valid) {
+    const { data, error } = useFetch("/api/frontend/contact", {
+      method: "POST",
+      body: form,
+    });
+    if (error.value) return console.log(error.value);
+    snackbar["text"] = "Successfully sent, will reply soon.";
+    snackbar["show"] = true;
+    contactForm.value.reset();
+  } else console.log("failed");
+  loading.value = false;
+};
 </script>
 <template>
-  <LazySharedForm />
+  <v-container class="pb-16" style="padding-top: 100px">
+    <v-row justify="space-between">
+      <v-col cols="12" md="5">
+        <div class="text-h4 font-weight-medium mb-3">Got a project?</div>
+        <div class="text-h4 font-weight-medium mb-3">Let's talk.</div>
+        <div class="mb-3">
+          I'm here to help you with your project. Let me know what you need.
+        </div>
+        <v-hover v-slot="{ isHovering, props }">
+          <v-btn
+            height="50"
+            rounded="lg"
+            variant="tonal"
+            color="primary"
+            class="text-capitalize px-10"
+            v-bind="props"
+          >
+            <span class="text-lowercase">sarox14@gmail.com</span>
+            <v-icon
+              size="x-small"
+              :class="isHovering ? 'ml-4' : 'ml-2'"
+              style="transition: all 100ms linear"
+            >
+              <Icon icon="mdi:arrow-right" />
+            </v-icon>
+          </v-btn>
+        </v-hover>
+      </v-col>
+      <v-col cols="12" md="5">
+        <div class="text-h4 font-weight-bold">Estimate your project?</div>
+        <div class="text-h4 font-weight-bold mb-6">Let me know here.</div>
+        <v-form
+          fast-fail
+          lazy-validation
+          ref="contactForm"
+          @submit.prevent="submitForm"
+        >
+          <v-text-field
+            flat
+            variant="solo-filled"
+            v-model="form['from_name']"
+            :rules="rules['firstNameRules']"
+            bg-color="transparent"
+            placeholder="What's your name?"
+            :loading="loading"
+            :disabled="loading"
+          ></v-text-field>
+          <v-text-field
+            flat
+            variant="solo-filled"
+            v-model="form['from_email']"
+            :rules="rules['emailRules']"
+            bg-color="transparent"
+            placeholder="Your fancy email"
+            :loading="loading"
+            :disabled="loading"
+          ></v-text-field>
+          <v-textarea
+            flat
+            variant="solo-filled"
+            v-model="form['message']"
+            :rules="rules['messageRules']"
+            bg-color="transparent"
+            :loading="loading"
+            :disabled="loading"
+            rows="1"
+            placeholder="Tell me about your project"
+          ></v-textarea>
+          <v-row>
+            <v-col cols="6">
+              <v-hover v-slot="{ isHovering, props }">
+                <v-btn
+                  block
+                  type="submit"
+                  height="50"
+                  rounded="lg"
+                  variant="tonal"
+                  color="primary"
+                  class="text-capitalize px-10"
+                  v-bind="props"
+                  :loading="loading"
+                  :disabled="loading"
+                >
+                  Send Message
+                  <v-icon
+                    size="x-small"
+                    :class="isHovering ? 'ml-4' : 'ml-2'"
+                    style="transition: all 100ms linear"
+                    ><Icon icon="mdi:arrow-right"
+                  /></v-icon>
+                </v-btn>
+              </v-hover>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-snackbar :model-value="snackbar.show" theme="light">
+    {{ snackbar.text }}
+    <template v-slot:actions>
+      <v-btn
+        class="text-capitalize px-4"
+        color="teal"
+        variant="tonal"
+        @click="snackbar.show = false"
+      >
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>

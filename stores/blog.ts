@@ -1,4 +1,4 @@
-export const useBlog = defineStore("blog", {
+export const useBlogStore = defineStore("blog", {
   state: () => ({
     blogs: reactive([]),
     pagination: reactive({
@@ -91,7 +91,7 @@ export const useBlog = defineStore("blog", {
       const snackbar = useSnackbar();
       const token = localStorage.getItem("user_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog/" + id,
+        runtimeConfig.public.api_url + "/api/blog/" + id,
         {
           method: "delete",
           headers: {
@@ -114,7 +114,7 @@ export const useBlog = defineStore("blog", {
       const token = localStorage.getItem("user_auth_token");
 
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog/delete-bulk",
+        runtimeConfig.public.api_url + "/api/blog/delete-bulk",
         {
           method: "delete",
           body: { ids },
@@ -169,5 +169,5 @@ export const useBlog = defineStore("blog", {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useBlog, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useBlogStore, import.meta.hot));
 }

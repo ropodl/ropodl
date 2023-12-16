@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from "@iconify/vue";
+
 definePageMeta({
   layout: "admin",
   middleware: "admin",
@@ -9,6 +11,8 @@ const { user } = useUserSession();
 useHead({
   title: "Admin Dashboard",
 });
+
+const { data } = await useFetch("/api/dashboard");
 </script>
 <template>
   <v-container>
@@ -20,9 +24,23 @@ useHead({
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" md="3" v-for="i in 4">
-        <v-card>
-          <v-card-title>Total Blogs</v-card-title>
+      <v-col cols="12" md="3" v-for="(stat, i) in data.stats">
+        <v-card border>
+          <v-icon
+            :color="stat.color"
+            size="100"
+            class="position-absolute"
+            style="bottom: -20px; right: -20px"
+          >
+            <Icon :icon="stat.icon" />
+          </v-icon>
+          <v-card-title class="pb-0">
+            <div class="text-h4 font-weight-bold">
+              {{ stat.number }}
+            </div>
+            <div>{{ stat.title }}</div>
+          </v-card-title>
+          <v-card-text>This is a test</v-card-text>
         </v-card>
       </v-col>
     </v-row>

@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const blog = useBlog();
+const blog = useBlogStore();
 
 definePageMeta({
   layout: "admin",
@@ -26,6 +26,11 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
   await blog.getAllBlogs(page, itemsPerPage);
   loading.value = false;
+};
+
+const test = () => {
+  console.log("tes");
+  blog.remove(item.id);
 };
 </script>
 <template>
@@ -133,50 +138,11 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                   <Icon icon="mdi:pencil" />
                 </v-icon>
               </v-btn>
-              <v-dialog persistent scrim="black" width="500">
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    v-bind="props"
-                    icon
-                    rounded="lg"
-                    color="error"
-                    variant="tonal"
-                  >
-                    <v-icon>
-                      <Icon icon="mdi:delete" />
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <template v-slot:default="{ isActive }">
-                  <v-card border title="Delete Blog">
-                    <v-card-text>
-                      Are you sure you want to delete "{{ item.title }}"? This
-                      action cannot be undone.
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        rounded="lg"
-                        variant="tonal"
-                        color="success"
-                        height="50"
-                        text="Cancel"
-                        class="text-capitalize px-10"
-                        @click="isActive.value = false"
-                      ></v-btn>
-                      <v-btn
-                        rounded="lg"
-                        variant="tonal"
-                        color="error"
-                        height="50"
-                        text="Delete"
-                        class="text-capitalize px-10"
-                        @click="blog.remove(item.id)"
-                      ></v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </template>
-              </v-dialog>
+              <AdminSharedDelete
+                type="Blog"
+                :title="item.title"
+                @delete-action="blog.remove(item.id)"
+              />
             </template>
           </v-data-table-server>
         </v-card>

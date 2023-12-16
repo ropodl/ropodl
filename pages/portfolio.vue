@@ -4,6 +4,7 @@
 
 definePageMeta({
   layout: "with-page-title",
+  keepalive: true,
 });
 
 useHead({
