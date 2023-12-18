@@ -68,10 +68,13 @@ const pages = [
                 height="50"
                 rounded="lg"
                 class="text-lowercase hidden-sm-and-down"
-                :text="page.title"
-                :active="route.fullPath.includes(page.title)"
+                :class="
+                  route.fullPath.includes(page.title) ? 'text-primary' : ''
+                "
+                :active="false"
                 :to="page.link"
-              />
+                >{{ page.title }}.</v-btn
+              >
             </v-hover>
           </template>
           <v-spacer></v-spacer>

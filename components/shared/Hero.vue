@@ -63,7 +63,7 @@ const startAnimation = () => {
                           :class="isHovering ? 'ml-4' : 'ml-2'"
                           style="transition: all 100ms linear"
                         >
-                          <Icon icon="material-symbols:arrow-right-alt" />
+                          <Icon icon="lucide:arrow-right" />
                         </v-icon>
                       </v-btn>
                     </v-hover>
@@ -85,7 +85,7 @@ const startAnimation = () => {
                           :class="isHovering ? 'ml-4' : 'ml-2'"
                           style="transition: all 100ms linear"
                         >
-                          <Icon icon="material-symbols:arrow-right-alt" />
+                          <Icon icon="lucide:arrow-right" />
                         </v-icon>
                       </v-btn>
                     </v-hover>

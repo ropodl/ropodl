@@ -1,10 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-// import { useTitle } from "@vueuse/core";
 
-// useTitle("About Me | Saroj Poudel");
 definePageMeta({
-  layout: "with-page-title",
   keepalive: true,
 });
 
@@ -21,7 +18,7 @@ useHead({
 
 const experience = [
   {
-    title: "Freelance Graphic/Web Designer",
+    title: "Freelance Web Developer",
     year: "2023",
   },
   {
@@ -119,44 +116,146 @@ const education = [
 ];
 </script>
 <template>
-  <LazySharedQuery />
-  <LazySharedLoves />
-  <LazySharedClients />
-  <LazySharedPortfolio />
-  <v-container class="px-0 py-16">
-    <v-row justify="center">
-      <v-col cols="10">
-        <v-row>
-          <v-col cols="12" class="mb-3">
-            <v-card-title class="d-flex align-center">
-              <v-icon start class="mr-3" color="primary">
-                <Icon icon="mdi:lightning-bolt" />
-              </v-icon>
-              Experience
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card flat color="transparent">
+  <NuxtLayout name="page-title">
+    <template #title>About</template>
+    <LazySharedQuery />
+    <LazySharedLoves />
+    <LazySharedClients />
+    <LazySharedPortfolio />
+    <v-container class="px-0 py-16">
+      <v-row justify="center">
+        <v-col cols="12">
+          <v-row>
+            <v-col cols="12" class="mb-3">
+              <v-card-title class="d-flex align-center">
+                <v-icon start class="mr-3" color="primary">
+                  <Icon icon="mdi:lightning-bolt" />
+                </v-icon>
+                Experience
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card flat color="transparent">
+                <div class="d-flex justify-start">
+                  <v-timeline direction="horizontal" side="end" align="center">
+                    <v-timeline-item
+                      dot-color="primary"
+                      size="10"
+                      v-for="exp in experience"
+                    >
+                      <v-card border flat>
+                        <v-card-text>
+                          <v-list-item class="pa-0">
+                            <v-list-item-title
+                              class="font-weight-bold"
+                              v-text="exp.title"
+                            ></v-list-item-title>
+                            <v-list-item-subtitle
+                              :class="exp.desc"
+                              v-text="exp.year"
+                            ></v-list-item-subtitle>
+                            <v-list-item-subtitle
+                              v-if="exp.desc"
+                              v-text="exp.desc"
+                            ></v-list-item-subtitle>
+                          </v-list-item>
+                        </v-card-text>
+                      </v-card>
+                    </v-timeline-item>
+                  </v-timeline>
+                </div>
+              </v-card>
+            </v-col>
+            <v-col cols="12" class="mb-3">
+              <v-card-title class="d-flex align-center">
+                <v-icon start class="mr-3" color="primary">
+                  <Icon icon="mdi:hand-peace" />
+                </v-icon>
+                Platform/Frameworks
+              </v-card-title>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="3"
+                  class="pb-0"
+                  v-for="frame in frameworks"
+                >
+                  <v-card border flat class="h-100">
+                    <v-card-text v-text="frame['title']"></v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12" class="mb-3">
+              <v-card-title class="d-flex align-center">
+                <v-icon start class="mr-3" color="primary">
+                  <Icon icon="mdi:hand-peace" />
+                </v-icon>
+                Skills
+              </v-card-title>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  class="pb-0"
+                  v-for="skill in skills"
+                >
+                  <v-card border flat class="h-100">
+                    <v-card-text v-text="skill['title']"></v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12" class="mb-3">
+              <v-card-title class="d-flex align-center">
+                <v-icon start class="mr-3" color="primary">
+                  <Icon icon="mdi:anvil" />
+                </v-icon>
+                Software
+              </v-card-title>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  class="pb-0"
+                  v-for="sof in software"
+                >
+                  <v-card border flat class="h-100">
+                    <v-card-text v-text="sof['title']"></v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12">
+              <v-card-title class="d-flex align-center">
+                <v-icon start class="mr-3" color="primary">
+                  <Icon icon="mdi:book-open-page-variant-outline" />
+                </v-icon>
+                Education
+              </v-card-title>
+              <v-divider></v-divider>
               <div class="d-flex justify-start">
                 <v-timeline side="end" align="center">
                   <v-timeline-item
                     dot-color="primary"
                     size="10"
-                    v-for="exp in experience"
+                    v-for="edu in education"
                   >
                     <v-card border flat>
                       <v-card-text>
-                        <v-list-item class="w-100 pa-0">
+                        <v-list-item class="pa-0">
                           <v-list-item-title
-                            class="w-100 font-weight-bold"
-                            v-text="exp['title']"
+                            class="font-weight-bold"
+                            v-text="edu['title']"
                           ></v-list-item-title>
                           <v-list-item-subtitle
-                            :class="exp['desc'] ? 'mb-3' : ''"
-                            v-text="exp['year']"
+                            class="mb-3"
+                            v-text="edu['year']"
                           ></v-list-item-subtitle>
                           <v-list-item-subtitle
-                            v-if="exp['desc']"
-                            v-text="exp['desc']"
+                            v-text="edu['desc']"
                           ></v-list-item-subtitle>
                         </v-list-item>
                       </v-card-text>
@@ -164,109 +263,10 @@ const education = [
                   </v-timeline-item>
                 </v-timeline>
               </div>
-            </v-card>
-          </v-col>
-          <v-col cols="12" class="mb-3">
-            <v-card-title class="d-flex align-center">
-              <v-icon start class="mr-3" color="primary">
-                <Icon icon="mdi:hand-peace" />
-              </v-icon>
-              Platform/Frameworks
-            </v-card-title>
-            <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                md="3"
-                class="pb-0"
-                v-for="frame in frameworks"
-              >
-                <v-card border flat class="h-100">
-                  <v-card-text v-text="frame['title']"></v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col cols="12" class="mb-3">
-            <v-card-title class="d-flex align-center">
-              <v-icon start class="mr-3" color="primary">
-                <Icon icon="mdi:hand-peace" />
-              </v-icon>
-              Skills
-            </v-card-title>
-            <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-                class="pb-0"
-                v-for="skill in skills"
-              >
-                <v-card border flat class="h-100">
-                  <v-card-text v-text="skill['title']"></v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col cols="12" class="mb-3">
-            <v-card-title class="d-flex align-center">
-              <v-icon start class="mr-3" color="primary">
-                <Icon icon="mdi:anvil" />
-              </v-icon>
-              Software
-            </v-card-title>
-            <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-                class="pb-0"
-                v-for="sof in software"
-              >
-                <v-card border flat class="h-100">
-                  <v-card-text v-text="sof['title']"></v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col cols="12">
-            <v-card-title class="d-flex align-center">
-              <v-icon start class="mr-3" color="primary">
-                <Icon icon="mdi:book-open-page-variant-outline" />
-              </v-icon>
-              Education
-            </v-card-title>
-            <v-divider></v-divider>
-            <div class="d-flex justify-start">
-              <v-timeline side="end" align="center">
-                <v-timeline-item
-                  dot-color="primary"
-                  size="10"
-                  v-for="edu in education"
-                >
-                  <v-card border flat>
-                    <v-card-text>
-                      <v-list-item class="pa-0">
-                        <v-list-item-title
-                          class="font-weight-bold"
-                          v-text="edu['title']"
-                        ></v-list-item-title>
-                        <v-list-item-subtitle
-                          class="mb-3"
-                          v-text="edu['year']"
-                        ></v-list-item-subtitle>
-                        <v-list-item-subtitle
-                          v-text="edu['desc']"
-                        ></v-list-item-subtitle>
-                      </v-list-item>
-                    </v-card-text>
-                  </v-card>
-                </v-timeline-item>
-              </v-timeline>
-            </div>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+  </NuxtLayout>
 </template>

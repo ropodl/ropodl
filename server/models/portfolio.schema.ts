@@ -4,18 +4,23 @@ export const PortfolioSchema = defineMongooseModel({
   name: "Portfolio",
   schema: {
     title: {
-      type: "string",
+      type: String,
       required: true,
     },
     slug: {
-      type: "string",
+      type: String,
       required: true,
       unique: true,
     },
     excerpt: {
-      type: "string",
+      type: String,
     },
-    featuredImage: {},
+    featuredImage: {
+      type: Object,
+      required: true,
+      url: String,
+      name: String,
+    },
     status: {
       type: String,
       enum: ["Draft", "Published"],

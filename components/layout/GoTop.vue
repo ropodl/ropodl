@@ -29,23 +29,30 @@ const onScroll = (e: Event) => {
     <v-btn
       border
       icon
-      rounded="lg"
       size="x-large"
-      variant="tonal"
       v-scroll="onScroll"
       @click="useScrollTo('__nuxt', 0)"
       aria-label="Go to top button"
     >
       <v-progress-circular
-        size="50"
-        width="1"
+        color="primary"
+        width="2"
+        size="64"
         :model-value="progress"
         aria-label="document scroll position"
+        class="circular-no-animation"
       >
-        <v-icon>
+        <v-icon color="white">
           <Icon icon="mdi:arrow-up" />
         </v-icon>
       </v-progress-circular>
     </v-btn>
   </div>
 </template>
+<style lang="scss">
+.circular-no-animation {
+  circle.v-progress-circular__overlay {
+    transition: none !important;
+  }
+}
+</style>
