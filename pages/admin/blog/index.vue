@@ -14,8 +14,6 @@ useHead({
 });
 
 const loading = ref(true);
-// Search
-const search = ref("");
 // Table item select / delete
 const selected = ref([]);
 const deleteBulk = () => {
@@ -25,7 +23,6 @@ const deleteBulk = () => {
 // server side table
 const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  console.log(page, itemsPerPage);
   await blog.getAllBlogs(page, itemsPerPage);
   loading.value = false;
 };
@@ -63,9 +60,6 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
         </div>
       </v-col>
     </v-row>
-    {{ JSON.stringify(blogs) }}
-    {{ JSON.stringify(pagination) }}
-    {{ JSON.stringify(headers) }}
     <v-row>
       <v-col cols="12">
         <v-card border rounded="lg">

@@ -65,22 +65,14 @@ const works = [
               color="transparent"
               v-bind="props"
             >
-              <v-img cover height="400" :src="work['image']">
-                <div
-                  class="d-flex align-end w-100 h-100"
-                  :class="isHovering ? 'blur-8' : ''"
-                >
-                  <!-- :style="
-                    ((backgroundColor = `rgba(var(--v-theme-surface), 0.3)`),
-                    (backdropFilter = `blur(8px)`))
-                  " -->
-                  <div v-if="isHovering">
-                    <v-card-title style="transform: translateZ(30px)">
-                      {{ work["title"] }}
-                    </v-card-title>
-                    <v-card-text>{{ work["text"] }}</v-card-text>
-                  </div>
-                </div>
+              <v-img
+                cover
+                height="400"
+                :src="work['image']"
+                :class="isHovering ? 'zoom-image' : ''"
+              >
+                <v-card-title>{{ work["title"] }}</v-card-title>
+                <v-card-text>{{ work["text"] }}</v-card-text>
               </v-img>
             </v-card>
           </v-hover>

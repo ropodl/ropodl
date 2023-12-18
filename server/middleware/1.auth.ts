@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  console.log("rewrite auth properly");
+  console.log("rewrite backend auth properly");
   // const { user } = await requireUserSession(event);
   // setResponseHeaders(event, "Access-Control-Allow-Credentials:true");
   // if (user.role !== "admin") return sendRedirect(event, "/", 401);

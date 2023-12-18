@@ -1,8 +1,8 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { Icon } from "@iconify/vue";
 </script>
 <template>
-  <div class="position-relative py-16">
+  <div class="position-relative pb-16">
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
@@ -15,7 +15,7 @@ import { Icon } from "@iconify/vue";
             Whether it's questions, requests, or discussions<br />on any topic
             or subject matter feel free to contact me.
           </v-card-text>
-          <v-row>
+          <!-- <v-row>
             <v-col cols="6">
               <v-hover v-slot="{ isHovering, props }">
                 <v-btn
@@ -30,7 +30,6 @@ import { Icon } from "@iconify/vue";
                 >
                   Let's Chat
                   <v-icon
-                    size="x-small"
                     :class="isHovering ? 'ml-4' : 'ml-2'"
                     style="transition: all 100ms linear"
                   >
@@ -39,7 +38,7 @@ import { Icon } from "@iconify/vue";
                 </v-btn>
               </v-hover>
             </v-col>
-          </v-row>
+          </v-row> -->
         </v-col>
         <v-col cols="12" md="6">
           <v-card-text class="text-h4 font-weight-medium pl-0 pb-0">
