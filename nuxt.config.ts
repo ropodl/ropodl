@@ -52,8 +52,6 @@ export default defineNuxtConfig({
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
   mongoose: {
-    // uri: process.env.MONGODB_URI,
-    options: {},
     modelsDir: "models",
     devtools: true,
   },
@@ -87,7 +85,6 @@ export default defineNuxtConfig({
               warning: colors.amber.base,
               error: colors.deepOrange.accent4,
               success: colors.green.accent3,
-              // background: "#252734",
             },
           },
         },

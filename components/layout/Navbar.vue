@@ -67,14 +67,21 @@ const pages = [
                 v-bind="props"
                 height="50"
                 rounded="lg"
+                color="transparent"
                 class="text-lowercase hidden-sm-and-down"
-                :class="
-                  route.fullPath.includes(page.title) ? 'text-primary' : ''
-                "
                 :active="false"
                 :to="page.link"
-                >{{ page.title }}.</v-btn
               >
+                <span
+                  :class="
+                    route.fullPath.includes(page.title)
+                      ? 'text-primary'
+                      : 'text-white'
+                  "
+                >
+                  {{ page.title }}.
+                </span>
+              </v-btn>
             </v-hover>
           </template>
           <v-spacer></v-spacer>

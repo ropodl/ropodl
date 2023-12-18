@@ -1,6 +1,3 @@
-<script setup lang="ts">
-import { Icon } from "@iconify/vue";
-</script>
 <template>
   <div class="position-relative pb-16">
     <v-container>
