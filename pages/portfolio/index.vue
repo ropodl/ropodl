@@ -13,11 +13,13 @@ useHead({
     },
   ],
 });
+
 defineOgImage({
   title: "Saroj Poudel",
   description:
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
 });
+
 const current = ref("All");
 const categories = ["All", "Graphic Design", "Web", "Branding"];
 
@@ -160,86 +162,38 @@ const works = [
           <v-row v-auto-animate>
             <template v-for="(work, i) in works">
               <v-col cols="12" sm="4" md="4" lg="4">
-                <v-dialog scrim="black" fullscreen>
-                  <template v-slot:activator="{ props: dialog }">
-                    <v-hover v-slot="{ isHovering, props: hover }">
-                      <v-card
-                        flat
-                        rounded="lg"
-                        v-bind="{ ...dialog, ...hover }"
-                        to="/portfolio/"
-                      >
-                        <v-img
-                          cover
-                          :aspect-ratio="1"
-                          class="w-100 h-100 align-end"
-                          :class="isHovering ? 'zoom-image' : ''"
-                          :src="work['image'].thumbnail"
-                        >
-                          <v-card
-                            rounded="0"
-                            elevation="10"
-                            class="blur-8 border border-s-0 border-e-0 border-b-0"
-                            style="
-                              background-color: rgba(
-                                var(--v-theme-surface),
-                                0.8
-                              );
-                            "
-                          >
-                            <v-card-text
-                              class="text-center"
-                              style="white-space: normal"
-                            >
-                              {{ work["title"] }}
-                            </v-card-text>
-                          </v-card>
-                        </v-img>
-                      </v-card>
-                    </v-hover>
-                  </template>
-
-                  <template v-slot:default="{ isActive }">
-                    <v-btn
-                      variant="tonal"
-                      color="primary"
-                      icon="mdi-close"
-                      class="rounded-t-0 rounded-e-0 position-fixed top-0 right-0 z-index-11"
-                      @click="isActive.value = false"
-                    ></v-btn>
-                    <v-card
-                      class="blur-8"
-                      style="
-                        background-color: rgba(var(--v-theme-surface), 0.8);
-                      "
+                <v-hover v-slot="{ isHovering, props: hover }">
+                  <v-card
+                    flat
+                    rounded="lg"
+                    v-bind="{ ...hover }"
+                    :to="`/portfolio/${work.title}`"
+                  >
+                    <v-img
+                      cover
+                      :aspect-ratio="1"
+                      class="w-100 h-100 align-end"
+                      :class="isHovering ? 'zoom-image' : ''"
+                      :src="work['image'].thumbnail"
                     >
-                      <v-container>
-                        <v-row>
-                          <v-col cols="12"> </v-col>
-                          <v-col cols="12" md="5">
-                            <v-card flat border>
-                              <v-img :src="work.image?.full"></v-img>
-                            </v-card>
-                          </v-col>
-                          <v-col cols="12" md="7">
-                            <v-card-title class="px-0">
-                              <div class="text-h4">
-                                {{ work.title }}
-                              </div>
-                            </v-card-title>
-                            <v-card-title class="px-0">
-                              <v-chip>
-                                {{ work.category }}
-                              </v-chip>
-                            </v-card-title>
-                            {{ work.title }}
-                            {{ work }}
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card>
-                  </template>
-                </v-dialog>
+                      <v-card
+                        rounded="0"
+                        elevation="10"
+                        class="blur-8 border border-s-0 border-e-0 border-b-0"
+                        style="
+                          background-color: rgba(var(--v-theme-surface), 0.8);
+                        "
+                      >
+                        <v-card-text
+                          class="text-center"
+                          style="white-space: normal"
+                        >
+                          {{ work["title"] }}
+                        </v-card-text>
+                      </v-card>
+                    </v-img>
+                  </v-card>
+                </v-hover>
               </v-col>
             </template>
           </v-row>

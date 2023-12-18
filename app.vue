@@ -5,19 +5,13 @@ const { isOnline } = useNetwork();
 
 const route = useRoute();
 
-const html = `<div
-      class="position-fixed w-100 h-100"
-      style="
-        opacity: 0.1;
-        mask-image: radial-gradient(circle, #fff, transparent);
-      "
-    >
+const html = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-image: radial-gradient(circle, #fff, transparent);">
       <svg aria-hidden="true" class="position-absolute w-100 h-100">
         <defs>
           <pattern
             id=":Rem:"
-            width="128"
-            height="128"
+            width="64"
+            height="64"
             patternUnits="userSpaceOnUse"
             x="50%"
             y="100%"
