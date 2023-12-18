@@ -31,13 +31,12 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     // "nuxt-security",
     "nuxt-gtag",
-    // "nuxt-capo",
+    "nuxt-capo",
   ],
   imports: {
     dirs: ["stores", "stores/frontend"],
   },
   googleFonts: {
-    // download: true,
     families: {
       Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
