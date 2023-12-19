@@ -136,12 +136,15 @@ const education = [
               <v-divider></v-divider>
               <v-card flat color="transparent">
                 <div class="d-flex justify-start">
-                  <v-timeline direction="horizontal" side="end" align="center">
+                  <v-timeline direction="horizontal">
                     <v-timeline-item
                       dot-color="primary"
                       size="10"
                       v-for="exp in experience"
                     >
+                      <template v-slot:opposite>
+                        {{ exp.year }}
+                      </template>
                       <v-card border flat>
                         <v-card-text>
                           <v-list-item class="pa-0">
@@ -149,10 +152,6 @@ const education = [
                               class="font-weight-bold"
                               v-text="exp.title"
                             ></v-list-item-title>
-                            <v-list-item-subtitle
-                              :class="exp.desc"
-                              v-text="exp.year"
-                            ></v-list-item-subtitle>
                             <v-list-item-subtitle
                               v-if="exp.desc"
                               v-text="exp.desc"
