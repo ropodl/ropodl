@@ -25,11 +25,11 @@ const pages = [
     title: "portfolio",
     link: "/portfolio",
   },
-  // {
-  //   icon: "mdi:contacts",
-  //   title: "contact",
-  //   link: "/contact",
-  // },
+  {
+    icon: "mdi:contacts",
+    title: "contact",
+    link: "/contact",
+  },
 ];
 </script>
 <template>

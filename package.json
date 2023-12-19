@@ -20,7 +20,7 @@
     "nuxt-og-image": "^3.0.0-rc.11",
     "nuxt-payload-analyzer": "latest",
     "nuxt-security": "^1.0.0-rc.5",
-    "nuxt-simple-sitemap": "latest",
+    "nuxt-simple-sitemap": "^4.2.0",
     "sass": "^1.69.5"
   },
   "dependencies": {

@@ -174,7 +174,7 @@ const works = [
                       :aspect-ratio="1"
                       class="w-100 h-100 align-end"
                       :class="isHovering ? 'zoom-image' : ''"
-                      :src="work['image'].thumbnail"
+                      :src="work.image?.thumbnail"
                     >
                       <v-card
                         rounded="0"
@@ -188,7 +188,7 @@ const works = [
                           class="text-center"
                           style="white-space: normal"
                         >
-                          {{ work["title"] }}
+                          {{ work.title }}
                         </v-card-text>
                       </v-card>
                     </v-img>
