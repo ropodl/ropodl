@@ -5,15 +5,18 @@ definePageMeta({
   keepalive: true,
 });
 
-useHead({
-  title: "Contact Page | Saroj Poudel",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Graphic Designer and Web Developer from Nepal specializing in VueJs and Express JS",
-    },
-  ],
+useSeoMeta({
+  title: "Saroj Poudel",
+  description:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  ogTitle: "Saroj Poudel",
+  ogDescription:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  ogUrl: "https://ropodl.vercel.app",
+  twitterTitle: "Saroj Poudel",
+  twitterDescription:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  twitterCard: "summary",
 });
 
 defineOgImageComponent("Main", {

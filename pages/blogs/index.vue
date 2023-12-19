@@ -1,8 +1,18 @@
 <script setup>
 import { formatTimeAgo } from "@vueuse/core";
 
-useHead({
-  title: "Blogs",
+useSeoMeta({
+  title: "Saroj Poudel",
+  description:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  ogTitle: "Saroj Poudel",
+  ogDescription:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  ogUrl: "https://ropodl.vercel.app",
+  twitterTitle: "Saroj Poudel",
+  twitterDescription:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  twitterCard: "summary",
 });
 
 const page = ref(1);
