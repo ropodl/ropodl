@@ -1,18 +1,14 @@
-<script lang="ts" setup>
-import { Icon } from "@iconify/vue";
-</script>
 <template>
   <v-snackbar
     dense
-    rounded="pill"
+    elevation="0"
+    rounded="lg"
     :model-value="true"
     theme="light"
-    color="#4c5068"
+    color="bg-surface"
     :timeout="-1"
   >
-    <v-icon class="mr-3">
-      <Icon icon="mdi:wifi-strength-alert-outline" />
-    </v-icon>
+    <v-icon class="mr-3" icon="mdi-wifi-strength-alert-outline" />
     Looks like you are currently offline.
   </v-snackbar>
 </template>

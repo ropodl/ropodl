@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useScrollTo } from "@/composables/scrollToId";
-import { Icon } from "@iconify/vue";
 
 const show = ref(false);
 const progress = ref(0);
@@ -42,9 +41,7 @@ const onScroll = (e: Event) => {
         aria-label="document scroll position"
         class="circular-no-animation"
       >
-        <v-icon color="white">
-          <Icon icon="mdi:arrow-up" />
-        </v-icon>
+        <v-icon color="white" icon="mdi-arrow-up" />
       </v-progress-circular>
     </v-btn>
   </div>

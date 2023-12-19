@@ -5,9 +5,17 @@ definePageMeta({
 });
 
 useSeoMeta({
-  title: "Home Page | Saroj Poudel",
+  title: "Saroj Poudel",
   description:
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  ogTitle: "Saroj Poudel",
+  ogDescription:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  ogUrl: "https://ropodl.vercel.app",
+  twitterTitle: "Saroj Poudel",
+  twitterDescription:
+    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+  twitterCard: "summary",
 });
 
 defineOgImageComponent("Main", {
