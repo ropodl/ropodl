@@ -4,15 +4,19 @@ import objectify from "~/server/utils/objectify";
 
 export default defineEventHandler(async (event) => {
   const form = await readFormData(event);
+  console.log("read form data");
 
   const { title, content, image, status } = await objectify(form);
+  console.log("objectify");
 
   const slug = slugify(title, {
     lower: true,
     trim: true,
   });
+  console.log("slugify");
 
   const featuredImage = await uploadBlogImage(image);
+  console.log("uploading done");
 
   const blog = await new BlogSchema({
     title,
@@ -21,26 +25,10 @@ export default defineEventHandler(async (event) => {
     featuredImage,
     status,
   });
-
-  // if (categories) {
-  //   for (let item of categories.split(",")) {
-  //     if (!isValidObjectId(item)) {
-  //       return sendError(res, "Invalid Category");
-  //     }
-  //   }
-  //   blog.categories = categories.split(",");
-  // }
-
-  // if (tags) {
-  //   for (let item of tags.split(",")) {
-  //     if (!isValidObjectId(item)) {
-  //       return sendError(res, "Invalid Tag/s");
-  //     }
-  //   }
-  //   blog.tags = tags.split(",");
-  // }
+  console.log("new blog");
 
   const { id } = await blog.save();
+  console.log("get id");
 
   return {
     id,

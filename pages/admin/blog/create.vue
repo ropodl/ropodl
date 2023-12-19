@@ -35,10 +35,7 @@ const selectFeaturedImage = async ({ target }) => {
   file.value = files[0];
   form.image = await getBase64(file.value);
 };
-const updateImage = ({ target }) => {
-  form.image = target.files[0];
-  console.log(target.files[0].name);
-};
+
 const addBlog = () => {
   const formData = new FormData();
   for (const key in form) {
