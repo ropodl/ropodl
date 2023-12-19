@@ -51,6 +51,8 @@ export default defineNuxtConfig({
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
   mongoose: {
+    uri: process.env.MONGODB_URI,
+    options: {},
     modelsDir: "models",
     devtools: true,
   },
