@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
 
   const client = await serverSupabaseClient(event);
 
-  const { data: blog, error } = await client
+  const { data: blogs, error } = await client
     .from("blogs")
     .select()
     .eq("slug", slug)
@@ -12,8 +12,6 @@ export default defineEventHandler(async (event) => {
 
   if (error) return console.log("error" + error.message);
 
-  // const blog = await BlogSchema.findOne({ slug: params });
-  // if (!blog) return { status: 404, message: "Blog not found" };
-  console.log(blog);
-  return blog;
+  console.log(blogs);
+  return blogs;
 });
