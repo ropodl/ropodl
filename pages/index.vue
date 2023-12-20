@@ -1,4 +1,8 @@
 <script setup>
+const client = useSupabaseClient();
+
+console.log(await client.from("blogs").select("*"));
+
 definePageMeta({
   layout: "default",
   keepalive: true,

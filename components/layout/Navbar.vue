@@ -5,7 +5,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-const { loggedIn } = useUserSession();
+// const { loggedIn } = useUserSession();
 
 const drawer = ref(false);
 
@@ -113,9 +113,9 @@ const pages = [
               <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
             </v-icon>
           </v-btn>
-          <template v-if="loggedIn">
+          <!-- <template v-if="loggedIn">
             <LazyAdminSharedAdminNavDrop />
-          </template>
+          </template> -->
         </v-row>
       </v-container>
     </v-app-bar>

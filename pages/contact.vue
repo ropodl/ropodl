@@ -94,11 +94,11 @@ const submitForm = async (): Promise<void> => {
     <v-container>
       <v-row justify="space-between">
         <v-col cols="12" md="5">
-          <div class="text-h4 font-weight-medium mb-6">
+          <div class="text-h5 font-weight-medium mb-6">
             Got a project? Let's talk.
           </div>
-          <ul class="list-style-none">
-            <li
+          <ul class="list-style-none d-flex">
+            <!-- <li
               v-for="(contact, i) in contacts"
               class="d-flex align-center mb-3"
             >
@@ -108,25 +108,19 @@ const submitForm = async (): Promise<void> => {
               <div class="pl-3">
                 {{ contact.title }}
               </div>
-            </li>
-            <li v-for="social in socials" class="d-flex align-center mb-3">
-              <v-icon size="large">
-                <Icon :icon="social.icon" />
-              </v-icon>
-              <div class="pl-3">
-                {{ social.name }}
-                <v-btn
-                  icon
-                  size="xs"
-                  variant="text"
-                  target="_blank"
-                  :href="social.link"
-                >
-                  <v-icon size="xs">
-                    <Icon icon="mdi:open-in-new" />
-                  </v-icon>
-                </v-btn>
-              </div>
+            </li> -->
+            <li v-for="social in socials">
+              <v-btn
+                icon
+                rounded="lg"
+                color="primary"
+                variant="tonal"
+                class="mr-3"
+              >
+                <v-icon size="large">
+                  <Icon :icon="social.icon" />
+                </v-icon>
+              </v-btn>
             </li>
           </ul>
         </v-col>

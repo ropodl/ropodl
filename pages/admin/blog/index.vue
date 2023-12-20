@@ -2,11 +2,12 @@
 import { Icon } from "@iconify/vue";
 
 const blog = useBlogStore();
-const { headers, blogs, pagination } = storeToRefs(blog);
+const { headers, pagination } = storeToRefs(blog);
+
+const supabase = useSupabaseClient();
 
 definePageMeta({
   layout: "admin",
-  middleware: "admin",
 });
 
 useHead({
@@ -16,16 +17,17 @@ useHead({
 const loading = ref(true);
 // Table item select / delete
 const selected = ref([]);
-const deleteBulk = () => {
-  blog.removeBulk(selected.value);
-  selected.value = [];
-};
+// const deleteBulk = () => {
+//   blog.removeBulk(selected.value);
+//   selected.value = [];
+// };
 // server side table
 const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  await blog.getAllBlogs(page, itemsPerPage);
+  // await blog.getAllBlogs(page, itemsPerPage);
   loading.value = false;
 };
+const { data: blogs, error } = await supabase.from("blogs").select("*");
 </script>
 <template>
   <v-container>

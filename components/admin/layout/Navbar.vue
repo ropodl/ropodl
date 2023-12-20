@@ -70,7 +70,7 @@ const navitems = reactive([
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
-        <LazyAdminSharedAdminNavDrop />
+        <!-- <LazyAdminSharedAdminNavDrop /> -->
       </v-row>
     </v-container>
   </v-app-bar>

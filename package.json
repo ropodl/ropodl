@@ -11,6 +11,7 @@
   "devDependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@nuxt/devtools": "^1.0.3",
+    "@nuxtjs/supabase": "^1.1.4",
     "@pinia/nuxt": "^0.5.1",
     "@vite-pwa/nuxt": "^0.3.4",
     "@vueuse/nuxt": "^10.7.0",
@@ -32,7 +33,6 @@
     "@tinymce/tinymce-vue": "latest",
     "@vercel/speed-insights": "^1.0.1",
     "cloudinary": "^1.41.1",
-    "nuxt-auth-utils": "^0.0.13",
     "nuxt-gtag": "^1.1.1",
     "nuxt-mongoose": "^1.0.3",
     "pinia": "^2.1.7",
@@ -40,7 +40,7 @@
     "slugify": "^1.6.6",
     "vite-plugin-vuetify": "^2.0.1",
     "vue3-lottie": "^3.2.0",
-    "vuetify": "^3.4.7",
+    "vuetify": "^3.4.8",
     "vuetify-nuxt-module": "^0.7.2"
   }
 }

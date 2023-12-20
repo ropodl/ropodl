@@ -4,32 +4,36 @@ import { formatTimeAgo } from "@vueuse/core";
 const route = useRoute();
 
 const {
+  params: { slug },
+} = route;
+
+const {
   data: post,
   error,
   pending: loading,
-} = await useFetch(`/api/frontend/blog/${route.params.slug}`);
+} = await useFetch(`/api/frontend/blog/${slug}`);
+const { id, title, excerpt, content, status, created_at } = post.value;
 
-const { title, excerpt, content, featuredImage, createdAt } = post.value;
+console.log(post);
 
 await defineOgImageComponent("Main", {
   title: post.value.title,
   description: post.value.excerpt,
 });
 
-await useSeoMeta({
-  title: post.value.title,
-  ogTitle: post.value.title,
-  description: post.value.excerpt,
-  ogDescription: post.value.excerpt,
-  twitterCard: "summary_large_image",
-});
+// await useSeoMeta({
+//   title: post.value.title,
+//   ogTitle: post.value.title,
+//   description: post.value.excerpt,
+//   ogDescription: post.value.excerpt,
+//   twitterCard: "summary_large_image",
+// });
 </script>
 <template>
   <v-skeleton-loader :loading="loading" width="100%" height="600" type="image">
-    <!-- <template v-if="post.featuredImage.length"> -->
     <v-img
       cover
-      class="d-flex align-end rounded-0 border border-t-0 border-e-0 border-s-0 active"
+      class="d-flex align-end rounded-0 border border-t-0 border-e-0 border-s-0"
       height="600"
       :src="featuredImage?.secure_url"
     >
@@ -45,10 +49,9 @@ await useSeoMeta({
         </v-row>
       </v-container>
     </v-img>
-    <!-- </template> -->
   </v-skeleton-loader>
   <v-container>
-    <v-row v-if="post.excerpt">
+    <v-row v-if="excerpt">
       <v-col cols="12" md="12">
         <div class="text-h4 font-weight-light">
           {{ excerpt }}
@@ -58,9 +61,9 @@ await useSeoMeta({
     <v-row>
       <v-col cols="12" md="3">
         <v-card flat color="transparent">
-          <v-card-text class="px-0 text-overline"
-            >Published at: {{ formatTimeAgo(new Date(createdAt)) }}</v-card-text
-          >
+          <v-card-text class="px-0 text-overline">
+            Published at: {{ formatTimeAgo(new Date(created_at)) }}
+          </v-card-text>
         </v-card>
         <v-divider></v-divider>
         <v-card flat color="transparent">
@@ -86,13 +89,14 @@ await useSeoMeta({
       <v-col cols="12" md="9">
         <v-card flat color="transparent">
           <v-card-text class="pb-0">
-            <div class="dynamic-content" v-html="content"></div>
+            <div class="dynamic-content mb-3" v-html="content"></div>
           </v-card-text>
         </v-card>
         <v-divider></v-divider>
         <v-card flat color="transparent">
           <v-card-text class="text-overline" style="white-space: normal"
-            >Published at: {{ formatTimeAgo(new Date(createdAt)) }}</v-card-text
+            >Published at:
+            {{ formatTimeAgo(new Date(created_at)) }}</v-card-text
           >
         </v-card>
       </v-col>
