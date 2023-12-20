@@ -29,12 +29,12 @@ let loading = ref(false);
 const contactForm = ref();
 
 const form = reactive({
-  from_name: "",
-  from_email: "",
+  name: "",
+  email: "",
   message: "",
 });
 
-let snackbar = reactive({
+const snackbar = <any>reactive({
   show: false,
   text: "",
 });
@@ -79,11 +79,21 @@ const submitForm = async (): Promise<void> => {
     const { data, error } = useFetch("/api/frontend/contact", {
       method: "POST",
       body: form,
+      watch: false,
     });
-    if (error.value) return console.log(error.value);
-    snackbar["text"] = "Successfully sent, will reply soon.";
-    snackbar["show"] = true;
-    contactForm.value.reset();
+    if (error.value) {
+      loading.value = false;
+      return console.log(error.value);
+    }
+    form.name = "";
+    form.email = "";
+    form.message = "";
+    nextTick(async () => {
+      snackbar["text"] = data.value?.message;
+      snackbar["show"] = true;
+      await contactForm.value.resetValidation();
+      loading.value = false;
+    });
   } else console.log("failed");
   loading.value = false;
 };
@@ -135,9 +145,8 @@ const submitForm = async (): Promise<void> => {
           >
             <v-text-field
               flat
-              density="compact"
               variant="solo-filled"
-              v-model="form['from_name']"
+              v-model="form['name']"
               :rules="rules['firstNameRules']"
               bg-color="transparent"
               placeholder="What's your name?"
@@ -146,9 +155,8 @@ const submitForm = async (): Promise<void> => {
             ></v-text-field>
             <v-text-field
               flat
-              density="compact"
               variant="solo-filled"
-              v-model="form['from_email']"
+              v-model="form['email']"
               :rules="rules['emailRules']"
               bg-color="transparent"
               placeholder="Your fancy email"
@@ -157,7 +165,6 @@ const submitForm = async (): Promise<void> => {
             ></v-text-field>
             <v-textarea
               flat
-              density="compact"
               variant="solo-filled"
               v-model="form['message']"
               :rules="rules['messageRules']"
@@ -197,7 +204,14 @@ const submitForm = async (): Promise<void> => {
         </v-col>
       </v-row>
     </v-container>
-    <v-snackbar :model-value="snackbar.show" theme="light">
+    <v-snackbar
+      dense
+      elevation="0"
+      rounded="lg"
+      :model-value="snackbar.show"
+      theme="light"
+      color="bg-surface"
+    >
       {{ snackbar.text }}
       <template v-slot:actions>
         <v-btn
