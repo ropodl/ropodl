@@ -10,7 +10,6 @@ const blog = useBlogStore();
 
 definePageMeta({
   layout: "admin",
-  middleware: "admin",
 });
 
 useHead({
@@ -20,13 +19,13 @@ useHead({
 const file = shallowRef();
 const form = reactive({
   title: "",
-  // excerpt: "",
+  excerpt: "",
   content: "",
   // categories: [],
   // tags: [],
   image: null,
-  visibility: "Public",
-  status: "Draft",
+  // visibility: "Public",
+  status: "draft",
 });
 
 // temporary for thumbnail
@@ -36,13 +35,23 @@ const selectFeaturedImage = async ({ target }) => {
   form.image = await getBase64(file.value);
 };
 
-const addBlog = () => {
+const addBlog = async () => {
   const formData = new FormData();
   for (const key in form) {
     const value = form[key];
     formData.append(key, value);
   }
-  blog.create(formData);
+  // blog.create(formData);
+  const {
+    data,
+    error,
+    pending: loading,
+  } = await useFetch("/api/blog/create", {
+    method: "POST",
+    body: formData,
+  });
+  if (error.value) return console.log(error.value);
+  console.log(data.value);
 };
 </script>
 <template>

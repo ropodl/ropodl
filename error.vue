@@ -6,8 +6,8 @@ defineProps({
 
 <template>
   <v-app>
-    <NuxtLayout class="h-100">
-      <v-container class="h-100">
+    <NuxtLayout>
+      <v-container class="h-100" style="padding-top: 100px">
         <v-row class="h-100">
           <v-col cols="12" md="4" class="h-100">
             <div class="d-flex align-center h-100">

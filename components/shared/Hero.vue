@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
 
+const supabase = useSupabaseClient();
+
 let lottieContainer = ref();
 
 const startAnimation = () => {

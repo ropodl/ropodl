@@ -18,7 +18,7 @@ useSeoMeta({
 const page = ref(1);
 
 const {
-  data,
+  data: blogs,
   error,
   pending: loading,
 } = await useFetch("/api/frontend/blog", {
@@ -27,7 +27,6 @@ const {
     per_page: 10,
   },
 });
-const { blogs, pagination } = data.value;
 </script>
 
 <template>
@@ -52,16 +51,13 @@ const { blogs, pagination } = data.value;
                       cover
                       class="w-100 h-100 pa-2"
                       :aspect-ratio="16 / 9"
-                      :class="[
-                        isHovering ? 'zoom-image active' : '',
-                        // { active: active === item.title },
-                      ]"
+                      :class="[isHovering ? 'zoom-image active' : '']"
                       :src="item.featuredImage?.secure_url"
                       :alt="item.featuredImage?.public_id"
                     ></v-img>
                   </v-card>
                   <v-card-text class="ps-0 pb-0 text-primary">
-                    [ {{ formatTimeAgo(new Date(item["createdAt"])) }} ]
+                    [ {{ formatTimeAgo(new Date(item["created_at"])) }} ]
                   </v-card-text>
                   <v-card-text
                     class="text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
@@ -80,7 +76,7 @@ const { blogs, pagination } = data.value;
             >
           </v-card>
         </template>
-        <template v-if="pagination?.totalPage > 1">
+        <!-- <template v-if="pagination?.totalPage > 1">
           <v-col cols="12" md="12">
             <v-pagination
               v-model="page"
@@ -90,7 +86,7 @@ const { blogs, pagination } = data.value;
               @update:modelValue="test"
             ></v-pagination>
           </v-col>
-        </template>
+        </template> -->
       </v-row>
     </v-container>
   </NuxtLayout>

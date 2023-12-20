@@ -80,12 +80,14 @@ export const useBlogStore = defineStore("blog", {
       return data.value;
     },
     async remove(id: string) {
+      const supabase = useSupabaseClient();
       const snackbar = useSnackbarStore();
-      const { data, error } = await useFetch("/api/blog/" + id, {
-        method: "DELETE",
-      });
-      if (error.value) {
-        return snackbar.showSnackbar(error.value.message, "error");
+      const { data, error } = await supabase
+        .from("blogs")
+        .delete()
+        .eq("id", id);
+      if (error) {
+        return snackbar.showSnackbar(error.message, "error");
       }
       snackbar.showSnackbar(data.value.message, "success");
       this.getAllBlogs(1, 10);

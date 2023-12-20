@@ -23,15 +23,16 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "nuxt-mongoose",
+    // "nuxt-mongoose",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-og-image",
-    "nuxt-auth-utils",
+    // "nuxt-auth-utils",
     // "nuxt-security",
     "nuxt-gtag",
-    "nuxt-capo",
+    // "nuxt-capo",
+    "@nuxtjs/supabase",
   ],
   imports: {
     dirs: ["stores", "stores/frontend"],
@@ -50,11 +51,22 @@ export default defineNuxtConfig({
   gtag: {
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
-  mongoose: {
-    uri: process.env.MONGODB_URI,
-    options: {},
-    modelsDir: "models",
-    devtools: true,
+  supabase: {
+    url: process.env.SUPABASE_URL,
+    key: process.env.SUPABASE_KEY,
+    redirectOptions: {
+      login: "/login",
+      callback: "/confirm",
+      exclude: [
+        "/",
+        "/about",
+        "/contact",
+        "/blogs",
+        "/blogs/*",
+        "/portfolio",
+        "/portfolio/*",
+      ],
+    },
   },
   piniaPersistedstate: {
     storage: "localStorage",

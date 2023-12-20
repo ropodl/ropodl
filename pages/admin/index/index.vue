@@ -1,30 +1,29 @@
-<script setup>
+<script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
 definePageMeta({
   layout: "admin",
-  middleware: "admin",
 });
 
-const { user } = useUserSession();
+const user = useSupabaseUser();
 
 useHead({
   title: "Admin Dashboard",
 });
 
-const { data } = await useFetch("/api/dashboard");
+// const { data } = await useFetch("/api/dashboard");
 </script>
 <template>
   <v-container>
     <v-row>
       <v-col cols="12">
         <div class="text-h4 font-weight-bold">
-          Welcome back, {{ user?.name || "User" }}
+          Welcome back, {{ user?.email || "User" }}
         </div>
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" md="3" v-for="(stat, i) in data.stats">
+      <!-- <v-col cols="12" md="3" v-for="(stat, i) in data.stats">
         <v-card border>
           <v-icon
             :color="stat.color"
@@ -42,7 +41,7 @@ const { data } = await useFetch("/api/dashboard");
           </v-card-title>
           <v-card-text>This is a test</v-card-text>
         </v-card>
-      </v-col>
+      </v-col> -->
     </v-row>
   </v-container>
 </template>
