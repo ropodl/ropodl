@@ -1,6 +1,5 @@
 import { serverSupabaseClient } from "#supabase/server";
 import slugify from "slugify";
-// import { uploadBlogImage } from "~/server/utils/cloudinary";
 import objectify from "~/server/utils/objectify";
 
 export default defineEventHandler(async (event) => {

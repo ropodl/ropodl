@@ -19,10 +19,8 @@ export default defineNuxtConfig({
   modules: [
     "@vueuse/nuxt",
     "@nuxtjs/google-fonts",
-    "@pinia/nuxt",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
     // "nuxt-mongoose",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
@@ -35,7 +33,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
   ],
   imports: {
-    dirs: ["stores", "stores/frontend"],
+    // dirs: ["stores", "stores/frontend"],
   },
   googleFonts: {
     families: {
@@ -151,12 +149,7 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
   },
-  auth: {},
-  runtimeConfig: {
-    cloudinary_name: process.env.CLOUDINARY_CLOUD_NAME,
-    cloudinary_key: process.env.CLOUDINARY_API_KEY,
-    cloudinary_secret: process.env.CLOUDINARY_API_SECRET,
-  },
+  runtimeConfig: {},
   // nuxt security
   security: {
     headers: {
@@ -165,12 +158,4 @@ export default defineNuxtConfig({
       },
     },
   },
-  vite: {
-    vue: {
-        script: {
-            defineModel: true,
-            propsDestructure: true
-        }
-    }
-}
 });
