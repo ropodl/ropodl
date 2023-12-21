@@ -155,10 +155,14 @@ const works = [
     },
   },
 ];
+
+const a = ref("");
 </script>
 <template>
   <NuxtLayout name="page-title">
     <template #title>Portfolio</template>
+    {{ a }}
+    <InputModel v-model="a" />
     <v-container>
       <v-row justify="center">
         <v-col cols="12" class="position-relative">
