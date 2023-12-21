@@ -5,6 +5,7 @@ import { tinymceConfig } from "../../../utils/tinymce";
 import getBase64 from "~/utils/getBase64";
 
 const blog = useBlogStore();
+const supabase = useSupabaseClient();
 // const category = useCategory();
 // const tag = useTag();
 
@@ -25,14 +26,33 @@ const form = reactive({
   // tags: [],
   image: null,
   // visibility: "Public",
-  status: "draft",
+  published: false,
 });
 
 // temporary for thumbnail
 const selectFeaturedImage = async ({ target }) => {
   const { value, files, name } = target;
-  file.value = files[0];
-  form.image = await getBase64(file.value);
+  // file.value = files[0];
+  // form.image = await getBase64(file.value);
+  // form.ima
+
+  console.log(files[0]);
+
+  const { data, error } = await supabase.storage.from("blog").upload(files[0], {
+    contentType: "image/*",
+  });
+
+  console.log(error);
+  console.log(data);
+
+  // const avatarFile = event.target.files[0]
+  // const { data, error } = await supabase
+  //   .storage
+  //   .from('avatars')
+  //   .upload('public/avatar1.png', avatarFile, {
+  //     cacheControl: '3600',
+  //     upsert: false
+  //   })
 };
 
 const addBlog = async () => {
@@ -50,6 +70,7 @@ const addBlog = async () => {
     method: "POST",
     body: formData,
   });
+
   if (error.value) return console.log(error.value);
   console.log(data.value);
 };

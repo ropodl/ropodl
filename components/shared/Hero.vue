@@ -46,7 +46,7 @@ const startAnimation = () => {
                   skills.
                 </v-card-text>
                 <v-row>
-                  <v-col cols="3">
+                  <!-- <v-col cols="3">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         block
@@ -81,6 +81,50 @@ const startAnimation = () => {
                         to="/contact"
                       >
                         Contact
+                        <v-icon
+                          :class="isHovering ? 'ml-4' : 'ml-2'"
+                          style="transition: all 100ms linear"
+                        >
+                          <Icon icon="lucide:arrow-right" />
+                        </v-icon>
+                      </v-btn>
+                    </v-hover>
+                  </v-col> -->
+                  <v-col cols="3">
+                    <v-hover v-slot="{ isHovering, props }">
+                      <v-btn
+                        block
+                        height="50"
+                        rounded="lg"
+                        variant="tonal"
+                        color="primary"
+                        class="text-capitalize font-weight-medium"
+                        v-bind="props"
+                        to="/blogs"
+                      >
+                        Blogs
+                        <v-icon
+                          :class="isHovering ? 'ml-4' : 'ml-2'"
+                          style="transition: all 100ms linear"
+                        >
+                          <Icon icon="lucide:arrow-right" />
+                        </v-icon>
+                      </v-btn>
+                    </v-hover>
+                  </v-col>
+                  <v-col cols="3">
+                    <v-hover v-slot="{ isHovering, props }">
+                      <v-btn
+                        block
+                        height="50"
+                        rounded="lg"
+                        variant="text"
+                        color="primary"
+                        class="text-capitalize font-weight-medium"
+                        v-bind="props"
+                        to="/portfolio"
+                      >
+                        Portfolio
                         <v-icon
                           :class="isHovering ? 'ml-4' : 'ml-2'"
                           style="transition: all 100ms linear"

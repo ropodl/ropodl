@@ -10,11 +10,11 @@ const route = useRoute();
 const drawer = ref(false);
 
 const pages = [
-  {
-    icon: "mdi:file-document",
-    title: "about",
-    link: "/about",
-  },
+  // {
+  //   icon: "mdi:file-document",
+  //   title: "about",
+  //   link: "/about",
+  // },
   {
     icon: "mdi:file-certificate",
     title: "blogs",
@@ -25,11 +25,11 @@ const pages = [
     title: "portfolio",
     link: "/portfolio",
   },
-  {
-    icon: "mdi:contacts",
-    title: "contact",
-    link: "/contact",
-  },
+  // {
+  //   icon: "mdi:contacts",
+  //   title: "contact",
+  //   link: "/contact",
+  // },
 ];
 </script>
 <template>
