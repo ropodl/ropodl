@@ -1,18 +1,18 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-const snack = useSnackbarStore();
-const { snackbar } = snack;
+const snackbar = useSnackbar();
+const { show, text, color } = snackbar;
 </script>
 <template>
   <v-snackbar
     dense
     rounded="pill"
     theme="light"
-    v-model="snackbar.show"
-    :color="snackbar?.color"
+    v-model="show"
+    :color="color"
     class="global-snackbar"
   >
-    {{ snackbar?.text }}
+    {{ text }}
     <template v-slot:actions>
       <v-btn
         icon

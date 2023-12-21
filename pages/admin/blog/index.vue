@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
-const blog = useBlogStore();
-const { headers, pagination } = storeToRefs(blog);
+// const blog = useBlogStore();
+// const { headers, pagination } = storeToRefs(blog);
 
 const supabase = useSupabaseClient();
 
