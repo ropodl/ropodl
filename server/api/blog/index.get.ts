@@ -1,4 +1,5 @@
-// import { paginate } from "~/server/utils/paginate";
+import { serverSupabaseClient } from "#supabase/server";
+import { getPagination } from "~/server/utils/paginate";
 
 interface Blog {
   id: String;
@@ -12,38 +13,31 @@ interface Blog {
 }
 
 export default defineEventHandler(async (event) => {
-  // const paginatedBlogs = await paginate(
-  //   BlogSchema,
-  //   1,
-  //   8,
-  //   {},
-  //   { createdAt: "-1" }
-  // );
-  // console.log(JSON.stringify(paginatedBlogs));
-  // const blogs = await Promise.all(
-  //   await paginatedBlogs.documents.map(async (blog: Blog) => {
-  //     const {
-  //       id,
-  //       title,
-  //       slug,
-  //       excerpt,
-  //       featuredImage,
-  //       status,
-  //       createdAt,
-  //       updatedAt,
-  //     } = blog;
-  //     return {
-  //       id,
-  //       title,
-  //       slug,
-  //       excerpt,
-  //       featuredImage,
-  //       status,
-  //       createdAt,
-  //       updatedAt,
-  //     };
-  //   })
-  // );
-  // return { blogs, pagination: paginatedBlogs.pagination };
-  return "test";
+  const query = getQuery(event);
+  // const { page, itemsPerPage, sortBy } = query;
+  const client = await serverSupabaseClient(event);
+  // const { from, to } = getPagination(page, itemsPerPage);
+
+  const { data: blogs, error } = await client
+    .from("blogs")
+    .select("*")
+    .range(0, 10)
+    .order("created_at", { ascending: false });
+
+  // console.log(blogs);
+
+  if (error) {
+    console.log(error);
+    return error;
+  }
+
+  return {
+    blogs,
+    pagination: {
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: 100,
+      totalPages: 10,
+    },
+  };
 });

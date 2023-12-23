@@ -3,7 +3,7 @@ import { Icon } from "@iconify/vue";
 import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "~/utils/tinymce";
 
-const blog = useBlogStore();
+// const blog = useBlogStore();
 // const category = useCategory();
 // const tag = useTag();
 const route = useRoute();
@@ -35,7 +35,7 @@ let postId = ref("");
 onMounted(() => {
   nextTick(async () => {
     // Call blog with slug
-    const res = await blog.getBlog(route.params.slug);
+    // const res = await blog.getBlog(route.params.slug);
     // Format categories to array and store in form
     // const categories = res.blog.categories.map((category) => {
     //   const { _id } = category;
@@ -76,7 +76,7 @@ const updateBlog = () => {
     const value = form[key];
     formData.append(key, value);
   }
-  blog.updateBlog(formData, postId.value);
+  // blog.updateBlog(formData, postId.value);
 };
 
 const searchCategories = () => {

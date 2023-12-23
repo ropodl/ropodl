@@ -4,8 +4,8 @@ import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "../../../utils/tinymce";
 import getBase64 from "~/utils/getBase64";
 
-const blog = useBlogStore();
-const supabase = useSupabaseClient();
+// const blog = useBlogStore();
+
 // const category = useCategory();
 // const tag = useTag();
 
@@ -17,58 +17,25 @@ useHead({
   title: "Add New Blog",
 });
 
-const file = shallowRef();
 const form = reactive({
   title: "",
   excerpt: "",
   content: "",
   // categories: [],
   // tags: [],
-  image: null,
+  featured_image: null,
   // visibility: "Public",
   published: false,
 });
 
-// temporary for thumbnail
-const selectFeaturedImage = async ({ target }) => {
-  const { value, files, name } = target;
-  // file.value = files[0];
-  // form.image = await getBase64(file.value);
-  // form.ima
-
-  console.log(files[0]);
-
-  const { data, error } = await supabase.storage.from("blog").upload(files[0], {
-    contentType: "image/*",
-  });
-
-  console.log(error);
-  console.log(data);
-
-  // const avatarFile = event.target.files[0]
-  // const { data, error } = await supabase
-  //   .storage
-  //   .from('avatars')
-  //   .upload('public/avatar1.png', avatarFile, {
-  //     cacheControl: '3600',
-  //     upsert: false
-  //   })
-};
-
 const addBlog = async () => {
-  const formData = new FormData();
-  for (const key in form) {
-    const value = form[key];
-    formData.append(key, value);
-  }
-  // blog.create(formData);
   const {
     data,
     error,
     pending: loading,
   } = await useFetch("/api/blog/create", {
     method: "POST",
-    body: formData,
+    body: form,
   });
 
   if (error.value) return console.log(error.value);
@@ -99,38 +66,10 @@ const addBlog = async () => {
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form="form" />
           <!-- <input type="file" @change="updateImage" /> -->
-          <v-card class="mb-3">
-            <v-card-title>Featured Image</v-card-title>
-            <v-divider></v-divider>
-            <v-card-text
-              class="d-flex align-center justify-center position-relative pa-0"
-            >
-              <template v-if="form.image !== null">
-                <v-hover v-slot="{ isHovering, props }">
-                  <v-img cover v-bind="props" :src="form.image" height="200">
-                    <v-overlay
-                      contained
-                      :model-value="isHovering"
-                      content-class="w-100 h-100 d-flex align-center justify-center"
-                      scrim="black"
-                    >
-                      <v-btn icon color="error" @click="form.image = null">
-                        <Icon icon="mdi:close" />
-                      </v-btn>
-                    </v-overlay>
-                  </v-img>
-                </v-hover>
-              </template>
-              <template v-else>
-                <input
-                  @change="selectFeaturedImage"
-                  type="file"
-                  name="image"
-                  class="py-4"
-                />
-              </template>
-            </v-card-text>
-          </v-card>
+          <LazyAdminSharedFileUpload
+            title="Upload Featured Image"
+            :form="form"
+          />
         </v-col>
       </v-row>
     </v-form>

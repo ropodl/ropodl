@@ -21,7 +21,7 @@ const {
   data: blogs,
   error,
   pending: loading,
-} = await useFetch("/api/frontend/blog", {
+} = await useLazyFetch("/api/frontend/blog", {
   params: {
     page,
     per_page: 10,
@@ -34,47 +34,65 @@ const {
     <template #title>Blogs</template>
     <v-container>
       <v-row>
-        <template v-if="blogs.length">
-          <template v-for="item in blogs">
+        <template v-if="loading">
+          <template v-for="i in 8">
             <v-col cols="12" md="3">
-              <v-hover v-slot="{ isHovering, props }">
-                <v-card
-                  v-bind="props"
-                  variant="text"
-                  color="transparent"
-                  class="h-100"
-                  @click=""
-                  :to="`/blogs/${item['slug']}`"
-                >
-                  <v-card border flat>
-                    <v-img
-                      cover
-                      class="w-100 h-100 pa-2"
-                      :aspect-ratio="16 / 9"
-                      :class="[isHovering ? 'zoom-image active' : '']"
-                      :src="item.featuredImage?.secure_url"
-                      :alt="item.featuredImage?.public_id"
-                    ></v-img>
-                  </v-card>
-                  <v-card-text class="ps-0 pb-0 text-primary">
-                    [ {{ formatTimeAgo(new Date(item["created_at"])) }} ]
-                  </v-card-text>
-                  <v-card-text
-                    class="text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
-                    style="line-height: normal; white-space: normal"
-                    v-text="item['title']"
-                  />
-                </v-card>
-              </v-hover>
+              <v-card height="160">
+                <v-skeleton-loader
+                  class="w-100 h-100"
+                  type="image"
+                ></v-skeleton-loader>
+              </v-card>
             </v-col>
           </template>
         </template>
         <template v-else>
-          <v-card border class="w-100">
-            <v-card-text
-              >Sorry, content not available at the moment.</v-card-text
+          <template v-if="blogs.length">
+            <template
+              v-for="{ slug, title, featured_image, created_at } in blogs"
             >
-          </v-card>
+              <v-col cols="12" md="3">
+                <v-hover v-slot="{ isHovering, props }">
+                  <v-card
+                    v-bind="props"
+                    variant="text"
+                    color="transparent"
+                    class="h-100"
+                    @click=""
+                    :to="`/blogs/${slug}`"
+                  >
+                    <v-card border flat>
+                      <v-img
+                        cover
+                        class="w-100 h-100 pa-2"
+                        :aspect-ratio="16 / 9"
+                        :class="[isHovering ? 'zoom-image active' : '']"
+                        :src="featured_image?.url"
+                        :alt="featured_image?.id"
+                      ></v-img>
+                    </v-card>
+                    <v-card-text class="ps-0 pb-0 text-primary">
+                      [ {{ formatTimeAgo(new Date(created_at)) }} ]
+                    </v-card-text>
+                    <v-card-text
+                      class="text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
+                      style="line-height: normal; white-space: normal"
+                      v-text="title"
+                    />
+                  </v-card>
+                </v-hover>
+              </v-col>
+            </template>
+          </template>
+          <template v-else>
+            <v-col cols="12">
+              <v-card border>
+                <v-card-text>
+                  Sorry, content not available at the moment.
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </template>
         </template>
         <!-- <template v-if="pagination?.totalPage > 1">
           <v-col cols="12" md="12">
