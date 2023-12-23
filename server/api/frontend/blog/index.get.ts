@@ -5,9 +5,11 @@ export default defineEventHandler(async (event) => {
 
   const { data, error } = await client
     .from("blogs")
-    .select("*")
-    .order("created_at", { ascending: false });
+    .select("title,slug,featured_image, created_at")
+    .order("created_at", { ascending: false })
+    .eq("status", true);
   if (error) return console.log(error);
+  console.log(data);
 
   return data;
 });

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
 const props = defineProps({
@@ -6,93 +6,82 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  // single: {
-  //   type: Boolean,
-  //   required: true,
-  //   default: true,
-  // },
   form: {
     type: Object,
     required: true,
   },
-  accept: {
-    type: String,
-    default: "image/*",
-  },
 });
 
-const dropZoneRef = ref();
-const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
+const supabase = useSupabaseClient();
+const config = useRuntimeConfig();
 
-function onDrop(files) {
-  if (props.form.file) {
-    props.form.file = "3";
-    console.log(props.form.file);
-    // return;
+const date = new Date();
+const year = date.getFullYear();
+const month = date.getMonth() + 1;
+const day = date.getDate();
+
+const loading = ref(false);
+
+const selectFeaturedImage = async ({ target }) => {
+  loading.value = true;
+  const fileName = target.files[0].name.toLowerCase().replace(/\s/g, "-");
+
+  const { data, error } = await supabase.storage
+    .from("blogs")
+    .upload(
+      `featured_image/${year}/${month}/${day}/${fileName}`,
+      target.files[0],
+      {
+        contentType: "image/*",
+      }
+    );
+  if (error) {
+    loading.value = true;
+    return console.log(error);
   }
-  if (props.form.image) {
-    props.form.image = "3";
-    // return;
-  }
-}
-
-const { files, open, reset, onChange } = useFileDialog({
-  accept: props.accept, // Set to accept only image files
-});
-
-const file = shallowRef();
-const url = useObjectUrl(file);
-
-onChange((files) => {
-  console.log(typeof props.form.file);
-  console.log(files[0]);
-  console.log(props.form.file);
-
-  if (props.form.file) {
-    props.form.file = "3";
-    console.log(props.form.file);
-    // return;
-  }
-  if (props.form.image) {
-    props.form.image = "3";
-    // return;
-  }
-});
+  props.form.featured_image = {
+    id: data.id,
+    url:
+      config.public.supabase_url + "/storage/v1/object/public/" + data.fullPath,
+  };
+  // https://wuhpdygzsumkrgmakgqr.supabase.co/storage/v1/object/public/blogs/featured_image/2023/12/24/motherboard-city.jpg
+  console.log(data);
+  loading.value = true;
+};
 </script>
 <template>
-  {{ form }}
   <v-card class="mb-3">
-    <v-card-title v-text="title"></v-card-title>
+    <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>
-    <v-hover v-slot="{ isHovering, props }">
-      <v-card-text
-        v-bind="props"
-        ref="dropZoneRef"
-        class="d-flex align-center justify-center text-center position-relative"
-        :class="[isHovering ? 'animate' : '']"
-        style="height: 200px"
-        @click="open"
-      >
-        <template v-if="isOverDropZone">
-          <v-overlay
-            contained
-            content-class="d-flex align-center justify-center w-100 h-100"
-            :model-value="isOverDropZone"
-            scrim="black"
-          >
-            Please drop the file, now.
-          </v-overlay>
-        </template>
-        <div v-else>
-          <div>
-            <v-icon size="50">
-              <Icon icon="mdi:cloud-upload" />
-            </v-icon>
-          </div>
-          <v-card-text>Drag & Drop a file here or click.</v-card-text>
-        </div>
-      </v-card-text>
-    </v-hover>
+    <v-card-text
+      class="d-flex align-center justify-center position-relative pa-0"
+    >
+      <template v-if="form.featured_image !== null">
+        <v-hover v-slot="{ isHovering, props }">
+          <v-img cover v-bind="props" :src="form.image" height="200">
+            <v-overlay
+              contained
+              :model-value="isHovering"
+              content-class="w-100 h-100 d-flex align-center justify-center"
+              scrim="black"
+            >
+              <v-btn icon color="error" @click="form.image = null">
+                <Icon icon="mdi:close" />
+              </v-btn>
+            </v-overlay>
+          </v-img>
+        </v-hover>
+      </template>
+      <template v-else>
+        <input
+          @change="selectFeaturedImage"
+          type="file"
+          name="image"
+          class="py-4"
+        />
+      </template>
+    </v-card-text>
   </v-card>
 </template>
-<style lang="scss"></style>
+
+<style></style>

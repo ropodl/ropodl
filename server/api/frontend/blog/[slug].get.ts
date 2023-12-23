@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
 
   const client = await serverSupabaseClient(event);
 
-  const { data: blogs, error } = await client
+  const { data: blog, error } = await client
     .from("blogs")
     .select()
     .eq("slug", slug)
@@ -12,6 +12,6 @@ export default defineEventHandler(async (event) => {
 
   if (error) return console.log("error" + error.message);
 
-  console.log(blogs);
-  return blogs;
+  console.log(blog);
+  return blog;
 });

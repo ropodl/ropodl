@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
-// const blog = useBlogStore();
-// const { headers, pagination } = storeToRefs(blog);
-
-const supabase = useSupabaseClient();
-
 definePageMeta({
   layout: "admin",
 });
@@ -15,19 +10,51 @@ useHead({
 });
 
 const loading = ref(true);
-// Table item select / delete
 const selected = ref([]);
-// const deleteBulk = () => {
-//   blog.removeBulk(selected.value);
-//   selected.value = [];
-// };
+const blogs = ref([]);
+const pagination = ref({
+  itemsPerPage: 10,
+  currentPage: 1,
+  totalItems: 100,
+  totalPages: 10,
+});
+
+const headers = [
+  {
+    title: "Image",
+    key: "image",
+  },
+  {
+    title: "Title",
+    key: "title",
+  },
+  {
+    title: "Email",
+    key: "email",
+  },
+  {
+    title: "Actions",
+    key: "actions",
+  },
+];
+const deleteBulk = () => {
+  //   blog.removeBulk(selected.value);
+  selected.value = [];
+};
 // server side table
 const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
   // await blog.getAllBlogs(page, itemsPerPage);
+  const { data, error } = await useFetch("/api/blog", {
+    params: {
+      page,
+      itemsPerPage,
+      sortBy,
+    },
+  });
+  blogs.value = data.value?.blogs;
   loading.value = false;
 };
-const { data: blogs, error } = await supabase.from("blogs").select("*");
 </script>
 <template>
   <v-container>

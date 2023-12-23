@@ -8,17 +8,18 @@ const {
 } = route;
 
 const {
-  data: post,
+  data: blog,
   error,
   pending: loading,
 } = await useFetch(`/api/frontend/blog/${slug}`);
-const { id, title, excerpt, content, status, created_at } = post.value;
+const { id, featured_image, title, excerpt, content, status, created_at } =
+  blog.value;
 
-console.log(post);
+console.log(blog);
 
 await defineOgImageComponent("Main", {
-  title: post.value.title,
-  description: post.value.excerpt,
+  title: blog.value.title,
+  description: blog.value.excerpt,
 });
 
 // await useSeoMeta({
@@ -35,13 +36,13 @@ await defineOgImageComponent("Main", {
       cover
       class="d-flex align-end rounded-0 border border-t-0 border-e-0 border-s-0"
       height="600"
-      :src="featuredImage?.secure_url"
+      :src="featured_image?.url"
     >
       <v-container>
         <v-row>
           <v-col cols="12">
             <v-card-title
-              class="text-h2"
+              class="text-h2 pl-0"
               style="white-space: unset !important"
               >{{ title }}</v-card-title
             >

@@ -38,7 +38,6 @@ const html = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-
       </NuxtLayout>
       <LazyLayoutOfflineBanner v-if="!isOnline" />
       <LazyLayoutGoTop v-if="!route.fullPath.includes('/admin/')" />
-      <LazyLayoutSnackbar />
     </v-app>
   </div>
 </template>

@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   experimental: {
+    reactivityTransform: true,
     viewTransition: true,
     componentIslands: true,
   },
@@ -26,10 +27,9 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-og-image",
-    // "nuxt-auth-utils",
+    // "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
-    // "nuxt-capo",
     "@nuxtjs/supabase",
   ],
   imports: {
@@ -65,9 +65,6 @@ export default defineNuxtConfig({
         "/portfolio/*",
       ],
     },
-  },
-  piniaPersistedstate: {
-    storage: "localStorage",
   },
   vuetify: {
     vuetifyOptions: {
@@ -107,19 +104,6 @@ export default defineNuxtConfig({
     defaults: {},
     exclude: ["/_nuxt/**", "/admin/**", "/login", "/api/**"],
   },
-  mail: {
-    message: {
-      to: process.env.SMTP_USER,
-    },
-    smtp: {
-      host: "smtp.gmail.com",
-      port: 587,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    },
-  },
   pwa: {
     registerType: "autoUpdate",
     workbox: {
@@ -149,7 +133,11 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
   },
-  runtimeConfig: {},
+  runtimeConfig: {
+    public: {
+      supabase_url: process.env.SUPABASE_URL,
+    },
+  },
   // nuxt security
   security: {
     headers: {

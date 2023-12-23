@@ -1,13 +1,14 @@
 import { serverSupabaseClient } from "#supabase/server";
 import slugify from "slugify";
-import objectify from "~/server/utils/objectify";
 
 export default defineEventHandler(async (event) => {
-  const form = <FormData>await readFormData(event);
+  const form = <FormData>await readBody(event);
   const client = <any>await serverSupabaseClient(event);
   console.log(form);
 
-  const { title, content, image, status, excerpt } = await objectify(form);
+  const { title, content, featured_image, status, excerpt } = form;
+
+  console.log(featured_image);
 
   const slug = await slugify(title, {
     lower: true,
@@ -21,6 +22,7 @@ export default defineEventHandler(async (event) => {
       slug,
       content,
       excerpt,
+      featured_image,
       status,
     })
     .select()

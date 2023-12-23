@@ -34,9 +34,10 @@ const form = reactive({
   message: "",
 });
 
-const snackbar = <any>reactive({
+const snackbar = reactive({
   show: false,
   text: "",
+  color: "",
 });
 
 const rules = {
@@ -65,13 +66,6 @@ const rules = {
   ],
 };
 
-const contacts = [
-  {
-    icon: "mdi:email",
-    title: "sarox14@gmail.com",
-  },
-];
-
 const submitForm = async (): Promise<void> => {
   loading.value = true;
   const { valid } = await contactForm.value.validate();
@@ -83,14 +77,19 @@ const submitForm = async (): Promise<void> => {
     });
     if (error.value) {
       loading.value = false;
+      snackbar.text = "Error Occurred";
+      snackbar.color = "error";
+      snackbar.show = true;
       return console.log(error.value);
     }
     form.name = "";
     form.email = "";
     form.message = "";
+
     nextTick(async () => {
-      snackbar["text"] = data.value?.message;
-      snackbar["show"] = true;
+      snackbar.text = "Message Sent";
+      snackbar.color = "success";
+      snackbar.show = true;
       await contactForm.value.resetValidation();
       loading.value = false;
     });
@@ -145,9 +144,9 @@ const submitForm = async (): Promise<void> => {
           >
             <v-text-field
               flat
+              :rules="rules['firstNameRules']"
               variant="solo-filled"
               v-model="form['name']"
-              :rules="rules['firstNameRules']"
               bg-color="transparent"
               placeholder="What's your name?"
               :loading="loading"
@@ -155,9 +154,9 @@ const submitForm = async (): Promise<void> => {
             ></v-text-field>
             <v-text-field
               flat
+              :rules="rules['emailRules']"
               variant="solo-filled"
               v-model="form['email']"
-              :rules="rules['emailRules']"
               bg-color="transparent"
               placeholder="Your fancy email"
               :loading="loading"
@@ -165,9 +164,9 @@ const submitForm = async (): Promise<void> => {
             ></v-text-field>
             <v-textarea
               flat
+              :rules="rules['messageRules']"
               variant="solo-filled"
               v-model="form['message']"
-              :rules="rules['messageRules']"
               bg-color="transparent"
               :loading="loading"
               :disabled="loading"
@@ -206,23 +205,31 @@ const submitForm = async (): Promise<void> => {
     </v-container>
     <v-snackbar
       dense
-      elevation="0"
-      rounded="lg"
-      :model-value="snackbar.show"
+      rounded="pill"
       theme="light"
-      color="bg-surface"
+      v-model="snackbar.show"
+      :color="snackbar.color"
+      class="global-snackbar"
     >
       {{ snackbar.text }}
       <template v-slot:actions>
         <v-btn
-          class="text-capitalize px-4"
-          color="teal"
+          icon
           variant="tonal"
+          theme="dark"
+          color="white"
           @click="snackbar.show = false"
         >
-          Close
+          <v-icon>
+            <Icon icon="mdi:close" />
+          </v-icon>
         </v-btn>
       </template>
     </v-snackbar>
   </NuxtLayout>
 </template>
+<style>
+.global-snackbar .v-snackbar__actions {
+  margin: 0 !important;
+}
+</style>
