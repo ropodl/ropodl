@@ -69,7 +69,14 @@ const {
                         :class="[isHovering ? 'zoom-image active' : '']"
                         :src="featured_image?.url"
                         :alt="featured_image?.id"
-                      ></v-img>
+                      >
+                        <template v-slot:placeholder>
+                          <v-skeleton-loader
+                            class="h-100 w-100"
+                            type="image"
+                          ></v-skeleton-loader>
+                        </template>
+                      </v-img>
                     </v-card>
                     <v-card-text class="ps-0 pb-0 text-primary">
                       [ {{ formatTimeAgo(new Date(created_at)) }} ]
