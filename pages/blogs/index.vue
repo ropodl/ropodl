@@ -71,10 +71,14 @@ const {
                         :alt="featured_image?.id"
                       >
                         <template v-slot:placeholder>
-                          <v-skeleton-loader
-                            class="h-100 w-100"
-                            type="image"
-                          ></v-skeleton-loader>
+                          <div
+                            class="d-flex align-center justify-center fill-height"
+                          >
+                            <v-skeleton-loader
+                              class="w-100 h-100"
+                              type="image"
+                            ></v-skeleton-loader>
+                          </div>
                         </template>
                       </v-img>
                     </v-card>
