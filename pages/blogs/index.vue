@@ -35,8 +35,8 @@ const {
     <v-container>
       <v-row>
         <template v-if="loading">
-          <template v-for="i in 8">
-            <v-col cols="12" md="3">
+          <template v-for="i in 6">
+            <v-col cols="12" md="4">
               <v-card height="160">
                 <v-skeleton-loader
                   class="w-100 h-100"
@@ -51,7 +51,7 @@ const {
             <template
               v-for="{ slug, title, featured_image, created_at } in blogs"
             >
-              <v-col cols="12" md="3">
+              <v-col cols="12" md="4">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-card
                     v-bind="props"
