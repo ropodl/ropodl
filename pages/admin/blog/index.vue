@@ -23,18 +23,16 @@ const headers = [
   {
     title: "Image",
     key: "image",
+    width: 0,
   },
   {
     title: "Title",
     key: "title",
   },
   {
-    title: "Email",
-    key: "email",
-  },
-  {
     title: "Actions",
     key: "actions",
+    width: 150,
   },
 ];
 const deleteBulk = () => {
@@ -44,7 +42,6 @@ const deleteBulk = () => {
 // server side table
 const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  // await blog.getAllBlogs(page, itemsPerPage);
   const { data, error } = await useFetch("/api/blog", {
     params: {
       page,
@@ -110,13 +107,13 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                   width="160"
                   class="border rounded-lg"
                   :aspect-ratio="16 / 9"
-                  :src="item.featuredImage?.secure_url"
+                  :src="item.featured_image?.url"
                 ></v-img>
               </div>
             </template>
             <template v-slot:item.title="{ item }">
               <v-list lines="three">
-                <v-list-item>
+                <v-list-item class="pl-0">
                   <v-list-item-title class="font-weight-bold">{{
                     item.title
                   }}</v-list-item-title>
