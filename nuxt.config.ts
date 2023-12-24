@@ -22,7 +22,6 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
-    // "nuxt-mongoose",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
@@ -32,9 +31,6 @@ export default defineNuxtConfig({
     "nuxt-gtag",
     "@nuxtjs/supabase",
   ],
-  imports: {
-    // dirs: ["stores", "stores/frontend"],
-  },
   googleFonts: {
     families: {
       Roboto: {

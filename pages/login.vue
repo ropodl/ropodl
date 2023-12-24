@@ -22,21 +22,21 @@ const signIn = async () => {
   <v-container class="h-100" style="margin-top: 64px">
     <v-row align="center" justify="center" class="h-100">
       <v-col cols="4">
-        {{ form.password }}
         <v-card>
           <v-card-title class="text-center">Sign In With Email</v-card-title>
           <v-form @submit.prevent="signIn">
-            <v-card-text>
+            <v-card-text class="pb-0">
               <v-text-field
                 v-model="form.email"
                 placeholder="Enter Email Address"
               ></v-text-field>
               <v-text-field
+                type="password"
                 v-model="form.password"
                 placeholder="Enter Password"
               ></v-text-field>
             </v-card-text>
-            <v-btn block type="submit">Submit</v-btn>
+            <v-btn block height="50" type="submit">Submit</v-btn>
           </v-form>
         </v-card>
       </v-col>
