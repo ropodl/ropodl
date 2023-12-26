@@ -15,8 +15,8 @@ const blogs = ref([]);
 const pagination = ref({
   itemsPerPage: 10,
   currentPage: 1,
-  totalItems: 100,
-  totalPages: 10,
+  totalItems: 1,
+  totalPages: 1,
 });
 
 const headers = [
@@ -49,8 +49,16 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
       sortBy,
     },
   });
+  if (error.value) {
+    loading.value = false;
+    return console.log(error.value);
+  }
   blogs.value = data.value?.blogs;
   loading.value = false;
+};
+
+const removeId = (id) => {
+  console.log(id);
 };
 </script>
 <template>
@@ -123,27 +131,6 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                 </v-list-item>
               </v-list>
             </template>
-            <!-- <template v-slot:item.categories="{ item }">
-              <v-chip
-                v-for="(cat, i) in item.categories"
-                rounded="sm"
-                size="large"
-                :class="[i + 1 != item.categories.length ? 'mr-2' : '']"
-              >
-                {{ cat.title }}
-              </v-chip>
-            </template> -->
-            <!-- <template v-slot:item.tags="{ item }">
-              <template v-for="(tag, i) in item.tags">
-                <v-chip
-                  rounded="sm"
-                  size="large"
-                  :class="[i + 1 != item.tags.length ? 'mr-2' : '']"
-                >
-                  {{ tag.title }}
-                </v-chip>
-              </template>
-            </template> -->
             <template v-slot:item.actions="{ item }">
               <v-btn
                 icon
@@ -160,7 +147,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               <AdminSharedDelete
                 type="Blog"
                 :title="item.title"
-                @delete-action="blog.remove(item.id)"
+                @delete-action="removeId(item.id)"
               />
             </template>
           </v-data-table-server>

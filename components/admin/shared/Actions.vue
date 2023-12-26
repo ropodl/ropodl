@@ -8,11 +8,11 @@ defineProps({
 </script>
 <template>
   <v-card class="mb-3">
-    {{ JSON.stringify(form) }}
     <v-card-title>Actions</v-card-title>
     <v-divider></v-divider>
-    <v-card-text class="font-weight-bold">
-      Status: {{ form.published ? "Published" : "Draft" }}
+    <v-card-text>
+      <span class="font-weight-bold">Status:&nbsp;</span
+      >{{ form.status ? "Published" : "Draft" }}
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
@@ -37,5 +37,3 @@ defineProps({
     </v-card-actions>
   </v-card>
 </template>
-
-<style></style>

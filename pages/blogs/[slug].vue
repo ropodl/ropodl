@@ -17,18 +17,18 @@ const { id, featured_image, title, excerpt, content, status, created_at } =
 
 console.log(blog);
 
-await defineOgImageComponent("Main", {
+defineOgImageComponent("Main", {
   title: blog.value.title,
   description: blog.value.excerpt,
 });
 
-// await useSeoMeta({
-//   title: post.value.title,
-//   ogTitle: post.value.title,
-//   description: post.value.excerpt,
-//   ogDescription: post.value.excerpt,
-//   twitterCard: "summary_large_image",
-// });
+useSeoMeta({
+  title: blog.value.title,
+  ogTitle: blog.value.title,
+  description: blog.value.excerpt,
+  ogDescription: blog.value.excerpt,
+  twitterCard: "summary_large_image",
+});
 </script>
 <template>
   <v-skeleton-loader :loading="loading" width="100%" height="600" type="image">
