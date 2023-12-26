@@ -37,7 +37,7 @@ const {
         <template v-if="loading">
           <template v-for="i in 6">
             <v-col cols="12" md="4">
-              <v-card height="160">
+              <v-card height="260">
                 <v-skeleton-loader
                   class="w-100 h-100"
                   type="image"

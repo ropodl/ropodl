@@ -1,14 +1,16 @@
-// import { isValidObjectId } from "../../utils/mongoose";
+import { serverSupabaseClient } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
+  const client = await serverSupabaseClient(event);
+
   const id = <string>getRouterParam(event, "id");
 
-  // if (!isValidObjectId(id))
-  //   return createError({ statusCode: 404, statusMessage: "Blog ID not valid" });
+  const { data, error } = await client
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) return console.log(error);
 
-  // const blog = await BlogSchema.findById(id);
-  // if (!blog)
-  //   return createError({ statusCode: 404, statusMessage: "Blog not found" });
-
-  return id;
+  return data;
 });

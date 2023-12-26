@@ -10,6 +10,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  bucket: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
 });
 
 const supabase = useSupabaseClient();
@@ -21,32 +29,37 @@ const month = date.getMonth() + 1;
 const day = date.getDate();
 
 const loading = ref(false);
+const errors = ref("");
 
 const selectFeaturedImage = async ({ target }) => {
   loading.value = true;
   const fileName = target.files[0].name.toLowerCase().replace(/\s/g, "-");
-
-  const { data, error } = await supabase.storage
-    .from("blogs")
-    .upload(
-      `featured_image/${year}/${month}/${day}/${fileName}`,
-      target.files[0],
-      {
-        contentType: "image/*",
-      }
-    );
-  if (error) {
+  try {
+    const { data, error } = await supabase.storage
+      .from(props.bucket)
+      .upload(
+        `${props.type}/${year}/${month}/${day}/${fileName}`,
+        target.files[0],
+        {
+          contentType: "image/*",
+        }
+      );
+    if (error.value) {
+      loading.value = false;
+      errors.value = error.value;
+      return console.log(error);
+    }
+    const { id, fullPath } = data;
+    props.form.featured_image = {
+      id,
+      url: config.public.supabase_url + "/storage/v1/object/public/" + fullPath,
+    };
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  } finally {
     loading.value = true;
-    return console.log(error);
   }
-  props.form.featured_image = {
-    id: data.id,
-    url:
-      config.public.supabase_url + "/storage/v1/object/public/" + data.fullPath,
-  };
-  // https://wuhpdygzsumkrgmakgqr.supabase.co/storage/v1/object/public/blogs/featured_image/2023/12/24/motherboard-city.jpg
-  console.log(data);
-  loading.value = true;
 };
 </script>
 <template>
@@ -56,7 +69,7 @@ const selectFeaturedImage = async ({ target }) => {
     <v-card-text
       class="d-flex align-center justify-center position-relative pa-0"
     >
-      <template v-if="form.featured_image !== null">
+      <template v-if="form.featured_image != null">
         <v-hover v-slot="{ isHovering, props }">
           <v-img cover v-bind="props" :src="form.image" height="200">
             <v-overlay
@@ -81,7 +94,9 @@ const selectFeaturedImage = async ({ target }) => {
         />
       </template>
     </v-card-text>
+    <!-- <template v-if="error"> -->
+    <v-divider></v-divider>
+    <v-card-text>{{ errors.message }}</v-card-text>
+    <!-- </template> -->
   </v-card>
 </template>
-
-<style></style>

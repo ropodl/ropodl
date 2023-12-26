@@ -95,6 +95,7 @@ export default defineNuxtConfig({
       },
     },
   },
+  site: { url: "https://ropodl.vercel.app" },
   sitemap: {
     sitemapName: "sitemap.xml",
     defaults: {},
@@ -130,6 +131,7 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    tinymce_key: process.env.TINYMCE_KEY,
     public: {
       supabase_url: process.env.SUPABASE_URL,
     },

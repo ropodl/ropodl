@@ -2,12 +2,6 @@
 import { Icon } from "@iconify/vue";
 import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "../../../utils/tinymce";
-import getBase64 from "~/utils/getBase64";
-
-// const blog = useBlogStore();
-
-// const category = useCategory();
-// const tag = useTag();
 
 definePageMeta({
   layout: "admin",
@@ -21,11 +15,8 @@ const form = reactive({
   title: "",
   excerpt: "",
   content: "",
-  // categories: [],
-  // tags: [],
   featured_image: null,
-  // visibility: "Public",
-  published: false,
+  status: false,
 });
 
 const addBlog = async () => {
@@ -66,9 +57,11 @@ const addBlog = async () => {
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form="form" />
           <!-- <input type="file" @change="updateImage" /> -->
-          <LazyAdminSharedFileUpload
+          <LazyAdminSharedImageUpload
             title="Upload Featured Image"
             :form="form"
+            bucket="blogs"
+            type="featured_image"
           />
         </v-col>
       </v-row>
