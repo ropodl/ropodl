@@ -13,7 +13,6 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   experimental: {
-    reactivityTransform: true,
     viewTransition: true,
     componentIslands: true,
   },

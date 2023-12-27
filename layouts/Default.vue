@@ -3,5 +3,5 @@
   <v-main>
     <slot />
   </v-main>
-  <LazyLayoutFooter />
+  <LayoutFooter />
 </template>
