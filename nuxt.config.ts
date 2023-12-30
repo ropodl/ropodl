@@ -29,7 +29,7 @@ export default defineNuxtConfig({
     // "nuxt-security",
     "nuxt-gtag",
     "@nuxtjs/supabase",
-    "nuxt-link-checker",
+    // "nuxt-link-checker",
   ],
   googleFonts: {
     families: {

@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
 
   const { data, error } = await client
     .from("portfolios")
-    .select("title,featured_image,created_at")
+    .select("id,title,featured_image,created_at")
     .order("created_at", { ascending: false })
     .eq("status", true);
   if (error) return console.log(error);
