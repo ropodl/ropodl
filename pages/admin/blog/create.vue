@@ -15,7 +15,10 @@ const form = reactive({
   title: "",
   excerpt: "",
   content: "",
-  featured_image: null,
+  featured_image: {
+    id: "",
+    url: "",
+  },
   status: false,
 });
 
