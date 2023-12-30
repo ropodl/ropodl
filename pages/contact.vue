@@ -134,8 +134,9 @@ const submitForm = async (): Promise<void> => {
           </ul>
         </v-col>
         <v-col cols="12" md="5">
-          <div class="text-h4 font-weight-bold">Estimate your project?</div>
-          <div class="text-h4 font-weight-bold mb-6">Let me know here.</div>
+          <div class="text-h5 font-weight-bold mb-6">
+            Estimate your project? Let me know here.
+          </div>
           <v-form
             fast-fail
             lazy-validation

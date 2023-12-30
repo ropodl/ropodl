@@ -19,23 +19,35 @@ const form = reactive({
   title: "",
   excerpt: "",
   content: "",
-  featured_image: null,
+  featured_image: {
+    id: "",
+    url: "",
+  },
   status: false,
 });
 
-try {
-  const { data, error } = await useFetch("/api/blog/" + id);
-  if (error.value) throw error;
-  const { title, excerpt, content, featured_image, status } = data;
-  console.log(data);
-  form.title = title;
-  form.excerpt = excerpt;
-  form.content = content;
-  form.featured_image.url = featured_image.url;
-  form.status = status;
-} catch (error) {
-  console.log(error);
-}
+await useFetch("/api/blog/" + id, {
+  onResponse({ response }) {
+    console.log("on Response");
+    console.log(response);
+    const { title, excerpt, content, featured_image, status } = response._data;
+    console.log(featured_image.url);
+    form.title = title;
+    form.excerpt = excerpt;
+    form.content = content;
+    form.featured_image.url = featured_image.url;
+    form.featured_image.id = featured_image.id;
+    form.status = status;
+  },
+  onResponseError({ response }) {
+    console.log(response._error);
+  },
+});
+// if (error.value) throw error;
+// try {
+// } catch (error) {
+//   console.log(error);
+// }
 
 const updateBlog = async () => {
   const {
@@ -66,7 +78,7 @@ const updateBlog = async () => {
               <Editor
                 v-model="form.content"
                 placeholder="Blog Content"
-                :api-key="config.tinymce_key"
+                :api-key="config.public.tinymce_key"
                 :init="tinymceConfig"
               />
             </client-only>

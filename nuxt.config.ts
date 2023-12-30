@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     // "nuxt-security",
     "nuxt-gtag",
     "@nuxtjs/supabase",
+    "nuxt-link-checker",
   ],
   googleFonts: {
     families: {
@@ -130,8 +131,8 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    tinymce_key: process.env.TINYMCE_KEY,
     public: {
+      tinymce_key: process.env.TINYMCE_KEY,
       supabase_url: process.env.SUPABASE_URL,
     },
   },

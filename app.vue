@@ -5,7 +5,7 @@ const { isOnline } = useNetwork();
 
 const route = useRoute();
 
-const html = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-image: radial-gradient(circle, #fff, transparent);">
+const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-image: radial-gradient(circle, #fff, transparent);">
       <svg aria-hidden="true" class="position-absolute w-100 h-100">
         <defs>
           <pattern
@@ -29,8 +29,8 @@ const html = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-
     <SpeedInsights />
     <VitePwaManifest />
     <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
-    <template v-if="!route.fullPath.includes('/admin/')">
-      <div v-html="html"></div>
+    <template v-if="!route.fullPath.includes('/admin')">
+      <div v-html="bgPattern"></div>
     </template>
     <v-app>
       <NuxtLayout>

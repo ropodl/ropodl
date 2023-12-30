@@ -23,7 +23,7 @@ const navitems = reactive([
     icon: "mdi:image",
     title: "Portfolio",
     subitems: [
-      { title: "All Blogs", routes: "/admin/portfolio" },
+      { title: "All Portfolio", routes: "/admin/portfolio" },
       { title: "Add New", routes: "/admin/portfolio/create" },
       { title: "Work Type", routes: "/admin/portfolio/type" },
     ],
