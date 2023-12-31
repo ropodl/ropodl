@@ -155,6 +155,9 @@ const works = [
     },
   },
 ];
+
+const { data: portfolios, error } = await useFetch("/api/frontend/portfolio");
+console.log(portfolios);
 </script>
 <template>
   <NuxtLayout name="page-title">

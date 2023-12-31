@@ -17,11 +17,11 @@
     "nuxt": "^3.9.0",
     "nuxt-capo": "^0.1.0",
     "nuxt-delay-hydration": "latest",
-    "nuxt-link-checker": "^2.1.11",
-    "nuxt-og-image": "^3.0.0-rc.12",
+    "nuxt-link-checker": "^3.0.0-rc.2",
+    "nuxt-og-image": "^3.0.0-rc.13",
     "nuxt-payload-analyzer": "latest",
     "nuxt-security": "^1.0.0",
-    "nuxt-simple-sitemap": "^4.2.1",
+    "nuxt-simple-sitemap": "^4.2.3",
     "sass": "^1.69.6"
   },
   "dependencies": {
