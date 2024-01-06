@@ -58,7 +58,6 @@ const {
                     variant="text"
                     color="transparent"
                     class="h-100"
-                    @click=""
                     :to="`/blogs/${slug}`"
                   >
                     <v-card border flat>
