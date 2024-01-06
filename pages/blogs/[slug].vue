@@ -7,20 +7,14 @@ const route = useRoute();
 const {
   params: { slug },
 } = route;
-// const blog = ref({});
 
 const {
   data: blog,
   error,
   pending: loading,
 } = await useFetch(`/api/frontend/blog/${slug}`);
-console.log("error" + error.value);
 if (error.value !== null) navigateTo("404");
-// onMounted(() => {
-//   execute();
-//   nextTick(() => {
-//   });
-// });
+
 useSeoMeta({
   title: blog.value.title,
   ogTitle: blog.value.title,
@@ -54,17 +48,27 @@ defineOgImage({
       height="600"
       :src="blog.featured_image?.url"
     >
-      <v-container v-if="blog.title">
-        <v-row>
-          <v-col cols="12">
-            <v-card-title
-              class="text-h2 pl-0"
-              style="white-space: unset !important"
-              >{{ blog.title }}</v-card-title
-            >
-          </v-col>
-        </v-row>
-      </v-container>
+      <v-overlay
+        contained
+        persistent
+        scrim="black"
+        :model-value="true"
+        class="align-end"
+        content-class="w-100"
+        no-click-animation
+      >
+        <v-container v-if="blog.title">
+          <v-row>
+            <v-col cols="12">
+              <v-card-title
+                class="text-h2 pl-0"
+                style="white-space: unset !important"
+                >{{ blog.title }}</v-card-title
+              >
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-overlay>
     </v-img>
   </v-skeleton-loader>
   <v-container>
@@ -79,17 +83,18 @@ defineOgImage({
       <v-col cols="12" md="3">
         <v-card flat color="transparent">
           <v-card-text class="px-0 text-overline">
-            Published at: {{ formatTimeAgo(new Date(blog.created_at)) }}
+            Published {{ formatTimeAgo(new Date(blog.created_at)) }}
           </v-card-text>
         </v-card>
         <v-divider></v-divider>
         <v-card flat color="transparent">
-          <v-card-title class="px-0"> Share on Social Media </v-card-title>
+          <v-card-title class="px-0">Share on Social Media</v-card-title>
           <v-card-text class="px-0">
-            <v-row>
+            <v-row dense>
               <v-col cols="3">
                 <v-btn
                   icon
+                  block
                   rounded="lg"
                   variant="tonal"
                   class="st-custom-button"
@@ -101,7 +106,13 @@ defineOgImage({
                 </v-btn>
               </v-col>
               <v-col cols="3">
-                <v-btn icon rounded="lg" variant="tonal" data-network="twitter">
+                <v-btn
+                  icon
+                  block
+                  rounded="lg"
+                  variant="tonal"
+                  data-network="twitter"
+                >
                   <v-icon>
                     <Icon icon="fa6-brands:x-twitter" />
                   </v-icon>
@@ -123,7 +134,7 @@ defineOgImage({
         <v-divider></v-divider>
         <v-card flat color="transparent">
           <v-card-text class="text-overline" style="white-space: normal"
-            >Published at:
+            >Published
             {{ formatTimeAgo(new Date(blog.created_at)) }}</v-card-text
           >
         </v-card>
