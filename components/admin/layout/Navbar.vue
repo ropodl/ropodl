@@ -39,6 +39,7 @@ const navitems = reactive([
   <v-app-bar
     border
     height="50"
+    elevation="0"
     style="border-top: 0; border-left: 0; border-right: 0"
   >
     <v-container fluid class>

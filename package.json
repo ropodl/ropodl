@@ -14,15 +14,15 @@
     "@nuxtjs/supabase": "^1.1.5",
     "@vite-pwa/nuxt": "^0.4.0",
     "@vueuse/nuxt": "^10.7.1",
-    "nuxt": "^3.9.0",
+    "nuxt": "^3.9.1",
     "nuxt-capo": "^0.1.0",
     "nuxt-delay-hydration": "latest",
-    "nuxt-link-checker": "^3.0.0-rc.2",
-    "nuxt-og-image": "^3.0.0-rc.13",
+    "nuxt-link-checker": "^3.0.0-rc.3",
+    "nuxt-og-image": "^3.0.0-rc.21",
     "nuxt-payload-analyzer": "latest",
     "nuxt-security": "^1.0.0",
-    "nuxt-simple-sitemap": "^4.2.3",
-    "sass": "^1.69.6"
+    "nuxt-simple-sitemap": "^4.4.1",
+    "sass": "^1.69.7"
   },
   "dependencies": {
     "@google-analytics/data": "^4.3.0",
