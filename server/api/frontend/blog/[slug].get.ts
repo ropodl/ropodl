@@ -10,7 +10,12 @@ export default defineEventHandler(async (event) => {
     .eq("slug", slug)
     .single();
 
-  if (error) return console.log("error" + error.message);
+  if (error) {
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
 
   console.log(blog);
   return blog;
