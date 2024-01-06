@@ -15,6 +15,7 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     componentIslands: true,
+    payloadExtraction: true,
   },
   modules: [
     "@vueuse/nuxt",
@@ -137,11 +138,11 @@ export default defineNuxtConfig({
     },
   },
   // nuxt security
-  security: {
-    headers: {
-      contentSecurityPolicy: {
-        "img-src": ["'self'", "https://avatars.githubusercontent.com"],
-      },
-    },
-  },
+  // security: {
+  //   headers: {
+  //     contentSecurityPolicy: {
+  //       "img-src": ["'self'", "https://avatars.githubusercontent.com"],
+  //     },
+  //   },
+  // },
 });

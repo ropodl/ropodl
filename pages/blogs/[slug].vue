@@ -7,31 +7,26 @@ const route = useRoute();
 const {
   params: { slug },
 } = route;
-const blog = ref({});
+// const blog = ref({});
 
 const {
-  data,
+  data: blog,
   error,
   pending: loading,
-  execute,
-} = await useFetch(`/api/frontend/blog/${slug}`, {
-  immediate: false,
-  onResponse({ response }) {
-    console.log(response);
-    blog.value = response._data;
-  },
-  onResponseError({ response }) {
-    throw error(response);
-  },
-});
-
-onMounted(() => {
-  execute();
-});
-
-defineOgImageComponent("Main", {
+} = await useFetch(`/api/frontend/blog/${slug}`);
+console.log("error" + error.value);
+if (error.value !== null) navigateTo("404");
+// onMounted(() => {
+//   execute();
+//   nextTick(() => {
+//   });
+// });
+useSeoMeta({
   title: blog.value.title,
+  ogTitle: blog.value.title,
   description: blog.value.excerpt,
+  ogDescription: blog.value.excerpt,
+  twitterCard: "summary_large_image",
 });
 
 useHead({
@@ -43,12 +38,12 @@ useHead({
   ],
 });
 
-useSeoMeta({
-  title: blog.value.title,
-  ogTitle: blog.value.title,
-  description: blog.value.excerpt,
-  ogDescription: blog.value.excerpt,
-  twitterCard: "summary_large_image",
+defineOgImage({
+  component: "Main",
+  headline: "Blogs",
+  title: blog.value?.title,
+  description: blog.value?.excerpt,
+  componentOptions: { global: true },
 });
 </script>
 <template>
