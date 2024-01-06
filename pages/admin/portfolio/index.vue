@@ -9,10 +9,10 @@ useHead({
   title: "All Portfolio",
 });
 
-const loading = ref(true);
-const selected = ref([]);
-const portfolios = ref([]);
-const pagination = ref({
+const loading = <any>ref(true);
+const selected = <any>ref([]);
+const portfolios = <any>ref([]);
+const pagination = <any>ref({
   itemsPerPage: 10,
   currentPage: 1,
   totalItems: 1,
@@ -21,18 +21,21 @@ const pagination = ref({
 
 const headers = [
   {
-    title: "Image",
+    title: "Featured Image",
     key: "image",
     width: 0,
+    align: "center",
   },
   {
     title: "Title",
     key: "title",
+    align: "start",
   },
   {
     title: "Actions",
     key: "actions",
     width: 150,
+    align: "center",
   },
 ];
 const deleteBulk = () => {
@@ -53,11 +56,11 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
     loading.value = false;
     return console.log(error.value);
   }
-  portfolios.value = data.value?.portfolios;
+  portfolios.value = data.value;
   loading.value = false;
 };
 
-const removeId = (id) => {
+const removeId = (id: any) => {
   console.log(id);
 };
 </script>
@@ -87,23 +90,24 @@ const removeId = (id) => {
             variant="tonal"
             height="50"
             class="text-capitalize px-10"
-            to="/admin/blog/create"
+            to="/admin/portfolio/create"
           >
-            Add new Blog
+            Add new Portfolio
           </v-btn>
         </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
+        {{ portfolios }}
         <v-card border rounded="lg">
           <v-data-table-server
-            show-select
             v-model="selected"
+            show-select
+            :headers
+            :loading
             :items-per-page="pagination.itemsPerPage"
-            :headers="headers"
             :items="portfolios"
-            :loading="loading"
             :items-length="pagination.totalItems"
             item-value="id"
             @update:options="loadBlogs"
@@ -122,9 +126,12 @@ const removeId = (id) => {
             <template v-slot:item.title="{ item }">
               <v-list lines="three">
                 <v-list-item class="pl-0">
-                  <v-list-item-title class="font-weight-bold">{{
-                    item.title
-                  }}</v-list-item-title>
+                  <v-list-item-title class="font-weight-bold">
+                    <template v-if="item.status === false">
+                      <span class="text-warning">Draft - </span>
+                    </template>
+                    {{ item.title }}
+                  </v-list-item-title>
                   <v-list-item-subtitle>{{
                     item.excerpt
                   }}</v-list-item-subtitle>
@@ -138,7 +145,7 @@ const removeId = (id) => {
                 rounded="lg"
                 variant="tonal"
                 class="mr-2"
-                :to="`/admin/blog/${item.id}`"
+                :to="`/admin/portfolio/${item.id}`"
               >
                 <v-icon>
                   <Icon icon="mdi:pencil" />

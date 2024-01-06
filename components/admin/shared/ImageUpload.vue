@@ -66,19 +66,25 @@ const selectFeaturedImage = async ({ target }) => {
   <v-card class="mb-3">
     <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>
+    {{ props }}
     <v-card-text
       class="d-flex align-center justify-center position-relative pa-0"
     >
-      <template v-if="form.featured_image != null">
+      <template v-if="form.featured_image.url != null">
         <v-hover v-slot="{ isHovering, props }">
-          <v-img cover v-bind="props" :src="form.image" height="200">
+          <v-img
+            cover
+            v-bind="props"
+            :src="form.featured_image?.url"
+            height="200"
+          >
             <v-overlay
               contained
               :model-value="isHovering"
               content-class="w-100 h-100 d-flex align-center justify-center"
               scrim="black"
             >
-              <v-btn icon color="error" @click="form.image = null">
+              <v-btn icon color="error" @click="form.featured_image.url = null">
                 <Icon icon="mdi:close" />
               </v-btn>
             </v-overlay>
