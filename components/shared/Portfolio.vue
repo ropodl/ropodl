@@ -37,24 +37,29 @@ const works = [
           <v-card-text class="pl-0">
             Here are some cherry picked portfolio items, check them out.
           </v-card-text>
-          <v-hover v-slot="{ isHovering, props }">
-            <v-btn
-              height="50"
-              variant="tonal"
-              color="primary"
-              class="text-capitalize px-10"
-              v-bind="props"
-              to="/portfolio"
-            >
-              Explore More
-              <v-icon
-                :class="isHovering ? 'ml-4' : 'ml-2'"
-                style="transition: all 100ms linear"
-              >
-                <Icon icon="mdi:arrow-right" />
-              </v-icon>
-            </v-btn>
-          </v-hover>
+          <v-row>
+            <v-col cols="8">
+              <v-hover v-slot="{ isHovering, props }">
+                <v-btn
+                  block
+                  height="50"
+                  variant="tonal"
+                  color="primary"
+                  class="text-capitalize px-10"
+                  v-bind="props"
+                  to="/portfolio"
+                >
+                  Explore More
+                  <v-icon
+                    :class="isHovering ? 'ml-4' : 'ml-2'"
+                    style="transition: all 100ms linear"
+                  >
+                    <Icon icon="mdi:arrow-right" />
+                  </v-icon>
+                </v-btn>
+              </v-hover>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="12" md="2" v-for="(work, i) in works">
           <v-hover v-slot="{ isHovering, props }">

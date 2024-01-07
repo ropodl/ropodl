@@ -81,17 +81,20 @@ defineOgImage({
     </v-row>
     <v-row>
       <v-col cols="12" md="3">
-        <v-card flat color="transparent">
+        <v-card
+          flat
+          color="transparent"
+          class="position-sticky"
+          style="top: 70px"
+        >
           <v-card-text class="px-0 text-overline">
             Published {{ formatTimeAgo(new Date(blog.created_at)) }}
           </v-card-text>
-        </v-card>
-        <v-divider></v-divider>
-        <v-card flat color="transparent">
-          <v-card-title class="px-0">Share on Social Media</v-card-title>
+          <v-divider></v-divider>
+          <v-card-title class="px-0">Share on Social</v-card-title>
           <v-card-text class="px-0">
             <v-row dense>
-              <v-col cols="3">
+              <v-col cols="4" sm="3">
                 <v-btn
                   icon
                   block
@@ -105,7 +108,7 @@ defineOgImage({
                   </v-icon>
                 </v-btn>
               </v-col>
-              <v-col cols="3">
+              <v-col cols="4" sm="3">
                 <v-btn
                   icon
                   block

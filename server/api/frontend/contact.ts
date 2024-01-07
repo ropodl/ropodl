@@ -13,7 +13,13 @@ export default defineEventHandler(async (event) => {
     email,
     message,
   });
-  if (error) return console.log(error);
+  
+  if (error) {
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
 
   return { success: true, message: "Message sent" };
 });

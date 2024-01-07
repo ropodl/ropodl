@@ -8,8 +8,13 @@ export default defineEventHandler(async (event) => {
     .select("title,slug,featured_image, created_at")
     .order("created_at", { ascending: false })
     .eq("status", true);
-  if (error) return console.log(error);
-  console.log(data);
+    
+    if (error) {
+      return createError({
+        statusCode: parseInt(error.code),
+        statusMessage: error.message,
+      });
+    }
 
   return data;
 });

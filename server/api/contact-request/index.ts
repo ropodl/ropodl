@@ -13,11 +13,11 @@ export default defineEventHandler(async (event) => {
     .range(0, 10)
     .order("created_at", { ascending: false });
 
-  console.log(requests);
-
   if (error) {
-    console.log(error);
-    return error;
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
   }
 
   return {

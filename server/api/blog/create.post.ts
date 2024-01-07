@@ -26,9 +26,12 @@ export default defineEventHandler(async (event) => {
     .select()
     .single();
 
-  if (error) return console.log(error.message);
-
-  console.log(data);
+    if (error) {
+      return createError({
+        statusCode: parseInt(error.code),
+        statusMessage: error.message,
+      });
+    }
 
   return {
     id: data.id,

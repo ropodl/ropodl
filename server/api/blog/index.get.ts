@@ -17,10 +17,12 @@ export default defineEventHandler(async (event) => {
     .range(0, 10)
     .order("created_at", { ascending: false });
 
-  if (error) {
-    console.log(error);
-    return error;
-  }
+    if (error) {
+      return createError({
+        statusCode: parseInt(error.code),
+        statusMessage: error.message,
+      });
+    }
 
   return {
     blogs,
