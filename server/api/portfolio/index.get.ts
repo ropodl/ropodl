@@ -8,11 +8,13 @@ export default defineEventHandler(async (event) => {
     .select("*")
     .order("created_at", { ascending: false })
     .eq("status", true);
+
   if (error) {
     return createError({
       statusCode: parseInt(error.code),
       statusMessage: error.message,
     });
   }
+  
   return data;
 });

@@ -17,4 +17,4 @@ export const socials = [{
   name: "GitHub",
   icon: "fa6-brands:github",
   link: "https://github.com/ropodl/",
-},]
+}]

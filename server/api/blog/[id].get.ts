@@ -10,7 +10,13 @@ export default defineEventHandler(async (event) => {
     .select("*")
     .eq("id", id)
     .maybeSingle();
-  if (error) return console.log(error);
+
+  if (error) {
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
 
   return data;
 });
