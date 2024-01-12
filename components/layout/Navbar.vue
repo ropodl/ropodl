@@ -16,6 +16,11 @@ const pages = [
   //   link: "/about",
   // },
   {
+    icon: "mdi:info",
+    title: "about",
+    link: "/about",
+  },
+  {
     icon: "mdi:file-certificate",
     title: "blogs",
     link: "/blogs",

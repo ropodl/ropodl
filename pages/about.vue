@@ -167,7 +167,7 @@ const education = [
                 </div>
               </v-card>
             </v-col>
-            <v-col cols="12" class="mb-3">
+            <!-- <v-col cols="12" class="mb-3">
               <v-card-title class="d-flex align-center">
                 <v-icon start class="mr-3" color="primary">
                   <Icon icon="mdi:hand-peace" />
@@ -187,8 +187,8 @@ const education = [
                   </v-card>
                 </v-col>
               </v-row>
-            </v-col>
-            <v-col cols="12" class="mb-3">
+            </v-col> -->
+            <!-- <v-col cols="12" class="mb-3">
               <v-card-title class="d-flex align-center">
                 <v-icon start class="mr-3" color="primary">
                   <Icon icon="mdi:hand-peace" />
@@ -208,8 +208,8 @@ const education = [
                   </v-card>
                 </v-col>
               </v-row>
-            </v-col>
-            <v-col cols="12" class="mb-3">
+            </v-col> -->
+            <!-- <v-col cols="12" class="mb-3">
               <v-card-title class="d-flex align-center">
                 <v-icon start class="mr-3" color="primary">
                   <Icon icon="mdi:anvil" />
@@ -229,8 +229,8 @@ const education = [
                   </v-card>
                 </v-col>
               </v-row>
-            </v-col>
-            <v-col cols="12">
+            </v-col> -->
+            <!-- <v-col cols="12">
               <v-card-title class="d-flex align-center">
                 <v-icon start class="mr-3" color="primary">
                   <Icon icon="mdi:book-open-page-variant-outline" />
@@ -265,7 +265,7 @@ const education = [
                   </v-timeline-item>
                 </v-timeline>
               </div>
-            </v-col>
+            </v-col> -->
           </v-row>
         </v-col>
       </v-row>

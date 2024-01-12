@@ -17,25 +17,29 @@ useHead({
 
 const form = reactive({
   title: "",
-  excerpt: "",
   content: "",
   featured_image: {
+    id: "",
+    url: null,
+  },
+  main_image: {
     id: "",
     url: null,
   },
   status: false,
 });
 
-await useFetch("/api/portfolio/" + id, {
+const { error } = await useFetch("/api/portfolio/" + id, {
   onResponse({ response }) {
     console.log("on Response");
     console.log(response);
-    const { title, content, featured_image, status } = response._data;
+    const { title, content, featured_image, main_image, status } =
+      response._data;
     console.log(featured_image.url);
     form.title = title;
     form.content = content;
-    form.featured_image.url = featured_image.url;
-    form.featured_image.id = featured_image.id;
+    form.featured_image = featured_image;
+    form.main_image = main_image;
     form.status = status;
   },
   onResponseError({ response }) {
@@ -49,7 +53,7 @@ const updateBlog = async () => {
     error,
     pending: loading,
   } = await useFetch("/api/blog/" + id, {
-    method: "POST",
+    method: "PATCH",
     body: form,
   });
   if (error.value) {
@@ -59,6 +63,7 @@ const updateBlog = async () => {
 };
 </script>
 <template>
+  {{ form }}
   <v-container>
     <v-form @submit.prevent="updateBlog">
       <v-row>
@@ -80,18 +85,20 @@ const updateBlog = async () => {
               />
             </client-only>
           </v-card>
-          <v-textarea
-            label="Portfolio Excerpt"
-            v-model="form.excerpt"
-          ></v-textarea>
         </v-col>
         <v-col cols="12" md="4">
-          <LazyAdminSharedActions :form="form" />
+          <LazyAdminSharedActions :form />
           <LazyAdminSharedImageUpload
             title="Upload Featured Image"
-            :form="form"
+            :form
             bucket="portfolios"
             type="featured_image"
+          />
+          <LazyAdminSharedImageUpload
+            :form
+            title="Upload Main Image"
+            bucket="portfolios"
+            type="main_image"
           />
         </v-col>
       </v-row>

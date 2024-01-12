@@ -2,13 +2,14 @@ import { serverSupabaseClient } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient(event);
-  console.log("est");
+
+  const id = <string>getRouterParam(event, "id");
 
   const { data, error } = await client
     .from("portfolios")
-    .select("id,title,featured_image,main_image,status")
-    .order("created_at", { ascending: false })
-    .eq("status", true);
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
 
   if (error) {
     return createError({

@@ -28,10 +28,7 @@ const form = reactive({
 
 await useFetch("/api/blog/" + id, {
   onResponse({ response }) {
-    console.log("on Response");
-    console.log(response);
     const { title, excerpt, content, featured_image, status } = response._data;
-    console.log(featured_image.url);
     form.title = title;
     form.excerpt = excerpt;
     form.content = content;
@@ -43,11 +40,6 @@ await useFetch("/api/blog/" + id, {
     console.log(response._error);
   },
 });
-// if (error.value) throw error;
-// try {
-// } catch (error) {
-//   console.log(error);
-// }
 
 const updateBlog = async () => {
   const {
