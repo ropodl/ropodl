@@ -2,10 +2,11 @@ import { serverSupabaseClient } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient(event);
+  console.log("est");
 
   const { data, error } = await client
     .from("portfolios")
-    .select("*")
+    .select("id,title,featured_image,main_image,status")
     .order("created_at", { ascending: false })
     .eq("status", true);
 
@@ -15,6 +16,6 @@ export default defineEventHandler(async (event) => {
       statusMessage: error.message,
     });
   }
-  
+
   return data;
 });

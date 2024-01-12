@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { Icon } from "@iconify/vue";
 
 const props = defineProps({
@@ -17,6 +17,7 @@ const props = defineProps({
   type: {
     type: String,
     required: true,
+    default: "featured_image",
   },
 });
 
@@ -34,50 +35,38 @@ const errors = ref("");
 const selectFeaturedImage = async ({ target }) => {
   loading.value = true;
   const fileName = target.files[0].name.toLowerCase().replace(/\s/g, "-");
-  try {
-    const { data, error } = await supabase.storage
-      .from(props.bucket)
-      .upload(
-        `${props.type}/${year}/${month}/${day}/${fileName}`,
-        target.files[0],
-        {
-          contentType: "image/*",
-        }
-      );
-    if (error.value) {
-      loading.value = false;
-      errors.value = error.value;
-      return console.log(error);
-    }
-    const { id, fullPath } = data;
-    props.form.featured_image = {
-      id,
-      url: config.public.supabase_url + "/storage/v1/object/public/" + fullPath,
-    };
-    console.log(data);
-  } catch (error) {
-    console.log(error);
-  } finally {
-    loading.value = true;
+  const { data, error } = await supabase.storage
+    .from(props.bucket)
+    .upload(
+      `${props.type}/${year}/${month}/${day}/${fileName}`,
+      target.files[0],
+      {
+        contentType: "image/*",
+      }
+    );
+  if (error) {
+    loading.value = false;
+    errors.value = error;
+    return console.log(error);
   }
+  const { id, fullPath } = data;
+  props.form[props.type] = {
+    id,
+    url: config.public.supabase_url + "/storage/v1/object/public/" + fullPath,
+  };
+  loading.value = false;
 };
 </script>
 <template>
-  <v-card class="mb-3">
+  <v-card class="mb-3" :loading :disabled="loading">
     <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>
-    {{ props }}
     <v-card-text
       class="d-flex align-center justify-center position-relative pa-0"
     >
-      <template v-if="form.featured_image.url != null">
+      <template v-if="form[type].url != null">
         <v-hover v-slot="{ isHovering, props }">
-          <v-img
-            cover
-            v-bind="props"
-            :src="form.featured_image?.url"
-            height="200"
-          >
+          <v-img cover v-bind="props" :src="form[type]?.url" height="200">
             <v-overlay
               contained
               :model-value="isHovering"
@@ -100,9 +89,9 @@ const selectFeaturedImage = async ({ target }) => {
         />
       </template>
     </v-card-text>
-    <!-- <template v-if="error"> -->
-    <v-divider></v-divider>
-    <v-card-text>{{ errors.message }}</v-card-text>
-    <!-- </template> -->
+    <template v-if="errors">
+      <v-divider></v-divider>
+      <v-card-text>{{ errors.message }}</v-card-text>
+    </template>
   </v-card>
 </template>

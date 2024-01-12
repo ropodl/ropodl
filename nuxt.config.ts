@@ -65,6 +65,7 @@ export default defineNuxtConfig({
   },
   vuetify: {
     vuetifyOptions: {
+      ssr: true,
       theme: {
         defaultTheme: "dark",
         variations: {

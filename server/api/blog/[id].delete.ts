@@ -1,5 +1,3 @@
-import { isValidObjectId } from "../../utils/mongoose";
-
 export default defineEventHandler(async (event) => {
   const id = <string>getRouterParam(event, "id");
 

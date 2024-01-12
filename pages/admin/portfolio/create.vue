@@ -23,6 +23,10 @@ const form = reactive({
     id: "",
     url: null,
   },
+  main_image: {
+    id: "",
+    url: null,
+  },
   status: false,
 });
 
@@ -64,6 +68,12 @@ const addBlog = () => {
             title="Upload Featured Image"
             bucket="portfolios"
             type="featured_image"
+          />
+          <LazyAdminSharedImageUpload
+            :form
+            title="Upload Main Image"
+            bucket="portfolios"
+            type="main_image"
           />
         </v-col>
       </v-row>

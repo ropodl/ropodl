@@ -5,16 +5,16 @@ export default defineEventHandler(async (event) => {
 
   const { data, error } = await client
     .from("portfolios")
-    .select("id,title,featured_image,created_at")
+    .select("id,title,featured_image")
     .order("created_at", { ascending: false })
     .eq("status", true);
-  
-    if (error) {
-      return createError({
-        statusCode: parseInt(error.code),
-        statusMessage: error.message,
-      });
-    }
+
+  if (error) {
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
 
   return data;
 });

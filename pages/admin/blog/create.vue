@@ -59,7 +59,6 @@ const addBlog = async () => {
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form="form" />
-          <!-- <input type="file" @change="updateImage" /> -->
           <LazyAdminSharedImageUpload
             title="Upload Featured Image"
             :form="form"
