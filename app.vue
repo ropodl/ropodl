@@ -60,6 +60,18 @@ const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;
   backdrop-filter: blur(8px);
 }
 // Utility classes
+.inset-0 {
+  inset: 0;
+}
+.top-0 {
+  top: 0;
+}
+.bottom-0 {
+  bottom: 0;
+}
+.left-0 {
+  left: 0;
+}
 .right-0 {
   right: 0;
 }
