@@ -3,9 +3,6 @@ import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "~/utils/tinymce";
 
 const config = useRuntimeConfig();
-const {
-  params: { id },
-} = useRoute();
 
 definePageMeta({
   layout: "admin",
@@ -17,7 +14,6 @@ useHead({
 
 const form = reactive({
   title: "",
-  excerpt: "",
   content: "",
   featured_image: {
     id: "",
@@ -30,8 +26,14 @@ const form = reactive({
   status: false,
 });
 
-const addBlog = () => {
-  console.log("test");
+const addBlog = async () => {
+  const { data, error, pending } = await useFetch("/api/portfolio/create", {
+    method: "POST",
+    body: form,
+  });
+  if (error.value) return console.log(error.value);
+  console.log(data.value);
+  navigateTo("/admin/portfolio/" + data.value.id);
 };
 </script>
 <template>
@@ -56,10 +58,6 @@ const addBlog = () => {
               />
             </client-only>
           </v-card>
-          <v-textarea
-            label="Portfolio Excerpt"
-            v-model="form.excerpt"
-          ></v-textarea>
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form />

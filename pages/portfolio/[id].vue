@@ -10,14 +10,13 @@ const { title, main_image, content } = data.value;
     <template #title>
       {{ title }}
     </template>
-    {{ data }}
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
           <v-img :src="main_image.url"></v-img>
         </v-col>
         <v-col cols="12" md="4">
-          {{ content }}
+          <LazySharedDynamicContent :content />
         </v-col>
       </v-row>
     </v-container>

@@ -42,7 +42,7 @@ defineProps({
             height="40"
             text="Delete"
             class="text-capitalize px-10"
-            @click="$emit('delete-action')"
+            @click="$emit('delete-action', isActive.value)"
           ></v-btn>
         </v-card-actions>
       </v-card>
