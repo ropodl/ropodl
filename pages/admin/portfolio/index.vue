@@ -60,8 +60,12 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = false;
 };
 
-const removeId = (id: any) => {
-  console.log(id);
+const removeId = async (id: string) => {
+  const { data, error } = await useFetch(`/api/portfolio/${id}`, {
+    method: "DELETE",
+  });
+  if (error.value) return console.log(error.value);
+  console.log(data);
 };
 </script>
 <template>
@@ -99,7 +103,6 @@ const removeId = (id: any) => {
     </v-row>
     <v-row>
       <v-col cols="12">
-        {{ portfolios }}
         <v-card border rounded="lg">
           <v-data-table-server
             v-model="selected"
@@ -138,23 +141,23 @@ const removeId = (id: any) => {
                 </v-list-item>
               </v-list>
             </template>
-            <template v-slot:item.actions="{ item }">
+            <template v-slot:item.actions="{ item: { id, title } }">
               <v-btn
                 icon
                 color="success"
                 rounded="lg"
                 variant="tonal"
                 class="mr-2"
-                :to="`/admin/portfolio/${item.id}`"
+                :to="`/admin/portfolio/${id}`"
               >
                 <v-icon>
                   <Icon icon="mdi:pencil" />
                 </v-icon>
               </v-btn>
               <AdminSharedDelete
+                :title
                 type="Blog"
-                :title="item.title"
-                @delete-action="removeId(item.id)"
+                @delete-action="removeId(id)"
               />
             </template>
           </v-data-table-server>

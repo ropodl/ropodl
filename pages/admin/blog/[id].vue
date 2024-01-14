@@ -47,7 +47,7 @@ const updateBlog = async () => {
     error,
     pending: loading,
   } = await useFetch("/api/blog/" + id, {
-    method: "POST",
+    method: "PATCH",
     body: form,
   });
   if (error.value) {

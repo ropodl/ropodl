@@ -29,7 +29,7 @@ const form = reactive({
   status: false,
 });
 
-const { error } = await useFetch("/api/portfolio/" + id, {
+const { error } = await useLazyFetch("/api/portfolio/" + id, {
   onResponse({ response }) {
     console.log("on Response");
     console.log(response);

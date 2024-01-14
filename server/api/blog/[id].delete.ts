@@ -1,14 +1,21 @@
+import { serverSupabaseClient } from "#supabase/server";
+
 export default defineEventHandler(async (event) => {
+  const client = await serverSupabaseClient(event);
+
   const id = <string>getRouterParam(event, "id");
+  console.log(id);
 
-  // if (!isValidObjectId(id))
-  //   return createError({ statusCode: 404, statusMessage: "Blog ID not valid" });
+  const { data, error } = await client.from("portfolios").delete().eq("id", id);
 
-  // const blog = await BlogSchema.findById(id);
-  // if (!blog)
-  //   return createError({ statusCode: 404, statusMessage: "Blog not found" });
+  if (error) {
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
 
-  // await BlogSchema.findByIdAndDelete(id);
+  return data;
 
-  return { success: true, message: "Blog deleted successfully" };
+  // return { success: true, message: "Blog deleted successfully" };
 });

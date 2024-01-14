@@ -36,6 +36,6 @@
     "vite-plugin-vuetify": "^2.0.1",
     "vue3-lottie": "^3.2.0",
     "vuetify": "^3.4.10",
-    "vuetify-nuxt-module": "^0.9.1"
+    "vuetify-nuxt-module": "^0.10.1"
   }
 }

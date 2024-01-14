@@ -17,7 +17,7 @@ const form = reactive({
   content: "",
   featured_image: {
     id: "",
-    url: "",
+    url: null,
   },
   status: false,
 });
@@ -26,7 +26,7 @@ const addBlog = async () => {
   const {
     data,
     error,
-    pending: loading,
+    pending
   } = await useFetch("/api/blog/create", {
     method: "POST",
     body: form,
@@ -34,6 +34,7 @@ const addBlog = async () => {
 
   if (error.value) return console.log(error.value);
   console.log(data.value);
+  navigateTo("/admin/blog/" + data.value.id);
 };
 </script>
 <template>
@@ -58,10 +59,10 @@ const addBlog = async () => {
           <v-textarea label="Blog Excerpt" v-model="form.excerpt"></v-textarea>
         </v-col>
         <v-col cols="12" md="4">
-          <LazyAdminSharedActions :form="form" />
+          <LazyAdminSharedActions :form />
           <LazyAdminSharedImageUpload
             title="Upload Featured Image"
-            :form="form"
+            :form
             bucket="blogs"
             type="featured_image"
           />
