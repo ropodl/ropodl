@@ -41,22 +41,6 @@ const experience = [
   // },
 ];
 
-const frameworks = [
-  {
-    icon: "fa:fa-brands fa-laravel",
-    title: "Vue JS",
-  },
-  {
-    title: "Laravel",
-  },
-  {
-    title: "Express JS",
-  },
-  {
-    title: "React JS",
-  },
-];
-
 const skills = [
   {
     title: "Product Design",
@@ -77,22 +61,28 @@ const skills = [
 
 const software = [
   {
-    title: "Adobe Illustrator",
+    text: "Adobe Illustrator",
+    icon: "iconoir:adobe-illustrator",
   },
   {
-    title: "Adobe Photoshop",
+    text: "Adobe Photoshop",
+    icon: "iconoir:adobe-photoshop",
   },
   {
-    title: "Adobe XD",
+    text: "Adobe XD",
+    icon: "iconoir:adobe-xd",
   },
   {
-    title: "Adobe Premiere Pro",
+    text: "Adobe Premiere Pro",
+    icon: "basil:adobe-premiere-outline",
   },
   {
-    title: "MS Office",
+    text: "MS Office",
+    icon: "simple-icons:microsoftoffice",
   },
   {
-    title: "VS Code",
+    text: "VS Code",
+    icon: "tabler:brand-vscode",
   },
 ];
 
@@ -222,14 +212,8 @@ const backend = [
           </v-card>
         </v-col>
         <v-col cols="12" md="3">
-          <v-card
-            border
-            height="121"
-            color="primary"
-            subtitle="Backend"
-            class="mb-2"
-          >
-            <v-card-title>
+          <v-card border height="121" color="primary" class="mb-2">
+            <v-card-title class="h-100">
               <ul
                 class="list-style-none h-100 d-flex justify-center align-center flex-wrap"
               >
@@ -249,8 +233,8 @@ const backend = [
               </ul>
             </v-card-title>
           </v-card>
-          <v-card border height="121" subtitle="Frontend">
-            <v-card-title>
+          <v-card border height="121">
+            <v-card-title class="h-100">
               <ul
                 class="list-style-none h-100 d-flex justify-center align-center flex-wrap"
               >
@@ -274,7 +258,7 @@ const backend = [
       </v-row>
       <v-row dense>
         <v-col cols="12" md="3">
-          <v-card border height="121" class="mb-2">
+          <v-card border height="250" class="mb-2">
             <v-hover v-slot="{ isHovering, props }">
               <v-img
                 cover
@@ -296,8 +280,8 @@ const backend = [
               </v-img>
             </v-hover>
           </v-card>
-          <v-card border color="primary" height="121" subtitle="Socials">
-            <v-card-title>
+          <v-card border color="primary" height="121">
+            <v-card-title class="h-100">
               <ul
                 class="list-style-none h-100 d-flex justify-center align-center flex-wrap"
               >
@@ -324,32 +308,33 @@ const backend = [
             </v-card-title>
           </v-card>
         </v-col>
-        <v-col cols="12" md="6">
-          <v-card border height="250">
+        <v-col cols="12" md="3">
+          <v-card border height="379">
             <v-card-title>Experience</v-card-title>
-            <v-card-text class="px-0">
-              <v-timeline direction="horizontal" side="end" line-thickness="1">
+            <v-divider></v-divider>
+            <v-card-text class="pt-0">
+              <v-timeline direction="vertical" side="end" line-thickness="1">
                 <v-timeline-item
                   size="10"
                   density="compact"
                   dot-color="primary"
                   v-for="{ year, title, desc } in experience"
                 >
-                  <v-card
-                    border
-                    flat
-                    :title
-                    :subtitle="year"
-                    :text="desc"
-                    density="compact"
-                  ></v-card>
+                  <v-card-title
+                    class="pa-0"
+                    style="white-space: unset; word-break: normal"
+                  >
+                    {{ title }}
+                  </v-card-title>
+                  <v-card-subtitle class="px-0">{{ year }}</v-card-subtitle>
+                  <v-card-text class="px-0 pb-0">{{ desc }}</v-card-text>
                 </v-timeline-item>
               </v-timeline>
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" md="3">
-          <v-card border height="250">
+        <v-col cols="12" md="6">
+          <v-card border height="121" class="mb-2">
             <v-hover v-slot="{ isHovering, props }">
               <v-img
                 cover
@@ -371,158 +356,69 @@ const backend = [
               </v-img>
             </v-hover>
           </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    <!-- <LazySharedQuery />
-    <LazySharedLoves />
-    <LazySharedClients />
-    <LazySharedPortfolio />
-    <v-container class="px-0 py-16">
-      <v-row justify="center">
-        <v-col cols="12">
-          <v-row>
-            <v-col cols="12" class="mb-3">
-              <v-card-title class="d-flex align-center">
-                <v-icon start class="mr-3" color="primary">
-                  <Icon icon="mdi:lightning-bolt" />
-                </v-icon>
-                Experience
-              </v-card-title>
-              <v-divider></v-divider>
-              <v-card flat color="transparent">
-                <div class="d-flex justify-start">
-                  <v-timeline direction="horizontal">
+          <v-row dense>
+            <v-col cols="12" md="6">
+              <v-card border height="508">
+                <v-card-title>Education</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text class="pt-0">
+                  <v-timeline
+                    side="end"
+                    direction="vertical"
+                    height="100%"
+                    line-thickness="1"
+                  >
                     <v-timeline-item
-                      dot-color="primary"
                       size="10"
-                      v-for="exp in experience"
+                      density="compact"
+                      dot-color="primary"
+                      v-for="{ year, title, desc } in education"
                     >
-                      <template v-slot:opposite>
-                        {{ exp.year }}
-                      </template>
-                      <v-card border flat>
-                        <v-card-text>
-                          <v-list-item class="pa-0">
-                            <v-list-item-title
-                              class="font-weight-bold"
-                              v-text="exp.title"
-                            ></v-list-item-title>
-                            <v-list-item-subtitle
-                              v-if="exp.desc"
-                              v-text="exp.desc"
-                            ></v-list-item-subtitle>
-                          </v-list-item>
-                        </v-card-text>
-                      </v-card>
+                      <v-card-title
+                        class="pa-0"
+                        style="white-space: unset; word-break: normal"
+                      >
+                        {{ title }}
+                      </v-card-title>
+                      <v-card-subtitle class="px-0">{{ year }}</v-card-subtitle>
+                      <v-card-text class="px-0 pb-0">{{ desc }}</v-card-text>
                     </v-timeline-item>
                   </v-timeline>
-                </div>
+                </v-card-text>
               </v-card>
             </v-col>
-            <v-col cols="12" class="mb-3">
-              <v-card-title class="d-flex align-center">
-                <v-icon start class="mr-3" color="primary">
-                  <Icon icon="mdi:hand-peace" />
-                </v-icon>
-                Platform/Frameworks
-              </v-card-title>
-              <v-row>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="3"
-                  class="pb-0"
-                  v-for="frame in frameworks"
-                >
-                  <v-card border flat class="h-100">
-                    <v-card-text v-text="frame['title']"></v-card-text>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="12" class="mb-3">
-              <v-card-title class="d-flex align-center">
-                <v-icon start class="mr-3" color="primary">
-                  <Icon icon="mdi:hand-peace" />
-                </v-icon>
-                Skills
-              </v-card-title>
-              <v-row>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  class="pb-0"
-                  v-for="skill in skills"
-                >
-                  <v-card border flat class="h-100">
-                    <v-card-text v-text="skill['title']"></v-card-text>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="12" class="mb-3">
-              <v-card-title class="d-flex align-center">
-                <v-icon start class="mr-3" color="primary">
-                  <Icon icon="mdi:anvil" />
-                </v-icon>
-                Software
-              </v-card-title>
-              <v-row>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  class="pb-0"
-                  v-for="sof in software"
-                >
-                  <v-card border flat class="h-100">
-                    <v-card-text v-text="sof['title']"></v-card-text>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="12">
-              <v-card-title class="d-flex align-center">
-                <v-icon start class="mr-3" color="primary">
-                  <Icon icon="mdi:book-open-page-variant-outline" />
-                </v-icon>
-                Education
-              </v-card-title>
-              <v-divider></v-divider>
-              <div class="d-flex justify-start">
-                <v-timeline side="end" align="center">
-                  <v-timeline-item
-                    dot-color="primary"
-                    size="10"
-                    v-for="edu in education"
-                  >
-                    <v-card border flat>
-                      <v-card-text>
-                        <v-list-item class="pa-0">
-                          <v-list-item-title
-                            class="font-weight-bold"
-                            v-text="edu['title']"
-                          ></v-list-item-title>
-                          <v-list-item-subtitle
-                            class="mb-3"
-                            v-text="edu['year']"
-                          ></v-list-item-subtitle>
-                          <v-list-item-subtitle
-                            v-text="edu['desc']"
-                          ></v-list-item-subtitle>
-                        </v-list-item>
-                      </v-card-text>
-                    </v-card>
-                  </v-timeline-item>
-                </v-timeline>
-              </div>
+            <v-col cols="12" md="6">
+              <v-card border height="121" class="mb-2">
+                <v-card-title class="d-flex h-100 justify-center align-center">
+                  <ul class="list-style-none d-flex flex-wrap">
+                    <template v-for="{ text, icon } in software">
+                      <li>
+                        <v-tooltip :text location="bottom" theme="light">
+                          <template v-slot:activator="{ props }">
+                            <v-btn
+                              flat
+                              icon
+                              target="_blank"
+                              color="transparent"
+                            >
+                              <v-icon size="large" v-bind="props">
+                                <Icon :icon />
+                              </v-icon>
+                            </v-btn>
+                          </template>
+                        </v-tooltip>
+                      </li>
+                    </template>
+                  </ul>
+                </v-card-title>
+              </v-card>
+              <!-- <v-card border height="121" title="asd" class="mb-2"></v-card>
+              <v-card border height="250" title="asd"></v-card> -->
             </v-col>
           </v-row>
         </v-col>
       </v-row>
-    </v-container> -->
+    </v-container>
   </NuxtLayout>
 </template>
 <style scoped lang="scss">
@@ -537,5 +433,8 @@ const backend = [
   left: 0;
   bottom: 0;
   opacity: 0.5;
+}
+.timeline-item .v-timeline-item__body {
+  padding: 0;
 }
 </style>
