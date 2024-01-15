@@ -84,6 +84,10 @@ const software = [
     text: "VS Code",
     icon: "tabler:brand-vscode",
   },
+  {
+    text: "Linux",
+    icon: "carbon:linux",
+  },
 ];
 
 const education = [
@@ -221,8 +225,8 @@ const backend = [
                   <li>
                     <v-tooltip :text location="bottom" theme="light">
                       <template v-slot:activator="{ props }">
-                        <v-btn flat icon color="transparent">
-                          <v-icon v-bind="props" size="40">
+                        <v-btn flat icon v-bind="props" color="transparent">
+                          <v-icon size="40">
                             <Icon :icon />
                           </v-icon>
                         </v-btn>
@@ -242,8 +246,8 @@ const backend = [
                   <li>
                     <v-tooltip :text location="bottom" theme="light">
                       <template v-slot:activator="{ props }">
-                        <v-btn flat icon color="transparent">
-                          <v-icon color="primary" v-bind="props" size="40">
+                        <v-btn flat icon v-bind="props" color="transparent">
+                          <v-icon color="primary" size="40">
                             <Icon :icon />
                           </v-icon>
                         </v-btn>
@@ -280,7 +284,7 @@ const backend = [
               </v-img>
             </v-hover>
           </v-card>
-          <v-card border color="primary" height="121">
+          <v-card border color="primary" height="121" class="mb-2">
             <v-card-title class="h-100">
               <ul
                 class="list-style-none h-100 d-flex justify-center align-center flex-wrap"
@@ -292,11 +296,12 @@ const backend = [
                         <v-btn
                           flat
                           icon
+                          v-bind="props"
                           :href="link"
                           target="_blank"
                           color="transparent"
                         >
-                          <v-icon v-bind="props">
+                          <v-icon>
                             <Icon :icon />
                           </v-icon>
                         </v-btn>
@@ -307,9 +312,12 @@ const backend = [
               </ul>
             </v-card-title>
           </v-card>
+          <!-- <v-card border height="250">
+            <v-card-title>Test</v-card-title>
+          </v-card> -->
         </v-col>
         <v-col cols="12" md="3">
-          <v-card border height="379">
+          <v-card border height="379" class="mb-2">
             <v-card-title>Experience</v-card-title>
             <v-divider></v-divider>
             <v-card-text class="pt-0">
@@ -331,6 +339,30 @@ const backend = [
                 </v-timeline-item>
               </v-timeline>
             </v-card-text>
+          </v-card>
+          <v-card border height="121" class="mb-2">
+            <v-hover v-slot="{ isHovering, props }">
+              <v-img
+                v-bind="props"
+                height="70"
+                class="h-100"
+                :class="isHovering ? 'zoom-image' : ''"
+                src="/image/clients/apitech.avif"
+                alt="api technology"
+              ></v-img>
+            </v-hover>
+          </v-card>
+          <v-card border height="121">
+            <v-hover v-slot="{ isHovering, props }">
+              <v-img
+                v-bind="props"
+                height="70"
+                class="h-100"
+                :class="isHovering ? 'zoom-image' : ''"
+                src="/image/clients/genese.avif"
+                alt="api technology"
+              ></v-img>
+            </v-hover>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
@@ -398,10 +430,11 @@ const backend = [
                             <v-btn
                               flat
                               icon
+                              v-bind="props"
                               target="_blank"
                               color="transparent"
                             >
-                              <v-icon size="large" v-bind="props">
+                              <v-icon size="large">
                                 <Icon :icon />
                               </v-icon>
                             </v-btn>
@@ -433,8 +466,5 @@ const backend = [
   left: 0;
   bottom: 0;
   opacity: 0.5;
-}
-.timeline-item .v-timeline-item__body {
-  padding: 0;
 }
 </style>
