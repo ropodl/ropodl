@@ -14,15 +14,15 @@
     "@nuxtjs/supabase": "^1.1.5",
     "@vite-pwa/nuxt": "^0.4.0",
     "@vueuse/nuxt": "^10.7.2",
-    "nuxt": "^3.9.1",
+    "nuxt": "^3.9.3",
     "nuxt-capo": "^0.1.0",
     "nuxt-delay-hydration": "latest",
     "nuxt-link-checker": "^3.0.0-rc.4",
     "nuxt-og-image": "^3.0.0-rc.26",
     "nuxt-payload-analyzer": "latest",
-    "nuxt-security": "^1.0.0",
+    "nuxt-security": "^1.0.1",
     "nuxt-simple-sitemap": "^4.4.1",
-    "sass": "^1.69.7"
+    "sass": "^1.70.0"
   },
   "dependencies": {
     "@google-analytics/data": "^4.3.0",
@@ -36,6 +36,6 @@
     "vite-plugin-vuetify": "^2.0.1",
     "vue3-lottie": "^3.2.0",
     "vuetify": "^3.4.10",
-    "vuetify-nuxt-module": "^0.10.1"
+    "vuetify-nuxt-module": "^0.10.2"
   }
 }
