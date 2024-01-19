@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     .from("blogs")
     .select()
     .eq("slug", slug)
-    .single();
+    .maybeSingle();
 
   if (error) {
     return createError({
@@ -17,6 +17,5 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  console.log(blog);
   return blog;
 });
