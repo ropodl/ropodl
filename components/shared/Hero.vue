@@ -140,7 +140,7 @@ const startAnimation = () => {
       </v-row>
     </v-container>
   </v-card>
-  <div
+  <!-- <div
     class="position-absolute w-100 h-100"
     style="background-color: red; z-index: -1; inset: 0; opacity: 0.2"
   >
@@ -153,5 +153,5 @@ const startAnimation = () => {
         @onLoopComplete="startAnimation"
       />
     </ClientOnly>
-  </div>
+  </div> -->
 </template>
