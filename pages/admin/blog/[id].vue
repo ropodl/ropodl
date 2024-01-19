@@ -21,24 +21,29 @@ const form = reactive({
   content: "",
   featured_image: {
     id: "",
-    url: "",
+    url: null,
   },
   status: false,
 });
 
-await useFetch("/api/blog/" + id, {
-  onResponse({ response }) {
-    const { title, excerpt, content, featured_image, status } = response._data;
-    form.title = title;
-    form.excerpt = excerpt;
-    form.content = content;
-    form.featured_image.url = featured_image.url;
-    form.featured_image.id = featured_image.id;
-    form.status = status;
-  },
-  onResponseError({ response }) {
-    console.log(response._error);
-  },
+onMounted(() => {
+  nextTick(async () => {
+    await useFetch("/api/blog/" + id, {
+      onResponse({ response }) {
+        const { title, excerpt, content, featured_image, status } =
+          response._data;
+        form.title = title;
+        form.excerpt = excerpt;
+        form.content = content;
+        form.featured_image.url = featured_image.url;
+        form.featured_image.id = featured_image.id;
+        form.status = status;
+      },
+      onResponseError({ response }) {
+        console.log(response._error);
+      },
+    });
+  });
 });
 
 const updateBlog = async () => {

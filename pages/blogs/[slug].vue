@@ -8,12 +8,17 @@ const {
   params: { slug },
 } = route;
 
-const {
-  data: blog,
-  error,
-  pending: loading,
-} = await useFetch(`/api/frontend/blog/${slug}`);
-if (error.value !== null) navigateTo("404");
+const blog = ref({
+  title: "",
+  content: "",
+  excerpt: "",
+  featured_image: {
+    id: "",
+    url: null,
+  },
+  created_at: "",
+});
+const loading = ref(false);
 
 useSeoMeta({
   title: blog.value.title,
@@ -38,6 +43,30 @@ defineOgImage({
   title: blog.value?.title,
   description: blog.value?.excerpt,
   componentOptions: { global: true },
+});
+
+onMounted(() => {
+  nextTick(async () => {
+    const { data, error, pending } = await useFetch(
+      `/api/frontend/blog/${slug}`,
+      {
+        onResponse({ response }) {
+          const { title, excerpt, content, featured_image, created_at } =
+            response._data;
+          blog.value.title = title;
+          blog.value.excerpt = excerpt;
+          blog.value.content = content;
+          blog.value.featured_image = featured_image;
+          blog.value.created_at = created_at;
+          loading.value = false;
+        },
+        onResponseError({ response }) {
+          console.log(response._error);
+          loading.value = false;
+        },
+      }
+    );
+  });
 });
 </script>
 <template>

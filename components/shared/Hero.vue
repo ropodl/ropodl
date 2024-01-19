@@ -17,7 +17,7 @@ const startAnimation = () => {
   >
     <v-container class="h-100">
       <v-row justify="center" class="position-relative h-100">
-        <v-col cols="12" md="4">
+        <v-col cols="12" md="4" class="hidden-sm-and-down">
           <ClientOnly>
             <Vue3Lottie
               ref="lottieContainer"
@@ -40,10 +40,8 @@ const startAnimation = () => {
                   Fullstack developer from Kathmandu, Nepal.
                 </div>
                 <v-card-text class="pl-0">
-                  Hello, world. I am Web Designer and Web Application Developer.
-                  I have rich experience in web site design and building, also I
-                  am good at Vue JS. Recently I am enhancing my ExpressJS
-                  skills.
+                  Hey their, I am a Full Stack Developer, especializing in
+                  ExpressJS and VueJs/Nuxt.
                 </v-card-text>
                 <v-row>
                   <!-- <v-col cols="3">
@@ -90,7 +88,7 @@ const startAnimation = () => {
                       </v-btn>
                     </v-hover>
                   </v-col> -->
-                  <v-col cols="3">
+                  <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         block
@@ -112,7 +110,7 @@ const startAnimation = () => {
                       </v-btn>
                     </v-hover>
                   </v-col>
-                  <v-col cols="3">
+                  <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         block
@@ -142,4 +140,18 @@ const startAnimation = () => {
       </v-row>
     </v-container>
   </v-card>
+  <div
+    class="position-absolute w-100 h-100"
+    style="background-color: red; z-index: -1; inset: 0; opacity: 0.2"
+  >
+    <ClientOnly>
+      <Vue3Lottie
+        ref="lottieContainer"
+        :loop="true"
+        direction="alternate"
+        animationLink="https://lottie.host/ab468c4a-fb60-4a2f-9000-4ddf87c1aae7/shGXbIaJxm.json"
+        @onLoopComplete="startAnimation"
+      />
+    </ClientOnly>
+  </div>
 </template>

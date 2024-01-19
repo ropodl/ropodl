@@ -9,14 +9,14 @@ export default defineEventHandler(async (event) => {
     .from("portfolios")
     .select("title,content,main_image")
     .eq("id", parseInt(id))
-    .single();
+    .maybeSingle();
 
-    if (error) {
-      return createError({
-        statusCode: parseInt(error.code),
-        statusMessage: error.message,
-      });
-    }
-    
+  if (error) {
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
+
   return portfolio;
 });
