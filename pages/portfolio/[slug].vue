@@ -1,15 +1,15 @@
 <script setup lang="ts">
 const { params } = useRoute();
-const { id } = params;
+const { slug } = params;
 
-const { data, error } = await useFetch(`/api/frontend/portfolio/${id}`);
+console.log(slug, "this");
+
+const { data, error } = await useFetch(`/api/frontend/portfolio/${slug}`);
 const { title, main_image, content } = data.value;
 </script>
 <template>
   <NuxtLayout name="page-title">
-    <template #title>
-      {{ title }}
-    </template>
+    <template #title>{{ title }}</template>
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
