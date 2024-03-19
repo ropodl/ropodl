@@ -156,9 +156,9 @@ const works = [
   },
 ];
 
-const { data: portfolios, error } = await useLazyFetch(
-  "/api/frontend/portfolio"
-);
+// const { data: portfolios, error } = await useLazyFetch(
+//   "/api/frontend/portfolio"
+// );
 </script>
 <template>
   <NuxtLayout name="page-title">
@@ -166,10 +166,10 @@ const { data: portfolios, error } = await useLazyFetch(
     <v-container>
       <v-row justify="center">
         <v-col cols="12" class="position-relative">
-          {{ portfolios }}
+          <!-- {{ portfolios }} -->
           <v-row v-auto-animate>
             <!-- here -->
-            <template
+            <!-- <template
               v-for="({ title, slug, featured_image }, i) in portfolios"
             >
               <v-col cols="12" sm="4" md="4" lg="4">
@@ -206,7 +206,7 @@ const { data: portfolios, error } = await useLazyFetch(
                   </v-card>
                 </v-hover>
               </v-col>
-            </template>
+            </template> -->
             <!-- here -->
             <template v-for="(work, i) in works">
               <v-col cols="12" sm="4" md="4" lg="4">
