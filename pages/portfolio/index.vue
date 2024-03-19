@@ -156,8 +156,9 @@ const works = [
   },
 ];
 
-const { data: portfolios, error } = await useFetch("/api/frontend/portfolio");
-console.log(portfolios);
+const { data: portfolios, error } = await useLazyFetch(
+  "/api/frontend/portfolio"
+);
 </script>
 <template>
   <NuxtLayout name="page-title">
@@ -165,7 +166,48 @@ console.log(portfolios);
     <v-container>
       <v-row justify="center">
         <v-col cols="12" class="position-relative">
+          {{ portfolios }}
           <v-row v-auto-animate>
+            <!-- here -->
+            <template
+              v-for="({ title, slug, featured_image }, i) in portfolios"
+            >
+              <v-col cols="12" sm="4" md="4" lg="4">
+                <v-hover v-slot="{ isHovering, props: hover }">
+                  <v-card
+                    flat
+                    rounded="lg"
+                    v-bind="{ ...hover }"
+                    :to="`/portfolio/${slug}`"
+                  >
+                    <v-img
+                      cover
+                      :aspect-ratio="1"
+                      class="w-100 h-100 align-end"
+                      :class="isHovering ? 'zoom-image' : ''"
+                      :src="featured_image.url"
+                    >
+                      <v-card
+                        rounded="0"
+                        elevation="10"
+                        class="blur-8 border border-s-0 border-e-0 border-b-0"
+                        style="
+                          background-color: rgba(var(--v-theme-surface), 0.8);
+                        "
+                      >
+                        <v-card-text
+                          class="text-center"
+                          style="white-space: normal"
+                        >
+                          {{ title }}
+                        </v-card-text>
+                      </v-card>
+                    </v-img>
+                  </v-card>
+                </v-hover>
+              </v-col>
+            </template>
+            <!-- here -->
             <template v-for="(work, i) in works">
               <v-col cols="12" sm="4" md="4" lg="4">
                 <v-hover v-slot="{ isHovering, props: hover }">
