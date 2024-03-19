@@ -1,5 +1,5 @@
 import { serverSupabaseClient } from "#supabase/server";
-import slugify from "slugify";
+import { getSlug } from "~/server/utils/slugify";
 
 export default defineEventHandler(async (event) => {
   const form = <any>await readBody(event);
@@ -8,10 +8,7 @@ export default defineEventHandler(async (event) => {
 
   const { title, content, featured_image, status, excerpt } = form;
 
-  const slug = slugify(title, {
-    lower: true,
-    trim: true,
-  });
+  const slug = getSlug(title);
 
   const { data, error } = await client
     .from("blogs")
@@ -26,12 +23,12 @@ export default defineEventHandler(async (event) => {
     .select()
     .single();
 
-    if (error) {
-      return createError({
-        statusCode: parseInt(error.code),
-        statusMessage: error.message,
-      });
-    }
+  if (error) {
+    return createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
 
   return {
     id: data.id,
