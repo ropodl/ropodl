@@ -91,6 +91,7 @@ const removeId = async (id: string) => {
             </v-btn>
           </template>
           <v-btn
+            color="primary"
             variant="tonal"
             height="50"
             class="text-capitalize px-10"
