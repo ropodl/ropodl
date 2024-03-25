@@ -156,9 +156,9 @@ const works = [
   },
 ];
 
-const { data: portfolios, error } = await useLazyFetch(
-  "/api/frontend/portfolio"
-);
+// const { data: portfolios, error } = await useLazyFetch(
+//   "/api/frontend/portfolio"
+// );
 </script>
 <template>
   <NuxtLayout name="page-title">
@@ -169,7 +169,7 @@ const { data: portfolios, error } = await useLazyFetch(
           <!-- {{ portfolios }} -->
           <v-row v-auto-animate>
             <!-- here -->
-            <template
+            <!-- <template
               v-for="({ title, slug, featured_image }, i) in portfolios"
             >
               <v-col cols="12" sm="4" md="4" lg="4">
@@ -206,17 +206,13 @@ const { data: portfolios, error } = await useLazyFetch(
                   </v-card>
                 </v-hover>
               </v-col>
-            </template>
+            </template> -->
             <!-- here -->
-            <!-- <template v-for="(work, i) in works">
+            <template v-for="(work, i) in works">
               <v-col cols="12" sm="4" md="4" lg="4">
                 <v-hover v-slot="{ isHovering, props: hover }">
-                  <v-card
-                    flat
-                    rounded="lg"
-                    v-bind="{ ...hover }"
-                    :to="`/portfolio/${work.title}`"
-                  >
+                  <v-card flat rounded="lg" v-bind="{ ...hover }">
+                    <!-- :to="`/portfolio/${work.title}`" -->
                     <v-img
                       cover
                       :aspect-ratio="1"
@@ -243,7 +239,7 @@ const { data: portfolios, error } = await useLazyFetch(
                   </v-card>
                 </v-hover>
               </v-col>
-            </template> -->
+            </template>
           </v-row>
         </v-col>
       </v-row>
