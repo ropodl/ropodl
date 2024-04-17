@@ -1,5 +1,6 @@
 <script setup>
 import { SpeedInsights } from "@vercel/speed-insights/nuxt";
+console.log("Hello world from ropodl.vercel.app");
 
 const { isOnline } = useNetwork();
 
