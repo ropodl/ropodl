@@ -1,4 +1,5 @@
 import { serverSupabaseClient } from "#supabase/server";
+
 export default defineEventHandler(async (event) => {
   const slug = <string>getRouterParam(event, "slug");
 
