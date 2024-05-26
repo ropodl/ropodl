@@ -156,9 +156,9 @@ const works = [
   },
 ];
 
-// const { data: portfolios, error } = await useLazyFetch(
-//   "/api/frontend/portfolio"
-// );
+const { data: portfolios, error } = await useLazyFetch(
+  "/api/frontend/portfolio"
+);
 </script>
 <template>
   <NuxtLayout name="page-title">

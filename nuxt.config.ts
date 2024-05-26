@@ -11,13 +11,14 @@ export default defineNuxtConfig({
       },
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   experimental: {
     viewTransition: true,
     componentIslands: true,
     payloadExtraction: true,
   },
   modules: [
+    "@pinia/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
@@ -29,8 +30,9 @@ export default defineNuxtConfig({
     // "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
-    "@nuxtjs/supabase",
     // "nuxt-link-checker",
+    "@nuxtjs/supabase",
+    "@pinia-plugin-persistedstate/nuxt",
   ],
   googleFonts: {
     families: {

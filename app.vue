@@ -1,9 +1,5 @@
 <script setup>
-import { SpeedInsights } from "@vercel/speed-insights/nuxt";
-console.log("Hello world from ropodl.vercel.app");
-
 const { isOnline } = useNetwork();
-
 const route = useRoute();
 
 const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-image: radial-gradient(circle, #fff, transparent);">
@@ -27,7 +23,6 @@ const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;
 
 <template>
   <div>
-    <SpeedInsights />
     <VitePwaManifest />
     <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
     <template v-if="!route.fullPath.includes('/admin')">
