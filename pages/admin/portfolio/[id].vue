@@ -1,7 +1,4 @@
 <script setup>
-import Editor from "@tinymce/tinymce-vue";
-import { tinymceConfig } from "~/utils/tinymce";
-
 const config = useRuntimeConfig();
 const {
   params: { id },
@@ -76,13 +73,8 @@ const updateBlog = async () => {
             v-model="form.title"
           ></v-text-field>
           <v-card flat rounded="0" class="ext-editor mb-10">
-            <client-only placeholder="Loading TinyMCE Cloud">
-              <Editor
-                v-model="form.content"
-                placeholder="Portfolio Content"
-                :api-key="config.public.tinymce_key"
-                :init="tinymceConfig"
-              />
+            <client-only placeholder="Loading Quill Editor">
+              <LazyAdminSharedQuillEditor v-model:content="form.content" />
             </client-only>
           </v-card>
         </v-col>

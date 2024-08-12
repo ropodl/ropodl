@@ -37,13 +37,13 @@ useHead({
   ],
 });
 
-defineOgImage({
-  component: "Main",
-  headline: "Blogs",
-  title: blog.value?.title,
-  description: blog.value?.excerpt,
-  componentOptions: { global: true },
-});
+// defineOgImage({
+//   component: "Main",
+//   headline: "Blogs",
+//   title: blog.value?.title,
+//   description: blog.value?.excerpt,
+//   componentOptions: { global: true },
+// });
 
 onMounted(() => {
   nextTick(async () => {
@@ -77,27 +77,18 @@ onMounted(() => {
       height="600"
       :src="blog.featured_image?.url"
     >
-      <v-overlay
-        contained
-        persistent
-        scrim="black"
-        :model-value="true"
-        class="align-end"
-        content-class="w-100"
-        no-click-animation
-      >
-        <v-container v-if="blog.title">
-          <v-row>
-            <v-col cols="12">
-              <v-card-title
-                class="text-h2 pl-0"
-                style="white-space: unset !important"
-                >{{ blog.title }}</v-card-title
-              >
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-overlay>
+      <v-container v-if="blog.title">
+        <v-row>
+          <v-col cols="12">
+            <v-card-title
+              class="text-h2 pl-0"
+              style="white-space: unset !important"
+            >
+              {{ blog.title }}
+            </v-card-title>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-img>
   </v-skeleton-loader>
   <v-container>

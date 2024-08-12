@@ -2,8 +2,6 @@
 import { Icon } from "@iconify/vue";
 import { socials } from "~/utils/socials";
 
-
-
 definePageMeta({
   keepalive: true,
 });
@@ -207,16 +205,7 @@ console.log(repos);
                 :class="isHovering ? 'zoom-image' : ''"
                 src="/image/portfolio/api(new)/api.avif"
               >
-                <v-overlay
-                  contained
-                  persistent
-                  no-click-animation
-                  :model-value="true"
-                  scrim="black"
-                  class="align-end"
-                >
-                  <v-card-title>Website Design</v-card-title>
-                </v-overlay>
+                <v-card-title>Website Design</v-card-title>
               </v-img>
             </v-hover>
           </v-card>
@@ -294,16 +283,7 @@ console.log(repos);
                     :class="isHovering ? 'zoom-image' : ''"
                     src="/image/portfolio/bishwaskhabar/full.webp"
                   >
-                    <v-overlay
-                      contained
-                      persistent
-                      no-click-animation
-                      :model-value="true"
-                      scrim="black"
-                      class="align-end"
-                    >
-                      <v-card-title>Branding</v-card-title>
-                    </v-overlay>
+                    <v-card-title>Branding</v-card-title>
                   </v-img>
                 </v-hover>
               </v-card>
@@ -380,21 +360,17 @@ console.log(repos);
             </v-col>
             <v-col cols="6" sm="6" md="12">
               <v-card border height="121">
-                <v-hover v-slot="{ isHovering, props }">
-                  <v-img
-                    v-bind="props"
-                    height="70"
-                    class="h-100"
-                    src="/image/clients/apitech.avif"
-                    alt="api technology"
-                  ></v-img>
-                </v-hover>
+                <v-img
+                  height="70"
+                  class="h-100"
+                  src="/image/clients/apitech.avif"
+                  alt="api technology"
+                ></v-img>
               </v-card>
             </v-col>
             <v-col cols="6" sm="12">
               <v-card border height="121">
                 <v-img
-                  v-bind="props"
                   height="70"
                   class="h-100"
                   src="/image/clients/genese.avif"
@@ -416,16 +392,7 @@ console.log(repos);
                     :class="isHovering ? 'zoom-image' : ''"
                     src="https://cdn.dribbble.com/users/1462542/screenshots/6586732/legends.png"
                   >
-                    <v-overlay
-                      contained
-                      persistent
-                      no-click-animation
-                      :model-value="true"
-                      scrim="black"
-                      class="align-end"
-                    >
-                      <v-card-title>Graphic Design</v-card-title>
-                    </v-overlay>
+                    <v-card-title>Graphic Design</v-card-title>
                   </v-img>
                 </v-hover>
               </v-card>

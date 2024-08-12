@@ -58,7 +58,7 @@ const selectFeaturedImage = async ({ target }) => {
 };
 </script>
 <template>
-  <v-card class="mb-3" :loading :disabled="loading">
+  <v-card border flat class="mb-3" :loading :disabled="loading">
     <v-card-title>{{ title }}</v-card-title>
     <v-divider></v-divider>
     <v-card-text

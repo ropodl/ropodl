@@ -19,11 +19,11 @@ useSeoMeta({
   twitterCard: "summary",
 });
 
-defineOgImageComponent("Main", {
-  title: "Saroj Poudel",
-  description:
-    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-});
+// defineOgImageComponent("Main", {
+//   title: "Saroj Poudel",
+//   description:
+//     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+// });
 
 let loading = ref(false);
 const contactForm = ref();

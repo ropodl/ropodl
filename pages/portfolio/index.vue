@@ -17,11 +17,11 @@ useSeoMeta({
   twitterCard: "summary",
 });
 
-defineOgImage({
-  title: "Saroj Poudel",
-  description:
-    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-});
+// defineOgImageComponent({
+//   title: "Saroj Poudel",
+//   description:
+//     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+// });
 
 const current = ref("All");
 const categories = ["All", "Graphic Design", "Web", "Branding"];
@@ -169,7 +169,7 @@ const { data: portfolios, error } = await useLazyFetch(
           <!-- {{ portfolios }} -->
           <v-row v-auto-animate>
             <!-- here -->
-            <template
+            <!-- <template
               v-for="({ title, slug, featured_image }, i) in portfolios"
             >
               <v-col cols="12" sm="4" md="4" lg="4">
@@ -206,7 +206,7 @@ const { data: portfolios, error } = await useLazyFetch(
                   </v-card>
                 </v-hover>
               </v-col>
-            </template>
+            </template> -->
             <!-- here -->
             <template v-for="(work, i) in works" :key="i">
               <v-col cols="12" sm="4" md="4" lg="4">

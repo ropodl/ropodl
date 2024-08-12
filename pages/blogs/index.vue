@@ -20,7 +20,7 @@ const page = ref(1);
 const {
   data: blogs,
   error,
-  pending: loading,
+  status,
 } = await useLazyFetch("/api/frontend/blog", {
   params: {
     page,
@@ -34,7 +34,7 @@ const {
     <template #title>Blogs</template>
     <v-container>
       <v-row>
-        <template v-if="loading">
+        <template v-if="status === 'pending'">
           <template v-for="i in 6">
             <v-col cols="12" md="4">
               <v-card height="260">

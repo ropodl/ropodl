@@ -1,8 +1,8 @@
 <script setup>
-import Editor from "@tinymce/tinymce-vue";
-import { tinymceConfig } from "~/utils/tinymce";
+import { rule } from "./rule.js";
 
 const config = useRuntimeConfig();
+
 const {
   params: { id },
 } = useRoute();
@@ -46,38 +46,42 @@ onMounted(() => {
   });
 });
 
+const updateBlogRef = ref();
 const updateBlog = async () => {
-  const {
-    data,
-    error,
-    pending: loading,
-  } = await useFetch("/api/blog/" + id, {
-    method: "PATCH",
-    body: form,
-  });
-  if (error.value) {
-    loading.value = true;
-    return console.log(error.value);
+  const { valid } = updateBlogRef.value.validate();
+
+  if (valid) {
+    const {
+      data,
+      error,
+      pending: loading,
+    } = await useFetch("/api/blog/" + id, {
+      method: "PATCH",
+      body: form,
+    });
+    if (error.value) {
+      loading.value = true;
+      return console.log(error.value);
+    }
   }
 };
 </script>
 <template>
   <v-container>
-    <v-form @submit.prevent="updateBlog">
+    <v-form ref="updateBlogRef" @submit.prevent="updateBlog">
       <v-row>
         <v-col cols="12">
           <div class="text-h4 font-weight-bold">Edit Blog</div>
         </v-col>
         <v-col cols="12" md="8">
-          <v-text-field label="Blog Title" v-model="form.title"></v-text-field>
+          <v-text-field
+            label="Blog Title"
+            v-model="form.title"
+            :rules="rule.title"
+          ></v-text-field>
           <v-card flat rounded="0" class="ext-editor mb-10">
-            <client-only placeholder="Loading TinyMCE Cloud">
-              <Editor
-                v-model="form.content"
-                placeholder="Blog Content"
-                :api-key="config.public.tinymce_key"
-                :init="tinymceConfig"
-              />
+            <client-only placeholder="Loading Quill Editor">
+              <LazyAdminSharedQuillEditor v-model:content="form.content" />
             </client-only>
           </v-card>
           <v-textarea label="Blog Excerpt" v-model="form.excerpt"></v-textarea>

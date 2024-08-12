@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
+const blog = useAdminBlogStore();
+await blog.read();
+console.log(blog);
+
 definePageMeta({
   layout: "admin",
 });
@@ -36,7 +40,6 @@ const headers = [
   },
 ];
 const deleteBulk = () => {
-  //   blog.removeBulk(selected.value);
   selected.value = [];
 };
 // server side table
