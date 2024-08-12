@@ -1,7 +1,7 @@
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: true,
+  ssr: false,
   app: {
     head: {
       charset: "utf-8",
@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     viewTransition: true,
     componentIslands: true,
     payloadExtraction: true,
+    sharedPrerenderData: true,
   },
   modules: [
     "@pinia/nuxt",
@@ -27,10 +28,10 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-og-image",
-    // "nuxt-capo",
+    "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
-    // "nuxt-link-checker",
+    "nuxt-link-checker",
     "@nuxtjs/supabase",
     "@pinia-plugin-persistedstate/nuxt",
   ],
@@ -67,7 +68,6 @@ export default defineNuxtConfig({
   },
   vuetify: {
     vuetifyOptions: {
-      ssr: true,
       theme: {
         defaultTheme: "dark",
         variations: {
@@ -152,12 +152,10 @@ export default defineNuxtConfig({
       supabase_url: process.env.SUPABASE_URL,
     },
   },
-  // nuxt security
-  // security: {
-  //   headers: {
-  //     contentSecurityPolicy: {
-  //       "img-src": ["'self'", "https://avatars.githubusercontent.com"],
-  //     },
-  //   },
-  // },
+  pinia: {
+    storesDirs: ["./stores/**"],
+  },
+  piniaPersistedstate: {
+    storage: "localStorage",
+  },
 });

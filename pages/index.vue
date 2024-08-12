@@ -17,12 +17,13 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 });
 
-defineOgImageComponent("Main", {
-  headline: "Website",
-  title: "Saroj Poudel",
-  description:
-    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-});
+// defineOgImage({
+//   component: "Main",
+//   headline: "Website",
+//   title: "Saroj Poudel",
+//   description:
+//     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
+// });
 </script>
 <template>
   <LazySharedHero />

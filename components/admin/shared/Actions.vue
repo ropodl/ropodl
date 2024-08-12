@@ -9,7 +9,7 @@ defineProps({
 });
 </script>
 <template>
-  <v-card class="mb-3">
+  <v-card border flat class="mb-3">
     <v-card-title>Actions</v-card-title>
     <v-divider></v-divider>
     <v-card-text>

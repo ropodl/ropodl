@@ -1,9 +1,17 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const drawer = ref(true);
+const route = useRoute();
+console.log(route);
+const getIsActive = (index) => {
+  // const current = route.fullPath.split("/");
+  // if (link.includes(current[2])) return true;
+  // else return false;
+  return true;
+};
 
-const navitems = reactive([
+const drawer = ref(true);
+const navitems = ref([
   {
     icon: "mdi:home",
     title: "Home",
@@ -76,44 +84,43 @@ const navitems = reactive([
     </v-container>
   </v-app-bar>
   <!-- nav drawer -->
-  <v-navigation-drawer v-model="drawer" absolute>
-    <v-list class="nav overflow-visible" density="compact">
-      <template v-for="navitem in navitems">
+  <v-navigation-drawer v-model="drawer">
+    <v-list class="nav overflow-visible" density="comfortable">
+      <template v-for="(navitem, index) in navitems" :key="navitem.title">
         <v-list-subheader v-if="navitem.subtitle">
           {{ navitem.subtitle }}
         </v-list-subheader>
+        <!-- main like dashboard -->
         <template v-if="navitem.subitems">
-          <v-list-group v-model="navitem.active">
+          <v-list-group>
             <template v-slot:activator="{ props }">
-              <!-- main like dashboard -->
               <v-list-item v-bind="props">
                 <template v-slot:prepend>
                   <v-icon>
                     <Icon :icon="navitem['icon']" />
                   </v-icon>
                 </template>
-                <v-list-item-title>
-                  {{ navitem.title }}
-                </v-list-item-title>
+                <v-list-item-title> {{ navitem.title }} </v-list-item-title>
               </v-list-item>
             </template>
-            <span v-for="subitem in navitem.subitems">
+            <span v-for="subitem in navitem.subitems" :key="subitem.title">
+              <!-- child's option -->
               <span v-if="subitem.miniitems">
                 <v-list-group>
                   <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props">
-                      <!-- child's option -->
                       <v-list-item-title>
                         {{ subitem.title }}
                       </v-list-item-title>
                     </v-list-item>
                   </template>
+                  <!-- grand child -->
                   <template v-if="subitem.miniitems">
                     <v-list-item
                       v-for="mini in subitem.miniitems"
                       :to="mini.routes"
+                      :key="mini.title"
                     >
-                      <!-- grand child -->
                       <v-list-item-title>
                         {{ mini.title }}
                       </v-list-item-title>
@@ -121,12 +128,10 @@ const navitems = reactive([
                   </template>
                 </v-list-group>
               </span>
+              <!-- child -->
               <span v-else>
                 <v-list-item exact :to="subitem.routes">
-                  <!-- child -->
-                  <v-list-item-title>
-                    {{ subitem.title }}
-                  </v-list-item-title>
+                  <v-list-item-title> {{ subitem.title }} </v-list-item-title>
                 </v-list-item>
               </span>
             </span>
