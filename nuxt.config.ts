@@ -11,12 +11,18 @@ export default defineNuxtConfig({
       },
     },
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   experimental: {
     viewTransition: true,
     componentIslands: true,
     payloadExtraction: true,
     sharedPrerenderData: true,
+defaults: {
+      nuxtLink: {
+        prefetch: true,
+        prefetchOn: { visibility: false, interaction: true }
+      }
+    }
   },
   modules: [
     "@pinia/nuxt",
