@@ -24,6 +24,9 @@ defaults: {
       }
     }
   },
+  routeRules: {
+    '/': { prerender: true }
+  },
   modules: [
     "@pinia/nuxt",
     "@vueuse/nuxt",
