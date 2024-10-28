@@ -1,7 +1,7 @@
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   app: {
     head: {
       charset: "utf-8",
@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   experimental: {
     viewTransition: true,
     componentIslands: true,
@@ -40,6 +40,7 @@ defaults: {
     "nuxt-link-checker",
     "@nuxtjs/supabase",
     "@pinia-plugin-persistedstate/nuxt",
+    "@nuxthub/core",
   ],
   googleFonts: {
     families: {
@@ -164,4 +165,7 @@ defaults: {
   piniaPersistedstate: {
     storage: "localStorage",
   },
+  hub: {
+    database: true
+  }
 });
