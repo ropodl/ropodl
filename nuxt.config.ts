@@ -172,7 +172,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      tinymce_key: process.env.TINYMCE_KEY,
+      // tinymce_key: process.env.TINYMCE_KEY,
       supabase_url: process.env.SUPABASE_URL,
     },
   },
@@ -187,9 +187,6 @@ export default defineNuxtConfig({
 
   hub: {
     database: true,
-    cloudflareAccess: {
-      clientId: ''
-    }
   },
   nitro: {
     minify: false
