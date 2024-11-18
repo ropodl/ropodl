@@ -28,9 +28,9 @@ export default defineNuxtConfig({
     },
   },
 
-  routeRules: {
-    "/": { prerender: true },
-  },
+  // routeRules: {
+  //   "/": { prerender: true },
+  // },
 
   modules: [
     "@pinia/nuxt",
@@ -42,7 +42,7 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-og-image",
-    "nuxt-capo",
+    // "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
