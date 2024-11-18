@@ -187,6 +187,12 @@ export default defineNuxtConfig({
 
   hub: {
     database: true,
+    cloudflareAccess: {
+      clientId: ''
+    }
+  },
+  nitro: {
+    minify: false
   },
 
   compatibilityDate: "2024-11-18",
