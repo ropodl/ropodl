@@ -59,8 +59,10 @@ export default defineNuxtConfig({
 
   ogImage: {
     fonts: ["Roboto:400"],
-    defaults: {
-      renderer: 'satori'
+    compatibility: {
+      prerender: {
+        chromium: false
+      }
     }
   },
 
