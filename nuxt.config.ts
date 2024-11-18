@@ -45,8 +45,7 @@ export default defineNuxtConfig({
     "nuxt-gtag",
     "nuxt-link-checker",
     "@nuxtjs/supabase",
-    "@pinia-plugin-persistedstate/nuxt",
-    "@nuxthub/core",
+    "@pinia-plugin-persistedstate/nuxt"
   ],
 
   googleFonts: {
