@@ -60,6 +60,9 @@ export default defineNuxtConfig({
 
   ogImage: {
     fonts: ["Roboto:400"],
+    defaults: {
+      renderer: 'satori'
+    }
   },
 
   gtag: {
@@ -180,10 +183,6 @@ export default defineNuxtConfig({
 
   piniaPersistedstate: {
     storage: "localStorage",
-  },
-
-  hub: {
-    database: true,
   },
   nitro: {
     minify: true

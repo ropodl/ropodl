@@ -11,7 +11,6 @@
   "devDependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@nuxt/devtools": "^1.6.0",
-    "@nuxthub/core": "^0.8.7",
     "@nuxtjs/supabase": "^1.4.2",
     "@vite-pwa/nuxt": "^0.10.6",
     "@vueuse/nuxt": "^11.2.0",
@@ -23,8 +22,7 @@
     "nuxt-payload-analyzer": "latest",
     "nuxt-security": "^2.1.1",
     "nuxt-simple-sitemap": "^4.4.1",
-    "sass": "^1.81.0",
-    "wrangler": "^3.87.0"
+    "sass": "^1.81.0"
   },
   "dependencies": {
     "@google-analytics/data": "^4.10.0",
