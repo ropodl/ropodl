@@ -18,8 +18,6 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     componentIslands: true,
-    payloadExtraction: true,
-    sharedPrerenderData: true,
     defaults: {
       nuxtLink: {
         prefetch: true,
@@ -28,9 +26,9 @@ export default defineNuxtConfig({
     },
   },
 
-  // routeRules: {
-  //   "/": { prerender: true },
-  // },
+  routeRules: {
+    "/": { prerender: true },
+  },
 
   modules: [
     "@pinia/nuxt",
@@ -42,7 +40,7 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-og-image",
-    // "nuxt-capo",
+    "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
@@ -172,7 +170,6 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      // tinymce_key: process.env.TINYMCE_KEY,
       supabase_url: process.env.SUPABASE_URL,
     },
   },
@@ -189,7 +186,7 @@ export default defineNuxtConfig({
     database: true,
   },
   nitro: {
-    minify: false
+    minify: true
   },
 
   compatibilityDate: "2024-11-18",
@@ -201,5 +198,5 @@ export default defineNuxtConfig({
         }
       }
     }
-  }
+  },
 });
