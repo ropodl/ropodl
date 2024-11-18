@@ -2,6 +2,7 @@ import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
+
   app: {
     head: {
       charset: "utf-8",
@@ -11,22 +12,26 @@ export default defineNuxtConfig({
       },
     },
   },
+
   devtools: { enabled: true },
+
   experimental: {
     viewTransition: true,
     componentIslands: true,
     payloadExtraction: true,
     sharedPrerenderData: true,
-defaults: {
+    defaults: {
       nuxtLink: {
         prefetch: true,
-        prefetchOn: { visibility: false, interaction: true }
-      }
-    }
+        prefetchOn: { visibility: true },
+      },
+    },
   },
+
   routeRules: {
-    '/': { prerender: true }
+    "/": { prerender: true },
   },
+
   modules: [
     "@pinia/nuxt",
     "@vueuse/nuxt",
@@ -45,6 +50,7 @@ defaults: {
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxthub/core",
   ],
+
   googleFonts: {
     families: {
       Roboto: {
@@ -53,12 +59,15 @@ defaults: {
     },
     display: "swap",
   },
+
   ogImage: {
     fonts: ["Roboto:400"],
   },
+
   gtag: {
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
+
   supabase: {
     url: process.env.SUPABASE_URL,
     key: process.env.SUPABASE_KEY,
@@ -76,6 +85,7 @@ defaults: {
       ],
     },
   },
+
   vuetify: {
     vuetifyOptions: {
       theme: {
@@ -121,12 +131,15 @@ defaults: {
       },
     },
   },
-  site: { url: "https://ropodl.vercel.app" },
+
+  site: { url: "https://ropodl.com/" },
+
   sitemap: {
     sitemapName: "sitemap.xml",
     defaults: {},
     exclude: ["/_nuxt/**", "/admin/**", "/login", "/api/**"],
   },
+
   pwa: {
     registerType: "autoUpdate",
     workbox: {
@@ -156,19 +169,25 @@ defaults: {
       installPrompt: true,
     },
   },
+
   runtimeConfig: {
     public: {
       tinymce_key: process.env.TINYMCE_KEY,
       supabase_url: process.env.SUPABASE_URL,
     },
   },
+
   pinia: {
     storesDirs: ["./stores/**"],
   },
+
   piniaPersistedstate: {
     storage: "localStorage",
   },
+
   hub: {
-    database: true
-  }
+    database: true,
+  },
+
+  compatibilityDate: "2024-11-18",
 });
