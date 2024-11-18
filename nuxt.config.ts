@@ -139,7 +139,7 @@ export default defineNuxtConfig({
   sitemap: {
     sitemapName: "sitemap.xml",
     defaults: {},
-    exclude: ["/_nuxt/**", "/admin/**", "/login", "/api/**"],
+    exclude: ["/_nuxt/**", "/admin/**", "/login","/confirm", "/api/**"],
   },
 
   pwa: {
