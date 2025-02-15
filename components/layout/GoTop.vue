@@ -33,8 +33,8 @@ const onScroll = (e: Event) => {
       aria-label="Go to top button"
     >
       <v-progress-circular
-        color="primary"
-        width="1"
+        color="brand"
+        width="2"
         size="40"
         :model-value="progress"
         aria-label="document scroll position"
