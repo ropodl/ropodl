@@ -107,30 +107,21 @@ const submitForm = async (): Promise<void> => {
             Got a project? Let's talk.
           </div>
           <ul class="list-style-none d-flex">
-            <!-- <li
-              v-for="(contact, i) in contacts"
-              class="d-flex align-center mb-3"
-            >
-              <v-icon size="large">
-                <Icon :icon="contact.icon" />
-              </v-icon>
-              <div class="pl-3">
-                {{ contact.title }}
-              </div>
-            </li> -->
-            <li v-for="social in socials">
-              <v-btn
-                icon
-                rounded="lg"
-                color="primary"
-                variant="tonal"
-                class="mr-3"
-              >
-                <v-icon size="large">
-                  <Icon :icon="social.icon" />
-                </v-icon>
-              </v-btn>
-            </li>
+            <template v-for="social in socials">
+              <li>
+                <v-btn
+                  icon
+                  rounded="lg"
+                  color="primary"
+                  variant="tonal"
+                  class="mr-3"
+                >
+                  <v-icon size="large">
+                    <Icon :icon="social.icon" />
+                  </v-icon>
+                </v-btn>
+              </li>
+            </template>
           </ul>
         </v-col>
         <v-col cols="12" md="5">
@@ -184,7 +175,7 @@ const submitForm = async (): Promise<void> => {
                     rounded="lg"
                     variant="tonal"
                     color="primary"
-                    class="text-capitalize px-10"
+                    class="px-10"
                     v-bind="props"
                     :loading="loading"
                     :disabled="loading"
