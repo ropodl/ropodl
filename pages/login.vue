@@ -1,5 +1,4 @@
 <script setup>
-import { Icon } from "@iconify/vue";
 const supabase = useSupabaseClient();
 
 const loading = ref(true);

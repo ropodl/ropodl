@@ -1,8 +1,7 @@
-import colors from "vuetify/lib/util/colors";
+import { vuetifyOptions } from "./utils/module/vuetify.ts"
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
-
   app: {
     head: {
       charset: "utf-8",
@@ -12,12 +11,11 @@ export default defineNuxtConfig({
       },
     },
   },
-
   devtools: { enabled: true },
-
   experimental: {
     viewTransition: true,
     componentIslands: true,
+    renderJsonPayloads: false,
     defaults: {
       nuxtLink: {
         prefetch: true,
@@ -25,11 +23,9 @@ export default defineNuxtConfig({
       },
     },
   },
-
   routeRules: {
     "/": { prerender: true },
   },
-
   modules: [
     "@pinia/nuxt",
     "@vueuse/nuxt",
@@ -40,14 +36,13 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     "nuxt-og-image",
-    "nuxt-capo",
+    // "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
     "@nuxtjs/supabase",
     "@pinia-plugin-persistedstate/nuxt"
   ],
-
   googleFonts: {
     families: {
       Roboto: {
@@ -56,7 +51,6 @@ export default defineNuxtConfig({
     },
     display: "swap",
   },
-
   ogImage: {
     fonts: ["Roboto:400"],
     compatibility: {
@@ -65,11 +59,9 @@ export default defineNuxtConfig({
       }
     }
   },
-
   gtag: {
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
-
   supabase: {
     url: process.env.SUPABASE_URL,
     key: process.env.SUPABASE_KEY,
@@ -87,61 +79,15 @@ export default defineNuxtConfig({
       ],
     },
   },
-
   vuetify: {
-    vuetifyOptions: {
-      theme: {
-        defaultTheme: "dark",
-        variations: {
-          colors: [
-            "primary",
-            "secondary",
-            "error",
-            "info",
-            "success",
-            "warning",
-          ],
-          lighten: 5,
-          darken: 5,
-        },
-        themes: {
-          dark: {
-            dark: true,
-            colors: {
-              primary: "#ff7a03",
-              accent: colors.grey.darken3,
-              secondary: colors.amber.darken3,
-              info: colors.teal.lighten1,
-              warning: colors.amber.base,
-              error: colors.deepOrange.accent4,
-              success: colors.green.accent3,
-            },
-          },
-          light: {
-            dark: false,
-            colors: {
-              primary: "#ff7a03",
-              accent: colors.grey.darken3,
-              secondary: colors.amber.darken3,
-              info: colors.teal.lighten1,
-              warning: colors.amber.base,
-              error: colors.deepOrange.accent4,
-              success: colors.green.accent3,
-            },
-          },
-        },
-      },
-    },
+    vuetifyOptions: vuetifyOptions,
   },
-
   site: { url: "https://ropodl.com/" },
-
   sitemap: {
     sitemapName: "sitemap.xml",
     defaults: {},
     exclude: ["/_nuxt/**", "/admin/**", "/login","/confirm", "/api/**"],
   },
-
   pwa: {
     registerType: "autoUpdate",
     workbox: {
@@ -171,24 +117,20 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
   },
-
   runtimeConfig: {
     public: {
       supabase_url: process.env.SUPABASE_URL,
     },
   },
-
   pinia: {
     storesDirs: ["./stores/**"],
   },
-
   piniaPersistedstate: {
     storage: "localStorage",
   },
   nitro: {
     minify: true
   },
-
   compatibilityDate: "2024-11-18",
   vite: {
     css: {

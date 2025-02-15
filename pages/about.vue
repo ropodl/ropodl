@@ -145,13 +145,9 @@ const backend = [
 const { data: profile, error: profileError } = await useLazyFetch(
   "https://api.github.com/users/ropodl"
 );
-if (profileError.value) console.log(profileError.value);
-console.log(profile);
 const { data: repos, error: reposError } = await useLazyFetch(
   "https://api.github.com/users/ropodl/repos"
 );
-if (reposError.value) console.log(reposError.value);
-console.log(repos);
 </script>
 <template>
   <NuxtLayout name="page-title">
@@ -164,7 +160,7 @@ console.log(repos);
               <v-card
                 border
                 height="121"
-                color="primary"
+                color="brand"
                 class="d-flex align-end"
               >
                 <v-icon size="90" class="bg-icon right">
@@ -185,7 +181,7 @@ console.log(repos);
                 </v-icon>
                 <div>
                   <v-card-title
-                    class="text-h3 mb-3 font-weight-black text-primary"
+                    class="text-h3 mb-3 font-weight-black text-brand"
                   >
                     10+
                   </v-card-title>
@@ -220,13 +216,13 @@ console.log(repos);
               class="text-h3 font-weight-bold"
               style="line-height: 50px"
             >
-              <span class="text-primary">Designer</span> by Nature,
-              <span class="text-primary">Developer by</span> Choice
+              <span class="text-brand">Designer</span> by Nature,
+              <span class="text-brand">Developer by</span> Choice
             </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="3">
-          <v-card border height="121" color="primary" class="mb-2">
+          <v-card border height="121" color="brand" class="mb-2">
             <v-card-title class="h-100">
               <ul
                 class="list-style-none h-100 d-flex justify-center align-center flex-wrap"
@@ -257,7 +253,7 @@ console.log(repos);
                     <v-tooltip :text location="bottom" theme="light">
                       <template v-slot:activator="{ props }">
                         <v-btn flat icon v-bind="props" color="transparent">
-                          <v-icon color="primary" size="40">
+                          <v-icon color="brand" size="40">
                             <Icon :icon />
                           </v-icon>
                         </v-btn>
@@ -289,7 +285,7 @@ console.log(repos);
               </v-card>
             </v-col>
             <v-col cols="12" sm="6" md="12">
-              <v-card border color="primary" height="121">
+              <v-card border color="brand" height="121">
                 <v-card-title class="h-100">
                   <ul
                     class="list-style-none h-100 d-flex justify-center align-center flex-wrap"
@@ -320,9 +316,9 @@ console.log(repos);
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-card border height="250">
-                <v-card-title>Test</v-card-title>
+                <v-card-title>Contact Me</v-card-title>
                 <v-divider />
-                <v-card-text>This is a test</v-card-text>
+                <v-card-text>Please feel free to contact me.</v-card-text>
               </v-card>
             </v-col>
           </v-row>
@@ -342,7 +338,7 @@ console.log(repos);
                     <v-timeline-item
                       size="10"
                       density="compact"
-                      dot-color="primary"
+                      dot-color="brand"
                       v-for="{ year, title, desc } in experience"
                     >
                       <v-card-title
@@ -413,7 +409,7 @@ console.log(repos);
                         <v-timeline-item
                           size="10"
                           density="compact"
-                          dot-color="primary"
+                          dot-color="brand"
                           v-for="{ year, title, desc } in education"
                         >
                           <v-card-title
@@ -450,7 +446,7 @@ console.log(repos);
                                   target="_blank"
                                   color="transparent"
                                 >
-                                  <v-icon size="large">
+                                  <v-icon size="x-large">
                                     <Icon :icon />
                                   </v-icon>
                                 </v-btn>
@@ -480,7 +476,7 @@ console.log(repos);
                       >
                         <div v-if="profile">
                           <v-card-title
-                            class="text-h3 text-center font-weight-black text-primary mb-2"
+                            class="text-h4 text-center font-weight-black text-brand pb-0"
                           >
                             {{ profile.public_repos }}
                           </v-card-title>
@@ -500,7 +496,10 @@ console.log(repos);
                   </v-row>
                   <v-card border height="250" title="Repos">
                     <v-divider></v-divider>
-                    <v-card-text class="pa-0 h-100" style="overflow-y: scroll">
+                    <v-card-text
+                      class="pa-0"
+                      style="height: 200px; overflow-y: scroll"
+                    >
                       <template v-if="repos">
                         <v-list density="compact">
                           <template v-for="({ name, html_url }, i) in repos">
@@ -523,6 +522,7 @@ console.log(repos);
                             </v-list-item>
                           </template>
                         </v-list>
+                        <v-divider></v-divider>
                       </template>
                       <template v-else>
                         <v-alert

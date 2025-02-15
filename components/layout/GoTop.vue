@@ -28,15 +28,14 @@ const onScroll = (e: Event) => {
     <v-btn
       border
       icon
-      size="x-large"
       v-scroll="onScroll"
       @click="useScrollTo('__nuxt', 0)"
       aria-label="Go to top button"
     >
       <v-progress-circular
         color="primary"
-        width="2"
-        size="64"
+        width="1"
+        size="40"
         :model-value="progress"
         aria-label="document scroll position"
         class="circular-no-animation"

@@ -8,7 +8,7 @@
             class="text-h1 font-weight-bold pl-0"
             style="line-height: normal !important"
           >
-            <slot name="title" /><span class="text-primary">.</span>
+            <slot name="title" /><span class="text-brand">.</span>
           </v-card-title>
         </v-col>
       </v-row>

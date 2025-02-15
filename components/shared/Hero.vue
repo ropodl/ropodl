@@ -1,7 +1,7 @@
-<script lang="ts" setup>
+<script setup>
 import { Icon } from "@iconify/vue";
 
-let lottieContainer = ref();
+let lottieContainer = ref(null);
 
 const startAnimation = () => {
   lottieContainer.value.playSegments([160, 386], true);
@@ -33,7 +33,7 @@ const startAnimation = () => {
             <div>
               <div class="text-overline">Hello, World! I am</div>
               <div class="text-h1 font-weight-bold mb-3">
-                Saroj Poudel<span class="text-primary">.</span>
+                Saroj Poudel<span class="text-brand">.</span>
               </div>
               <div>
                 <div class="text-h4 font-weight-medium">
@@ -44,59 +44,14 @@ const startAnimation = () => {
                   ExpressJS and VueJs/Nuxt.
                 </v-card-text>
                 <v-row>
-                  <!-- <v-col cols="3">
-                    <v-hover v-slot="{ isHovering, props }">
-                      <v-btn
-                        block
-                        height="50"
-                        rounded="lg"
-                        variant="tonal"
-                        color="primary"
-                        class="text-capitalize font-weight-medium"
-                        v-bind="props"
-                        to="/about"
-                      >
-                        About
-                        <v-icon
-                          :class="isHovering ? 'ml-4' : 'ml-2'"
-                          style="transition: all 100ms linear"
-                        >
-                          <Icon icon="lucide:arrow-right" />
-                        </v-icon>
-                      </v-btn>
-                    </v-hover>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-hover v-slot="{ isHovering, props }">
-                      <v-btn
-                        block
-                        height="50"
-                        rounded="lg"
-                        variant="text"
-                        color="primary"
-                        class="text-capitalize font-weight-medium"
-                        v-bind="props"
-                        to="/contact"
-                      >
-                        Contact
-                        <v-icon
-                          :class="isHovering ? 'ml-4' : 'ml-2'"
-                          style="transition: all 100ms linear"
-                        >
-                          <Icon icon="lucide:arrow-right" />
-                        </v-icon>
-                      </v-btn>
-                    </v-hover>
-                  </v-col> -->
                   <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         block
-                        height="50"
                         rounded="lg"
+                        color="brand"
+                        height="40"
                         variant="tonal"
-                        color="primary"
-                        class="text-capitalize font-weight-medium"
                         v-bind="props"
                         to="/blogs"
                       >
@@ -114,11 +69,10 @@ const startAnimation = () => {
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         block
-                        height="50"
                         rounded="lg"
-                        variant="text"
                         color="primary"
-                        class="text-capitalize font-weight-medium"
+                        height="40"
+                        variant="text"
                         v-bind="props"
                         to="/portfolio"
                       >
@@ -140,18 +94,4 @@ const startAnimation = () => {
       </v-row>
     </v-container>
   </v-card>
-  <!-- <div
-    class="position-absolute w-100 h-100"
-    style="background-color: red; z-index: -1; inset: 0; opacity: 0.2"
-  >
-    <ClientOnly>
-      <Vue3Lottie
-        ref="lottieContainer"
-        :loop="true"
-        direction="alternate"
-        animationLink="https://lottie.host/ab468c4a-fb60-4a2f-9000-4ddf87c1aae7/shGXbIaJxm.json"
-        @onLoopComplete="startAnimation"
-      />
-    </ClientOnly>
-  </div> -->
 </template>

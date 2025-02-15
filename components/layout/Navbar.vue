@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { socials } from "@/utils/socials";
 import { Icon } from "@iconify/vue";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -73,6 +74,7 @@ const pages = [
                 height="50"
                 rounded="lg"
                 color="transparent"
+                variant="tonal"
                 class="text-lowercase hidden-sm-and-down"
                 :active="false"
                 :to="page.link"
@@ -80,7 +82,7 @@ const pages = [
                 <span
                   :class="
                     route.fullPath.includes(page.title)
-                      ? 'text-primary'
+                      ? 'text-brand'
                       : 'text-white'
                   "
                 >

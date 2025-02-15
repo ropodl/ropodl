@@ -81,7 +81,7 @@ const {
                         </template>
                       </v-img>
                     </v-card>
-                    <v-card-text class="ps-0 pb-0 text-primary">
+                    <v-card-text class="ps-0 pb-0 text-brand">
                       [ {{ formatTimeAgo(new Date(created_at)) }} ]
                     </v-card-text>
                     <v-card-text
