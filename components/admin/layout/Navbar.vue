@@ -1,17 +1,28 @@
-<script setup>
+<script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
-const route = useRoute();
-console.log(route);
-const getIsActive = (index) => {
-  // const current = route.fullPath.split("/");
-  // if (link.includes(current[2])) return true;
-  // else return false;
-  return true;
-};
+const drawer = ref<boolean>(true);
 
-const drawer = ref(true);
-const navitems = ref([
+interface NavItem {
+  icon: string;
+  title: string;
+  routes?: string;
+  subitems?: SubNavItems[];
+  subtitle?: string;
+}
+
+interface SubNavItems {
+  title: string;
+  routes: string;
+  miniitems?: MiniItems[];
+}
+
+interface MiniItems {
+  title: string;
+  routes: string;
+}
+
+const navitems = ref<NavItem[]>([
   {
     icon: "mdi:home",
     title: "Home",
@@ -75,7 +86,11 @@ const navitems = ref([
             </v-btn>
           </template>
           <v-list density="compact">
-            <v-list-item title="Visit Site" to="/"></v-list-item>
+            <v-list-item
+              title="Visit Site"
+              target="_blank"
+              to="/"
+            ></v-list-item>
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
@@ -85,68 +100,52 @@ const navitems = ref([
   </v-app-bar>
   <!-- nav drawer -->
   <v-navigation-drawer v-model="drawer">
-    <v-list class="nav overflow-visible" density="comfortable">
-      <template v-for="(navitem, index) in navitems" :key="navitem.title">
-        <v-list-subheader v-if="navitem.subtitle">
-          {{ navitem.subtitle }}
-        </v-list-subheader>
+    <v-list density="compact" class="pa-2">
+      <template v-for="{ title, subtitle, icon, subitems, routes } in navitems">
+        <template v-if="subtitle">
+          <v-list-subheader>{{ subtitle }}</v-list-subheader>
+        </template>
         <!-- main like dashboard -->
-        <template v-if="navitem.subitems">
+        <template v-if="subitems">
           <v-list-group>
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props">
+              <v-list-item v-bind="props" rounded="lg" :title>
                 <template v-slot:prepend>
                   <v-icon>
-                    <Icon :icon="navitem['icon']" />
+                    <Icon :icon />
                   </v-icon>
                 </template>
-                <v-list-item-title> {{ navitem.title }} </v-list-item-title>
               </v-list-item>
             </template>
-            <span v-for="subitem in navitem.subitems" :key="subitem.title">
+            <span v-for="{ title, miniitems, routes } in subitems">
               <!-- child's option -->
-              <span v-if="subitem.miniitems">
-                <v-list-group>
+              <span v-if="miniitems">
+                <v-list-group rounded="lg">
                   <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props">
-                      <v-list-item-title>
-                        {{ subitem.title }}
-                      </v-list-item-title>
-                    </v-list-item>
+                    <v-list-item v-bind="props" rounded="lg" :title />
                   </template>
                   <!-- grand child -->
-                  <template v-if="subitem.miniitems">
-                    <v-list-item
-                      v-for="mini in subitem.miniitems"
-                      :to="mini.routes"
-                      :key="mini.title"
-                    >
-                      <v-list-item-title>
-                        {{ mini.title }}
-                      </v-list-item-title>
-                    </v-list-item>
+                  <template v-if="miniitems">
+                    <template v-for="{ routes, title } in miniitems">
+                      <v-list-item :title :to="routes" />
+                    </template>
                   </template>
                 </v-list-group>
               </span>
               <!-- child -->
               <span v-else>
-                <v-list-item exact :to="subitem.routes">
-                  <v-list-item-title> {{ subitem.title }} </v-list-item-title>
-                </v-list-item>
+                <v-list-item rounded="lg" exact :title :to="routes" />
               </span>
             </span>
           </v-list-group>
         </template>
         <template v-else>
-          <v-list-item :to="navitem.routes">
+          <v-list-item rounded="lg" :title :to="routes">
             <template v-slot:prepend>
               <v-icon>
-                <Icon :icon="navitem['icon']" />
+                <Icon :icon />
               </v-icon>
             </template>
-            <v-list-item-title>
-              {{ navitem.title }}
-            </v-list-item-title>
           </v-list-item>
         </template>
       </template>

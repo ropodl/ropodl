@@ -25,7 +25,7 @@ useSeoMeta({
 //     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
 // });
 
-let loading = ref(false);
+const loading = ref(false);
 const contactForm = ref();
 
 const form = reactive({
@@ -171,7 +171,7 @@ const submitForm = async (): Promise<void> => {
                   <v-btn
                     block
                     type="submit"
-                    height="50"
+                    height="40"
                     rounded="lg"
                     variant="tonal"
                     color="primary"
@@ -182,7 +182,6 @@ const submitForm = async (): Promise<void> => {
                   >
                     Send Message
                     <v-icon
-                      size="x-small"
                       :class="isHovering ? 'ml-4' : 'ml-2'"
                       style="transition: all 100ms linear"
                       ><Icon icon="mdi:arrow-right"
