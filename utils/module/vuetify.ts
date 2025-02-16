@@ -1,11 +1,27 @@
-import colors from "vuetify/util/colors";
-// "#ff7a03"
 export const vuetifyOptions = {
   defaults: {
     VBtn: {
       class: "text-none",
-      size: "small"
-    }
+      rounded: "lg",
+      variant: "flat",
+    },
+    VCard: {
+      border: true,
+      flat: true,
+      rounded: "lg",
+      color: "rgb(var(--v-theme-background))",
+    },
+    VTextField: {
+      density: "comfortable",
+      variant: "outlined",
+    },
+    VTextarea: {
+      variant: "outlined",
+    },
+    VDataTableServer: {
+      class: "bg-transparent",
+      hover: true,
+    },
   },
   theme: {
     defaultTheme: "dark",
@@ -18,26 +34,26 @@ export const vuetifyOptions = {
       dark: {
         dark: true,
         colors: {
-          primary: colors.shades.white,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
+          primary: "#FFFFFF", // White
+          accent: "#374151", // Gray 700 (Tailwind equivalent)
+          secondary: "#D97706", // Amber 600
+          info: "#14B8A6", // Teal 500
+          warning: "#F59E0B", // Amber 500
+          error: "#EF4444", // Red 500
+          success: "#22C55E", // Green 500
           brand: "#ff7a03"
         },
       },
       light: {
         dark: false,
         colors: {
-          primary: colors.shades.black,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
+          primary: "#000000", // Black
+          accent: "#374151", // Gray 700 (Tailwind equivalent)
+          secondary: "#D97706", // Amber 600
+          info: "#14B8A6", // Teal 500
+          warning: "#F59E0B", // Amber 500
+          error: "#EF4444", // Red 500
+          success: "#22C55E", // Green 500
           brand: "#ff7a03"
         },
       },

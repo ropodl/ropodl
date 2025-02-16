@@ -11,12 +11,22 @@ defineProps({
 </script>
 <template>
   <v-dialog persistent scrim="black" width="500">
-    <template v-slot:activator="{ props }">
-      <v-btn v-bind="props" icon rounded="lg" color="error" variant="tonal">
-        <v-icon>
-          <Icon icon="mdi:delete" />
-        </v-icon>
-      </v-btn>
+    <template v-slot:activator="{ props: dialog }">
+      <v-tooltip theme="light" text="Delete Post">
+        <template v-slot:activator="{ props: tooltip }">
+          <v-btn
+            v-bind="{ ...dialog, ...tooltip }"
+            icon
+            size="small"
+            rounded="lg"
+            variant="text"
+          >
+            <v-icon>
+              <Icon icon="mdi:delete" />
+            </v-icon>
+          </v-btn>
+        </template>
+      </v-tooltip>
     </template>
     <template v-slot:default="{ isActive }">
       <v-card border :title="`Delete ${type}`">
@@ -28,8 +38,7 @@ defineProps({
           <v-spacer></v-spacer>
           <v-btn
             rounded="lg"
-            variant="tonal"
-            color="success"
+            variant="text"
             height="40"
             text="Cancel"
             class="text-capitalize px-10"
@@ -37,9 +46,8 @@ defineProps({
           ></v-btn>
           <v-btn
             rounded="lg"
-            variant="tonal"
-            color="error"
-            height="40"
+            color="primary"
+            variant="flat"
             text="Delete"
             class="text-capitalize px-10"
             @click="$emit('delete-action', isActive.value)"

@@ -1,3 +1,3 @@
 export const rule = {
-  title: [(v) => !!v || "Name is required"],
+  title: [(v) => !!v || "Blog Title is required"],
 };

@@ -28,6 +28,7 @@ const onScroll = (e: Event) => {
     <v-btn
       border
       icon
+      size="40"
       v-scroll="onScroll"
       @click="useScrollTo('__nuxt', 0)"
       aria-label="Go to top button"

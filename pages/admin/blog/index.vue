@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+// import type { BlogPost } from "./types.ts";
 
-const blog = useAdminBlogStore();
-await blog.read();
-console.log(blog);
+const { read } = useAdminBlogStore();
+// await blog.read();
+// console.log(blog);
 
 definePageMeta({
   layout: "admin",
@@ -16,6 +17,7 @@ useHead({
 const loading = ref(true);
 const selected = ref([]);
 const blogs = ref([]);
+
 const pagination = ref({
   itemsPerPage: 10,
   currentPage: 1,
@@ -25,18 +27,15 @@ const pagination = ref({
 
 const headers = [
   {
-    title: "Image",
-    key: "image",
-    width: 0,
-  },
-  {
     title: "Title",
     key: "title",
   },
   {
     title: "Actions",
     key: "actions",
-    width: 150,
+    align: "center",
+    sortable: false,
+    width: 200,
   },
 ];
 const deleteBulk = () => {
@@ -60,7 +59,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = false;
 };
 
-const removeId = async (id: string) => {
+const removeId = async (id: number) => {
   const { error } = await useFetch("/api/blog/" + id, {
     method: "DELETE",
   });
@@ -84,7 +83,7 @@ const removeId = async (id: string) => {
             <v-btn
               icon
               rounded="lg"
-              variant="tonal"
+              size="small"
               class="mr-3"
               @click="deleteBulk"
             >
@@ -95,9 +94,7 @@ const removeId = async (id: string) => {
           </template>
           <v-btn
             color="primary"
-            variant="tonal"
-            height="50"
-            class="text-capitalize px-10"
+            class="text-capitalize"
             to="/admin/blog/create"
           >
             Add new Blog
@@ -119,42 +116,41 @@ const removeId = async (id: string) => {
             item-value="id"
             @update:options="loadBlogs"
           >
-            <template v-slot:item.image="{ item }">
-              <div>
-                <v-img
-                  cover
-                  width="160"
-                  class="border rounded-lg"
-                  :aspect-ratio="16 / 9"
-                  :src="item.featured_image?.url"
-                ></v-img>
-              </div>
-            </template>
-            <template v-slot:item.title="{ item }">
-              <v-list lines="three">
-                <v-list-item class="pl-0">
-                  <v-list-item-title class="font-weight-bold">{{
-                    item.title
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    item.excerpt
-                  }}</v-list-item-subtitle>
-                </v-list-item>
-              </v-list>
-            </template>
             <template v-slot:item.actions="{ item: { id, title } }">
-              <v-btn
-                icon
-                color="success"
-                rounded="lg"
-                variant="tonal"
-                class="mr-2"
-                :to="`/admin/blog/${id}`"
-              >
-                <v-icon>
-                  <Icon icon="mdi:pencil" />
-                </v-icon>
-              </v-btn>
+              <v-tooltip theme="light" text="View Post">
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                    v-bind="props"
+                    icon
+                    rounded="lg"
+                    class="mr-2"
+                    variant="text"
+                    size="small"
+                    :to="`/admin/blog/${id}`"
+                  >
+                    <v-icon>
+                      <Icon icon="mdi:eye" />
+                    </v-icon>
+                  </v-btn>
+                </template>
+              </v-tooltip>
+              <v-tooltip theme="light" text="Edit Post">
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                    v-bind="props"
+                    icon
+                    rounded="lg"
+                    class="mr-2"
+                    variant="text"
+                    size="small"
+                    :to="`/admin/blog/${id}`"
+                  >
+                    <v-icon>
+                      <Icon icon="mdi:pencil" />
+                    </v-icon>
+                  </v-btn>
+                </template>
+              </v-tooltip>
               <AdminSharedDelete
                 type="Blog"
                 :title="title"
