@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <v-card flat color="transparent" rounded="0" class="pt-16">
+  <v-card border="0" flat color="transparent" rounded="0" class="pt-16">
     <v-container>
       <v-row align="center">
         <v-col cols="12">

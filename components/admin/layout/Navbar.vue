@@ -1,35 +1,18 @@
-<script setup lang="ts">
+<script setup>
 import { Icon } from "@iconify/vue";
 
-const drawer = ref<boolean>(true);
+const user = useSupabaseUser();
 
-interface NavItem {
-  icon: string;
-  title: string;
-  routes?: string;
-  subitems?: SubNavItems[];
-  subtitle?: string;
-}
+const drawer = ref(true);
 
-interface SubNavItems {
-  title: string;
-  routes: string;
-  miniitems?: MiniItems[];
-}
-
-interface MiniItems {
-  title: string;
-  routes: string;
-}
-
-const navitems = ref<NavItem[]>([
+const navitems = ref([
   {
-    icon: "mdi:home",
+    icon: "mdi:home-outline",
     title: "Home",
     routes: "/admin/",
   },
   {
-    icon: "mdi:pencil",
+    icon: "mdi:pencil-outline",
     title: "Blog",
     subitems: [
       { title: "All Blogs", routes: "/admin/blog" },
@@ -39,7 +22,7 @@ const navitems = ref<NavItem[]>([
     ],
   },
   {
-    icon: "mdi:image",
+    icon: "mdi:image-outline",
     title: "Portfolio",
     subitems: [
       { title: "All Portfolio", routes: "/admin/portfolio" },
@@ -48,7 +31,7 @@ const navitems = ref<NavItem[]>([
     ],
   },
   {
-    icon: "mdi:phone",
+    icon: "mdi:phone-outline",
     title: "Contact Request",
     routes: "/admin/contact-request",
   },
@@ -57,8 +40,9 @@ const navitems = ref<NavItem[]>([
 <template>
   <v-app-bar
     border
-    height="50"
     elevation="0"
+    height="50"
+    order="1"
     style="border-top: 0; border-left: 0; border-right: 0"
   >
     <v-container fluid class>
@@ -94,12 +78,13 @@ const navitems = ref<NavItem[]>([
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
-        <!-- <LazyAdminSharedAdminNavDrop /> -->
+        <v-btn rounded="0" height="50">notifications</v-btn>
+        <lazy-admin-shared-admin-nav-drop />
       </v-row>
     </v-container>
   </v-app-bar>
   <!-- nav drawer -->
-  <v-navigation-drawer v-model="drawer">
+  <v-navigation-drawer v-model="drawer" order="0">
     <v-list density="compact" class="pa-2">
       <template v-for="{ title, subtitle, icon, subitems, routes } in navitems">
         <template v-if="subtitle">
@@ -150,5 +135,13 @@ const navitems = ref<NavItem[]>([
         </template>
       </template>
     </v-list>
+    <template v-slot:append>
+      <v-list>
+        <v-list-item
+          :title="user.email"
+          subtitle="THis is a test"
+        ></v-list-item>
+      </v-list>
+    </template>
   </v-navigation-drawer>
 </template>

@@ -6,6 +6,8 @@ defineProps({
 });
 
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
+console.log(user.value);
 
 const routes = [
   {

@@ -134,48 +134,53 @@ const submitForm = async (): Promise<void> => {
             ref="contactForm"
             @submit.prevent="submitForm"
           >
+            <lazy-admin-shared-field-label>
+              Your awesome name?
+            </lazy-admin-shared-field-label>
             <v-text-field
               flat
               :rules="rules['firstNameRules']"
-              variant="solo-filled"
               v-model="form['name']"
               bg-color="transparent"
-              placeholder="What's your name?"
+              placeholder="e.g. John Doe"
               :loading="loading"
               :disabled="loading"
             ></v-text-field>
+            <lazy-admin-shared-field-label>
+              Tell me your fancy email address?
+            </lazy-admin-shared-field-label>
             <v-text-field
               flat
               :rules="rules['emailRules']"
-              variant="solo-filled"
               v-model="form['email']"
               bg-color="transparent"
-              placeholder="Your fancy email"
+              placeholder="e.g. john.doe@example.com"
               :loading="loading"
               :disabled="loading"
             ></v-text-field>
+            <lazy-admin-shared-field-label>
+              So, what are services are you interested in?
+            </lazy-admin-shared-field-label>
             <v-textarea
               flat
               :rules="rules['messageRules']"
-              variant="solo-filled"
               v-model="form['message']"
               bg-color="transparent"
               :loading="loading"
               :disabled="loading"
-              rows="1"
-              placeholder="Tell me about your project"
+              rows="2"
+              auto-grow
+              placeholder="e.g. Lorem ipsum dolor :)"
             ></v-textarea>
-            <v-row>
+            <v-row justify="end">
               <v-col cols="6">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-btn
                     block
                     type="submit"
-                    height="40"
                     rounded="lg"
-                    variant="tonal"
                     color="primary"
-                    class="px-10"
+                    variant="flat"
                     v-bind="props"
                     :loading="loading"
                     :disabled="loading"

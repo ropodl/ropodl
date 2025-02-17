@@ -35,9 +35,17 @@ const signIn = async () => {
                 placeholder="Enter Password"
               ></v-text-field>
             </v-card-text>
-            <v-btn block rounded="0" color="primary" height="50" type="submit">
-              Submit
-            </v-btn>
+            <v-card-actions>
+              <v-btn
+                block
+                variant="flat"
+                rounded="lg"
+                color="primary"
+                type="submit"
+              >
+                Submit
+              </v-btn>
+            </v-card-actions>
           </v-form>
         </v-card>
       </v-col>
