@@ -29,7 +29,7 @@ const categories = ["All", "Graphic Design", "Web", "Branding"];
 const works = [
   {
     title: "Life's a prank",
-    category: "Design",
+    category: "Graphic Design",
     image: {
       thumbnail: "/image/portfolio/images/2.png",
       full: "/image/portfolio/images/2.png",
@@ -37,7 +37,7 @@ const works = [
   },
   {
     title: "Same Person",
-    category: "Design",
+    category: "Graphic Design",
     image: {
       thumbnail: "/image/portfolio/images/3.png",
       full: "/image/portfolio/images/3.png",
@@ -45,7 +45,7 @@ const works = [
   },
   {
     title: "You are star stuff",
-    category: "Design",
+    category: "Graphic Design",
     image: {
       thumbnail: "/image/portfolio/images/1.jpg",
       full: "/image/portfolio/images/1.jpg",
@@ -164,7 +164,30 @@ const { data: portfolios, error } = await useLazyFetch(
   <NuxtLayout name="page-title">
     <template #title>Portfolio</template>
     <v-container>
-      <v-row justify="center">
+      <v-row>
+        <v-col>
+          <v-card class="pa-1" style="width: max-content">
+            <v-tabs
+              v-model="current"
+              color="primary"
+              density="compact"
+              hide-slider
+              rounded="lg"
+            >
+              <template v-for="item in categories">
+                <v-tab
+                  color="brand"
+                  rounded="lg"
+                  class="px-12"
+                  :value="item"
+                  :variant="current === item ? 'tonal' : 'text'"
+                >
+                  {{ item }}
+                </v-tab>
+              </template>
+            </v-tabs>
+          </v-card>
+        </v-col>
         <v-col cols="12" class="position-relative">
           <!-- {{ portfolios }} -->
           <v-row v-auto-animate>
@@ -209,35 +232,37 @@ const { data: portfolios, error } = await useLazyFetch(
             </template> -->
             <!-- here -->
             <template v-for="(work, i) in works" :key="i">
-              <v-col cols="12" sm="4" md="4" lg="4">
-                <v-hover v-slot="{ isHovering, props: hover }">
-                  <v-card flat rounded="lg" v-bind="{ ...hover }">
-                    <v-img
-                      cover
-                      :aspect-ratio="1"
-                      class="w-100 h-100 align-end"
-                      :class="isHovering ? 'zoom-image' : ''"
-                      :src="work.image?.thumbnail"
-                    >
-                      <v-card
-                        rounded="0"
-                        elevation="10"
-                        class="blur-8 border border-s-0 border-e-0 border-b-0"
-                        style="
-                          background-color: rgba(var(--v-theme-surface), 0.8);
-                        "
+              <template v-if="work.category === current || current === 'All'">
+                <v-col cols="12" sm="4" md="4" lg="4">
+                  <v-hover v-slot="{ isHovering, props: hover }">
+                    <v-card flat rounded="lg" v-bind="{ ...hover }">
+                      <v-img
+                        cover
+                        :aspect-ratio="1"
+                        class="w-100 h-100 align-end"
+                        :class="isHovering ? 'zoom-image' : ''"
+                        :src="work.image?.thumbnail"
                       >
-                        <v-card-text
-                          class="text-center"
-                          style="white-space: normal"
+                        <v-card
+                          rounded="0"
+                          elevation="10"
+                          class="blur-8 border border-s-0 border-e-0 border-b-0"
+                          style="
+                            background-color: rgba(var(--v-theme-surface), 0.8);
+                          "
                         >
-                          {{ work.title }}
-                        </v-card-text>
-                      </v-card>
-                    </v-img>
-                  </v-card>
-                </v-hover>
-              </v-col>
+                          <v-card-text
+                            class="text-center"
+                            style="white-space: normal"
+                          >
+                            {{ work.title }}
+                          </v-card-text>
+                        </v-card>
+                      </v-img>
+                    </v-card>
+                  </v-hover>
+                </v-col>
+              </template>
             </template>
           </v-row>
         </v-col>
