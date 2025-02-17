@@ -32,13 +32,14 @@ const experience = [
   },
   {
     title: "Chief Technology Officer",
-    year: "2019 - 2022",
+    year: "2019 - 2023",
     desc: "SoftMahal Technologies @ Mid Baneshwor, Kathmandu",
   },
-  // {
-  //   title: "FREELANCE GRAPHIC DESIGNER",
-  //   year: "2017",
-  // },
+  {
+    title: "Mid Level Frontend Developer",
+    year: "2024 - Now",
+    desc: "Aayulogic Pvt. Ltd. @ Chakupat, Lalitpur",
+  },
 ];
 
 const skills = [
@@ -181,7 +182,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                 </v-icon>
                 <div>
                   <v-card-title
-                    class="text-h3 mb-3 font-weight-black text-brand"
+                    class="text-h3 pb-0 font-weight-black text-brand"
                   >
                     10+
                   </v-card-title>
@@ -326,7 +327,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
         <v-col cols="12" md="3">
           <v-row dense>
             <v-col cols="12" sm="6" md="12">
-              <v-card border height="379">
+              <v-card border height="637">
                 <v-card-title>Experience</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text class="pt-0">
@@ -354,7 +355,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                 </v-card-text>
               </v-card>
             </v-col>
-            <v-col cols="6" sm="6" md="12">
+            <!-- <v-col cols="6" sm="6" md="12">
               <v-card border height="121">
                 <v-img
                   height="70"
@@ -373,7 +374,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                   alt="api technology"
                 ></v-img>
               </v-card>
-            </v-col>
+            </v-col> -->
           </v-row>
         </v-col>
         <v-col cols="12" md="6">
@@ -498,13 +499,28 @@ const { data: repos, error: reposError } = await useLazyFetch(
                     <v-divider></v-divider>
                     <v-card-text
                       class="pa-0"
-                      style="height: 200px; overflow-y: scroll"
+                      style="height: 195px; overflow-y: scroll"
                     >
                       <template v-if="repos">
-                        <v-list density="compact">
+                        <v-list
+                          class="py-0"
+                          density="compact"
+                          bg-color="transparent"
+                        >
                           <template v-for="({ name, html_url }, i) in repos">
                             <v-list-item
-                              :title="name[0].toUpperCase() + name.substring(1)"
+                              :title="
+                                name
+                                  .split('-')
+                                  .map((word, index) =>
+                                    index === 0
+                                      ? word.charAt(0).toUpperCase() +
+                                        word.slice(1)
+                                      : word.charAt(0).toUpperCase() +
+                                        word.slice(1)
+                                  )
+                                  .join('')
+                              "
                             >
                               <template v-slot:append>
                                 <v-btn
@@ -520,9 +536,9 @@ const { data: repos, error: reposError } = await useLazyFetch(
                                 </v-btn>
                               </template>
                             </v-list-item>
+                            <v-divider v-if="i != repos.length - 1"></v-divider>
                           </template>
                         </v-list>
-                        <v-divider></v-divider>
                       </template>
                       <template v-else>
                         <v-alert
