@@ -28,14 +28,14 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 });
 
-useHead({
-  script: [
-    {
-      async: true,
-      src: "https://platform-api.sharethis.com/js/sharethis.js#property=#{property?._id}&product=custom-share-buttons&source=platform",
-    },
-  ],
-});
+// useHead({
+//   script: [
+//     {
+//       async: true,
+//       src: "https://platform-api.sharethis.com/js/sharethis.js#property=#{property?._id}&product=custom-share-buttons&source=platform",
+//     },
+//   ],
+// });
 
 // defineOgImage({
 //   component: "Main",
@@ -77,90 +77,42 @@ onMounted(() => {
       height="600"
       :src="blog.featured_image?.url"
     >
-      <v-container v-if="blog.title">
-        <v-row>
-          <v-col cols="12">
-            <v-card-title
-              class="text-h2 pl-0"
-              style="white-space: unset !important"
-            >
-              {{ blog.title }}
-            </v-card-title>
-          </v-col>
-        </v-row>
-      </v-container>
+      <template v-if="blog.title">
+        <v-container class="pb-0">
+          <v-row>
+            <v-col cols="12" class="pb-0">
+              <v-card-title
+                class="text-sm-h2 text-h4 pl-0"
+                style="white-space: unset !important"
+              >
+                {{ blog.title }}
+              </v-card-title>
+              <v-card-text class="px-0 text-overline">
+                Published {{ formatTimeAgo(new Date(blog.created_at)) }}
+              </v-card-text>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
     </v-img>
   </v-skeleton-loader>
   <v-container>
     <v-row v-if="blog.excerpt">
       <v-col cols="12" md="12">
-        <div class="text-h4 font-weight-light">
+        <div class="text-h6 text-sm-h4 font-weight-light">
           {{ blog.excerpt }}
         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="12" md="3">
-        <v-card
-          flat
-          color="transparent"
-          class="position-sticky"
-          style="top: 70px"
-        >
-          <v-card-text class="px-0 text-overline">
-            Published {{ formatTimeAgo(new Date(blog.created_at)) }}
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-title class="px-0">Share on Social</v-card-title>
-          <v-card-text class="px-0">
-            <v-row dense>
-              <v-col cols="4" sm="3">
-                <v-btn
-                  icon
-                  block
-                  rounded="lg"
-                  variant="tonal"
-                  class="st-custom-button"
-                  data-network="facebook"
-                >
-                  <v-icon>
-                    <Icon icon="fa6-brands:facebook" />
-                  </v-icon>
-                </v-btn>
-              </v-col>
-              <v-col cols="4" sm="3">
-                <v-btn
-                  icon
-                  block
-                  rounded="lg"
-                  variant="tonal"
-                  data-network="twitter"
-                >
-                  <v-icon>
-                    <Icon icon="fa6-brands:x-twitter" />
-                  </v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="9">
+    <v-row justify="center">
+      <v-col cols="12" md="8">
         <template v-if="blog.content">
-          <v-card flat color="transparent">
-            <v-card-text class="pb-0">
-              <!-- <div class="dynamic-content mb-3" v-html="content"></div> -->
+          <v-card border="0" flat color="transparent">
+            <v-card-text class="pa-0">
               <LazySharedDynamicContent :content="blog.content" />
             </v-card-text>
           </v-card>
         </template>
-        <v-divider></v-divider>
-        <v-card flat color="transparent">
-          <v-card-text class="text-overline" style="white-space: normal"
-            >Published
-            {{ formatTimeAgo(new Date(blog.created_at)) }}</v-card-text
-          >
-        </v-card>
       </v-col>
     </v-row>
   </v-container>

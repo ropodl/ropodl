@@ -189,7 +189,6 @@ const { data: portfolios, error } = await useLazyFetch(
           </v-card>
         </v-col>
         <v-col cols="12" class="position-relative">
-          <!-- {{ portfolios }} -->
           <v-row v-auto-animate>
             <!-- here -->
             <!-- <template
