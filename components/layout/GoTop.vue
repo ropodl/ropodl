@@ -25,9 +25,11 @@ const onScroll = (e: Event) => {
       transition: 'all 250ms cubic-bezier(.17,.26,1,.32) 0s',
     }"
   >
-    <v-btn
+    <v-fab
+      flat
       border
       icon
+      rounded="circle"
       size="40"
       v-scroll="onScroll"
       @click="useScrollTo('__nuxt', 0)"
@@ -35,7 +37,7 @@ const onScroll = (e: Event) => {
     >
       <v-progress-circular
         color="brand"
-        width="2"
+        width="3"
         size="40"
         :model-value="progress"
         aria-label="document scroll position"
@@ -43,7 +45,7 @@ const onScroll = (e: Event) => {
       >
         <v-icon color="white" icon="mdi-arrow-up" />
       </v-progress-circular>
-    </v-btn>
+    </v-fab>
   </div>
 </template>
 <style lang="scss">

@@ -55,6 +55,7 @@ const {
                 <v-hover v-slot="{ isHovering, props }">
                   <v-card
                     v-bind="props"
+                    border="0"
                     variant="text"
                     color="transparent"
                     class="h-100"
@@ -85,7 +86,7 @@ const {
                       [ {{ formatTimeAgo(new Date(created_at)) }} ]
                     </v-card-text>
                     <v-card-text
-                      class="text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
+                      class="pt-2 text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
                       style="line-height: normal; white-space: normal"
                       v-text="title"
                     />

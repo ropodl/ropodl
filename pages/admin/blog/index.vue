@@ -3,8 +3,7 @@ import { Icon } from "@iconify/vue";
 // import type { BlogPost } from "./types.ts";
 
 const { read } = useAdminBlogStore();
-// await blog.read();
-// console.log(blog);
+// read();
 
 definePageMeta({
   layout: "admin",
@@ -64,10 +63,7 @@ const removeId = async (id: number) => {
     method: "DELETE",
   });
 
-  if (error.value) {
-    return console.log(error.value);
-  }
-  // loadBlogs({1,10})
+  if (error.value) return console.log(error.value);
 };
 </script>
 <template>
@@ -99,6 +95,27 @@ const removeId = async (id: number) => {
           >
             Add new Blog
           </v-btn>
+        </div>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="py-0" cols="12" md="4">
+        <div class="d-flex align-center justify-start">
+          <v-btn></v-btn>
+        </div>
+      </v-col>
+      <v-col class="py-0" cols="12" md="4"> </v-col>
+      <v-col class="py-0" cols="12" md="4">
+        <div class="d-flex align-center justify-end">
+          <v-tooltip text="Tooltip">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" border icon size="small">
+                <v-icon>
+                  <Icon icon="mdi:account" />
+                </v-icon>
+              </v-btn>
+            </template>
+          </v-tooltip>
         </div>
       </v-col>
     </v-row>
