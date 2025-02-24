@@ -96,11 +96,11 @@ export default defineNuxtConfig({
   },
   pwa: {
     registerType: "autoUpdate",
-    workbox: {
-      cleanupOutdatedCaches: true,
-      navigateFallback: "/",
-      globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-    },
+    // workbox: {
+    //   cleanupOutdatedCaches: true,
+    //   navigateFallback: "/",
+    //   globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+    // },
     manifest: {
       name: "Saroj Poudel",
       short_name: "ropodl",

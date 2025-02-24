@@ -1,6 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { totalAvailableItems } from "@/utils/constants";
+import { itemsPerPageOptions } from "@/utils/constants";
 
 const blog = useAdminBlogStore();
 const { blogs: items, loading, pagination } = storeToRefs(blog);
@@ -207,10 +207,15 @@ const getColor = (item) => {
       <v-col cols="12" md="3">
         Showing
         <v-chip density="comfortable">
-          x - {{ pagination.totalItems / pagination.currentPage }}
+          {{ (pagination.currentPage - 1) * pagination.itemsPerPage + 1 }} -
+          {{
+            Math.min(
+              pagination.currentPage * pagination.itemsPerPage,
+              pagination.totalItems
+            )
+          }}
         </v-chip>
-        out of
-        {{ pagination.totalItems }}
+        out of {{ pagination.totalItems }}
       </v-col>
       <v-col cols="12" md="6">
         <div class="d-flex justify-center">
@@ -233,7 +238,7 @@ const getColor = (item) => {
             rounded="lg"
             hide-details
             single-line
-            :items="totalAvailableItems"
+            :items="itemsPerPageOptions"
             style="max-width: 90px"
           ></v-select>
         </div>

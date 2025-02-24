@@ -1,4 +1,4 @@
-export const totalAvailableItems = [
+export const itemsPerPageOptions = [
   {
     title: "10",
     value: 10,
