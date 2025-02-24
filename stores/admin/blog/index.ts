@@ -1,26 +1,50 @@
 import { defineStore } from "pinia";
 
-export const useAdminBlogStore = defineStore("useAdminBlogStore", {
-  state: () => ({
-    blogs: <Object>[],
-  }),
-  actions: {
-    read(id: number) {
-      this.blogs = useFetch("/api/blog/");
-      console.log(this.blogs);
-    },
-    create() {
-      console.log("create");
-    },
-    update() {
-      console.log("update");
-    },
-    delete() {
-      console.log("delete");
-    },
+export const useAdminBlogStore = defineStore(
+  "useAdminBlogStore",
+  () => {
+    const blogs = ref([]);
+    const pagination = ref({
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: 1,
+      totalPages: 1,
+    });
+    const filter = ref({
+      sortBy: "",
+    });
+    const loading = ref(false);
+
+    const all = async (page: number, itemsPerPage: number, sortBy: any, search: string) => {
+      loading.value = true;
+      await useAxios("/api/blog", {
+        query: {
+          page,
+          itemsPerPage,
+          sortBy,
+          search
+        },
+      })
+        .then((res: any) => {
+          blogs.value = res.blogs;
+          pagination.value = res.pagination;
+        })
+        .finally(() => {
+          loading.value = false;
+        });
+    };
+
+    return {
+      blogs,
+      pagination,
+      loading,
+      all,
+    };
   },
-  persist: true,
-});
+  {
+    persist: true,
+  }
+);
 
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useAdminBlogStore, import.meta.hot));

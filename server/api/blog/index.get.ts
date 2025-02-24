@@ -1,36 +1,65 @@
 import { serverSupabaseClient } from "#supabase/server";
+import type { H3Event } from "h3";
 
-export default defineEventHandler(async (event) => {
-  const query = <object>getQuery(event);
-  const client = await serverSupabaseClient(event);
+interface Pagination {
+  itemsPerPage: number;
+  currentPage: number;
+  totalItems: number;
+  totalPages: number;
+  // total: number;
+}
 
-  const page = <number>parseInt(query.page);
-  const itemsPerPage = <number>parseInt(query.itemsPerPage);
+interface Blog {
+  id: number;
+  title: string;
+  content: string;
+  created_at: string;
+}
 
-  // const { page, itemsPerPage, sortBy } = query;
-  // const { from, to } = getPagination(page, itemsPerPage);
-  // console.log(from, to);
+interface ResponseData {
+  blogs: Blog[];
+  pagination: Pagination;
+}
 
-  const { data: blogs, error } = await client
-    .from("blogs")
-    .select("*")
-    .range(0, 10)
-    .order("created_at", { ascending: false });
+export default defineEventHandler(
+  async (event: H3Event): Promise<ResponseData | Error> => {
+    const query = getQuery(event);
+    const client = await serverSupabaseClient(event);
+
+    const page = <number>parseInt(query.page as string) || 1;
+    const itemsPerPage = <number>parseInt(query.itemsPerPage as string) || 10;
+    const sortBy = <string>(query.sortBy || 'created_at');
+    const order = query.order === "asc";
+    const search = <string>(query.search || null);
+
+    const from = (page - 1) * itemsPerPage;
+    const to = from + itemsPerPage - 1;
+
+    let call = client
+      .from("blogs")
+      .select("id, created_at, title, status", { count: "exact" })
+
+    if (search) call = call.ilike('title', `%${search}%`);
+
+    call = call.order(sortBy, { ascending: order }).range(from, to)
+
+    const { data: blogs, error, count } = await call;
 
     if (error) {
-      return createError({
+      throw createError({
         statusCode: parseInt(error.code),
         statusMessage: error.message,
       });
     }
 
-  return {
-    blogs,
-    pagination: {
-      itemsPerPage: 10,
-      currentPage: 1,
-      totalItems: 0,
-      totalPages: 0,
-    },
-  };
-});
+    return {
+      blogs: blogs || [],
+      pagination: {
+        itemsPerPage,
+        currentPage: page,
+        totalItems: count || 0,
+        totalPages: count ? Math.ceil(count / itemsPerPage) : 0,
+      },
+    };
+  }
+);

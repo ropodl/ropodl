@@ -2,6 +2,17 @@
 import { rule } from "./rule.js";
 
 const config = useRuntimeConfig();
+const { setBreadcrumb } = useAdminBreadcrumbStore();
+setBreadcrumb([
+  {
+    title: "All Blogs",
+    disabled: false,
+    href: "/admin/blog",
+  },
+  {
+    title: "Edit Blog",
+  },
+]);
 
 const {
   params: { id },

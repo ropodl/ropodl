@@ -97,6 +97,7 @@ onMounted(() => {
     </v-img>
   </v-skeleton-loader>
   <v-container>
+    {{ blog }}
     <v-row v-if="blog.excerpt">
       <v-col cols="12" md="12">
         <div class="text-h6 text-sm-h4 font-weight-light">

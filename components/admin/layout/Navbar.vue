@@ -4,8 +4,9 @@ import { Icon } from "@iconify/vue";
 const user = useSupabaseUser();
 
 const drawer = ref(true);
+const search = ref(false);
 
-const navitems = ref([
+const navItems = ref([
   {
     icon: "mdi:home-outline",
     title: "Home",
@@ -42,51 +43,89 @@ const navitems = ref([
     border
     elevation="0"
     height="50"
-    order="1"
+    color="rgba(var(--v-theme-background),0.8)"
+    class="blur-8"
     style="border-top: 0; border-left: 0; border-right: 0"
   >
-    <v-container fluid class>
-      <v-row align="center">
-        <v-app-bar-nav-icon
-          rounded="0"
-          @click="drawer = !drawer"
-        ></v-app-bar-nav-icon>
-        <v-menu>
-          <template v-slot:activator="{ props }">
-            <v-btn
-              color="white"
-              rounded="0"
+    <v-container fluid class="py-0">
+      <v-row align="center" justify="space-between">
+        <v-col class="pa-0" cols="12" md="4">
+          <div class="d-flex align-center justify-start">
+            <v-app-bar-nav-icon
               height="50"
-              v-bind="props"
-              class="text-capitalize"
+              rounded="0"
+              @click="drawer = !drawer"
+            ></v-app-bar-nav-icon>
+            <lazy-admin-layout-breadcrumbs />
+          </div>
+        </v-col>
+        <v-col class="pa-0" cols="12" md="4">
+          <div class="d-flex align-center justify-center overflow-x-scroll">
+            <v-btn
+              border
+              :ripple="false"
+              height="40"
+              width="200"
+              class="justify-start"
+              @click="search = true"
             >
-              <v-icon start>
-                <Icon icon="mdi:globe" />
-              </v-icon>
-              Website
-              <v-icon end size="sm">
-                <Icon icon="mdi:chevron-down" />
-              </v-icon>
+              <span>Search...</span>
+              <v-card-text class="d-flex align-center pe-0 py-0">
+                <v-icon
+                  class="mr-1"
+                  size="small"
+                  icon="mdi-apple-keyboard-command"
+                />
+                + k</v-card-text
+              >
             </v-btn>
-          </template>
-          <v-list density="compact">
-            <v-list-item
-              title="Visit Site"
-              target="_blank"
-              to="/"
-            ></v-list-item>
-          </v-list>
-        </v-menu>
-        <v-spacer></v-spacer>
-        <v-btn rounded="0" height="50">notifications</v-btn>
-        <lazy-admin-shared-admin-nav-drop />
+          </div>
+        </v-col>
+        <v-col class="pa-0" cols="12" md="4">
+          <div class="d-flex align-center justify-end">
+            <v-menu>
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  color="white"
+                  rounded="0"
+                  height="50"
+                  v-bind="props"
+                  class="text-capitalize"
+                >
+                  <v-icon start>
+                    <Icon icon="mdi:globe" />
+                  </v-icon>
+                  Website
+                  <v-icon end size="sm">
+                    <Icon icon="mdi:chevron-down" />
+                  </v-icon>
+                </v-btn>
+              </template>
+              <v-list density="compact">
+                <v-list-item
+                  title="Visit Site"
+                  target="_blank"
+                  to="/"
+                ></v-list-item>
+              </v-list>
+            </v-menu>
+            <v-btn rounded="0" height="50">notifications</v-btn>
+            <lazy-admin-shared-admin-nav-drop />
+          </div>
+        </v-col>
       </v-row>
     </v-container>
   </v-app-bar>
+  <!-- search bar -->
+  <lazy-admin-layout-search-bar v-model="search" :navItems :profileItems="[]" />
   <!-- nav drawer -->
-  <v-navigation-drawer v-model="drawer" order="0">
+  <v-navigation-drawer
+    v-model="drawer"
+    color="rgba(var(--v-theme-background),0.8)"
+    class="blur-8"
+  >
     <v-list density="compact" class="pa-2">
-      <template v-for="{ title, subtitle, icon, subitems, routes } in navitems">
+      <template v-for="{ title, subtitle, icon, subitems, routes } in navItems">
         <template v-if="subtitle">
           <v-list-subheader>{{ subtitle }}</v-list-subheader>
         </template>
@@ -136,12 +175,52 @@ const navitems = ref([
       </template>
     </v-list>
     <template v-slot:append>
-      <v-list>
-        <v-list-item
-          :title="user.email"
-          subtitle="THis is a test"
-        ></v-list-item>
-      </v-list>
+      <v-divider></v-divider>
+      <v-menu content-class="left-0" transition="slide-y-reverse-transition">
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            block
+            :ripple="false"
+            color="transparent"
+            height="70"
+            class="justify-start pl-0"
+            content-class="w-100"
+            rounded="0"
+          >
+            <template #append>
+              <v-icon>
+                <Icon icon="mdi:unfold-more-horizontal" />
+              </v-icon>
+            </template>
+            <v-list-item>
+              <template #prepend>
+                <v-avatar rounded="lg">
+                  <v-img src="/image/portfolio/api(new)/api.avif"></v-img>
+                </v-avatar>
+              </template>
+              <v-list-item-title class="text-start">
+                Saroj Poudel
+              </v-list-item-title>
+              <v-list-item-subtitle class="text-start">
+                {{ user.email }}
+              </v-list-item-subtitle>
+            </v-list-item>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-list density="compact">
+            <template
+              v-for="(item, index) in [{ title: 'items' }]"
+              :key="index"
+            >
+              <v-list-item>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </template>
+          </v-list>
+        </v-card>
+      </v-menu>
     </template>
   </v-navigation-drawer>
 </template>

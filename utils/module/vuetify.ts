@@ -19,9 +19,14 @@ export const vuetifyOptions = {
       variant: "outlined",
     },
     VDataTableServer: {
-      class: "bg-transparent",
       hover: true,
+      class: "bg-transparent",
+      density: "comfortable"
     },
+    VSelect: {
+      density: "comfortable",
+      variant: "outlined",
+    }
   },
   theme: {
     defaultTheme: "dark",

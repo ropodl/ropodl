@@ -1,7 +1,10 @@
-import { vuetifyOptions } from "./utils/module/vuetify.ts"
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { vuetifyOptions } from "./utils/module/vuetify.ts";
+
 export default defineNuxtConfig({
   ssr: true,
+  future: {
+    compatibilityVersion: 4
+  },
   app: {
     head: {
       charset: "utf-8",
@@ -35,13 +38,13 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
-    "nuxt-og-image",
+    // "nuxt-og-image",
     // "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
     "@nuxtjs/supabase",
-    "@pinia-plugin-persistedstate/nuxt"
+    "@pinia-plugin-persistedstate/nuxt",
   ],
   googleFonts: {
     families: {
@@ -51,14 +54,14 @@ export default defineNuxtConfig({
     },
     display: "swap",
   },
-  ogImage: {
-    fonts: ["Roboto:400"],
-    compatibility: {
-      prerender: {
-        chromium: false
-      }
-    }
-  },
+  // ogImage: {
+  //   zeroRuntime: true
+  //   // compatibility: {
+  //   //   prerender: {
+  //   //     chromium: false
+  //   //   }
+  //   // }
+  // },
   gtag: {
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
@@ -82,11 +85,14 @@ export default defineNuxtConfig({
   vuetify: {
     vuetifyOptions: vuetifyOptions,
   },
-  site: { url: "https://ropodl.com/" },
+  site: { 
+    url: "https://ropodl.com/",
+    name: "Saroj Poudel"
+  },
   sitemap: {
     sitemapName: "sitemap.xml",
     defaults: {},
-    exclude: ["/_nuxt/**", "/admin/**", "/login","/confirm", "/api/**"],
+    exclude: ["/_nuxt/**", "/admin/**", "/login", "/confirm", "/api/**"],
   },
   pwa: {
     registerType: "autoUpdate",
@@ -129,16 +135,20 @@ export default defineNuxtConfig({
     storage: "localStorage",
   },
   nitro: {
-    minify: true
+    minify: true,
+    prerender: {
+      crawlLinks: true,
+      routes: ["/"],
+    },
   },
   compatibilityDate: "2024-11-18",
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          api: "modern-compiler"
-        }
-      }
-    }
+          api: "modern-compiler",
+        },
+      },
+    },
   },
 });

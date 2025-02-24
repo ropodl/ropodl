@@ -1,4 +1,17 @@
 <script setup>
+const { setBreadcrumb } = useAdminBreadcrumbStore();
+setBreadcrumb([
+  {
+    title: "All Blogs",
+    disabled: false,
+    href: "/admin/blog/",
+  },
+  {
+    title: "Create Blog",
+    disabled: true,
+  },
+]);
+
 definePageMeta({
   layout: "admin",
 });
