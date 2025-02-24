@@ -6,12 +6,12 @@ definePageMeta({
 });
 
 const user = useSupabaseUser();
+const { setBreadcrumb } = useAdminBreadcrumbStore();
+setBreadcrumb([]);
 
 useHead({
   title: "Admin Dashboard",
 });
-
-// const { data } = await useFetch("/api/dashboard");
 </script>
 <template>
   <v-container>

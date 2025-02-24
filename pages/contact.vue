@@ -101,32 +101,31 @@ const submitForm = async (): Promise<void> => {
   <NuxtLayout name="page-title">
     <template #title>Contact</template>
     <v-container>
-      <v-row justify="space-between">
-        <v-col cols="12" md="5">
-          <div class="text-h5 font-weight-medium mb-6">
-            Got a project? Let's talk.
-          </div>
-          <ul class="list-style-none d-flex">
-            <template v-for="social in socials">
-              <li>
-                <v-btn
-                  icon
-                  rounded="lg"
-                  color="primary"
-                  variant="tonal"
-                  class="mr-3"
-                >
-                  <v-icon size="large">
-                    <Icon :icon="social.icon" />
-                  </v-icon>
-                </v-btn>
-              </li>
-            </template>
-          </ul>
-        </v-col>
-        <v-col cols="12" md="5">
-          <div class="text-h5 font-weight-bold mb-6">
-            Estimate your project? Let me know here.
+      <v-row>
+        <v-col cols="12" md="6">
+          <div class="d-flex">
+            <div class="text-h5 font-weight-medium mb-6">
+              Got a project? Let's talk.
+            </div>
+            <v-spacer></v-spacer>
+            <ul class="list-style-none d-flex mb-3">
+              <template v-for="social in socials">
+                <li>
+                  <v-btn
+                    border
+                    icon
+                    rounded="lg"
+                    color="primary"
+                    variant="text"
+                    class="mr-3"
+                  >
+                    <v-icon>
+                      <Icon :icon="social.icon" />
+                    </v-icon>
+                  </v-btn>
+                </li>
+              </template>
+            </ul>
           </div>
           <v-form
             fast-fail
@@ -173,27 +172,25 @@ const submitForm = async (): Promise<void> => {
               placeholder="e.g. Lorem ipsum dolor :)"
             ></v-textarea>
             <v-row justify="end">
-              <v-col cols="6">
-                <v-hover v-slot="{ isHovering, props }">
-                  <v-btn
-                    block
-                    type="submit"
-                    rounded="lg"
-                    color="primary"
-                    variant="flat"
-                    v-bind="props"
-                    :loading="loading"
-                    :disabled="loading"
-                  >
-                    Send Message
-                    <v-icon
-                      :class="isHovering ? 'ml-4' : 'ml-2'"
-                      style="transition: all 100ms linear"
-                      ><Icon icon="mdi:arrow-right"
-                    /></v-icon>
-                  </v-btn>
-                </v-hover>
-              </v-col>
+              <v-hover v-slot="{ isHovering, props }">
+                <v-btn
+                  v-bind="props"
+                  type="submit"
+                  rounded="lg"
+                  color="primary"
+                  variant="flat"
+                  class="px-10"
+                  :loading="loading"
+                  :disabled="loading"
+                >
+                  Send Message
+                  <v-icon
+                    :class="isHovering ? 'ml-4' : 'ml-2'"
+                    style="transition: all 100ms linear"
+                    ><Icon icon="mdi:arrow-right"
+                  /></v-icon>
+                </v-btn>
+              </v-hover>
             </v-row>
           </v-form>
         </v-col>

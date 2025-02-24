@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <LazyAdminLayoutNavbar />
+    <admin-layout-navbar />
     <slot />
   </v-main>
 </template>
