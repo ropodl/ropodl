@@ -90,7 +90,7 @@ const navItems = ref([
                   rounded="0"
                   height="50"
                   v-bind="props"
-                  class="text-capitalize"
+                  class="text-capitalize pa-0"
                 >
                   <v-icon start>
                     <Icon icon="mdi:globe" />
@@ -176,7 +176,13 @@ const navItems = ref([
     </v-list>
     <template v-slot:append>
       <v-divider></v-divider>
-      <v-menu content-class="left-0" transition="slide-y-reverse-transition">
+      <v-menu
+        attach="body"
+        location="right"
+        :content-props="{
+          style: 'top: unset important; bottom: 0;',
+        }"
+      >
         <template v-slot:activator="{ props }">
           <v-btn
             v-bind="props"
@@ -209,16 +215,13 @@ const navItems = ref([
           </v-btn>
         </template>
         <v-card>
-          <v-list density="compact">
-            <template
-              v-for="(item, index) in [{ title: 'items' }]"
-              :key="index"
-            >
-              <v-list-item>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </template>
-          </v-list>
+          <template v-for="(item, index) in [{ title: 'items' }]" :key="index">
+            <v-list-item>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </template>
+          <v-divider></v-divider>
+          <v-list-item prepend-icon="mdi-power" title="Sign Out" />
         </v-card>
       </v-menu>
     </template>

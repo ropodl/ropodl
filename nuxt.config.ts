@@ -85,7 +85,7 @@ export default defineNuxtConfig({
   vuetify: {
     vuetifyOptions: vuetifyOptions,
   },
-  site: { 
+  site: {
     url: "https://ropodl.com/",
     name: "Saroj Poudel"
   },
@@ -136,10 +136,10 @@ export default defineNuxtConfig({
   },
   nitro: {
     minify: true,
-    prerender: {
-      crawlLinks: true,
-      routes: ["/"],
-    },
+    // prerender: {
+    //   crawlLinks: true,
+    //   routes: ["/"],
+    // },
   },
   compatibilityDate: "2024-11-18",
   vite: {
