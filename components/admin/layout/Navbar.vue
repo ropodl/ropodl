@@ -2,6 +2,12 @@
 import { Icon } from "@iconify/vue";
 
 const user = useSupabaseUser();
+const supabase = useSupabaseClient();
+
+const fullscreen = useIsFullScreen();
+const toggleFullScreen = () => {
+  fullscreen.value.toggle();
+};
 
 const drawer = ref(true);
 const search = ref(false);
@@ -37,6 +43,12 @@ const navItems = ref([
     routes: "/admin/contact-request",
   },
 ]);
+
+const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) return console.log(error.message);
+  navigateTo("/", { replace: true, external: true });
+};
 </script>
 <template>
   <v-app-bar
@@ -83,34 +95,30 @@ const navItems = ref([
         </v-col>
         <v-col class="pa-0" cols="12" md="4">
           <div class="d-flex align-center justify-end">
-            <v-menu>
+            <v-tooltip
+              theme="light"
+              location="bottom"
+              :text="
+                fullscreen.isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'
+              "
+            >
               <template v-slot:activator="{ props }">
                 <v-btn
-                  color="white"
+                  v-bind="props"
+                  icon
                   rounded="0"
                   height="50"
-                  v-bind="props"
-                  class="text-capitalize pa-0"
+                  @click="toggleFullScreen"
                 >
-                  <v-icon start>
-                    <Icon icon="mdi:globe" />
-                  </v-icon>
-                  Website
-                  <v-icon end size="sm">
-                    <Icon icon="mdi:chevron-down" />
+                  <v-icon
+                    :icon="`mdi-fullscreen${
+                      fullscreen.isFullscreen ? '-exit' : ''
+                    }`"
+                  >
                   </v-icon>
                 </v-btn>
               </template>
-              <v-list density="compact">
-                <v-list-item
-                  title="Visit Site"
-                  target="_blank"
-                  to="/"
-                ></v-list-item>
-              </v-list>
-            </v-menu>
-            <v-btn rounded="0" height="50">notifications</v-btn>
-            <lazy-admin-shared-admin-nav-drop />
+            </v-tooltip>
           </div>
         </v-col>
       </v-row>
@@ -221,7 +229,11 @@ const navItems = ref([
             </v-list-item>
           </template>
           <v-divider></v-divider>
-          <v-list-item prepend-icon="mdi-power" title="Sign Out" />
+          <v-list-item
+            prepend-icon="mdi-power"
+            title="Sign Out"
+            @click="signOut"
+          />
         </v-card>
       </v-menu>
     </template>

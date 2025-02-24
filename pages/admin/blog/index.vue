@@ -159,23 +159,43 @@ const getColor = (item) => {
               </v-chip>
             </template>
             <template #item.actions="{ item: { id, title } }">
-              <v-tooltip theme="light" text="View Post">
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    v-bind="props"
-                    icon
-                    rounded="lg"
-                    class="mr-2"
-                    variant="text"
-                    size="small"
-                    :to="`/admin/blog/${id}`"
-                  >
-                    <v-icon>
-                      <Icon icon="mdi:eye" />
-                    </v-icon>
-                  </v-btn>
+              <v-dialog scrim="black" width="500">
+                <template v-slot:activator="{ props: activatorProps }">
+                  <v-tooltip theme="light" text="View Post">
+                    <template v-slot:activator="{ props }">
+                      <v-btn
+                        v-bind="{ ...props, ...activatorProps }"
+                        icon
+                        rounded="lg"
+                        class="mr-2"
+                        variant="text"
+                        size="small"
+                      >
+                        <v-icon>
+                          <Icon icon="mdi:eye" />
+                        </v-icon>
+                      </v-btn>
+                    </template>
+                  </v-tooltip>
                 </template>
-              </v-tooltip>
+
+                <template v-slot:default="{ isActive }">
+                  <v-card :title>
+                    <v-card-text>
+                      {{ title }}
+                    </v-card-text>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+
+                      <v-btn
+                        text="Close Dialog"
+                        @click="isActive.value = false"
+                      ></v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </template>
+              </v-dialog>
               <v-tooltip theme="light" text="Edit Post">
                 <template v-slot:activator="{ props }">
                   <v-btn

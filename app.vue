@@ -2,6 +2,9 @@
 const { isOnline } = useNetwork();
 const route = useRoute();
 
+const app = ref(null);
+useIsFullScreen(app);
+
 const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-image: radial-gradient(circle, #fff, transparent);">
       <svg aria-hidden="true" class="position-absolute w-100 h-100">
         <defs>
@@ -28,7 +31,7 @@ const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;
     <template v-if="!route.fullPath.includes('/admin')">
       <div v-html="bgPattern"></div>
     </template>
-    <v-app>
+    <v-app ref="app">
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
