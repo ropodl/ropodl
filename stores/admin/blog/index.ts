@@ -17,7 +17,7 @@ export const useAdminBlogStore = defineStore(
 
     const all = async (page: number, itemsPerPage: number, sortBy: any, search: string) => {
       loading.value = true;
-      await useAxios("/api/blog", {
+      await useAxios.get("/api/blog", {
         query: {
           page,
           itemsPerPage,

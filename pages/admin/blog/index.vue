@@ -21,14 +21,34 @@ useHead({
   title: "All Blogs",
 });
 
-const search = ref("");
+const rawSearch = ref("");
+const debouncedSearch = ref("");
 const selected = ref([]);
+const debounceTimeout = ref(null);
+const isDebouncing = ref(false);
+
+// Apply debounce to search input
+watch(rawSearch, (newValue) => {
+  // Clear any existing timeout
+  if (debounceTimeout.value) clearTimeout(debounceTimeout.value);
+
+  // Show the indicator while debouncing
+  isDebouncing.value = true;
+
+  // Set a new timeout to update the debounced search value
+  debounceTimeout.value = setTimeout(() => {
+    debouncedSearch.value = newValue;
+    debounceTimeout.value = null;
+    isDebouncing.value = false;
+  }, 500); // 500ms debounce delay
+});
 
 const headers = [
   {
     title: "Title",
     key: "title",
   },
+  { title: "Created At", key: "created_at" },
   {
     title: "Status",
     key: "status",
@@ -49,8 +69,22 @@ const deleteBulk = () => {
 };
 // server side table
 const loadBlogs = async ({ page, itemsPerPage, sortBy, search }) => {
-  all(page, itemsPerPage, sortBy, search);
+  // Use the debounced search value
+  await all(page, itemsPerPage, sortBy, debouncedSearch.value);
 };
+
+// Watch for changes in debounced search to trigger data reload
+watch(debouncedSearch, () => {
+  // Reset to first page when search changes
+  pagination.value.currentPage = 1;
+  // Reload data with current options
+  loadBlogs({
+    page: pagination.value.currentPage,
+    itemsPerPage: pagination.value.itemsPerPage,
+    sortBy: [],
+    search: debouncedSearch.value,
+  });
+});
 
 const removeId = async (id) => {
   const { error } = await useFetch("/api/blog/" + id, {
@@ -85,21 +119,29 @@ const getColor = (item) => {
       </v-col>
     </v-row>
     <v-row>
-      <v-col class="py-0" cols="12" md="4">
+      <v-col class="py-0" cols="12" md="3">
         <div class="d-flex align-center justify-start">
           <v-text-field
-            v-model="search"
+            v-model="rawSearch"
             density="compact"
             placeholder="Type to search..."
             hide-details
             clearable
             persistent-clear
             rounded="lg"
-          ></v-text-field>
+          >
+            <template v-slot:append-inner v-if="isDebouncing || loading">
+              <v-progress-circular
+                indeterminate
+                size="16"
+                width="2"
+              ></v-progress-circular>
+            </template>
+          </v-text-field>
         </div>
       </v-col>
       <v-col class="py-0" cols="12" md="4"> </v-col>
-      <v-col class="py-0" cols="12" md="4">
+      <v-col class="py-0" cols="12" md="5">
         <div v-auto-animate class="d-flex align-center justify-end">
           <template v-if="selected.length > 0">
             <v-tooltip theme="light" text="Delete Bulk Item">
@@ -144,11 +186,14 @@ const getColor = (item) => {
             :headers
             :items
             :loading
-            :search
+            :search="debouncedSearch"
             hide-default-footer
             item-value="id"
             @update:options="loadBlogs"
           >
+            <template #item.created_at="{ item }">
+              {{ useDateFormat(item.created_at, "YYYY-MM-DD | HH:mm:ss a") }}
+            </template>
             <template #item.status="{ item }">
               <v-chip
                 class="w-100 justify-center"
@@ -159,7 +204,7 @@ const getColor = (item) => {
               </v-chip>
             </template>
             <template #item.actions="{ item: { id, title } }">
-              <lazy-admin-shared-blogs-view-post :id="id" />
+              <lazy-admin-shared-blogs-view-post :id />
               <v-tooltip theme="light" text="Edit Post">
                 <template v-slot:activator="{ props }">
                   <v-btn
