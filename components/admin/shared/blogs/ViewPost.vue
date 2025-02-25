@@ -1,54 +1,52 @@
-<script lang="ts" setup>
-import { Icon } from "@iconify/vue";
-
+<script setup lang="ts">
 defineProps({
   id: {
     type: Number,
   },
 });
 
-const tempPost = <Ref>ref({});
-const tempPostLoading = <Ref>ref(false);
+const post = <Ref>ref({});
+const loading = <Ref>ref(false);
 const getPostById = async (id?: number) => {
-  tempPostLoading.value = true;
-  await useAxios("/api/blog/" + id)
+  loading.value = true;
+  await useAxios(`/api/blog/${id}`, {
+    method: "GET",
+  })
     .then((res) => {
-      tempPost.value = res;
+      post.value = res;
     })
     .finally(() => {
-      tempPostLoading.value = false;
+      loading.value = true;
     });
 };
 
-const closeTempPost = (dialog: Ref) => {
-  tempPost.value = {};
+const close = (dialog: Ref) => {
+  post.value = {};
   dialog.value = false;
 };
 </script>
 <template>
-  <v-dialog persistent scrim="black" width="500">
+  <v-dialog persistent scrim="black" width="500" height="600">
     <template v-slot:activator="{ props: activatorProps }">
       <v-tooltip theme="light" text="View Post">
         <template v-slot:activator="{ props }">
           <v-btn
             v-bind="{ ...props, ...activatorProps }"
-            icon
+            icon="mdi-eye"
             rounded="lg"
             class="mr-2"
             variant="text"
             size="small"
             @click="getPostById(id)"
-          >
-            <v-icon>
-              <Icon icon="mdi:eye" />
-            </v-icon>
-          </v-btn>
+          ></v-btn>
         </template>
       </v-tooltip>
     </template>
-
     <template v-slot:default="{ isActive }">
-      <v-card :loading="tempPostLoading">
+      <v-card :loading="loading">
+        <v-skeleton-loader :loading type="image" rounded="0" height="250">
+          <v-img cover height="250" :src="post.featured_image.url"> </v-img>
+        </v-skeleton-loader>
         <v-btn
           size="x-small"
           variant="flat"
@@ -57,20 +55,26 @@ const closeTempPost = (dialog: Ref) => {
           rounded="circle"
           class="position-absolute"
           style="z-index: 99; top: 5px; right: 5px"
-          @click="closeTempPost(isActive)"
+          @click="close(isActive)"
         ></v-btn>
-        <template v-if="tempPost.featured_image">
-          <v-img :src="tempPost.featured_image.url" />
-        </template>
-        <v-card-title>
-          {{ tempPost.title }}
-        </v-card-title>
-        <v-card-text>{{ tempPost.excerpt }}</v-card-text>
-        <lazy-shared-dynamic-content :contet="tempPost.content" />
-        <!-- <v-card-text>{{ tempPost.content }}</v-card-text> -->
-        <v-card-actions>
-          <v-spacer></v-spacer>
-        </v-card-actions>
+        <v-skeleton-loader color="transparent" type="heading" :loading>
+          <v-card-title>
+            {{ post.title }}
+          </v-card-title>
+        </v-skeleton-loader>
+        <v-skeleton-loader
+          color="transparent"
+          type="paragraph, chip, list-item-three-line"
+          :loading
+        >
+          <v-card-text class="pt-0">{{ post.excerpt }}</v-card-text>
+          <lazy-shared-dynamic-content :content="post.content" />
+        </v-skeleton-loader>
+        <!-- <template v-if="loading">
+    </template> -->
+        <!-- <template v-else> -->
+        <!-- <template v-if="post.featured_image"> </template> -->
+        <!-- </template> -->
       </v-card>
     </template>
   </v-dialog>

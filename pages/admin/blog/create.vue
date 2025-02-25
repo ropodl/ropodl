@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const { setBreadcrumb } = useAdminBreadcrumbStore();
 setBreadcrumb([
   {
@@ -21,10 +21,10 @@ useHead({
 });
 
 const rules = {
-  title: [(v) => !!v || "Name is required"],
+  title: [(v: any) => !!v || "Name is required"],
 };
 
-const form = reactive({
+const form = ref({
   title: "",
   excerpt: "",
   content: "",
@@ -39,14 +39,16 @@ const addBlogRef = ref();
 const addBlog = async () => {
   const { valid } = addBlogRef.value.validate();
   if (valid) {
-    const { data, error, pending } = await useFetch("/api/blog/create", {
-      method: "POST",
-      body: form,
-    });
-
-    if (error.value) return console.log(error.value);
-    console.log(data.value);
-    navigateTo("/admin/blog/" + data.value.id);
+    await useAxios
+      .post("/api/blog/create", {
+        data: form.value,
+      })
+      .then((res) => {
+        navigateTo("/admin/blog/" + res.id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 };
 </script>
@@ -64,14 +66,8 @@ const addBlog = async () => {
             :rules="rules.title"
           ></v-text-field>
           <v-card flat class="ext-editor rounded-b-0 mb-6">
-            <!-- <Editor
-            v-model="form.content"
-            placeholder="Blog Content"
-            api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
-            :init="tinymceConfig"
-            /> -->
             <client-only placeholder="Loading Quill Editor">
-              <LazyAdminSharedQuillEditor v-model:content="form.content" />
+              <lazy-admin-shared-quill-editor v-model:content="form.content" />
             </client-only>
           </v-card>
           <v-textarea label="Blog Excerpt" v-model="form.excerpt"></v-textarea>
