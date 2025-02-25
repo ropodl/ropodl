@@ -100,6 +100,7 @@ const updateBlog = async () => {
           <lazy-admin-shared-field-label>
             Blog Content
           </lazy-admin-shared-field-label>
+          {{ form.content }}
           <v-card flat elevation="0" rounded="lg">
             <client-only placeholder="Loading Quill Editor">
               <lazy-admin-shared-quill-editor v-model:content="form.content" />
