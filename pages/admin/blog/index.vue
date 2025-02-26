@@ -31,10 +31,8 @@ const isDebouncing = ref(false);
 watch(rawSearch, (newValue) => {
   // Clear any existing timeout
   if (debounceTimeout.value) clearTimeout(debounceTimeout.value);
-
   // Show the indicator while debouncing
   isDebouncing.value = true;
-
   // Set a new timeout to update the debounced search value
   debounceTimeout.value = setTimeout(() => {
     debouncedSearch.value = newValue;

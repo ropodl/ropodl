@@ -234,31 +234,65 @@ const { data: portfolios, error } = await useLazyFetch(
               <template v-if="work.category === current || current === 'All'">
                 <v-col cols="12" sm="4" md="4" lg="4">
                   <v-hover v-slot="{ isHovering, props: hover }">
-                    <v-card flat rounded="lg" v-bind="{ ...hover }">
-                      <v-img
-                        cover
-                        :aspect-ratio="1"
-                        class="w-100 h-100 align-end"
-                        :class="isHovering ? 'zoom-image' : ''"
-                        :src="work.image?.thumbnail"
-                      >
+                    <v-dialog
+                      persistent
+                      width="600"
+                      height="auto"
+                      scrim="black"
+                    >
+                      <template v-slot:activator="{ props: activatorProps }">
                         <v-card
-                          rounded="0"
-                          elevation="10"
-                          class="blur-8 border border-s-0 border-e-0 border-b-0"
-                          style="
-                            background-color: rgba(var(--v-theme-surface), 0.8);
-                          "
+                          flat
+                          max-height="500"
+                          width="auto"
+                          rounded="lg"
+                          v-bind="{ ...hover, ...activatorProps }"
                         >
-                          <v-card-text
-                            class="text-center"
-                            style="white-space: normal"
+                          <v-img
+                            cover
+                            :aspect-ratio="1"
+                            width="100"
+                            height="100"
+                            class="w-100 h-100 align-end"
+                            :class="isHovering ? 'zoom-image' : ''"
+                            :src="work.image?.thumbnail"
                           >
-                            {{ work.title }}
-                          </v-card-text>
+                            <v-card
+                              rounded="0"
+                              elevation="10"
+                              class="blur-8 border border-s-0 border-e-0 border-b-0"
+                              style="
+                                background-color: rgba(
+                                  var(--v-theme-surface),
+                                  0.8
+                                );
+                              "
+                            >
+                              <v-card-text
+                                class="text-center"
+                                style="white-space: normal"
+                              >
+                                {{ work.title }}
+                              </v-card-text>
+                            </v-card>
+                          </v-img>
                         </v-card>
-                      </v-img>
-                    </v-card>
+                      </template>
+                      <template v-slot:default="{ isActive }">
+                        <v-card>
+                          <v-btn
+                            size="x-small"
+                            class="position-absolute"
+                            color="primary"
+                            rounded="circle"
+                            icon="mdi-close"
+                            style="z-index: 1; top: 5px; right: 5px"
+                            @click="isActive.value = false"
+                          ></v-btn>
+                          <v-img contain :src="work.image?.full"></v-img>
+                        </v-card>
+                      </template>
+                    </v-dialog>
                   </v-hover>
                 </v-col>
               </template>
