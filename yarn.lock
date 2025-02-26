@@ -1662,7 +1662,7 @@
     which "^3.0.1"
     ws "^8.18.0"
 
-"@nuxt/kit@3.15.4", "@nuxt/kit@^3.10.3", "@nuxt/kit@^3.11.2", "@nuxt/kit@^3.12.2", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.13.1", "@nuxt/kit@^3.13.2", "@nuxt/kit@^3.14.1592", "@nuxt/kit@^3.15.0", "@nuxt/kit@^3.15.4", "@nuxt/kit@^3.8.0", "@nuxt/kit@^3.9.0":
+"@nuxt/kit@3.15.4", "@nuxt/kit@^3.10.3", "@nuxt/kit@^3.11.2", "@nuxt/kit@^3.12.2", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.13.1", "@nuxt/kit@^3.13.2", "@nuxt/kit@^3.14.1592", "@nuxt/kit@^3.15.0", "@nuxt/kit@^3.15.4", "@nuxt/kit@^3.9.0":
   version "3.15.4"
   resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.15.4.tgz#122f511e518573320a035b5e24adf0118d51485d"
   integrity sha512-dr7I7eZOoRLl4uxdxeL2dQsH0OrbEiVPIyBHnBpA4co24CBnoJoF+JINuP9l3PAM3IhUzc5JIVq3/YY3lEc3Hw==
@@ -3338,7 +3338,7 @@ chownr@^3.0.0:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-3.0.0.tgz#9855e64ecd240a9cc4267ce8a4aa5d24a1da15e4"
   integrity sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==
 
-citty@^0.1.4, citty@^0.1.5, citty@^0.1.6:
+citty@^0.1.5, citty@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/citty/-/citty-0.1.6.tgz#0f7904da1ed4625e1a9ea7e0fa780981aab7c5e4"
   integrity sha512-tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==
@@ -6000,16 +6000,6 @@ nuxt-link-checker@4.1.1:
     sirv "^3.0.1"
     ufo "^1.5.4"
 
-nuxt-payload-analyzer@latest:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/nuxt-payload-analyzer/-/nuxt-payload-analyzer-0.1.4.tgz#7297345c813b882bddc2a2e718bf23cc49c248f2"
-  integrity sha512-jz7Skfl+rgXFbXMoYcby4Ti9noJL0LlPl9bcm6Xa8BFGdTsPKvzh0GcFAUrWNmq0BsmV4pLbJ2gIPFoFw167BQ==
-  dependencies:
-    "@nuxt/kit" "^3.8.0"
-    citty "^0.1.4"
-    consola "^3.2.3"
-    pathe "^1.1.1"
-
 nuxt-security@2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/nuxt-security/-/nuxt-security-2.1.5.tgz#47d0dd6c753bcba22a35fd978b70e5e3de9e0132"
@@ -8441,7 +8431,12 @@ vuetify-nuxt-module@^0.18.3:
     vite-plugin-vuetify "^2.0.4"
     vuetify "^3.7.0"
 
-vuetify@3.7.13, vuetify@^3.7.0:
+vuetify@3.7.14:
+  version "3.7.14"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.7.14.tgz#7d082cc90eef79cc17725a6983e3762b9041d0cd"
+  integrity sha512-L5oD0x3Wrp49Khp+16dRykAFUZq6WXqX7OHLTwXnyEliJ48ERC9WfEtN0YOuEIhor/b2IOZXl+11fs/m452/Lw==
+
+vuetify@^3.7.0:
   version "3.7.13"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.7.13.tgz#c7aad28d2e3eae2dd30f0df0acf6dbe79e23dfdc"
   integrity sha512-4+RuQU+zLtXhlN2eZUpKXums9ftzUzhMeiNEJvvJY4XdOzVwUCth2dTnEZkSF6EKdLHk3WhtRk0cIWXZxpBvcw==
