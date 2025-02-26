@@ -18,32 +18,24 @@ defineProps({
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-row>
-        <v-col cols="6">
-          <v-btn
-            block
-            color="warning"
-            height="40"
-            class="text-capitalize"
-            @click="form.status = false"
-          >
-            Save as Draft
-          </v-btn>
-        </v-col>
-        <v-col cols="6">
-          <v-btn
-            block
-            type="submit"
-            color="primary"
-            height="40"
-            variant="tonal"
-            class="text-capitalize"
-            @click="form.status = true"
-          >
-            {{ route.params.id ? "Update" : "Publish Now" }}
-          </v-btn>
-        </v-col>
-      </v-row>
+      <v-btn
+        type="submit"
+        color="warning"
+        class="text-capitalize"
+        @click="form.status = false"
+      >
+        Save as Draft
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn
+        variant="flat"
+        type="submit"
+        color="primary"
+        class="text-capitalize px-6"
+        @click="form.status = true"
+      >
+        {{ route.params.id ? "Update" : "Publish Now" }}
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

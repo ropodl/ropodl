@@ -26,7 +26,7 @@ useHead({
   title: "Add New Blog",
 });
 
-const form = reactive({
+const form = ref({
   title: "",
   excerpt: "",
   content: "",
@@ -38,43 +38,28 @@ const form = reactive({
 });
 
 onMounted(() => {
-  nextTick(async () => {
-    await useFetch("/api/blog/" + id, {
-      onResponse({ response }) {
-        const { title, excerpt, content, featured_image, status } =
-          response._data;
-        form.title = title;
-        form.excerpt = excerpt;
-        form.content = content;
-        form.featured_image.url = featured_image.url;
-        form.featured_image.id = featured_image.id;
-        form.status = status;
-      },
-      onResponseError({ response }) {
-        console.log(response._error);
-      },
-    });
-  });
+  getPostById();
 });
+
+const getPostById = async () => {
+  await useAxios.get(`/api/blog/${id}`).then((res) => {
+    form.value = res;
+  });
+};
 
 const updateBlogRef = ref();
 const updateBlog = async () => {
   const { valid } = updateBlogRef.value.validate();
 
-  if (valid) {
-    const {
-      data,
-      error,
-      pending: loading,
-    } = await useFetch("/api/blog/" + id, {
-      method: "PATCH",
-      body: form,
-    });
-    if (error.value) {
-      loading.value = true;
-      return console.log(error.value);
-    }
-  }
+  if (valid)
+    await useAxios
+      .patch(`/api/blog/${id}`, form.value)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 };
 </script>
 <template>
@@ -100,7 +85,6 @@ const updateBlog = async () => {
           <lazy-admin-shared-field-label>
             Blog Content
           </lazy-admin-shared-field-label>
-          {{ form.content }}
           <v-card flat elevation="0" rounded="lg">
             <client-only placeholder="Loading Quill Editor">
               <lazy-admin-shared-quill-editor v-model:content="form.content" />
@@ -108,8 +92,8 @@ const updateBlog = async () => {
           </v-card>
         </v-col>
         <v-col cols="12" md="4">
-          <LazyAdminSharedActions :form="form" />
-          <LazyAdminSharedImageUpload
+          <lazy-admin-shared-actions :form="form" />
+          <lazy-admin-shared-image-upload
             title="Upload Featured Image"
             :form="form"
             bucket="blogs"
