@@ -16,7 +16,7 @@ const getPostById = async (id?: number) => {
       post.value = res;
     })
     .finally(() => {
-      loading.value = true;
+      loading.value = false;
     });
 };
 
@@ -68,13 +68,10 @@ const close = (dialog: Ref) => {
           :loading
         >
           <v-card-text class="pt-0">{{ post.excerpt }}</v-card-text>
-          <lazy-shared-dynamic-content :content="post.content" />
+          <v-card-text>
+            <lazy-shared-dynamic-content :content="post.content" />
+          </v-card-text>
         </v-skeleton-loader>
-        <!-- <template v-if="loading">
-    </template> -->
-        <!-- <template v-else> -->
-        <!-- <template v-if="post.featured_image"> </template> -->
-        <!-- </template> -->
       </v-card>
     </template>
   </v-dialog>

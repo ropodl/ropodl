@@ -1,27 +1,19 @@
-<script setup>
-const content = defineModel("content");
+<script setup lang="ts">
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
-defineProps({
-  label: {
-    type: String,
-    default: "",
-  },
-});
+const content = defineModel("content");
 </script>
 <template>
-  <ClientOnly fallback="Loading editor...">
-    <lazy-common-shared-field-label>{{ label }}</lazy-common-shared-field-label>
-    <v-card border flat color="transparent" class="mb-4">
-      <QuillEditor
-        v-model:content="content"
-        content-type="html"
-        theme="snow"
-        toolbar="full"
-        style="min-height: 500px"
-      />
-    </v-card>
-  </ClientOnly>
+  <QuillEditor
+    theme="snow"
+    toolbar="full"
+    content-type="html"
+    v-model:content="content"
+    style="min-height: 500px"
+  ></QuillEditor>
 </template>
+
 <style lang="scss">
 .ql-toolbar.ql-snow {
   border: 0 !important;
@@ -40,20 +32,4 @@ defineProps({
 .ql-snow-light-border {
   border: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
-
-// .ql-snow.ql-toolbar {
-//   button {
-//     &:hover {
-//       background-color: #4b5563;
-//     }
-//     svg {
-//       path.ql-stroke {
-//         stroke: white !important;
-//       }
-//       line.ql-stroke {
-//         stroke: white !important;
-//       }
-//     }
-//   }
-// }
 </style>
