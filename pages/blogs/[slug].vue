@@ -1,5 +1,4 @@
 <script setup>
-import { Icon } from "@iconify/vue";
 import { formatTimeAgo } from "@vueuse/core";
 
 const route = useRoute();
@@ -8,16 +7,7 @@ const {
   params: { slug },
 } = route;
 
-const blog = ref({
-  title: "",
-  content: "",
-  excerpt: "",
-  featured_image: {
-    id: "",
-    url: null,
-  },
-  created_at: "",
-});
+const blog = ref({});
 const loading = ref(false);
 
 useSeoMeta({
@@ -28,46 +18,20 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 });
 
-// useHead({
-//   script: [
-//     {
-//       async: true,
-//       src: "https://platform-api.sharethis.com/js/sharethis.js#property=#{property?._id}&product=custom-share-buttons&source=platform",
-//     },
-//   ],
-// });
-
-// defineOgImage({
-//   component: "Main",
-//   headline: "Blogs",
-//   title: blog.value?.title,
-//   description: blog.value?.excerpt,
-//   componentOptions: { global: true },
-// });
-
 onMounted(() => {
-  nextTick(async () => {
-    const { data, error, pending } = await useFetch(
-      `/api/frontend/blog/${slug}`,
-      {
-        onResponse({ response }) {
-          const { title, excerpt, content, featured_image, created_at } =
-            response._data;
-          blog.value.title = title;
-          blog.value.excerpt = excerpt;
-          blog.value.content = content;
-          blog.value.featured_image = featured_image;
-          blog.value.created_at = created_at;
-          loading.value = false;
-        },
-        onResponseError({ response }) {
-          console.log(response._error);
-          loading.value = false;
-        },
-      }
-    );
-  });
+  getBlogBySlug();
 });
+
+const getBlogBySlug = async () => {
+  await useAxios
+    .get(`/api/frontend/blog/${slug}`)
+    .then((res) => {
+      blog.value = res;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
 </script>
 <template>
   <v-skeleton-loader :loading="loading" width="100%" height="600" type="image">
@@ -97,7 +61,6 @@ onMounted(() => {
     </v-img>
   </v-skeleton-loader>
   <v-container>
-    {{ blog }}
     <v-row v-if="blog.excerpt">
       <v-col cols="12" md="12">
         <div class="text-h6 text-sm-h4 font-weight-light">

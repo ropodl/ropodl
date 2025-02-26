@@ -67,7 +67,7 @@ const addBlog = async () => {
           ></v-text-field>
           <v-card flat class="ext-editor rounded-b-0 mb-6">
             <client-only placeholder="Loading Quill Editor">
-              <lazy-admin-shared-quill-editor v-model:content="form.content" />
+              <!-- <admin-shared-quill-editor v-model:content="form.content" /> -->
             </client-only>
           </v-card>
           <v-textarea label="Blog Excerpt" v-model="form.excerpt"></v-textarea>

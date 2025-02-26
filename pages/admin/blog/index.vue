@@ -192,7 +192,7 @@ const getColor = (item) => {
             @update:options="loadBlogs"
           >
             <template #item.created_at="{ item }">
-              {{ useDateFormat(item.created_at, "YYYY-MM-DD | HH:mm:ss a") }}
+              {{ useDateFormat(item.created_at, "YYYY-MM-DD | HH:mm a") }}
             </template>
             <template #item.status="{ item }">
               <v-chip
