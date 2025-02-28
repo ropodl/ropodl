@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { rule } from "./rule.js";
 
 const config = useRuntimeConfig();
@@ -67,7 +68,14 @@ const updateBlog = async () => {
     <v-form ref="updateBlogRef" @submit.prevent="updateBlog">
       <v-row>
         <v-col cols="12">
-          <div class="text-h4 font-weight-bold">Edit Blog</div>
+          <div class="d-flex align-center">
+            <v-btn icon class="mr-3" size="small" rounded="lg" variant="tonal">
+              <v-icon>
+                <Icon icon="mdi:chevron-left" />
+              </v-icon>
+            </v-btn>
+            <div class="text-h4 font-weight-bold">Edit Blog</div>
+          </div>
         </v-col>
         <v-col cols="12" md="8">
           <lazy-admin-shared-field-label>
@@ -85,17 +93,17 @@ const updateBlog = async () => {
           <lazy-admin-shared-field-label>
             Blog Content
           </lazy-admin-shared-field-label>
-          <v-card flat elevation="0" rounded="lg">
+          <v-card border flat elevation="0" rounded="lg">
             <client-only placeholder="Loading Quill Editor">
               <lazy-admin-shared-quill-editor v-model:content="form.content" />
             </client-only>
           </v-card>
         </v-col>
         <v-col cols="12" md="4">
-          <lazy-admin-shared-actions :form="form" />
+          <lazy-admin-shared-actions :form />
           <lazy-admin-shared-image-upload
             title="Upload Featured Image"
-            :form="form"
+            :form
             bucket="blogs"
             type="featured_image"
           />
