@@ -1,33 +1,10 @@
-// import { BetaAnalyticsDataClient } from "@google-analytics/data";
+import { serverSupabaseClient } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
-  // console.log(process.env.GOOGLE_ANALYTICS_ID);
 
-  const blogCount = await BlogSchema.countDocuments();
-  const portfolioCount = await BlogSchema.countDocuments();
-  // const analyticsDataClient = new BetaAnalyticsDataClient();
+  const client = await serverSupabaseClient(event);
 
-  // const response = await analyticsDataClient.runReport({
-  //   property: `properties/${process.env.GOOGLE_ANALYTICS_ID}`,
-  //   dateRanges: [
-  //     {
-  //       startDate: "2020-03-31",
-  //       endDate: "today",
-  //     },
-  //   ],
-  //   dimensions: [
-  //     {
-  //       name: "city",
-  //     },
-  //   ],
-  //   metrics: [
-  //     {
-  //       name: "activeUsers",
-  //     },
-  //   ],
-  // });
-
-  // console.log(response);
+  const { count: blogCount } = await client.from("blogs").select("id", { count: "exact" });
 
   return {
     stats: [
@@ -39,7 +16,7 @@ export default defineEventHandler(async (event) => {
       },
       {
         title: "Portfolio",
-        number: portfolioCount,
+        number: 0,
         icon: "mdi:image",
         color: "primary",
       },

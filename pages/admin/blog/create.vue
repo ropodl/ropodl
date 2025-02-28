@@ -60,9 +60,12 @@ const addBlog = async () => {
           <div class="text-h4 font-weight-bold">Add New Blog</div>
         </v-col>
         <v-col cols="12" md="8">
+          <lazy-admin-shared-field-label>
+            Blog Title
+          </lazy-admin-shared-field-label>
           <v-text-field
-            label="Blog Title"
             v-model="form.title"
+            placeholder="eg. Lorem ipsum dolor"
             :rules="rules.title"
           ></v-text-field>
           <v-card flat class="ext-editor rounded-b-0 mb-6">
