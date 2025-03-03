@@ -64,13 +64,13 @@ const startAnimation = () => {
                 Saroj Poudel<span class="text-brand">.</span>
               </div>
               <div>
-                <div class="text-h4 font-weight-medium">
+                <div class="text-h4 font-weight-medium mb-6">
                   Fullstack developer from Kathmandu, Nepal.
                 </div>
-                <v-card-text class="pl-0">
+                <!-- <v-card-text class="pl-0">
                   Hey their, I am a Full Stack Developer, especializing in
                   ExpressJS and VueJs/Nuxt.
-                </v-card-text>
+                </v-card-text> -->
                 <v-row>
                   <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">

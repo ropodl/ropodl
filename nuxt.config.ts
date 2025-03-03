@@ -17,7 +17,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   experimental: {
     viewTransition: true,
-    componentIslands: true,
     renderJsonPayloads: false,
     defaults: {
       nuxtLink: {
@@ -96,11 +95,6 @@ export default defineNuxtConfig({
   },
   pwa: {
     registerType: "autoUpdate",
-    // workbox: {
-    //   cleanupOutdatedCaches: true,
-    //   navigateFallback: "/",
-    //   globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-    // },
     manifest: {
       name: "Saroj Poudel",
       short_name: "ropodl",
@@ -132,14 +126,10 @@ export default defineNuxtConfig({
     storesDirs: ["./stores/**"],
   },
   piniaPersistedstate: {
-    storage: "localStorage",
+    storage: "sessionStorage",
   },
   nitro: {
-    minify: true,
-    // prerender: {
-    //   crawlLinks: true,
-    //   routes: ["/"],
-    // },
+    minify: true
   },
   compatibilityDate: "2024-11-18",
   vite: {

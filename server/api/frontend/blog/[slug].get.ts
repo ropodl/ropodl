@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
     .select()
     .eq("slug", slug)
     .maybeSingle();
-    console.log(blog)
 
   if (error) {
     return createError({
