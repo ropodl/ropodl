@@ -26,6 +26,9 @@ export const vuetifyOptions = {
     VSelect: {
       density: "comfortable",
       variant: "outlined",
+    },
+    VTooltip: {
+      theme: "light"
     }
   },
   theme: {

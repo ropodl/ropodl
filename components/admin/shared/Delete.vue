@@ -12,21 +12,18 @@ defineProps({
 <template>
   <v-dialog persistent scrim="black" width="500">
     <template v-slot:activator="{ props: dialog }">
-      <v-tooltip theme="light" text="Delete Post">
-        <template v-slot:activator="{ props: tooltip }">
-          <v-btn
-            v-bind="{ ...dialog, ...tooltip }"
-            icon
-            size="small"
-            rounded="lg"
-            variant="text"
-          >
-            <v-icon>
-              <Icon icon="mdi:delete" />
-            </v-icon>
-          </v-btn>
-        </template>
-      </v-tooltip>
+      <v-btn
+        v-bind="dialog"
+        v-tooltip="'Delete Post'"
+        icon
+        size="small"
+        rounded="lg"
+        variant="text"
+      >
+        <v-icon>
+          <Icon icon="mdi:delete" />
+        </v-icon>
+      </v-btn>
     </template>
     <template v-slot:default="{ isActive }">
       <v-card border :title="`Delete ${type}`">
