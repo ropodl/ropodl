@@ -59,12 +59,22 @@ const startAnimation = () => {
         <v-col cols="12" md="8">
           <div class="d-flex align-center justify-center h-100">
             <div>
-              <div class="text-overline">Hello, World! I am</div>
-              <div class="text-h1 font-weight-bold mb-3">
+              <div v-motion-slide-left :duration="500" class="text-overline">
+                Hello, World! I am
+              </div>
+              <div
+                v-motion-fade
+                :duration="500"
+                class="text-h1 font-weight-bold mb-3"
+              >
                 Saroj Poudel<span class="text-brand">.</span>
               </div>
               <div>
-                <div class="text-h4 font-weight-medium mb-6">
+                <div
+                  v-motion-slide-right
+                  :duration="500"
+                  class="text-h4 font-weight-medium mb-6"
+                >
                   Fullstack developer from Kathmandu, Nepal.
                 </div>
                 <!-- <v-card-text class="pl-0">
@@ -75,12 +85,13 @@ const startAnimation = () => {
                   <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
+                        v-bind="props"
                         block
                         rounded="lg"
                         color="brand"
                         height="40"
                         variant="tonal"
-                        v-bind="props"
+                        v-motion-slide-visible-once-bottom
                         to="/blogs"
                       >
                         Blogs
@@ -96,12 +107,13 @@ const startAnimation = () => {
                   <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
+                        v-bind="props"
                         block
                         rounded="lg"
                         color="primary"
                         height="40"
                         variant="text"
-                        v-bind="props"
+                        v-motion-slide-visible-once-bottom
                         to="/portfolio"
                       >
                         Portfolio

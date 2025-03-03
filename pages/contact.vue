@@ -19,12 +19,6 @@ useSeoMeta({
   twitterCard: "summary",
 });
 
-// defineOgImageComponent("Main", {
-//   title: "Saroj Poudel",
-//   description:
-//     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-// });
-
 const loading = ref(false);
 const contactForm = ref();
 

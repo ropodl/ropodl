@@ -19,8 +19,7 @@ onMounted(() => {
 
 const stats = ref([]);
 const getDashboard = async () => {
-  await useAxios.get("/api/dashboard/").then((res) => {
-    // console.log(res);
+  await useAxios.get("/api/dashboard").then((res) => {
     stats.value = res.stats;
   });
 };
@@ -35,23 +34,29 @@ const getDashboard = async () => {
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" md="3" v-for="{ icon, number, title } in stats">
-        <v-card border height="125">
+      <v-col cols="12" md="3" v-for="{ icon, number, title, growth } in stats">
+        <v-card border>
           <v-icon
             color="primary"
-            size="100"
+            size="40"
             class="position-absolute"
-            style="bottom: -20px; right: -20px"
+            style="top: 10px; right: 10px"
           >
             <Icon :icon />
           </v-icon>
-          <v-card-title class="pb-0">
+          <v-card-title>
             <div class="text-h4 font-weight-bold">
               {{ number }}
             </div>
             <div>{{ title }}</div>
           </v-card-title>
-          <v-card-text>This is a test</v-card-text>
+          <template v-if="growth">
+            <v-card-text class="d-flex align-center">
+              <v-chip size="small" :color="growth > 1 ? 'success' : ''">
+                {{ growth }} % </v-chip
+              >&nbsp; since last month
+            </v-card-text>
+          </template>
         </v-card>
       </v-col>
     </v-row>

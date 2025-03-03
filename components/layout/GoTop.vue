@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useScrollTo } from "@/composables/scrollToId";
+const goTo = useGoTo();
 
 const show = ref(false);
 const progress = ref(0);
@@ -13,6 +13,10 @@ const onScroll = (e: Event) => {
   const documentHeight = document.documentElement.scrollHeight;
   const viewportHeight = window.innerHeight;
   progress.value = (scrollTop / (documentHeight - viewportHeight)) * 100;
+};
+
+const goTop = () => {
+  goTo(0);
 };
 </script>
 <template>
@@ -32,8 +36,8 @@ const onScroll = (e: Event) => {
       rounded="circle"
       size="40"
       v-scroll="onScroll"
-      @click="useScrollTo('__nuxt', 0)"
       aria-label="Go to top button"
+      @click="goTop"
     >
       <v-progress-circular
         color="brand"
