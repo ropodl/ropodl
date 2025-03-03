@@ -6,14 +6,12 @@ export default defineEventHandler(async (event) => {
 
   const { name, email, message } = body;
 
-  console.log(body);
-
   const { error } = await client.from("contact_request").insert({
     name,
     email,
     message,
   });
-  
+
   if (error) {
     return createError({
       statusCode: parseInt(error.code),

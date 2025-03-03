@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     stats: [
       {
         title: "Blogs",
-        number: blogCount,
+        // number: blogCount,
         icon: "mdi:newspaper",
         color: "error",
       },

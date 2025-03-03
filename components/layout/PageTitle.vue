@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 defineProps({
   title: { type: String, default: "Title" },
   items: { type: Array, default: [{ title: "Home", to: "/" }] },
@@ -19,7 +19,7 @@ defineProps({
       </v-card-title>
       <v-breadcrumbs
         class="text-lowercase justify-center"
-        :items="items"
+        :items
       ></v-breadcrumbs>
     </v-card-text>
   </v-card>
