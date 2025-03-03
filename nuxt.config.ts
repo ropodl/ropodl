@@ -31,6 +31,7 @@ export default defineNuxtConfig({
   modules: [
     "@pinia/nuxt",
     "@vueuse/nuxt",
+    "@vueuse/motion/nuxt",
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
