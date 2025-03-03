@@ -8,21 +8,44 @@ export const useAdminBlogStore = defineStore(
       itemsPerPage: 10,
       currentPage: 1,
       totalItems: 1,
-      totalPages: 1,
+      totalPages: 2,
     });
-    const filter = ref({
-      sortBy: "",
+    const headers = ref([
+      {
+        title: "Title",
+        key: "title",
+      },
+      { title: "Created At", key: "created_at", align: "center", width: 150 },
+      {
+        title: "Status",
+        key: "status",
+        align: "center",
+        sortable: false,
+        width: 100,
+      },
+      {
+        title: "Actions",
+        key: "actions",
+        align: "center",
+        sortable: false,
+        width: 200,
+      },
+    ]);
+    const filters = ref({
+      status: null,
+      date: null
     });
     const loading = ref(false);
 
-    const all = async (page: number, itemsPerPage: number, sortBy: any, search: string) => {
+    const all = async (sortBy: any, search: string) => {
       loading.value = true;
       await useAxios.get("/api/blog", {
         query: {
-          page,
-          itemsPerPage,
+          page: pagination.value.currentPage,
+          itemsPerPage: pagination.value.itemsPerPage,
           sortBy,
-          search
+          search,
+          status: filters.value?.status
         },
       })
         .then((res: any) => {
@@ -34,10 +57,16 @@ export const useAdminBlogStore = defineStore(
         });
     };
 
+    watch(filters.value, () => {
+      all([], '')
+    });
+
     return {
+      headers: headers.value,
       blogs,
       pagination,
       loading,
+      filters: filters.value,
       all,
     };
   },

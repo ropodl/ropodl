@@ -45,7 +45,9 @@ const close = (dialog: Ref) => {
     <template v-slot:default="{ isActive }">
       <v-card :loading="loading">
         <v-skeleton-loader :loading type="image" rounded="0" height="250">
-          <v-img cover height="250" :src="post.featured_image.url"> </v-img>
+          <template v-if="post.featured_image">
+            <v-img cover height="250" :src="post.featured_image.url"> </v-img>
+          </template>
         </v-skeleton-loader>
         <v-btn
           size="x-small"

@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
   const sortBy = <string>(query.sortBy || 'created_at');
   const order = query.order === "asc";
   const search = <string>(query.search || null);
+  const status = <string>(query.status || null);
 
   const from = (page - 1) * itemsPerPage;
   const to = from + itemsPerPage - 1;
@@ -38,6 +39,8 @@ export default defineEventHandler(async (event) => {
     .select("id, created_at, title, status", { count: "exact" })
 
   if (search) call = call.ilike('title', `%${search}%`);
+
+  if (status) call = call.eq("status", status)
 
   call = call.order(sortBy, { ascending: order }).range(from, to)
 
