@@ -1,5 +1,3 @@
-import { defineStore } from "pinia";
-
 export const useAdminBlogStore = defineStore(
   "useAdminBlogStore",
   () => {
@@ -31,18 +29,21 @@ export const useAdminBlogStore = defineStore(
         width: 200,
       },
     ]);
+    const showFilters = ref(false);
     const filters = ref({
       status: null,
       date: null
     });
     const loading = ref(false);
-
-    const all = async (sortBy: any, search: string) => {
+    const isFiltered = computed(() => {
+      return Object.values(filters.value).some((item) => item !== null);
+    });
+    const all = (sortBy: any, search?: string) => {
       loading.value = true;
-      await useAxios.get("/api/blog", {
+      useAxios.get("/api/blog", {
         query: {
-          page: pagination.value.currentPage,
-          itemsPerPage: pagination.value.itemsPerPage,
+          page: pagination.value?.currentPage,
+          itemsPerPage: pagination.value?.itemsPerPage,
           sortBy,
           search,
           status: filters.value?.status
@@ -57,16 +58,14 @@ export const useAdminBlogStore = defineStore(
         });
     };
 
-    watch(filters.value, () => {
-      all([], '')
-    });
-
     return {
-      headers: headers.value,
+      headers,
       blogs,
       pagination,
       loading,
-      filters: filters.value,
+      showFilters,
+      filters,
+      isFiltered,
       all,
     };
   },

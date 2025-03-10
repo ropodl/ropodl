@@ -1,4 +1,5 @@
 export const vuetifyOptions = {
+  labComponents: true,
   defaults: {
     VBtn: {
       class: "text-none",

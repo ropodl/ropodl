@@ -1,8 +1,14 @@
 import { serverSupabaseClient } from "#supabase/server";
 import { getPagination } from "~/server/utils/paginate";
 
+interface query {
+  page: number,
+  itemsPerPage: number,
+  sortBy: string
+}
+
 export default defineEventHandler(async (event) => {
-  const query = getQuery(event);
+  const query = <query>getQuery(event);
   const { page, itemsPerPage, sortBy } = query;
   const client = await serverSupabaseClient(event);
   const { from, to } = getPagination(page, itemsPerPage);
@@ -10,7 +16,7 @@ export default defineEventHandler(async (event) => {
   const { data: requests, error } = await client
     .from("contact_request")
     .select("*")
-    .range(0, 10)
+    .range(from, to)
     .order("created_at", { ascending: false });
 
   if (error) {

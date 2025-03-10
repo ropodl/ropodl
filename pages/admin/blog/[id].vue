@@ -1,19 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { rule } from "./rule.js";
-
-const config = useRuntimeConfig();
-const { setBreadcrumb } = useAdminBreadcrumbStore();
-setBreadcrumb([
-  {
-    title: "All Blogs",
-    disabled: false,
-    to: "/admin/blog",
-  },
-  {
-    title: "Edit Blog",
-  },
-]);
 
 const {
   params: { id },
@@ -26,6 +12,10 @@ definePageMeta({
 useHead({
   title: "Add New Blog",
 });
+
+const rule = {
+  title: [(v) => !!v || "Blog Title is required"],
+};
 
 const form = ref({
   title: "",
@@ -62,21 +52,31 @@ const updateBlog = async () => {
         console.log(err);
       });
 };
+
+const breadcrumb = [
+  {
+    title: "Home",
+    to: "/admin/",
+  },
+  {
+    title: "All Blogs",
+    to: "/admin/blog",
+  },
+  {
+    title: "Edit Blog",
+    to: "/admin/blog/edit",
+  },
+];
 </script>
 <template>
   <v-container>
     <v-form ref="updateBlogRef" @submit.prevent="updateBlog">
+      <lazy-admin-layout-page-title
+        title="Edit Blog"
+        :items="breadcrumb"
+        back-link="/admin/blog"
+      />
       <v-row>
-        <v-col cols="12">
-          <div class="d-flex align-center">
-            <v-btn icon class="mr-3" size="small" rounded="lg" variant="tonal">
-              <v-icon>
-                <Icon icon="mdi:chevron-left" />
-              </v-icon>
-            </v-btn>
-            <div class="text-h4 font-weight-bold">Edit Blog</div>
-          </div>
-        </v-col>
         <v-col cols="12" md="8">
           <lazy-admin-shared-field-label>
             Blog Title
@@ -101,12 +101,23 @@ const updateBlog = async () => {
         </v-col>
         <v-col cols="12" md="4">
           <lazy-admin-shared-actions :form />
-          <lazy-admin-shared-image-upload
+          <!-- <lazy-admin-shared-image-upload
             title="Upload Featured Image"
             :form
             bucket="blogs"
             type="featured_image"
-          />
+          /> -->
+          {{ form }}
+          <v-card title="Upload Featured Image">
+            <v-divider></v-divider>
+            <v-file-upload
+              v-model="form.featured_image.url"
+              border="0"
+              color="transparent"
+              density="compact"
+              title="Drop file here"
+            ></v-file-upload>
+          </v-card>
         </v-col>
       </v-row>
     </v-form>

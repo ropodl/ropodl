@@ -11,28 +11,23 @@ const route = useRoute();
 const drawer = ref(false);
 
 const pages = [
-  // {
-  //   icon: "mdi:file-document",
-  //   title: "about",
-  //   link: "/about",
-  // },
   {
-    icon: "mdi:info",
+    icon: "mdi-info",
     title: "about",
     link: "/about",
   },
   {
-    icon: "mdi:file-certificate",
+    icon: "mdi-file-certificate",
     title: "blogs",
     link: "/blogs",
   },
   {
-    icon: "mdi:file-certificate",
+    icon: "mdi-file-certificate",
     title: "portfolio",
     link: "/portfolio",
   },
   {
-    icon: "mdi:contacts",
+    icon: "mdi-contacts",
     title: "contact",
     link: "/contact",
   },
@@ -94,7 +89,6 @@ const pages = [
           <v-spacer></v-spacer>
           <template v-for="social in socials">
             <v-btn
-              icon
               variant="plain"
               rounded="lg"
               size="50"
@@ -102,27 +96,18 @@ const pages = [
               class="hidden-xs"
               :href="social.link"
               :aria-label="social.name"
+              >{{ social.name[0] }}</v-btn
             >
-              <v-icon size="sm">
-                <Icon :icon="social.icon" />
-              </v-icon>
-            </v-btn>
           </template>
           <v-btn
             height="50"
             rounded="lg"
             variant="tonal"
             class="hidden-md-and-up"
+            :icon="drawer ? 'mdi:close' : 'mdi:menu'"
             @click="drawer = !drawer"
             aria-label="drawer opener"
-          >
-            <v-icon>
-              <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
-            </v-icon>
-          </v-btn>
-          <!-- <template v-if="loggedIn">
-            <LazyAdminSharedAdminNavDrop />
-          </template> -->
+          ></v-btn>
         </v-row>
       </v-container>
     </v-app-bar>
@@ -131,25 +116,20 @@ const pages = [
     <v-card rounded="0">
       <v-list>
         <v-list-subheader>Navigate to</v-list-subheader>
-        <v-list-item title="Home">
-          <template v-slot:prepend>
-            <v-icon>
-              <Icon icon="mdi:home" />
-            </v-icon>
-          </template>
-        </v-list-item>
         <v-list-item
-          v-for="page in pages"
-          :title="page.title"
-          :to="page['link']"
+          prepend-icon="mdi-home"
+          title="Home"
+          to="/"
           @click="drawer = false"
-        >
-          <template v-slot:prepend>
-            <v-icon>
-              <Icon :icon="page['icon']" />
-            </v-icon>
-          </template>
-        </v-list-item>
+        />
+        <template v-for="{ title, icon } in pages">
+          <v-list-item
+            :title
+            :to="page['link']"
+            :prepend-icon="page.icon"
+            @click="drawer = false"
+          />
+        </template>
       </v-list>
     </v-card>
   </v-bottom-sheet>

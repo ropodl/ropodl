@@ -1,17 +1,4 @@
 <script setup lang="ts">
-const { setBreadcrumb } = useAdminBreadcrumbStore();
-setBreadcrumb([
-  {
-    title: "All Blogs",
-    disabled: false,
-    to: "/admin/blog/",
-  },
-  {
-    title: "Create Blog",
-    disabled: true,
-  },
-]);
-
 definePageMeta({
   layout: "admin",
 });
@@ -51,14 +38,31 @@ const addBlog = async () => {
       });
   }
 };
+
+const breadcrumbs = [
+  {
+    title: "Home",
+    to: "/admin/",
+  },
+  {
+    title: "All Blogs",
+    to: "/admin/blog/",
+  },
+  {
+    title: "Add New",
+    to: "/admin/blog/create",
+  },
+];
 </script>
 <template>
   <v-container>
     <v-form ref="addBlogRef" @submit.prevent="addBlog">
+      <lazy-admin-layout-page-title
+        title="Add New Blog"
+        :items="breadcrumbs"
+        back-link="/admin/blog"
+      />
       <v-row>
-        <v-col cols="12">
-          <div class="text-h4 font-weight-bold">Add New Blog</div>
-        </v-col>
         <v-col cols="12" md="8">
           <lazy-admin-shared-field-label>
             Blog Title

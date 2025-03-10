@@ -1,6 +1,4 @@
 <script setup>
-import { Icon } from "@iconify/vue";
-
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 
@@ -14,12 +12,12 @@ const search = ref(false);
 
 const navItems = ref([
   {
-    icon: "mdi:home-outline",
+    icon: "mdi-home-outline",
     title: "Home",
     routes: "/admin/",
   },
   {
-    icon: "mdi:pencil-outline",
+    icon: "mdi-pencil-outline",
     title: "Blog",
     subitems: [
       { title: "All Blogs", routes: "/admin/blog" },
@@ -29,7 +27,7 @@ const navItems = ref([
     ],
   },
   {
-    icon: "mdi:image-outline",
+    icon: "mdi-image-outline",
     title: "Portfolio",
     subitems: [
       { title: "All Portfolio", routes: "/admin/portfolio" },
@@ -38,7 +36,7 @@ const navItems = ref([
     ],
   },
   {
-    icon: "mdi:phone-outline",
+    icon: "mdi-phone-outline",
     title: "Contact Request",
     routes: "/admin/contact-request",
   },
@@ -61,17 +59,16 @@ const signOut = async () => {
   >
     <v-container fluid class="py-0">
       <v-row align="center" justify="space-between">
-        <v-col class="pa-0" cols="12" md="4">
+        <v-col class="pa-0" cols="12" sm="4" md="4">
           <div class="d-flex align-center justify-start">
             <v-app-bar-nav-icon
               height="50"
               rounded="0"
               @click="drawer = !drawer"
             ></v-app-bar-nav-icon>
-            <lazy-admin-layout-breadcrumbs />
           </div>
         </v-col>
-        <v-col class="pa-0" cols="12" md="4">
+        <v-col class="pa-0" cols="12" sm="4" md="4">
           <div class="d-flex align-center justify-center overflow-x-scroll">
             <v-btn
               border
@@ -93,7 +90,7 @@ const signOut = async () => {
             </v-btn>
           </div>
         </v-col>
-        <v-col class="pa-0" cols="12" md="4">
+        <v-col class="pa-0" cols="12" sm="4" md="4">
           <div class="d-flex align-center justify-end">
             <v-tooltip
               theme="light"
@@ -141,13 +138,12 @@ const signOut = async () => {
         <template v-if="subitems">
           <v-list-group>
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" rounded="lg" :title>
-                <template v-slot:prepend>
-                  <v-icon>
-                    <Icon :icon />
-                  </v-icon>
-                </template>
-              </v-list-item>
+              <v-list-item
+                v-bind="props"
+                :prepend-icon="icon"
+                rounded="lg"
+                :title
+              />
             </template>
             <span v-for="{ title, miniitems, routes } in subitems">
               <!-- child's option -->
@@ -172,13 +168,7 @@ const signOut = async () => {
           </v-list-group>
         </template>
         <template v-else>
-          <v-list-item rounded="lg" :title :to="routes">
-            <template v-slot:prepend>
-              <v-icon>
-                <Icon :icon />
-              </v-icon>
-            </template>
-          </v-list-item>
+          <v-list-item :prepend-icon="icon" rounded="lg" :title :to="routes" />
         </template>
       </template>
     </v-list>
@@ -201,12 +191,8 @@ const signOut = async () => {
             class="justify-start pl-0"
             content-class="w-100"
             rounded="0"
+            append-icon="mdi-unfold-more-horizontal"
           >
-            <template #append>
-              <v-icon>
-                <Icon icon="mdi:unfold-more-horizontal" />
-              </v-icon>
-            </template>
             <v-list-item>
               <template #prepend>
                 <v-avatar rounded="lg">

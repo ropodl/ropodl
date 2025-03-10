@@ -19,10 +19,8 @@ defineProps({
                 <div class="text-h6 mb-6">{{ error.message }}</div>
                 <v-btn
                   color="primary"
-                  height="50"
                   rounded="lg"
-                  variant="tonal"
-                  class="text-capitalize px-10"
+                  class="text-capitalize"
                   to="/"
                   :replace="true"
                   >Let's go home</v-btn
