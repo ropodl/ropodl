@@ -1,6 +1,4 @@
 <script setup>
-// import { VDataTableServer } from "vuetify/labs/VDataTable";
-
 const category = useCategory();
 
 definePageMeta({
@@ -49,7 +47,6 @@ const loadCategories = async ({ page, itemsPerPage, sortBy }) => {
           >Add New Category</v-btn
         >
       </v-col>
-      <!-- {{ typeof category.categories.pagination?.totalItems }} -->
       <v-col cols="12" md="8">
         <v-data-table-server
           show-select

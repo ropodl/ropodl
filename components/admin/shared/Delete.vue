@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-
 defineProps({
   type: { type: String, required: true },
   title: {
@@ -15,15 +13,11 @@ defineProps({
       <v-btn
         v-bind="dialog"
         v-tooltip="'Delete Post'"
-        icon
+        icon="mdi-delete-outline"
         size="small"
         rounded="lg"
         variant="text"
-      >
-        <v-icon>
-          <Icon icon="mdi:delete" />
-        </v-icon>
-      </v-btn>
+      />
     </template>
     <template v-slot:default="{ isActive }">
       <v-card border :title="`Delete ${type}`">

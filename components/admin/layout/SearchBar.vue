@@ -1,6 +1,4 @@
 <script setup>
-import { Icon } from "@iconify/vue";
-
 const props = defineProps({
   navItems: {
     type: Array,
@@ -223,11 +221,6 @@ watch(ctrlK, () => {
               @click="goToPage(item)"
               @mouseover="selectedIndex = index"
             >
-              <template #prepend>
-                <v-icon>
-                  <Icon :icon="item.icon" />
-                </v-icon>
-              </template>
               <template v-slot:subtitle>
                 <span v-if="item.subtitle">{{ item.subtitle }}</span>
                 <span v-else>{{ item.to }}</span>

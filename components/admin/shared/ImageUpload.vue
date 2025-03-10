@@ -1,6 +1,4 @@
-<script setup>
-import { Icon } from "@iconify/vue";
-
+<script lang="ts" setup>
 const props = defineProps({
   title: {
     type: String,
@@ -73,9 +71,11 @@ const selectFeaturedImage = async ({ target }) => {
               content-class="w-100 h-100 d-flex align-center justify-center"
               scrim="black"
             >
-              <v-btn icon color="error" @click="form.featured_image.url = null">
-                <Icon icon="mdi:close" />
-              </v-btn>
+              <v-btn
+                icon="mdi-close"
+                color="error"
+                @click="form.featured_image.url = null"
+              />
             </v-overlay>
           </v-img>
         </v-hover>

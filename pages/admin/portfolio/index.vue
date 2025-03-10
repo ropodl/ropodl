@@ -1,5 +1,17 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import { itemsPerPageOptions } from "@/utils/constants";
+
+const portfolio = useAdminPortfolioStore();
+const {
+  portfolios: items,
+  loading,
+  pagination,
+  filters,
+  headers,
+  showFilters,
+  hasActiveFilters,
+} = storeToRefs(portfolio);
+const { all } = portfolio;
 
 definePageMeta({
   layout: "admin",
@@ -9,96 +21,123 @@ useHead({
   title: "All Portfolio",
 });
 
-const loading = <any>ref(true);
-const selected = <any>ref([]);
-const portfolios = <any>ref([]);
-const pagination = <any>ref({
-  itemsPerPage: 10,
-  currentPage: 1,
-  totalItems: 1,
-  totalPages: 1,
-});
+const search = ref("");
+const debouncedSearch = ref("");
+const selected = ref([]);
+const debounceTimeout = ref(null);
+const isDebouncing = ref(false);
 
-const headers = [
-  {
-    title: "Featured Image",
-    key: "image",
-    width: 0,
-    align: "center",
-  },
-  {
-    title: "Title",
-    key: "title",
-    align: "start",
-  },
-  {
-    title: "Actions",
-    key: "actions",
-    width: 150,
-    align: "center",
-  },
-];
 const deleteBulk = () => {
   //   blog.removeBulk(selected.value);
   selected.value = [];
 };
 // server side table
-const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
-  loading.value = true;
-  const { data, error } = await useFetch("/api/portfolio", {
-    params: {
-      page,
-      itemsPerPage,
-      sortBy,
-    },
-  });
-  if (error.value) {
-    loading.value = false;
-    return console.log(error.value);
-  }
-  portfolios.value = data.value;
-  loading.value = false;
+const loadPortfolio = async ({ sortBy }) => {
+  await all(sortBy, debouncedSearch.value, filters.value);
 };
 
-const removeId = async (id: string) => {
-  const { data, error } = await useFetch(`/api/portfolio/${id}`, {
-    method: "DELETE",
+// Watch for changes in debounced search to trigger data reload
+watch(debouncedSearch, () => {
+  // Reset to first page when search changes
+  pagination.value.currentPage = 1;
+  // Reload data with current options
+  loadPortfolio({
+    sortBy: [],
   });
-  if (error.value) return console.log(error.value);
-  console.log(data);
+});
+
+const removeId = async (id: string) => {
+  await useAxios
+    .delete(`/api/portfolio/${id}`)
+    .then((res) => {})
+    .catch((err) => {});
 };
+
+const reload = () => {
+  pagination.value.currentPage = 1;
+  loadPortfolio({ sortBy: [] });
+};
+
+const breadcrumbs = [
+  {
+    title: "Home",
+    to: "/admin/",
+  },
+  {
+    title: "All Portfolio",
+    to: "/admin/",
+  },
+];
 </script>
 <template>
   <v-container>
-    <v-row justify="center" align="center">
-      <v-col cols="12" md="4">
-        <div class="text-h4 font-weight-bold">Portfolios</div>
+    <lazy-admin-layout-page-title title="All Portfolio" :items="breadcrumbs">
+      <v-btn
+        color="primary"
+        class="text-capitalize"
+        to="/admin/portfolio/create"
+      >
+        Add new Portfolio
+      </v-btn>
+    </lazy-admin-layout-page-title>
+    <v-row justify="space-between">
+      <v-col class="py-md-0" cols="12" sm="6" md="4">
+        <div class="d-flex align-center justify-start">
+          <v-text-field
+            v-model="search"
+            density="compact"
+            placeholder="Type to search..."
+            hide-details
+            clearable
+            persistent-clear
+            rounded="lg"
+          >
+            <template #append-inner v-if="isDebouncing || loading">
+              <v-progress-circular
+                indeterminate
+                size="16"
+                width="2"
+              ></v-progress-circular>
+            </template>
+          </v-text-field>
+        </div>
       </v-col>
-      <v-col cols="12" md="4"></v-col>
-      <v-col cols="12" md="4">
-        <div class="d-flex flex-wrap justify-end align-center">
+      <v-col class="py-md-0" cols="12" sm="6" md="4">
+        <div v-auto-animate class="d-flex align-center justify-end">
           <template v-if="selected.length > 0">
             <v-btn
-              icon
-              color="primary"
-              rounded="lg"
-              variant="tonal"
+              v-tooltip="'Delete Bulk Item'"
+              border
+              icon="mdi-delete-outline"
+              theme="dark"
+              size="small"
               class="mr-3"
               @click="deleteBulk"
-            >
-              <v-icon>
-                <Icon icon="mdi:bin-outline" />
-              </v-icon>
-            </v-btn>
+            ></v-btn>
           </template>
           <v-btn
-            color="primary"
-            variant="tonal"
-            height="50"
-            class="text-capitalize px-10"
-            to="/admin/portfolio/create"
+            v-tooltip="'Reload'"
+            border
+            icon="mdi-reload"
+            size="small"
+            class="mr-3"
+            @click="reload"
+          />
+          {{ showFilters }}
+          <v-btn
+            v-tooltip="'Filters'"
+            border
+            icon="mdi-filter-outline"
+            :color="hasActiveFilters ? 'primary' : ''"
+            size="small"
+            @click="showFilters = !showFilters"
           >
-            Add new Portfolio
+            <v-badge
+              :color="hasActiveFilters ? 'error' : 'transparent'"
+              :dot="hasActiveFilters"
+            >
+              <v-icon icon="mdi-filter-outline" />
+            </v-badge>
           </v-btn>
         </div>
       </v-col>
@@ -111,59 +150,70 @@ const removeId = async (id: string) => {
             show-select
             :headers
             :loading
+            :items
             :items-per-page="pagination.itemsPerPage"
-            :items="portfolios"
             :items-length="pagination.totalItems"
             item-value="id"
-            @update:options="loadBlogs"
+            @update:options="loadPortfolio"
           >
-            <template v-slot:item.image="{ item }">
-              <div>
-                <v-img
-                  cover
-                  width="160"
-                  class="border rounded-lg"
-                  :aspect-ratio="16 / 9"
-                  :src="item.featured_image?.url"
-                ></v-img>
-              </div>
-            </template>
-            <template v-slot:item.title="{ item }">
-              <v-list lines="three">
-                <v-list-item class="pl-0">
-                  <v-list-item-title class="font-weight-bold">
-                    <template v-if="item.status === false">
-                      <span class="text-warning">Draft - </span>
-                    </template>
-                    {{ item.title }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    item.excerpt
-                  }}</v-list-item-subtitle>
-                </v-list-item>
-              </v-list>
-            </template>
             <template v-slot:item.actions="{ item: { id, title } }">
               <v-btn
-                icon
-                color="success"
-                rounded="lg"
-                variant="tonal"
+                v-tooltip="'Edit Portfolio'"
+                icon="mdi-pencil"
                 class="mr-2"
+                size="small"
+                rounded="lg"
+                variant="text"
                 :to="`/admin/portfolio/${id}`"
-              >
-                <v-icon>
-                  <Icon icon="mdi:pencil" />
-                </v-icon>
-              </v-btn>
-              <AdminSharedDelete
+              ></v-btn>
+              <lazy-admin-shared-delete
                 :title
-                type="Blog"
+                type="Porfolio"
                 @delete-action="removeId(id)"
               />
             </template>
           </v-data-table-server>
         </v-card>
+      </v-col>
+    </v-row>
+    <v-row align="center">
+      <v-col cols="12" md="3">
+        Showing
+        <v-chip density="comfortable">
+          {{ (pagination.currentPage - 1) * pagination.itemsPerPage + 1 }} -
+          {{
+            Math.min(
+              pagination.currentPage * pagination.itemsPerPage,
+              pagination.totalItems
+            )
+          }}
+        </v-chip>
+        out of {{ pagination.totalItems }}
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-pagination
+          v-model="pagination.currentPage"
+          :disabled="loading"
+          :length="pagination.totalPages"
+          density="compact"
+          rounded="lg"
+        ></v-pagination>
+      </v-col>
+      <v-col cols="12" md="3">
+        <div class="d-flex align-center justify-end">
+          Items Per Page:&nbsp;
+          <v-select
+            v-model="pagination.itemsPerPage"
+            density="compact"
+            variant="outlined"
+            rounded="lg"
+            :disabled="loading"
+            hide-details
+            single-line
+            :items="itemsPerPageOptions"
+            style="max-width: 90px"
+          ></v-select>
+        </div>
       </v-col>
     </v-row>
   </v-container>
