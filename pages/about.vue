@@ -21,10 +21,6 @@ useSeoMeta({
 });
 
 const experience = [
-  // {
-  //   title: "Freelance Web Developer",
-  //   year: "2023",
-  // },
   {
     title: "Graphic/Web Designer",
     year: "2018",
@@ -162,27 +158,41 @@ const { data: repos, error: reposError } = await useLazyFetch(
                 border
                 height="121"
                 color="brand"
-                class="d-flex align-end"
+                class="d-flex align-center"
               >
-                <v-icon size="90" class="bg-icon right">
+                <v-icon
+                  size="90"
+                  class="position-absolute opacity-40 right-0 top-0"
+                >
                   <Icon icon="mdi:calendar-clock-outline" />
                 </v-icon>
                 <div class="w-100">
-                  <v-card-title class="text-h3 font-weight-black text-white">
+                  <v-card-title
+                    class="text-h3 font-weight-black text-white pb-0"
+                    style="line-height: 1"
+                  >
                     5+
                   </v-card-title>
-                  <v-card-text>Years of Experience</v-card-text>
+                  <v-card-text class="pt-0">Years of Experience</v-card-text>
                 </div>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6" md="12">
-              <v-card border height="121" class="d-flex justify-end align-end">
-                <v-icon size="90" class="bg-icon left">
+              <v-card
+                border
+                height="121"
+                class="d-flex justify-end align-center"
+              >
+                <v-icon
+                  size="90"
+                  class="position-absolute opacity-40 left-0 top-0"
+                >
                   <Icon icon="streamline:business-handshake" />
                 </v-icon>
                 <div>
                   <v-card-title
                     class="text-h3 pb-0 font-weight-black text-brand"
+                    style="line-height: 1"
                   >
                     10+
                   </v-card-title>
@@ -558,17 +568,3 @@ const { data: repos, error: reposError } = await useLazyFetch(
     </v-container>
   </NuxtLayout>
 </template>
-<style scoped lang="scss">
-.bg-icon.right {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  opacity: 0.5;
-}
-.bg-icon.left {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  opacity: 0.5;
-}
-</style>
