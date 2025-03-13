@@ -60,7 +60,7 @@ const rules = {
   ],
 };
 
-const submitForm = async (): Promise<void> => {
+const submitForm = async () => {
   loading.value = true;
   const { valid } = await contactForm.value.validate();
   if (valid) {

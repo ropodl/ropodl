@@ -1,5 +1,19 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import { itemsPerPageOptions } from "@/utils/constants";
+
+const contact = useAdminContactStore();
+const {
+  requests: items,
+  loading,
+  pagination,
+  showFilters,
+  isFiltered,
+  filters,
+  headers,
+  searching,
+  currentDisplayedRange,
+} = storeToRefs(contact);
+const { all, resetFilters } = contact;
 
 definePageMeta({
   layout: "admin",
@@ -9,123 +23,215 @@ useHead({
   title: "All Contact Request",
 });
 
-const loading = ref(true);
 const selected = ref([]);
-const requests = ref([]);
-const pagination = ref({
-  itemsPerPage: 10,
-  currentPage: 1,
-  totalItems: 100,
-  totalPages: 10,
-});
 
-const headers = [
+const deleteBulk = () => {
+  selected.value = [];
+};
+
+// server side table
+interface Options {
+  sortBy: Array<{
+    key?: string;
+    order: string;
+  }>;
+}
+// server side table
+const loadPortfolio = async (options: Options) => {
+  await all(options.sortBy || []);
+};
+
+const removeId = (id: string) => {
+  useAxios
+    .delete(`/api/blog/${id}`)
+    .then(() => {})
+    .catch(() => {});
+};
+
+const getColor = (item: boolean) => {
+  return item ? "success" : "primary";
+};
+
+const reload = () => {
+  if (pagination.value) pagination.value.currentPage = 1;
+  loadPortfolio({
+    sortBy: [],
+  });
+};
+
+const breadcrumbs = [
   {
-    title: "Date/Time",
-    key: "date",
+    title: "Home",
+    to: "/admin/",
   },
   {
-    title: "Name",
-    key: "name",
-  },
-  {
-    title: "Email",
-    key: "email",
-  },
-  {
-    title: "Actions",
-    key: "actions",
+    title: "Contact Requests",
+    to: "/admin/portfolio",
   },
 ];
+// search logic
+const search = ref("");
+const debouncedSearch = ref("");
+watch(search, (val) => {
+  searching.value = true;
+  if (val === null) {
+    all([], search.value);
+  } else searchFn();
+});
 
-const loadContactRequest = async ({ page, itemsPerPage, sortBy }) => {
-  const { data, error } = await useFetch("/api/contact-request", {
-    params: {
-      page,
-      itemsPerPage,
-      sortBy,
-    },
-  });
-  if (error.value) {
-    loading.value = false;
-    return console.log(error.value);
-  }
-  requests.value = data.value?.requests;
-  loading.value = false;
-};
-
-const removeRequest = (id) => {
-  console.log(id);
-};
+const searchFn = useDebounceFn(async () => {
+  all([], search.value);
+}, 900);
 </script>
 <template>
   <v-container>
+    <lazy-admin-layout-page-title
+      title="Contact Requests"
+      :items="breadcrumbs"
+    />
+    <v-row justify="space-between">
+      <v-col class="py-md-0" cols="12" sm="6" md="4">
+        <div class="d-flex align-center justify-start">
+          <v-text-field
+            v-model="search"
+            density="compact"
+            placeholder="Type to search..."
+            hide-details
+            clearable
+            persistent-clear
+            rounded="lg"
+          >
+            <template #append-inner v-if="searching">
+              <v-progress-circular
+                indeterminate
+                size="16"
+                width="2"
+              ></v-progress-circular>
+            </template>
+          </v-text-field>
+        </div>
+      </v-col>
+      <v-col class="py-md-0" cols="12" sm="6" md="4">
+        <div v-auto-animate class="d-flex align-center justify-end">
+          <template v-if="selected.length > 0">
+            <v-btn
+              v-tooltip="'Delete Bulk Item'"
+              border
+              icon="mdi-delete-outline"
+              theme="dark"
+              size="small"
+              class="mr-3"
+              @click="deleteBulk"
+            ></v-btn>
+          </template>
+          <v-btn
+            v-tooltip="'Reload'"
+            border
+            icon="mdi-reload"
+            size="small"
+            class="mr-3"
+            @click="reload"
+          />
+          <v-btn
+            v-tooltip="'Filters'"
+            border
+            icon="mdi-filter-outline"
+            :color="isFiltered ? 'primary' : ''"
+            size="small"
+            @click="showFilters = !showFilters"
+          >
+            <v-badge
+              :color="isFiltered ? 'error' : 'transparent'"
+              :dot="isFiltered"
+            >
+              <v-icon icon="mdi-filter-outline" />
+            </v-badge>
+          </v-btn>
+        </div>
+      </v-col>
+      <template v-if="isFiltered">
+        <v-col cols="12" md="2" class="pb-0">
+          <v-btn
+            block
+            border
+            height="40"
+            prepend-icon="mdi-close"
+            @click="resetFilters"
+            >Clear Filters</v-btn
+          >
+        </v-col>
+      </template>
+    </v-row>
     <v-row>
       <v-col cols="12">
-        <v-data-table-server
-          show-select
-          v-model="selected"
-          :items-per-page="pagination.itemsPerPage"
-          :headers="headers"
-          :items="requests"
-          :loading="loading"
-          :items-length="pagination.totalItems"
-          item-value="id"
-          @update:options="loadContactRequest"
-        >
-          <template v-slot:item.date="{ item }">
-            <div
-              v-html="
-                useDateFormat(item.created_at, 'YYYY-MM-DD HH:mm:ss').value
-              "
-            ></div>
-          </template>
-          <template v-slot:item.actions="{ item }">
-            <v-dialog scrim="black" width="500">
-              <template v-slot:activator="{ props }">
-                <v-btn
-                  v-bind="props"
-                  icon
-                  color="success"
-                  rounded="lg"
-                  variant="tonal"
-                  class="mr-2"
-                >
-                  <v-icon icon="mdi-eye"></v-icon>
-                </v-btn>
-              </template>
-
-              <template v-slot:default="{ isActive }">
-                <v-card title="Message">
-                  <v-btn
-                    icon
-                    rounded="lg"
-                    variant="tonal"
-                    class="position-absolute top-0 right-0 rounded-t-0 rounded-e-0"
-                    @click="isActive.value = false"
-                  >
-                    <v-icon icon="mdi-close"></v-icon>
-                  </v-btn>
-                  <v-card-text>
-                    {{ item.message }}
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </template>
-            </v-dialog>
-            <AdminSharedDelete
-              type="Request"
-              :title="item.name"
-              @delete-action="removeRequest(item.id)"
-            />
-          </template>
-        </v-data-table-server>
+        <v-card border rounded="lg">
+          <v-data-table-server
+            v-model="selected"
+            v-model:page="pagination.currentPage"
+            v-model:items-per-page="pagination.itemsPerPage"
+            v-model:items-length="pagination.totalItems"
+            show-select
+            :headers
+            :items
+            :loading
+            :search="debouncedSearch"
+            hide-default-footer
+            item-value="id"
+            @update:options="loadPortfolio"
+          >
+            <template v-slot:item.actions="{ item: { id, title } }">
+              <v-btn
+                v-tooltip="'Edit Portfolio'"
+                icon="mdi-pencil-outline"
+                class="mr-2"
+                size="small"
+                rounded="lg"
+                variant="text"
+                :to="`/admin/portfolio/${id}`"
+              ></v-btn>
+              <lazy-admin-shared-delete
+                :title
+                type="Porfolio"
+                @delete-action="removeId(id)"
+              />
+            </template>
+          </v-data-table-server>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row align="center">
+      <v-col cols="12" md="3">
+        Showing
+        <v-chip density="compact">
+          {{ currentDisplayedRange.start }} - {{ currentDisplayedRange.end }}
+        </v-chip>
+        out of {{ pagination.totalItems }}
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-pagination
+          v-model="pagination.currentPage"
+          :disabled="loading"
+          :length="pagination.totalPages"
+          density="compact"
+          rounded="lg"
+        ></v-pagination>
+      </v-col>
+      <v-col cols="12" md="3">
+        <div class="d-flex align-center justify-end">
+          Items Per Page:&nbsp;
+          <v-select
+            v-model="pagination.itemsPerPage"
+            density="compact"
+            variant="outlined"
+            rounded="lg"
+            :disabled="loading"
+            hide-details
+            single-line
+            :items="itemsPerPageOptions"
+            style="max-width: 90px"
+          ></v-select>
+        </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
-
-<style></style>

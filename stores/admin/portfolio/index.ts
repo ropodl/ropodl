@@ -26,44 +26,69 @@ export const useAdminPortfolioStore = defineStore(
       status: null,
       date: null,
     });
+    const searching = ref(false);
     const loading = ref(false);
-    const hasActiveFilters = computed(() => {
+    // computed
+    const isFiltered = computed(() => {
       return Object.values(filters.value).some((value) => value !== null);
     });
-
-    const all = async (sortBy: any, search: string) => {
+    const currentDisplayedRange = computed(() => {
+      const start =
+        (pagination.value?.currentPage - 1) * pagination.value?.itemsPerPage + 1;
+      const end = Math.min(
+        pagination.value?.currentPage * pagination.value?.itemsPerPage,
+        pagination.value?.totalItems
+      );
+      return { start, end };
+    });
+    // watch
+    watch(filters, () => {
+      pagination.value.currentPage = 1;
+      all('')
+    }, {
+      deep: true
+    })
+    // methods
+    const all = async (sortBy: any, search?: string) => {
       loading.value = true;
       await useAxios
         .get("/api/portfolio", {
           query: {
-            page: pagination.value.currentPage,
-            itemsPerPage: pagination.value.itemsPerPage,
+            page: pagination.value?.currentPage || 1,
+            itemsPerPage: pagination.value?.itemsPerPage || 10,
             sortBy,
             search,
             status: filters.value?.status,
+            date: filters.value?.date
           },
         })
-        .then((res: any) => {
+        .then((res: { portfolios: any, pagination: typeof pagination.value }) => {
           portfolios.value = res.portfolios;
           pagination.value = res.pagination;
         })
         .finally(() => {
           loading.value = false;
+          searching.value = false;
         });
     };
-    const remove = () => {
-      loading.value = true;
+    const resetFilters = () => {
+      filters.value = {
+        status: null,
+        date: null
+      }
     };
     return {
-      headers: headers.value,
+      headers,
       portfolios,
-      loading,
       pagination,
+      loading,
       showFilters,
-      filters: filters.value,
-      hasActiveFilters,
+      filters,
+      isFiltered,
+      searching,
+      currentDisplayedRange,
       all,
-      remove,
+      resetFilters,
     };
   },
   {

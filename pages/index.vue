@@ -21,11 +21,11 @@ useSeoMeta({
 </script>
 <template>
   <v-card
-    flat
+    border="0"
     color="transparent"
     rounded="0"
     class="position-relative h-100"
-    style="padding-top: 50px"
+    style="padding-top: 100px; padding-bottom: 100px"
   >
     <v-container class="h-100">
       <v-row justify="center" class="position-relative h-100">
@@ -50,7 +50,7 @@ useSeoMeta({
                 >
                   Fullstack developer from Kathmandu, Nepal.
                 </div>
-                <v-row>
+                <v-row justify="end">
                   <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn

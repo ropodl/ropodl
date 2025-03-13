@@ -6,12 +6,14 @@ const {
   portfolios: items,
   loading,
   pagination,
+  showFilters,
+  isFiltered,
   filters,
   headers,
-  showFilters,
-  hasActiveFilters,
+  searching,
+  currentDisplayedRange,
 } = storeToRefs(portfolio);
-const { all } = portfolio;
+const { all, resetFilters } = portfolio;
 
 definePageMeta({
   layout: "admin",
@@ -21,41 +23,41 @@ useHead({
   title: "All Portfolio",
 });
 
-const search = ref("");
-const debouncedSearch = ref("");
 const selected = ref([]);
-const debounceTimeout = ref(null);
-const isDebouncing = ref(false);
 
 const deleteBulk = () => {
-  //   blog.removeBulk(selected.value);
   selected.value = [];
 };
+
 // server side table
-const loadPortfolio = async ({ sortBy }) => {
-  await all(sortBy, debouncedSearch.value, filters.value);
+interface Options {
+  sortBy: Array<{
+    key?: string;
+    order: string;
+  }>;
+}
+// server side table
+const loadPortfolio = async (options: Options) => {
+  await all(options.sortBy || []);
 };
 
-// Watch for changes in debounced search to trigger data reload
-watch(debouncedSearch, () => {
-  // Reset to first page when search changes
-  pagination.value.currentPage = 1;
-  // Reload data with current options
-  loadPortfolio({
-    sortBy: [],
-  });
-});
+const removeId = (id: string) => {
+  useAxios
+    .delete(`/api/blog/${id}`)
+    .then(() => {})
+    .catch(() => {});
+};
 
-const removeId = async (id: string) => {
-  await useAxios
-    .delete(`/api/portfolio/${id}`)
-    .then((res) => {})
-    .catch((err) => {});
+const getColor = (item: string) => {
+  if (item) return "success";
+  else return "primary";
 };
 
 const reload = () => {
-  pagination.value.currentPage = 1;
-  loadPortfolio({ sortBy: [] });
+  if (pagination.value) pagination.value.currentPage = 1;
+  loadPortfolio({
+    sortBy: [],
+  });
 };
 
 const breadcrumbs = [
@@ -65,9 +67,22 @@ const breadcrumbs = [
   },
   {
     title: "All Portfolio",
-    to: "/admin/",
+    to: "/admin/portfolio",
   },
 ];
+// search logic
+const search = ref("");
+const debouncedSearch = ref("");
+watch(search, (val) => {
+  searching.value = true;
+  if (val === null) {
+    all([], search.value);
+  } else searchFn();
+});
+
+const searchFn = useDebounceFn(async () => {
+  all([], search.value);
+}, 900);
 </script>
 <template>
   <v-container>
@@ -92,7 +107,7 @@ const breadcrumbs = [
             persistent-clear
             rounded="lg"
           >
-            <template #append-inner v-if="isDebouncing || loading">
+            <template #append-inner v-if="searching">
               <v-progress-circular
                 indeterminate
                 size="16"
@@ -123,43 +138,57 @@ const breadcrumbs = [
             class="mr-3"
             @click="reload"
           />
-          {{ showFilters }}
           <v-btn
             v-tooltip="'Filters'"
             border
             icon="mdi-filter-outline"
-            :color="hasActiveFilters ? 'primary' : ''"
+            :color="isFiltered ? 'primary' : ''"
             size="small"
             @click="showFilters = !showFilters"
           >
             <v-badge
-              :color="hasActiveFilters ? 'error' : 'transparent'"
-              :dot="hasActiveFilters"
+              :color="isFiltered ? 'error' : 'transparent'"
+              :dot="isFiltered"
             >
               <v-icon icon="mdi-filter-outline" />
             </v-badge>
           </v-btn>
         </div>
       </v-col>
+      <template v-if="isFiltered">
+        <v-col cols="12" md="2" class="pb-0">
+          <v-btn
+            block
+            border
+            height="40"
+            prepend-icon="mdi-close"
+            @click="resetFilters"
+            >Clear Filters</v-btn
+          >
+        </v-col>
+      </template>
     </v-row>
     <v-row>
       <v-col cols="12">
         <v-card border rounded="lg">
           <v-data-table-server
             v-model="selected"
+            v-model:page="pagination.currentPage"
+            v-model:items-per-page="pagination.itemsPerPage"
+            v-model:items-length="pagination.totalItems"
             show-select
             :headers
-            :loading
             :items
-            :items-per-page="pagination.itemsPerPage"
-            :items-length="pagination.totalItems"
+            :loading
+            :search="debouncedSearch"
+            hide-default-footer
             item-value="id"
             @update:options="loadPortfolio"
           >
             <template v-slot:item.actions="{ item: { id, title } }">
               <v-btn
                 v-tooltip="'Edit Portfolio'"
-                icon="mdi-pencil"
+                icon="mdi-pencil-outline"
                 class="mr-2"
                 size="small"
                 rounded="lg"
@@ -179,14 +208,8 @@ const breadcrumbs = [
     <v-row align="center">
       <v-col cols="12" md="3">
         Showing
-        <v-chip density="comfortable">
-          {{ (pagination.currentPage - 1) * pagination.itemsPerPage + 1 }} -
-          {{
-            Math.min(
-              pagination.currentPage * pagination.itemsPerPage,
-              pagination.totalItems
-            )
-          }}
+        <v-chip density="compact">
+          {{ currentDisplayedRange.start }} - {{ currentDisplayedRange.end }}
         </v-chip>
         out of {{ pagination.totalItems }}
       </v-col>
