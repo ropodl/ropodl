@@ -50,10 +50,6 @@ useSeoMeta({
                 >
                   Fullstack developer from Kathmandu, Nepal.
                 </div>
-                <!-- <v-card-text class="pl-0">
-                  Hey their, I am a Full Stack Developer, especializing in
-                  ExpressJS and VueJs/Nuxt.
-                </v-card-text> -->
                 <v-row>
                   <v-col cols="6" sm="4" md="4">
                     <v-hover v-slot="{ isHovering, props }">
@@ -87,6 +83,7 @@ useSeoMeta({
                         height="40"
                         variant="text"
                         v-motion-slide-visible-once-bottom
+                        :delay="200"
                         to="/portfolio"
                       >
                         Portfolio
