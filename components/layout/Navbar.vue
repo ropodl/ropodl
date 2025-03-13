@@ -96,8 +96,9 @@ const pages = [
               class="hidden-xs"
               :href="social.link"
               :aria-label="social.name"
-              >{{ social.name[0] }}</v-btn
             >
+              <Icon :icon="social.icon" />
+            </v-btn>
           </template>
           <v-btn
             height="50"

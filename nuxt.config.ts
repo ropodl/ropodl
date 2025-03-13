@@ -18,6 +18,7 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     renderJsonPayloads: false,
+    componentIslands: true,
     defaults: {
       nuxtLink: {
         prefetch: true,
@@ -38,8 +39,7 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
-    // "nuxt-og-image",
-    // "nuxt-capo",
+    "nuxt-capo",
     // "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
@@ -54,14 +54,6 @@ export default defineNuxtConfig({
     },
     display: "swap",
   },
-  // ogImage: {
-  //   zeroRuntime: true
-  //   // compatibility: {
-  //   //   prerender: {
-  //   //     chromium: false
-  //   //   }
-  //   // }
-  // },
   gtag: {
     id: process.env.GOOGLE_ANALYTICS_ID,
   },

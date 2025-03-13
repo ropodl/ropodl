@@ -34,6 +34,7 @@ export const useAdminBlogStore = defineStore(
       status: null,
       date: null
     });
+    const searching = ref(false)
     const loading = ref(false);
     const isFiltered = computed(() => {
       return Object.values(filters.value).some((item) => item !== null);
@@ -55,6 +56,7 @@ export const useAdminBlogStore = defineStore(
         })
         .finally(() => {
           loading.value = false;
+          searching.value = false;
         });
     };
 
@@ -66,6 +68,7 @@ export const useAdminBlogStore = defineStore(
       showFilters,
       filters,
       isFiltered,
+      searching,
       all,
     };
   },
