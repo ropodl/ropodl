@@ -5,7 +5,7 @@
       <v-row align="center">
         <v-col cols="12">
           <v-card-title
-            class="text-h1 font-weight-bold pl-0"
+            class="text-lg-h1 text-h3 font-weight-bold pl-0"
             style="line-height: normal !important"
           >
             <slot name="title" /><span class="text-brand">.</span>

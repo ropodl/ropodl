@@ -17,12 +17,6 @@ useSeoMeta({
   twitterCard: "summary",
 });
 
-// defineOgImageComponent({
-//   title: "Saroj Poudel",
-//   description:
-//     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-// });
-
 const current = ref("All");
 const categories = ["All", "Graphic Design", "Web", "Branding"];
 
@@ -166,12 +160,13 @@ const works = [
     <v-container>
       <v-row>
         <v-col>
-          <v-card class="pa-1" style="width: max-content">
+          <v-card class="pa-1" style="max-width: max-content">
             <v-tabs
               v-model="current"
               color="primary"
               density="compact"
               hide-slider
+              show-arrows
               rounded="lg"
             >
               <template v-for="item in categories">

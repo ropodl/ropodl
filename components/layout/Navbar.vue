@@ -6,30 +6,28 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-// const { loggedIn } = useUserSession();
-
 const drawer = ref(false);
 
 const pages = [
   {
-    icon: "mdi-info",
+    icon: "mdi-information-outline",
     title: "about",
-    link: "/about",
+    to: "/about",
   },
   {
-    icon: "mdi-file-certificate",
+    icon: "mdi-post-outline",
     title: "blogs",
-    link: "/blogs",
+    to: "/blogs",
   },
   {
-    icon: "mdi-file-certificate",
+    icon: "mdi-file-certificate-outline",
     title: "portfolio",
-    link: "/portfolio",
+    to: "/portfolio",
   },
   {
-    icon: "mdi-contacts",
+    icon: "mdi-contacts-outline",
     title: "contact",
-    link: "/contact",
+    to: "/contact",
   },
 ];
 </script>
@@ -62,7 +60,7 @@ const pages = [
             <LazySharedLogo :width="30" :height="50" />
           </v-btn>
           <v-spacer></v-spacer>
-          <template v-for="page in pages">
+          <template v-for="{ title, to } in pages">
             <v-hover v-slot="{ isHovering, props }">
               <v-btn
                 v-bind="props"
@@ -72,32 +70,30 @@ const pages = [
                 variant="tonal"
                 class="text-lowercase hidden-sm-and-down"
                 :active="false"
-                :to="page.link"
+                :to
               >
                 <span
                   :class="
-                    route.fullPath.includes(page.title)
-                      ? 'text-brand'
-                      : 'text-white'
+                    route.fullPath.includes(title) ? 'text-brand' : 'text-white'
                   "
                 >
-                  {{ page.title }}.
+                  {{ title }}.
                 </span>
               </v-btn>
             </v-hover>
           </template>
           <v-spacer></v-spacer>
-          <template v-for="social in socials">
+          <template v-for="{ name, icon, link } in socials">
             <v-btn
               variant="plain"
               rounded="lg"
               size="50"
               target="_blank"
               class="hidden-xs"
-              :href="social.link"
-              :aria-label="social.name"
+              :href="link"
+              :aria-label="name"
             >
-              <Icon :icon="social.icon" />
+              <Icon :icon="icon" />
             </v-btn>
           </template>
           <v-btn
@@ -105,7 +101,7 @@ const pages = [
             rounded="lg"
             variant="tonal"
             class="hidden-md-and-up"
-            :icon="drawer ? 'mdi:close' : 'mdi:menu'"
+            :icon="drawer ? 'mdi-close' : 'mdi-menu'"
             @click="drawer = !drawer"
             aria-label="drawer opener"
           ></v-btn>
@@ -119,15 +115,15 @@ const pages = [
         <v-list-subheader>Navigate to</v-list-subheader>
         <v-list-item
           prepend-icon="mdi-home"
-          title="Home"
+          title="home"
           to="/"
           @click="drawer = false"
         />
-        <template v-for="{ title, icon } in pages">
+        <template v-for="{ title, icon, to } in pages">
           <v-list-item
             :title
-            :to="page['link']"
-            :prepend-icon="page.icon"
+            :to
+            :prepend-icon="icon"
             @click="drawer = false"
           />
         </template>
