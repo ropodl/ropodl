@@ -18,22 +18,6 @@ useSeoMeta({
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
   twitterCard: "summary_large_image",
 });
-
-// defineOgImageComponent("NuxtSeo");
-
-// defineOgImage({
-//   component: "Main",
-//   headline: "Website",
-//   title: "Saroj Poudel",
-//   description:
-//     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-// });
-
-let lottieContainer = ref(null);
-
-const startAnimation = () => {
-  lottieContainer.value.playSegments([160, 386], true);
-};
 </script>
 <template>
   <v-card
@@ -45,17 +29,6 @@ const startAnimation = () => {
   >
     <v-container class="h-100">
       <v-row justify="center" class="position-relative h-100">
-        <v-col cols="12" md="4" class="hidden-sm-and-down">
-          <ClientOnly>
-            <Vue3Lottie
-              ref="lottieContainer"
-              :loop="true"
-              direction="alternate"
-              animationLink="https://lottie.host/ab468c4a-fb60-4a2f-9000-4ddf87c1aae7/shGXbIaJxm.json"
-              @onLoopComplete="startAnimation"
-            />
-          </ClientOnly>
-        </v-col>
         <v-col cols="12" md="8">
           <div class="d-flex align-center justify-center h-100">
             <div>

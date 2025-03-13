@@ -11,6 +11,7 @@ const {
   isFiltered,
   filters,
   headers,
+  searching,
 } = storeToRefs(blog);
 const { all } = blog;
 
@@ -70,21 +71,22 @@ const breadcrumbs = [
 // search logic
 const search = ref("");
 const debouncedSearch = ref("");
-const searching = ref(false);
 watch(search, (val) => {
-  if (val === null) all([], search.value);
-  else searchFn();
+  searching.value = true;
+  if (val === null) {
+    all([], search.value);
+  } else searchFn();
 });
 
-const searchFn = useDebounceFn(() => {
-  all([], search.value);
+const searchFn = useDebounceFn(async () => {
+  await all([], search.value);
 }, 900);
 </script>
 <template>
   <v-container>
     <lazy-admin-layout-page-title title="All Blogs" :items="breadcrumbs">
       <v-btn color="primary" class="text-capitalize" to="/admin/blog/create">
-        Add new Blog {{ searching ? "true" : "false" }}
+        Add new Blog
       </v-btn>
     </lazy-admin-layout-page-title>
     <v-row justify="space-between">
@@ -99,7 +101,7 @@ const searchFn = useDebounceFn(() => {
             persistent-clear
             rounded="lg"
           >
-            <template v-slot:append v-if="searching">
+            <template #append-inner v-if="searching">
               <v-progress-circular
                 indeterminate
                 size="16"
@@ -130,9 +132,7 @@ const searchFn = useDebounceFn(() => {
             class="mr-3"
             @click="reload"
           >
-            <v-icon>
-              <Icon icon="mdi:reload" />
-            </v-icon>
+            <v-icon icon="mdi-reload" />
           </v-btn>
           <v-btn
             v-tooltip="'Filters'"
@@ -182,6 +182,7 @@ const searchFn = useDebounceFn(() => {
             rounded="lg"
             variant="outlined"
             prepend-icon=""
+            append-inner-icon="mdi-calendar"
             location="bottom"
             weeks-in-month="static"
             placeholder="Filter By Date"

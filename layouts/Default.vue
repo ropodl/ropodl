@@ -1,7 +1,7 @@
 <template>
-  <LazyLayoutNavbar />
+  <lazy-layout-navbar />
   <v-main>
     <slot />
   </v-main>
-  <LayoutFooter />
+  <lazy-layout-footer />
 </template>
