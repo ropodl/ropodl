@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
 import { itemsPerPageOptions } from "@/utils/constants";
-
+// useAdminBlogStore
 const blog = useAdminBlogStore();
 const {
   blogs: items,
@@ -12,8 +11,9 @@ const {
   filters,
   headers,
   searching,
+  currentDisplayedRange,
 } = storeToRefs(blog);
-const { all } = blog;
+const { all, resetFilters } = blog;
 
 definePageMeta({
   layout: "admin",
@@ -28,6 +28,7 @@ const selected = ref([]);
 const deleteBulk = () => {
   selected.value = [];
 };
+
 // server side table
 interface Options {
   sortBy: Array<{
@@ -46,9 +47,8 @@ const removeId = (id: string) => {
     .catch(() => {});
 };
 
-const getColor = (item: string) => {
-  if (item) return "success";
-  else return "primary";
+const getColor = (item: boolean) => {
+  return item ? "success" : "primary";
 };
 
 const reload = () => {
@@ -79,21 +79,21 @@ watch(search, (val) => {
 });
 
 const searchFn = useDebounceFn(async () => {
-  await all([], search.value);
+  all([], search.value);
 }, 900);
 </script>
 <template>
   <v-container>
     <lazy-admin-layout-page-title title="All Blogs" :items="breadcrumbs">
       <v-btn color="primary" class="text-capitalize" to="/admin/blog/create">
-        Add new Blog
+        Add new
       </v-btn>
     </lazy-admin-layout-page-title>
     <v-row justify="space-between">
       <v-col class="py-md-0" cols="12" sm="6" md="4">
         <div class="d-flex align-center justify-start">
           <v-text-field
-            v-model="search"
+            v-model.trim="search"
             density="compact"
             placeholder="Type to search..."
             hide-details
@@ -190,6 +190,18 @@ const searchFn = useDebounceFn(async () => {
             hide-details
           />
         </v-col>
+        <template v-if="isFiltered">
+          <v-col cols="12" md="2" class="pb-0">
+            <v-btn
+              block
+              border
+              height="40"
+              prepend-icon="mdi-close"
+              @click="resetFilters"
+              >Clear Filters</v-btn
+            >
+          </v-col>
+        </template>
       </template>
     </v-row>
     <v-row>
@@ -209,16 +221,16 @@ const searchFn = useDebounceFn(async () => {
             item-value="id"
             @update:options="loadBlogs"
           >
-            <template #item.created_at="{ item }">
-              {{ useDateFormat(item.created_at, "MMM DD, YYYY") }}
+            <template #item.created_at="{ item: { created_at } }">
+              {{ useDateFormat(created_at, "MMM DD, YYYY") }}
             </template>
-            <template #item.status="{ item }">
+            <template #item.status="{ item: { status } }">
               <v-chip
                 class="w-100 justify-center"
-                :color="getColor(item.status)"
+                :color="getColor(status)"
                 rounded="lg"
               >
-                {{ item.status ? "Published" : "Draft" }}
+                {{ status ? "Published" : "Draft" }}
               </v-chip>
             </template>
             <template #item.actions="{ item: { id, title } }">
@@ -244,20 +256,14 @@ const searchFn = useDebounceFn(async () => {
     </v-row>
     <v-row align="center">
       <template v-if="pagination">
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="3" class="py-0">
           Showing
-          <v-chip density="comfortable">
-            {{ (pagination.currentPage - 1) * pagination.itemsPerPage + 1 }} -
-            {{
-              Math.min(
-                pagination.currentPage * pagination.itemsPerPage,
-                pagination.totalItems
-              )
-            }}
+          <v-chip density="compact">
+            {{ currentDisplayedRange.start }} - {{ currentDisplayedRange.end }}
           </v-chip>
           out of {{ pagination.totalItems }}
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="6" class="py-0">
           <v-pagination
             v-model="pagination.currentPage"
             :disabled="loading"
@@ -266,7 +272,7 @@ const searchFn = useDebounceFn(async () => {
             rounded="lg"
           ></v-pagination>
         </v-col>
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="3" class="py-0">
           <div class="d-flex align-center justify-end">
             Items Per Page:&nbsp;
             <v-select

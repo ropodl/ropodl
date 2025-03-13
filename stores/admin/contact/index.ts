@@ -1,7 +1,7 @@
-export const useAdminPortfolioStore = defineStore(
-  "useAdminPortfolioStore",
+export const useAdminContactStore = defineStore(
+  "useAdminContactStore",
   () => {
-    const portfolios = ref([]);
+    const requests = ref([]);
     const pagination = ref({
       itemsPerPage: 10,
       currentPage: 1,
@@ -52,7 +52,7 @@ export const useAdminPortfolioStore = defineStore(
     const all = async (sortBy: any, search?: string) => {
       loading.value = true;
       await useAxios
-        .get("/api/portfolio", {
+        .get("/api/contact-request", {
           query: {
             page: pagination.value?.currentPage || 1,
             itemsPerPage: pagination.value?.itemsPerPage || 10,
@@ -62,8 +62,8 @@ export const useAdminPortfolioStore = defineStore(
             date: filters.value?.date
           },
         })
-        .then((res: { portfolios: any, pagination: typeof pagination.value }) => {
-          portfolios.value = res.portfolios;
+        .then((res: { requests: any, pagination: typeof pagination.value }) => {
+          requests.value = res.requests;
           pagination.value = res.pagination;
         })
         .finally(() => {
@@ -79,7 +79,7 @@ export const useAdminPortfolioStore = defineStore(
     };
     return {
       headers,
-      portfolios,
+      requests,
       pagination,
       loading,
       showFilters,
@@ -98,6 +98,6 @@ export const useAdminPortfolioStore = defineStore(
 
 if (import.meta.hot) {
   import.meta.hot.accept(
-    acceptHMRUpdate(useAdminPortfolioStore, import.meta.hot)
+    acceptHMRUpdate(useAdminContactStore, import.meta.hot)
   );
 }

@@ -1,38 +1,65 @@
 import { serverSupabaseClient } from "#supabase/server";
-import { getPagination } from "~/server/utils/paginate";
 
-interface query {
-  page: number,
-  itemsPerPage: number,
-  sortBy: string
+interface Pagination {
+  itemsPerPage: number;
+  currentPage: number;
+  totalItems: number;
+  totalPages: number;
+}
+
+interface ContactRequest {
+  id: number;
+  title: string;
+  content: string;
+  created_at: string;
+}
+
+interface ResponseData {
+  requests: ContactRequest[];
+  pagination: Pagination;
 }
 
 export default defineEventHandler(async (event) => {
-  const query = <query>getQuery(event);
-  const { page, itemsPerPage, sortBy } = query;
+  const query = getQuery(event);
   const client = await serverSupabaseClient(event);
-  const { from, to } = getPagination(page, itemsPerPage);
 
-  const { data: requests, error } = await client
+  const page = <number>parseInt(query.page as string) || 1;
+  const itemsPerPage = <number>parseInt(query.itemsPerPage as string) || 10;
+  const sortBy = <string>(query.sortBy || 'created_at');
+  const order = query.order === "asc";
+  const search = <string>(query.search || null);
+  const status = <string>(query.status || null);
+
+  const from = (page - 1) * itemsPerPage;
+  const to = from + itemsPerPage - 1;
+
+  let call = client
     .from("contact_request")
-    .select("*")
-    .range(from, to)
-    .order("created_at", { ascending: false });
+    .select("id, created_at, name, email, message", { count: "exact" })
+
+  if (search) call = call.ilike('name', `%${search}%`);
+
+  // if (status) call = call.eq("status", status)
+
+  call = call.order(sortBy, { ascending: order }).range(from, to)
+
+  const { data: requests, error, count } = await call;
 
   if (error) {
-    return createError({
+    throw createError({
       statusCode: parseInt(error.code),
       statusMessage: error.message,
     });
   }
 
   return {
-    requests,
+    requests: requests || [],
     pagination: {
-      itemsPerPage: 10,
-      currentPage: 1,
-      totalItems: 100,
-      totalPages: 10,
+      itemsPerPage,
+      currentPage: page,
+      totalItems: count || 0,
+      totalPages: count ? Math.ceil(count / itemsPerPage) : 0,
     },
   };
-});
+}
+);

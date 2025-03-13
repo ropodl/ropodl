@@ -32,90 +32,93 @@ const pages = [
 ];
 </script>
 <template>
-  <v-layout class="w-100 position-fixed" style="height: 65px; top: 0">
-    <v-app-bar
-      border
-      elevation="0"
-      rounded="0"
-      style="
-        border-top: 0;
-        border-right: 0;
-        border-left: 0;
-        background-color: rgba(var(--v-theme-surface), 0.8);
-        backdrop-filter: blur(8px);
-      "
-    >
-      <v-container>
-        <v-row>
-          <v-btn
-            height="50"
-            rounded="lg"
-            variant="text"
-            color="white"
-            :active="false"
-            class="text-capitalize"
-            to="/"
-            aria-label="home"
-          >
-            <LazySharedLogo :width="30" :height="50" />
-          </v-btn>
-          <v-spacer></v-spacer>
-          <template v-for="{ title, to } in pages">
-            <v-hover v-slot="{ isHovering, props }">
-              <v-btn
-                v-bind="props"
-                height="50"
-                rounded="lg"
-                color="transparent"
-                variant="tonal"
-                class="text-lowercase hidden-sm-and-down"
-                :active="false"
-                :to
-              >
-                <span
-                  :class="
-                    route.fullPath.includes(title) ? 'text-brand' : 'text-white'
-                  "
-                >
-                  {{ title }}.
-                </span>
-              </v-btn>
-            </v-hover>
-          </template>
-          <v-spacer></v-spacer>
-          <template v-for="{ name, icon, link } in socials">
+  <v-app-bar
+    border
+    elevation="0"
+    rounded="pill"
+    class="px-1 left-0 right-0"
+    style="
+      background-color: rgba(var(--v-theme-surface), 0.8);
+      backdrop-filter: blur(8px);
+      top: 20px;
+      display: flex;
+      justify-self: center;
+      width: 95%;
+    "
+  >
+    <v-container>
+      <v-row>
+        <v-btn
+          height="50"
+          rounded="lg"
+          variant="text"
+          color="white"
+          :active="false"
+          class="text-capitalize"
+          to="/"
+          aria-label="home"
+        >
+          <lazy-shared-logo :width="30" :height="50" />
+        </v-btn>
+        <v-spacer></v-spacer>
+        <template v-for="{ title, to } in pages">
+          <v-hover #default="{ isHovering, props }">
             <v-btn
-              variant="plain"
+              v-bind="props"
+              height="50"
               rounded="lg"
-              size="50"
-              target="_blank"
-              class="hidden-xs"
-              :href="link"
-              :aria-label="name"
+              color="transparent"
+              variant="tonal"
+              class="text-lowercase hidden-sm-and-down"
+              :active="false"
+              :to
             >
-              <Icon :icon="icon" />
+              <span
+                :class="
+                  route.fullPath.includes(title) ? 'text-brand' : 'text-white'
+                "
+              >
+                {{ title
+                }}<span :class="isHovering ? 'text-brand' : ''">.</span>
+              </span>
             </v-btn>
-          </template>
+          </v-hover>
+        </template>
+        <v-spacer></v-spacer>
+        <template v-for="{ name, icon, link } in socials">
           <v-btn
-            height="50"
+            v-tooltip="name"
+            variant="plain"
             rounded="lg"
-            variant="tonal"
-            class="hidden-md-and-up"
-            :icon="drawer ? 'mdi-close' : 'mdi-menu'"
-            @click="drawer = !drawer"
-            aria-label="drawer opener"
-          ></v-btn>
-        </v-row>
-      </v-container>
-    </v-app-bar>
-  </v-layout>
+            size="50"
+            target="_blank"
+            class="hidden-xs"
+            :href="link"
+            :aria-label="name"
+          >
+            <Icon :icon="icon" />
+          </v-btn>
+        </template>
+        <v-btn
+          height="50"
+          rounded="lg"
+          variant="tonal"
+          class="hidden-md-and-up"
+          :icon="drawer ? 'mdi-close' : 'mdi-menu'"
+          aria-label="drawer opener"
+          @click="drawer = !drawer"
+        ></v-btn>
+      </v-row>
+    </v-container>
+  </v-app-bar>
   <v-bottom-sheet v-model="drawer" scrim="black">
     <v-card rounded="0">
       <v-list>
         <v-list-subheader>Navigate to</v-list-subheader>
         <v-list-item
           prepend-icon="mdi-home"
-          title="home"
+          title="home."
+          active-class="text-brand"
           to="/"
           @click="drawer = false"
         />
@@ -124,6 +127,7 @@ const pages = [
             :title
             :to
             :prepend-icon="icon"
+            active-class="text-brand"
             @click="drawer = false"
           />
         </template>
@@ -131,8 +135,3 @@ const pages = [
     </v-card>
   </v-bottom-sheet>
 </template>
-<style lang="scss">
-.v-btn--active {
-  color: rgb(var(--v-theme-primary)) !important;
-}
-</style>
