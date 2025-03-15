@@ -20,7 +20,7 @@ const signIn = async () => {
 <template>
   <v-container class="h-100" style="margin-top: 64px">
     <v-row align="center" justify="center" class="h-100">
-      <v-col cols="12" sm="8" md="6">
+      <v-col cols="12" sm="8" md="6" lg="4">
         <v-card border>
           <v-card-title class="text-center">Sign In With Email</v-card-title>
           <v-form @submit.prevent="signIn">

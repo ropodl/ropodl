@@ -1,18 +1,18 @@
 <script setup>
 defineProps({
   content: {
-    type: String,
+    type: [String, null, undefined],
     required: true,
   },
 });
 </script>
 <template>
+  <template></template>
   <div v-html="content" class="dynamic-content mb-3"></div>
 </template>
 
 <style lang="scss">
 div.dynamic-content {
-  // font-size: 18px;
   line-height: 1.6rem !important;
   font-weight: 400;
 

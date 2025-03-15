@@ -50,8 +50,8 @@ const pages = [
       <v-row>
         <v-btn
           height="50"
-          rounded="lg"
           variant="text"
+          rounded="pill"
           color="white"
           :active="false"
           class="text-capitalize"
@@ -101,8 +101,8 @@ const pages = [
         </template>
         <v-btn
           height="50"
-          rounded="lg"
-          variant="tonal"
+          rounded="circle"
+          variant="text"
           class="hidden-md-and-up"
           :icon="drawer ? 'mdi-close' : 'mdi-menu'"
           aria-label="drawer opener"
@@ -124,8 +124,9 @@ const pages = [
         />
         <template v-for="{ title, icon, to } in pages">
           <v-list-item
-            :title
+            :title="`${title}.`"
             :to
+            density="compact"
             :prepend-icon="icon"
             active-class="text-brand"
             @click="drawer = false"
