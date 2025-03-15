@@ -10,14 +10,18 @@ export const useAdminContactStore = defineStore(
     });
     const headers = ref([
       {
-        title: "Title",
-        key: "title",
+        title: "Name",
+        key: "name",
         align: "start",
+      },
+      {
+        title: "Email Address",
+        key: "email"
       },
       {
         title: "Actions",
         key: "actions",
-        width: 150,
+        width: 200,
         align: "center",
       },
     ]);

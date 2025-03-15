@@ -6,8 +6,6 @@ definePageMeta({
 });
 
 const user = useSupabaseUser();
-const { setBreadcrumb } = useAdminBreadcrumbStore();
-setBreadcrumb([]);
 
 useHead({
   title: "Admin Dashboard",

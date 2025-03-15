@@ -39,8 +39,6 @@ export default defineEventHandler(async (event) => {
 
   if (search) call = call.ilike('name', `%${search}%`);
 
-  // if (status) call = call.eq("status", status)
-
   call = call.order(sortBy, { ascending: order }).range(from, to)
 
   const { data: requests, error, count } = await call;

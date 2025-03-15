@@ -66,7 +66,7 @@ const breadcrumbs = [
   },
   {
     title: "Contact Requests",
-    to: "/admin/portfolio",
+    to: "/admin/contact-request",
   },
 ];
 // search logic
@@ -179,7 +179,17 @@ const searchFn = useDebounceFn(async () => {
             item-value="id"
             @update:options="loadPortfolio"
           >
+            <template #item.status="{ item: { status } }">
+              <v-chip
+                class="w-100 justify-center"
+                :color="getColor(status)"
+                rounded="lg"
+              >
+                {{ status ? "Published" : "Draft" }}
+              </v-chip>
+            </template>
             <template v-slot:item.actions="{ item: { id, title } }">
+              <lazy-admin-shared-contact-preview-message :id />
               <v-btn
                 v-tooltip="'Edit Portfolio'"
                 icon="mdi-pencil-outline"
