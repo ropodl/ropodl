@@ -191,7 +191,7 @@ const searchFn = useDebounceFn(async () => {
               ></v-btn>
               <lazy-admin-shared-delete
                 :title
-                type="Porfolio"
+                type="Portfolio"
                 @delete-action="removeId(id)"
               />
             </template>

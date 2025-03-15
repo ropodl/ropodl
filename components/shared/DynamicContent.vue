@@ -12,7 +12,7 @@ defineProps({
 
 <style lang="scss">
 div.dynamic-content {
-  font-size: 18px;
+  // font-size: 18px;
   line-height: 1.6rem !important;
   font-weight: 400;
 
