@@ -12,25 +12,33 @@ export const useAdminPortfolioStore = defineStore(
       {
         title: "Title",
         key: "title",
-        align: "start",
+      },
+      { title: "Created At", key: "created_at", align: "center", width: 150 },
+      {
+        title: "Status",
+        key: "status",
+        align: "center",
+        sortable: false,
+        width: 100,
       },
       {
         title: "Actions",
         key: "actions",
-        width: 150,
         align: "center",
+        sortable: false,
+        width: 150,
       },
     ]);
     const showFilters = ref(false);
     const filters = ref({
       status: null,
-      date: null,
+      date: null
     });
-    const searching = ref(false);
+    const searching = ref(false)
     const loading = ref(false);
     // computed
     const isFiltered = computed(() => {
-      return Object.values(filters.value).some((value) => value !== null);
+      return Object.values(filters.value).some((item) => item !== null);
     });
     const currentDisplayedRange = computed(() => {
       const start =
@@ -49,20 +57,19 @@ export const useAdminPortfolioStore = defineStore(
       deep: true
     })
     // methods
-    const all = async (sortBy: any, search?: string) => {
+    const all = (sortBy: any, search?: string) => {
       loading.value = true;
-      await useAxios
-        .get("/api/portfolio", {
-          query: {
-            page: pagination.value?.currentPage || 1,
-            itemsPerPage: pagination.value?.itemsPerPage || 10,
-            sortBy,
-            search,
-            status: filters.value?.status,
-            date: filters.value?.date
-          },
-        })
-        .then((res: { portfolios: any, pagination: typeof pagination.value }) => {
+      useAxios.get("/api/portfolio", {
+        query: {
+          page: pagination.value?.currentPage || 1,
+          itemsPerPage: pagination.value?.itemsPerPage || 10,
+          sortBy,
+          search,
+          status: filters.value?.status,
+          date: filters.value?.date
+        },
+      })
+        .then((res: any) => {
           portfolios.value = res.portfolios;
           pagination.value = res.pagination;
         })
@@ -75,8 +82,9 @@ export const useAdminPortfolioStore = defineStore(
       filters.value = {
         status: null,
         date: null
-      }
+      };
     };
+
     return {
       headers,
       portfolios,
@@ -88,7 +96,7 @@ export const useAdminPortfolioStore = defineStore(
       searching,
       currentDisplayedRange,
       all,
-      resetFilters,
+      resetFilters
     };
   },
   {
@@ -97,7 +105,5 @@ export const useAdminPortfolioStore = defineStore(
 );
 
 if (import.meta.hot) {
-  import.meta.hot.accept(
-    acceptHMRUpdate(useAdminPortfolioStore, import.meta.hot)
-  );
+  import.meta.hot.accept(acceptHMRUpdate(useAdminPortfolioStore, import.meta.hot));
 }

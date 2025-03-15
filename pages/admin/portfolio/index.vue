@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { itemsPerPageOptions } from "@/utils/constants";
-
+// useAdminBlogStore
 const portfolio = useAdminPortfolioStore();
 const {
   portfolios: items,
@@ -20,7 +20,7 @@ definePageMeta({
 });
 
 useHead({
-  title: "All Portfolio",
+  title: "All Blogs",
 });
 
 const selected = ref([]);
@@ -36,9 +36,8 @@ interface Options {
     order: string;
   }>;
 }
-// server side table
-const loadPortfolio = async (options: Options) => {
-  await all(options.sortBy || []);
+const loadBlogs = (options: Options) => {
+  all(options.sortBy || []);
 };
 
 const removeId = (id: string) => {
@@ -48,14 +47,13 @@ const removeId = (id: string) => {
     .catch(() => {});
 };
 
-const getColor = (item: string) => {
-  if (item) return "success";
-  else return "primary";
+const getColor = (item: boolean) => {
+  return item ? "success" : "primary";
 };
 
 const reload = () => {
   if (pagination.value) pagination.value.currentPage = 1;
-  loadPortfolio({
+  loadBlogs({
     sortBy: [],
   });
 };
@@ -66,7 +64,7 @@ const breadcrumbs = [
     to: "/admin/",
   },
   {
-    title: "All Portfolio",
+    title: "All Portfolios",
     to: "/admin/portfolio",
   },
 ];
@@ -86,20 +84,20 @@ const searchFn = useDebounceFn(async () => {
 </script>
 <template>
   <v-container>
-    <lazy-admin-layout-page-title title="All Portfolio" :items="breadcrumbs">
+    <lazy-admin-layout-page-title title="All Portfolios" :items="breadcrumbs">
       <v-btn
         color="primary"
         class="text-capitalize"
         to="/admin/portfolio/create"
       >
-        Add new Portfolio
+        Add new
       </v-btn>
     </lazy-admin-layout-page-title>
     <v-row justify="space-between">
       <v-col class="py-md-0" cols="12" sm="6" md="4">
         <div class="d-flex align-center justify-start">
           <v-text-field
-            v-model="search"
+            v-model.trim="search"
             density="compact"
             placeholder="Type to search..."
             hide-details
@@ -133,15 +131,17 @@ const searchFn = useDebounceFn(async () => {
           <v-btn
             v-tooltip="'Reload'"
             border
-            icon="mdi-reload"
+            icon
             size="small"
             class="mr-3"
             @click="reload"
-          />
+          >
+            <v-icon icon="mdi-reload" />
+          </v-btn>
           <v-btn
             v-tooltip="'Filters'"
             border
-            icon="mdi-filter-outline"
+            icon
             :color="isFiltered ? 'primary' : ''"
             size="small"
             @click="showFilters = !showFilters"
@@ -155,17 +155,57 @@ const searchFn = useDebounceFn(async () => {
           </v-btn>
         </div>
       </v-col>
-      <template v-if="isFiltered">
-        <v-col cols="12" md="2" class="pb-0">
-          <v-btn
-            block
-            border
-            height="40"
-            prepend-icon="mdi-close"
-            @click="resetFilters"
-            >Clear Filters</v-btn
-          >
+    </v-row>
+    <v-row v-auto-animate>
+      <template v-if="showFilters">
+        <v-col cols="12" sm="4" md="3" class="pb-0">
+          <v-select
+            v-model="filters.status"
+            clearable
+            persistent-clear
+            density="compact"
+            rounded="lg"
+            placeholder="Filter By Status"
+            hide-details
+            :items="[
+              { title: 'Published', value: true },
+              {
+                title: 'Draft',
+                value: false,
+              },
+            ]"
+          />
         </v-col>
+        <v-col cols="12" md="3" class="pb-0">
+          <v-date-input
+            v-model="filters.date"
+            clearable
+            persistent-clear
+            color="primary"
+            density="compact"
+            rounded="lg"
+            variant="outlined"
+            prepend-icon=""
+            append-inner-icon="mdi-calendar"
+            location="bottom"
+            weeks-in-month="static"
+            placeholder="Filter By Date"
+            multiple="range"
+            hide-details
+          />
+        </v-col>
+        <template v-if="isFiltered">
+          <v-col cols="12" md="2" class="pb-0">
+            <v-btn
+              block
+              border
+              height="40"
+              prepend-icon="mdi-close"
+              @click="resetFilters"
+              >Clear Filters</v-btn
+            >
+          </v-col>
+        </template>
       </template>
     </v-row>
     <v-row>
@@ -183,21 +223,33 @@ const searchFn = useDebounceFn(async () => {
             :search="debouncedSearch"
             hide-default-footer
             item-value="id"
-            @update:options="loadPortfolio"
+            @update:options="loadBlogs"
           >
-            <template v-slot:item.actions="{ item: { id, title } }">
-              <v-btn
-                v-tooltip="'Edit Portfolio'"
-                icon="mdi-pencil-outline"
-                class="mr-2"
-                size="small"
+            <template #item.created_at="{ item: { created_at } }">
+              {{ useDateFormat(created_at, "MMM DD, YYYY") }}
+            </template>
+            <template #item.status="{ item: { status } }">
+              <v-chip
+                class="w-100 justify-center"
+                :color="getColor(status)"
                 rounded="lg"
+              >
+                {{ status ? "Published" : "Draft" }}
+              </v-chip>
+            </template>
+            <template #item.actions="{ item: { id, title } }">
+              <v-btn
+                v-tooltip="'Edit Post'"
+                icon="mdi-pencil"
+                rounded="lg"
+                class="mr-2"
                 variant="text"
+                size="small"
                 :to="`/admin/portfolio/${id}`"
               ></v-btn>
               <lazy-admin-shared-delete
+                type="Portfolio"
                 :title
-                type="Porfolio"
                 @delete-action="removeId(id)"
               />
             </template>
@@ -206,38 +258,40 @@ const searchFn = useDebounceFn(async () => {
       </v-col>
     </v-row>
     <v-row align="center">
-      <v-col cols="12" md="3">
-        Showing
-        <v-chip density="compact">
-          {{ currentDisplayedRange.start }} - {{ currentDisplayedRange.end }}
-        </v-chip>
-        out of {{ pagination.totalItems }}
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-pagination
-          v-model="pagination.currentPage"
-          :disabled="loading"
-          :length="pagination.totalPages"
-          density="compact"
-          rounded="lg"
-        ></v-pagination>
-      </v-col>
-      <v-col cols="12" md="3">
-        <div class="d-flex align-center justify-end">
-          Items Per Page:&nbsp;
-          <v-select
-            v-model="pagination.itemsPerPage"
-            density="compact"
-            variant="outlined"
-            rounded="lg"
+      <template v-if="pagination">
+        <v-col cols="12" md="3" class="py-0">
+          Showing
+          <v-chip density="compact">
+            {{ currentDisplayedRange.start }} - {{ currentDisplayedRange.end }}
+          </v-chip>
+          out of {{ pagination.totalItems }}
+        </v-col>
+        <v-col cols="12" md="6" class="py-0">
+          <v-pagination
+            v-model="pagination.currentPage"
             :disabled="loading"
-            hide-details
-            single-line
-            :items="itemsPerPageOptions"
-            style="max-width: 90px"
-          ></v-select>
-        </div>
-      </v-col>
+            :length="pagination.totalPages"
+            density="compact"
+            rounded="lg"
+          ></v-pagination>
+        </v-col>
+        <v-col cols="12" md="3" class="py-0">
+          <div class="d-flex align-center justify-end">
+            Items Per Page:&nbsp;
+            <v-select
+              v-model="pagination.itemsPerPage"
+              density="compact"
+              variant="outlined"
+              rounded="lg"
+              :disabled="loading"
+              hide-details
+              single-line
+              :items="itemsPerPageOptions"
+              style="max-width: 90px"
+            ></v-select>
+          </div>
+        </v-col>
+      </template>
     </v-row>
   </v-container>
 </template>
