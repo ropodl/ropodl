@@ -10,7 +10,7 @@ useSeoMeta({
   ogTitle: "Saroj Poudel",
   ogDescription:
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-  ogUrl: "https://ropodl.vercel.app",
+  ogUrl: "https://ropodl.com",
   twitterTitle: "Saroj Poudel",
   twitterDescription:
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
