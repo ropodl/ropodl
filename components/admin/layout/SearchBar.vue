@@ -4,7 +4,7 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  profileItems: {
+  moreItems: {
     type: Array,
     required: true,
   },
@@ -79,7 +79,7 @@ const flattenNavItems = (items) => {
 // Combine and format all searchable items
 const allSearchableItems = computed(() => [
   ...flattenNavItems(props.navItems),
-  ...props.profileItems,
+  ...props.moreItems,
 ]);
 
 // Search functionality

@@ -19,11 +19,12 @@ const navItems = ref([
   {
     icon: "mdi-pencil-outline",
     title: "Blog",
+    subtitle: "Content And Portfolio",
     subitems: [
       { title: "All Blogs", routes: "/admin/blog" },
       { title: "Add New", routes: "/admin/blog/create" },
-      { title: "Categories", routes: "/admin/categories" },
-      { title: "Tags", routes: "/admin/tags" },
+      { title: "Categories", routes: "/admin/category" },
+      { title: "Tags", routes: "/admin/tag" },
     ],
   },
   {
@@ -38,7 +39,21 @@ const navItems = ref([
   {
     icon: "mdi-phone-outline",
     title: "Contact Request",
+    subtitle: "Contact and Feedback",
     routes: "/admin/contact-request",
+  },
+]);
+
+const settings = ref([
+  {
+    icon: "mdi-palette-outline",
+    title: "Appearance Settings",
+    to: "/admin/settings/appearance",
+  },
+  {
+    icon: "mdi-account-outline",
+    title: "Profile Settings",
+    to: "/admin/settings/profile",
   },
 ]);
 
@@ -50,12 +65,11 @@ const signOut = async () => {
 </script>
 <template>
   <v-app-bar
-    border
+    border="b"
     elevation="0"
     height="50"
     color="rgba(var(--v-theme-background),0.8)"
     class="blur-8"
-    style="border-top: 0; border-left: 0; border-right: 0"
   >
     <v-container fluid class="py-0">
       <v-row align="center" justify="space-between">
@@ -122,7 +136,11 @@ const signOut = async () => {
     </v-container>
   </v-app-bar>
   <!-- search bar -->
-  <lazy-admin-layout-search-bar v-model="search" :navItems :profileItems="[]" />
+  <lazy-admin-layout-search-bar
+    v-model="search"
+    :navItems
+    :more-items="[...settings]"
+  />
   <!-- nav drawer -->
   <v-navigation-drawer
     v-model="drawer"
@@ -132,7 +150,7 @@ const signOut = async () => {
     <v-list density="compact" class="pa-2">
       <template v-for="{ title, subtitle, icon, subitems, routes } in navItems">
         <template v-if="subtitle">
-          <v-list-subheader>{{ subtitle }}</v-list-subheader>
+          <v-list-subheader :title="subtitle" />
         </template>
         <!-- main like dashboard -->
         <template v-if="subitems">
@@ -209,10 +227,11 @@ const signOut = async () => {
           </v-btn>
         </template>
         <v-card>
-          <template v-for="(item, index) in [{ title: 'items' }]" :key="index">
-            <v-list-item>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item>
+          <template
+            v-for="({ title, to, icon }, index) in settings"
+            :key="index"
+          >
+            <v-list-item density="default" :prepend-icon="icon" :title :to />
           </template>
           <v-divider></v-divider>
           <v-list-item
