@@ -5,15 +5,15 @@ defineProps({
   },
 });
 
-const post = <Ref>ref({});
+const request = <Ref>ref({});
 const loading = <Ref>ref(false);
-const getPostById = async (id?: number) => {
+const getMessageById = async (id?: number) => {
   loading.value = true;
-  await useAxios(`/api/contact/${id}`, {
+  await useAxios(`/api/contact-request/${id}`, {
     method: "GET",
   })
     .then((res) => {
-      post.value = res;
+      request.value = res;
     })
     .finally(() => {
       loading.value = false;
@@ -21,12 +21,12 @@ const getPostById = async (id?: number) => {
 };
 
 const close = (dialog: Ref) => {
-  post.value = {};
+  request.value = {};
   dialog.value = false;
 };
 </script>
 <template>
-  <v-dialog persistent scrim="black" width="500" height="600">
+  <v-dialog persistent scrim="black" width="500">
     <template v-slot:activator="{ props: activatorProps }">
       <v-tooltip theme="light" text="View Post">
         <template v-slot:activator="{ props }">
@@ -37,18 +37,13 @@ const close = (dialog: Ref) => {
             class="mr-2"
             variant="text"
             size="small"
-            @click="getPostById(id)"
+            @click="getMessageById(id)"
           ></v-btn>
         </template>
       </v-tooltip>
     </template>
     <template v-slot:default="{ isActive }">
-      <v-card :loading="loading">
-        <v-skeleton-loader :loading type="image" rounded="0" height="250">
-          <template v-if="post.featured_image">
-            <v-img cover height="250" :src="post.featured_image.url"> </v-img>
-          </template>
-        </v-skeleton-loader>
+      <v-card :loading>
         <v-btn
           size="x-small"
           variant="flat"
@@ -60,20 +55,27 @@ const close = (dialog: Ref) => {
           @click="close(isActive)"
         ></v-btn>
         <v-skeleton-loader color="transparent" type="heading" :loading>
-          <v-card-title>
-            {{ post.title }}
-          </v-card-title>
+          <v-card-title> Contact Request Details</v-card-title>
         </v-skeleton-loader>
-        <v-skeleton-loader
-          color="transparent"
-          type="paragraph, chip, list-item-three-line"
-          :loading
-        >
-          <v-card-text class="pt-0">{{ post.excerpt }}</v-card-text>
-          <v-card-text>
-            <lazy-shared-dynamic-content :content="post.content" />
+        <template v-if="loading">
+          <v-skeleton-loader
+            color="transparent"
+            type="paragraph, chip, list-item-three-line"
+            :loading
+          >
+          </v-skeleton-loader>
+        </template>
+        <template v-else>
+          <v-card-text class="pb-0">
+            Viewing a message from {{ request.name }} :
+            <span class="text-decoration-underline">
+              {{ request.email }}
+            </span>
           </v-card-text>
-        </v-skeleton-loader>
+          <v-card-text>
+            {{ request.message }}
+          </v-card-text>
+        </template>
       </v-card>
     </template>
   </v-dialog>
