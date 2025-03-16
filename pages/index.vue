@@ -65,10 +65,11 @@ useSeoMeta({
                       >
                         Blogs
                         <v-icon
+                          size="small"
                           :class="isHovering ? 'ml-4' : 'ml-2'"
                           style="transition: all 100ms linear"
                         >
-                          <Icon icon="lucide:arrow-right" />
+                          <Icon icon="line-md:arrow-right" />
                         </v-icon>
                       </v-btn>
                     </v-hover>
@@ -88,10 +89,11 @@ useSeoMeta({
                       >
                         Portfolio
                         <v-icon
+                          size="small"
                           :class="isHovering ? 'ml-4' : 'ml-2'"
                           style="transition: all 100ms linear"
                         >
-                          <Icon icon="lucide:arrow-right" />
+                          <Icon icon="line-md:arrow-right" />
                         </v-icon>
                       </v-btn>
                     </v-hover>

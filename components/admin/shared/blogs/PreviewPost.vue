@@ -21,7 +21,6 @@ const getPostById = async (id?: number) => {
 };
 
 const close = (dialog: Ref) => {
-  post.value = {};
   dialog.value = false;
 };
 </script>
@@ -69,8 +68,8 @@ const close = (dialog: Ref) => {
           type="paragraph, chip, list-item-three-line"
           :loading
         >
-          <v-card-text class="pt-0">{{ post.excerpt }}</v-card-text>
-          <v-card-text>
+          <v-card-text class="pt-0 w-100">{{ post.excerpt }}</v-card-text>
+          <v-card-text class="w-100">
             <lazy-shared-dynamic-content :content="post.content" />
           </v-card-text>
         </v-skeleton-loader>

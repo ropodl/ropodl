@@ -3,13 +3,13 @@ import { serverSupabaseClient } from "#supabase/server";
 export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient(event);
 
-  const id = <string>getRouterParam(event, "id");
+  const id = getRouterParam(event, "id") as string;
 
   const { data, error } = await client
     .from("blogs")
-    .select("*")
+    .select(`*, category(*)`)
     .eq("id", id)
-    .maybeSingle();
+    .single();
 
 
   if (error) {

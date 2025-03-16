@@ -2,9 +2,9 @@ import { vuetifyOptions } from "./utils/module/vuetify.ts";
 
 export default defineNuxtConfig({
   ssr: true,
-  future: {
-    compatibilityVersion: 4
-  },
+  // future: {
+  // compatibilityVersion: 4
+  // },
   app: {
     head: {
       charset: "utf-8",

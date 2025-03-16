@@ -69,15 +69,24 @@ const breadcrumbs = [
           </lazy-admin-shared-field-label>
           <v-text-field
             v-model="form.title"
-            placeholder="eg. Lorem ipsum dolor"
+            placeholder="Give your blog post a creative name"
             :rules="rules.title"
           ></v-text-field>
+          <lazy-admin-shared-field-label>
+            Blog Excerpt
+          </lazy-admin-shared-field-label>
+          <v-textarea
+            v-model="form.excerpt"
+            placeholder="Summarize the post in 255 letters"
+          ></v-textarea>
+          <lazy-admin-shared-field-label>
+            Blog Content
+          </lazy-admin-shared-field-label>
           <v-card flat class="ext-editor rounded-b-0 mb-6">
             <ClientOnly placeholder="Loading Quill Editor">
               <lazy-admin-shared-quill-editor v-model:content="form.content" />
             </ClientOnly>
           </v-card>
-          <v-textarea label="Blog Excerpt" v-model="form.excerpt"></v-textarea>
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form />
