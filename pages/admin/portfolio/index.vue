@@ -83,7 +83,7 @@ const searchFn = useDebounceFn(async () => {
 }, 900);
 </script>
 <template>
-  <v-container>
+  <v-container :fluid="isFluid">
     <lazy-admin-layout-page-title title="All Portfolios" :items="breadcrumbs">
       <v-btn
         color="primary"

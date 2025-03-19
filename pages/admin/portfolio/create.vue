@@ -1,5 +1,6 @@
 <script setup>
-const config = useRuntimeConfig();
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
@@ -34,7 +35,7 @@ const addBlog = async () => {
 };
 </script>
 <template>
-  <v-container>
+  <v-container :fluid="isFluid">
     <v-form @submit.prevent="addBlog">
       <v-row>
         <v-col cols="12">

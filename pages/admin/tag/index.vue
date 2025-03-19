@@ -15,6 +15,9 @@ const {
 } = storeToRefs(blog);
 const { all, resetFilters } = blog;
 
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
+
 definePageMeta({
   layout: "admin",
 });
@@ -87,7 +90,7 @@ const searchFn = useDebounceFn(async () => {
 }, 900);
 </script>
 <template>
-  <v-container>
+  <v-container :fluid="isFluid">
     <lazy-admin-layout-page-title title="All Blogs" :items="breadcrumbs">
       <v-btn color="primary" class="text-capitalize" to="/admin/blog/create">
         Add new

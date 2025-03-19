@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { itemsPerPageOptions } from "@/utils/constants";
+
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
 // useAdminBlogStore
 const blog = useAdminBlogStore();
 const {
@@ -83,7 +86,7 @@ const searchFn = useDebounceFn(async () => {
 }, 900);
 </script>
 <template>
-  <v-container>
+  <v-container :fluid="isFluid">
     <lazy-admin-layout-page-title title="All Blogs" :items="breadcrumbs">
       <v-btn color="primary" class="text-capitalize" to="/admin/blog/create">
         Add new

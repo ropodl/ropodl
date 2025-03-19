@@ -1,13 +1,9 @@
+<script lang="ts" setup>
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
+</script>
 <template>
-  <div>
-    
-  </div>
+  <v-container :fluid="isFluid"> fluid </v-container>
 </template>
 
-<script lang="ts" setup>
-
-</script>
-
-<style>
-
-</style>
+<style></style>

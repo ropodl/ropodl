@@ -1,8 +1,10 @@
 <script setup>
-const config = useRuntimeConfig();
 const {
   params: { id },
 } = useRoute();
+
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
@@ -60,8 +62,7 @@ const updateBlog = async () => {
 };
 </script>
 <template>
-  {{ form }}
-  <v-container>
+  <v-container :fluid="isFluid">
     <v-form @submit.prevent="updateBlog">
       <v-row>
         <v-col cols="12">
