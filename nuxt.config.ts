@@ -14,7 +14,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   experimental: {
     viewTransition: true,
     renderJsonPayloads: false,
@@ -119,7 +119,7 @@ export default defineNuxtConfig({
     storesDirs: ["./stores/**"],
   },
   piniaPersistedstate: {
-    storage: "sessionStorage",
+    storage: "localStorage",
   },
   nitro: {
     minify: true

@@ -4,6 +4,8 @@ import { Icon } from "@iconify/vue";
 const {
   params: { id },
 } = useRoute();
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
@@ -69,7 +71,7 @@ const breadcrumb = [
 ];
 </script>
 <template>
-  <v-container>
+  <v-container :fluid="isFluid">
     <v-form ref="updateBlogRef" @submit.prevent="updateBlog">
       <lazy-admin-layout-page-title
         title="Edit Blog"

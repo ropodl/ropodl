@@ -46,14 +46,14 @@ const navItems = ref([
 
 const settings = ref([
   {
+    icon: "mdi-account-outline",
+    title: "Profile Settings",
+    to: "/admin/settings/",
+  },
+  {
     icon: "mdi-palette-outline",
     title: "Appearance Settings",
     to: "/admin/settings/appearance",
-  },
-  {
-    icon: "mdi-account-outline",
-    title: "Profile Settings",
-    to: "/admin/settings/profile",
   },
 ]);
 

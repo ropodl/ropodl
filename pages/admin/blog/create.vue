@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
+
 definePageMeta({
   layout: "admin",
 });
@@ -55,7 +58,7 @@ const breadcrumbs = [
 ];
 </script>
 <template>
-  <v-container>
+  <v-container :fluid="isFluid">
     <v-form ref="addBlogRef" @submit.prevent="addBlog">
       <lazy-admin-layout-page-title
         title="Add New Blog"

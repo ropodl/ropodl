@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
+const appearance = useAdminAppearanceStore();
+const { isFluid } = storeToRefs(appearance);
+
 definePageMeta({
   layout: "admin",
 });
@@ -23,7 +26,7 @@ const getDashboard = async () => {
 };
 </script>
 <template>
-  <v-container>
+  <v-container :fluid="isFluid">
     <v-row>
       <v-col cols="12">
         <div class="text-h4 font-weight-bold">
