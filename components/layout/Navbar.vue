@@ -40,7 +40,7 @@ const pages = [
           relative
           height="60"
           elevation="0"
-          rounded="pill"
+          rounded="lg"
           class="pa-0 left-0 right-0 d-flex justify-self-center align-center"
           style="
             background-color: rgba(var(--v-theme-surface), 0.8);
@@ -51,7 +51,7 @@ const pages = [
           <v-btn
             height="60"
             variant="text"
-            rounded="pill"
+            rounded="lg"
             color="white"
             :active="false"
             class="text-capitalize px-6"
@@ -68,7 +68,7 @@ const pages = [
                 height="60"
                 rounded="lg"
                 color="transparent"
-                variant="tonal"
+                :variant="isHovering ? 'text' : 'plain'"
                 class="text-lowercase hidden-sm-and-down"
                 :active="false"
                 :to
@@ -86,18 +86,22 @@ const pages = [
           </template>
           <v-spacer></v-spacer>
           <template v-for="{ name, icon, link } in socials">
-            <v-btn
-              v-tooltip="name"
-              variant="plain"
-              rounded="lg"
-              size="60"
-              target="_blank"
-              class="hidden-xs"
-              :href="link"
-              :aria-label="name"
-            >
-              <Icon :icon="icon" />
-            </v-btn>
+            <v-hover #default="{ isHovering, props: hover }">
+              <v-btn
+                v-tooltip="name"
+                v-bind="hover"
+                icon
+                rounded="lg"
+                :variant="isHovering ? 'text' : 'plain'"
+                size="60"
+                target="_blank"
+                class="hidden-xs"
+                :href="link"
+                :aria-label="name"
+              >
+                <Icon :icon="icon" />
+              </v-btn>
+            </v-hover>
           </template>
           <v-btn
             height="60"
