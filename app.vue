@@ -4,33 +4,12 @@ const route = useRoute();
 
 const app = ref(null);
 useIsFullScreen(app);
-
-const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;mask-image: radial-gradient(circle, #fff, transparent);">
-      <svg aria-hidden="true" class="position-absolute w-100 h-100">
-        <defs>
-          <pattern
-            id=":Rem:"
-            width="64"
-            height="64"
-            patternUnits="userSpaceOnUse"
-            x="50%"
-            y="100%"
-          >
-            <path d="M0 128V.5H128" fill="none" stroke="currentColor"></path>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#:Rem:)"></rect>
-      </svg>
-    </div>`;
 </script>
 
 <template>
   <div>
     <VitePwaManifest />
     <NuxtLoadingIndicator :height="1" color="rgb(var(--v-theme-primary))" />
-    <template v-if="!route.fullPath.includes('/admin')">
-      <div v-html="bgPattern"></div>
-    </template>
     <v-app ref="app">
       <NuxtLayout>
         <NuxtPage />
@@ -86,6 +65,7 @@ const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;
 .line-clamp-1 {
   display: -webkit-box !important;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   white-space: normal !important;
   overflow: hidden !important;
@@ -93,6 +73,7 @@ const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;
 .line-clamp-2 {
   display: -webkit-box !important;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   white-space: normal !important;
   overflow: hidden !important;
@@ -100,6 +81,7 @@ const bgPattern = `<div class="position-fixed w-100 h-100" style="opacity: 0.05;
 .line-clamp-3 {
   display: -webkit-box !important;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   white-space: normal !important;
   overflow: hidden !important;
