@@ -2,6 +2,7 @@
 const appearance = useAdminAppearanceStore();
 const { isFluid } = storeToRefs(appearance);
 
+const test = ref(0);
 const tabs = ref([
   {
     text: "Account Settings",
@@ -12,14 +13,19 @@ const tabs = ref([
     to: "/admin/settings/appearance",
   },
 ]);
+
+const title = computed(() => tabs.value[test.value].text);
 </script>
 <template>
   <NuxtLayout name="admin">
     <v-container :fluid="isFluid">
       <v-row>
+        <v-col cols="12">
+          <h1>{{ title }}</h1>
+        </v-col>
         <v-col cols="12" md="3">
           <v-card>
-            <v-tabs direction="vertical">
+            <v-tabs v-model="test" direction="vertical">
               <template v-for="{ text, to } in tabs">
                 <v-tab :text :to />
               </template>
