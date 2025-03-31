@@ -192,7 +192,7 @@ const passwordRef = ref(null);
                           <v-spacer></v-spacer>
                           <v-btn
                             variant="text"
-                            class="px-6"
+                            class="px-10"
                             text="Cancel"
                             @click="isActive.value = false"
                           ></v-btn>
@@ -200,7 +200,7 @@ const passwordRef = ref(null);
                             type="submit"
                             variant="flat"
                             color="primary"
-                            class="px-6"
+                            class="px-10"
                             text="Save"
                           ></v-btn>
                         </v-card-actions>
