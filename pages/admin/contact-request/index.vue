@@ -203,7 +203,7 @@ const searchFn = useDebounceFn(async () => {
                 :to="`/admin/portfolio/${id}`"
               ></v-btn>
               <lazy-admin-shared-delete
-                :title
+                title="Contact Request"
                 type="Portfolio"
                 @delete-action="removeId(id)"
               />

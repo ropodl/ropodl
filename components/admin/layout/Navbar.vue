@@ -1,46 +1,43 @@
 <script setup>
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
+const route = useRoute();
+const router = useRouter();
 
 const fullscreen = useIsFullScreen();
-const toggleFullScreen = () => {
-  fullscreen.value.toggle();
-};
+const toggleFullScreen = () => fullscreen.value.toggle();
 
 const drawer = ref(true);
 const search = ref(false);
+const selectedTab = ref(0);
 
 const navItems = ref([
-  {
-    icon: "mdi-home-outline",
-    title: "Home",
-    routes: "/admin/",
-  },
+  { icon: "mdi-home-outline", title: "Home", to: "/admin/" },
   {
     icon: "mdi-pencil-outline",
     title: "Blog",
     subtitle: "Content And Portfolio",
     subitems: [
-      { title: "All Blogs", routes: "/admin/blog" },
-      { title: "Add New", routes: "/admin/blog/create" },
-      { title: "Categories", routes: "/admin/category" },
-      { title: "Tags", routes: "/admin/tag" },
+      { title: "All Blogs", to: "/admin/blog" },
+      { title: "Add New", to: "/admin/blog/create" },
+      { title: "Categories", to: "/admin/category" },
+      { title: "Tags", to: "/admin/tag" },
     ],
   },
   {
     icon: "mdi-image-outline",
     title: "Portfolio",
     subitems: [
-      { title: "All Portfolio", routes: "/admin/portfolio" },
-      { title: "Add New", routes: "/admin/portfolio/create" },
-      { title: "Work Type", routes: "/admin/portfolio/type" },
+      { title: "All Portfolio", to: "/admin/portfolio" },
+      { title: "Add New", to: "/admin/portfolio/create" },
+      { title: "Work Type", to: "/admin/portfolio/type" },
     ],
   },
   {
     icon: "mdi-phone-outline",
     title: "Contact Request",
     subtitle: "Contact and Feedback",
-    routes: "/admin/contact-request",
+    to: "/admin/contact-request",
   },
 ]);
 
@@ -59,12 +56,96 @@ const settings = ref([
 
 const signOut = async () => {
   const { error } = await supabase.auth.signOut();
-  if (error) return console.log(error.message);
-  navigateTo("/", { replace: true, external: true });
+  if (error) console.error(error.message);
+  else router.push("/", { replace: true });
 };
+
+/**
+ * Checks if a route path is in a section
+ */
+const isRouteInSection = (path, sectionPath) => {
+  if (!sectionPath) return false;
+
+  const normalizedPath = path.endsWith("/") ? path.slice(0, -1) : path;
+  const normalizedSectionPath = sectionPath.endsWith("/")
+    ? sectionPath.slice(0, -1)
+    : sectionPath;
+
+  // Special case for admin home - EXACT matching only
+  if (
+    normalizedSectionPath === "/admin" ||
+    normalizedSectionPath === "/admin/"
+  ) {
+    return normalizedPath === "/admin";
+  }
+
+  // Exact match
+  if (normalizedPath === normalizedSectionPath) {
+    return true;
+  }
+
+  // If checking admin root, don't match children
+  if (normalizedSectionPath === "/admin") return false;
+
+  // Check if path is a child of the section
+  return normalizedPath.startsWith(normalizedSectionPath + "/");
+};
+
+/**
+ * Checks if a path is in any of the subitems
+ */
+const isPathInSubitems = (path, subitems) =>
+  subitems?.some((subitem) => isRouteInSection(path, subitem.to));
+
+/**
+ * Determines if a settings route is active
+ */
+const isSettingsRouteActive = (settingsPath) =>
+  isRouteInSection(route.path, settingsPath);
+
+/**
+ * Gets the index of the active main navigation item
+ */
+const getActiveTabIndex = () =>
+  navItems.value.findIndex(
+    (item) =>
+      (item.to && isRouteInSection(route.path, item.to)) ||
+      isPathInSubitems(route.path, item.subitems)
+  );
+
+// Active items and UI state computations
+const activeItem = computed(() => navItems.value[selectedTab.value] || null);
+const showRail = computed(() => drawer.value && !!activeItem.value?.subitems);
+
+// Function to select a tab
+const selectTab = (index) => {
+  drawer.value = true;
+  selectedTab.value = index;
+  const targetRoute = navItems.value[index]?.to;
+  if (targetRoute) {
+    router.push(targetRoute);
+  }
+};
+
+// Update selectedTab when route changes
+watch(
+  () => route.path,
+  () => {
+    const activeIndex = getActiveTabIndex();
+    if (activeIndex >= 0) {
+      selectedTab.value = activeIndex;
+    }
+  },
+  { immediate: true }
+);
+
+// For determining active states of subitems
+const isSubItemActive = (to) => isRouteInSection(route.path, to);
 </script>
+
 <template>
   <v-app-bar
+    order="2"
     border="b"
     elevation="0"
     height="50"
@@ -73,16 +154,11 @@ const signOut = async () => {
   >
     <v-container fluid class="py-0">
       <v-row align="center" justify="space-between">
-        <v-col class="pa-0" cols="12" sm="4" md="4">
-          <div class="d-flex align-center justify-start">
-            <v-app-bar-nav-icon
-              height="50"
-              rounded="0"
-              @click="drawer = !drawer"
-            ></v-app-bar-nav-icon>
-          </div>
+        <v-col cols="12" sm="4" md="4" class="pa-0">
+          <div class="d-flex align-center justify-start"></div>
         </v-col>
-        <v-col class="pa-0" cols="12" sm="4" md="4">
+
+        <v-col cols="12" sm="4" md="4" class="pa-0">
           <div class="d-flex align-center justify-center overflow-x-scroll">
             <v-btn
               border
@@ -99,12 +175,13 @@ const signOut = async () => {
                   size="small"
                   icon="mdi-apple-keyboard-command"
                 />
-                + k</v-card-text
-              >
+                + k
+              </v-card-text>
             </v-btn>
           </div>
         </v-col>
-        <v-col class="pa-0" cols="12" sm="4" md="4">
+
+        <v-col cols="12" sm="4" md="4" class="pa-0">
           <div class="d-flex align-center justify-end">
             <v-tooltip
               theme="light"
@@ -125,8 +202,7 @@ const signOut = async () => {
                     :icon="`mdi-fullscreen${
                       fullscreen.isFullscreen ? '-exit' : ''
                     }`"
-                  >
-                  </v-icon>
+                  />
                 </v-btn>
               </template>
             </v-tooltip>
@@ -135,112 +211,104 @@ const signOut = async () => {
       </v-row>
     </v-container>
   </v-app-bar>
-  <!-- search bar -->
+
   <lazy-admin-layout-search-bar
     v-model="search"
-    :navItems
-    :more-items="[...settings]"
+    :navItems="navItems"
+    :more-items="settings"
   />
-  <!-- nav drawer -->
+
+  <v-navigation-drawer rail>
+    <v-btn
+      rounded="0"
+      height="50"
+      width="55"
+      :icon="showRail ? 'mdi-menu-open' : 'mdi-menu-close'"
+      @click="drawer = !drawer"
+    ></v-btn>
+    <v-divider></v-divider>
+    <v-list class="py-0">
+      <v-list-item
+        v-for="({ title, icon, to }, index) in navItems"
+        :key="`main-${index}`"
+        v-tooltip="title"
+        exact
+        :title="title"
+        :prepend-icon="icon"
+        :active="selectedTab === index"
+        @click="selectTab(index)"
+        color="primary"
+        base-color="grey"
+      />
+    </v-list>
+
+    <template v-slot:append>
+      <v-list class="py-0">
+        <v-list-item
+          v-for="({ icon, title, to }, index) in settings"
+          :key="`settings-${index}`"
+          v-tooltip="title"
+          exact
+          :title="title"
+          :to="to"
+          :prepend-icon="icon"
+          color="primary"
+          base-color="grey"
+        />
+      </v-list>
+      <v-divider />
+      <v-list class="py-0">
+        <v-dialog scrim="black" width="500">
+          <template v-slot:activator="{ props: activatorProps }">
+            <v-list-item
+              v-bind="activatorProps"
+              v-tooltip="'Sign Out'"
+              prepend-icon="mdi-power"
+              title="Sign Out"
+              base-color="grey"
+            />
+          </template>
+
+          <template v-slot:default="{ isActive }">
+            <v-card title="Sure you want to log out?">
+              <v-card-text>You'll be logged out of the system.</v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="px-6"
+                  text="Close"
+                  @click="isActive.value = false"
+                ></v-btn>
+                <v-btn
+                  text="Yes, log out"
+                  variant="flat"
+                  class="px-6"
+                  color="primary"
+                  @click="signOut"
+                ></v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
+      </v-list>
+    </template>
+  </v-navigation-drawer>
+
   <v-navigation-drawer
-    v-model="drawer"
+    v-model="showRail"
     color="rgba(var(--v-theme-background),0.8)"
     class="blur-8"
   >
-    <v-list density="compact" class="pa-2">
-      <template v-for="{ title, subtitle, icon, subitems, routes } in navItems">
-        <template v-if="subtitle">
-          <v-list-subheader :title="subtitle" />
-        </template>
-        <!-- main like dashboard -->
-        <template v-if="subitems">
-          <v-list-group>
-            <template v-slot:activator="{ props }">
-              <v-list-item
-                v-bind="props"
-                :prepend-icon="icon"
-                rounded="lg"
-                :title
-              />
-            </template>
-            <span v-for="{ title, miniitems, routes } in subitems">
-              <!-- child's option -->
-              <span v-if="miniitems">
-                <v-list-group rounded="lg">
-                  <template v-slot:activator="{ props }">
-                    <v-list-item v-bind="props" rounded="lg" :title />
-                  </template>
-                  <!-- grand child -->
-                  <template v-if="miniitems">
-                    <template v-for="{ routes, title } in miniitems">
-                      <v-list-item :title :to="routes" />
-                    </template>
-                  </template>
-                </v-list-group>
-              </span>
-              <!-- child -->
-              <span v-else>
-                <v-list-item rounded="lg" exact :title :to="routes" />
-              </span>
-            </span>
-          </v-list-group>
-        </template>
-        <template v-else>
-          <v-list-item :prepend-icon="icon" rounded="lg" :title :to="routes" />
-        </template>
-      </template>
+    <v-list class="py-0">
+      <v-list-item
+        v-for="({ to, title }, index) in activeItem?.subitems || []"
+        :key="`sub-${index}`"
+        :to="to"
+        :title="title"
+        exact
+        :active="isSubItemActive(to)"
+        color="primary"
+      />
     </v-list>
-    <template v-slot:append>
-      <v-divider></v-divider>
-      <v-menu
-        attach="body"
-        location="right"
-        :content-props="{
-          style: 'top: unset important; bottom: 0;',
-        }"
-      >
-        <template v-slot:activator="{ props }">
-          <v-btn
-            v-bind="props"
-            block
-            :ripple="false"
-            color="transparent"
-            height="70"
-            class="justify-start pl-0"
-            content-class="w-100"
-            rounded="0"
-            append-icon="mdi-unfold-more-horizontal"
-          >
-            <v-list-item>
-              <template #prepend>
-                <v-avatar rounded="lg">
-                  <v-img src="/image/portfolio/api(new)/api.avif"></v-img>
-                </v-avatar>
-              </template>
-              <v-list-item-title class="text-start">
-                Saroj Poudel
-              </v-list-item-title>
-              <v-list-item-subtitle class="text-start">
-                {{ user.email }}
-              </v-list-item-subtitle>
-            </v-list-item>
-          </v-btn>
-        </template>
-        <v-card>
-          <template
-            v-for="({ title, to, icon }, index) in settings"
-            :key="index"
-          >
-            <v-list-item density="default" :prepend-icon="icon" :title :to />
-          </template>
-          <v-divider></v-divider>
-          <v-list-item
-            prepend-icon="mdi-power"
-            title="Sign Out"
-            @click="signOut"
-          />
-        </v-card>
-      </v-menu>
-    </template>
   </v-navigation-drawer>
 </template>
