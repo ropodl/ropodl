@@ -1,4 +1,5 @@
 import { vuetifyOptions } from "./utils/module/vuetify.ts";
+import { BSDateAdapter } from './utils/module/adapter/nepaliAdapter.ts'
 
 export default defineNuxtConfig({
   ssr: true,
@@ -75,7 +76,7 @@ export default defineNuxtConfig({
     },
   },
   vuetify: {
-    vuetifyOptions: vuetifyOptions,
+    vuetifyOptions: vuetifyOptions
   },
   site: {
     url: "https://ropodl.com/",
@@ -122,7 +123,18 @@ export default defineNuxtConfig({
     storage: "localStorage",
   },
   nitro: {
-    minify: true
+    minify: true,
+    experimental: {
+      websocket: true,
+      openAPI: true
+    },
+    openAPI: {
+      ui: {
+        scalar: {
+          theme: 'purple'
+        }
+      }
+    }
   },
   compatibilityDate: "2024-11-18",
   vite: {

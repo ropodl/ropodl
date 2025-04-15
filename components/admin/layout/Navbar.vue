@@ -154,31 +154,25 @@ const isSubItemActive = (to) => isRouteInSection(route.path, to);
   >
     <v-container fluid class="py-0">
       <v-row align="center" justify="space-between">
-        <v-col cols="12" sm="4" md="4" class="pa-0">
+        <!-- <v-col cols="12" sm="4" md="4" class="pa-0">
           <div class="d-flex align-center justify-start"></div>
-        </v-col>
+        </v-col> -->
 
-        <v-col cols="12" sm="4" md="4" class="pa-0">
-          <div class="d-flex align-center justify-center overflow-x-scroll">
-            <v-btn
-              border
-              :ripple="false"
-              height="40"
-              width="200"
-              class="justify-start"
-              @click="search = true"
+        <v-col cols="12" sm="4" md="4">
+          <v-card width="200" height="40" @click="search = true">
+            <v-card-text
+              class="h-100 text-subtitle-1 d-flex align-center justify-space-between py-0"
             >
-              <span>Search...</span>
-              <v-card-text class="d-flex align-center pe-0 py-0">
+              <span class="">Search...</span>
+              <span>
                 <v-icon
                   class="mr-1"
-                  size="small"
+                  size="x-small"
                   icon="mdi-apple-keyboard-command"
-                />
-                + k
-              </v-card-text>
-            </v-btn>
-          </div>
+                />+ k
+              </span>
+            </v-card-text>
+          </v-card>
         </v-col>
 
         <v-col cols="12" sm="4" md="4" class="pa-0">
@@ -300,15 +294,9 @@ const isSubItemActive = (to) => isRouteInSection(route.path, to);
     class="blur-8"
   >
     <v-list class="py-0">
-      <v-list-item
-        v-for="({ to, title }, index) in activeItem?.subitems || []"
-        :key="`sub-${index}`"
-        :to="to"
-        :title="title"
-        exact
-        :active="isSubItemActive(to)"
-        color="primary"
-      />
+      <template v-for="({ to, title }, index) in activeItem?.subitems || []">
+        <v-list-item :to :title exact color="primary" />
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>

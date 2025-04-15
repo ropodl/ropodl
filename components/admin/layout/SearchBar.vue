@@ -199,8 +199,8 @@ watch(ctrlK, () => {
           ref="searchInput"
           v-model="searchQuery"
           autofocus
-          autocomplete="off"
           hide-details
+          autocomplete="off"
           prepend-inner-icon="mdi-magnify"
           variant="solo"
           rounded="0"
