@@ -12,6 +12,10 @@ export const vuetifyOptions = {
       rounded: "lg",
       color: "rgb(var(--v-theme-background))",
     },
+    VAutocomplete: {
+      density: "comfortable",
+      variant: "outlined",
+    },
     VTextField: {
       density: "compact",
       variant: "outlined",

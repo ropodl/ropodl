@@ -23,7 +23,7 @@ definePageMeta({
 });
 
 useHead({
-  title: "All Blogs",
+  title: "All Tags",
 });
 
 const selected = ref([]);
@@ -91,7 +91,7 @@ const searchFn = useDebounceFn(async () => {
 </script>
 <template>
   <v-container :fluid="isFluid">
-    <lazy-admin-layout-page-title title="All Blogs" :items="breadcrumbs">
+    <lazy-admin-layout-page-title title="All Tags" :items="breadcrumbs">
       <v-btn color="primary" class="text-capitalize" to="/admin/blog/create">
         Add new
       </v-btn>
