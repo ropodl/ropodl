@@ -67,7 +67,7 @@ const breadcrumbs = [
     to: "/admin/",
   },
   {
-    title: "All blogs",
+    title: "All Blogs",
     to: "/admin/blog",
   },
 ];
