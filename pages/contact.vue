@@ -97,7 +97,7 @@ const submitForm = async () => {
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
-          <div class="d-flex">
+          <div class="d-flex align-center fill-height">
             <div class="text-h5 font-weight-medium mb-6">
               Got a project? Let's talk.
             </div>
@@ -121,72 +121,78 @@ const submitForm = async () => {
               </template>
             </ul>
           </div>
-          <v-form
-            fast-fail
-            lazy-validation
-            ref="contactForm"
-            @submit.prevent="submitForm"
-          >
-            <lazy-admin-shared-field-label>
-              Your awesome name?
-            </lazy-admin-shared-field-label>
-            <v-text-field
-              flat
-              :rules="rules['firstNameRules']"
-              v-model="form['name']"
-              bg-color="transparent"
-              placeholder="e.g. John Doe"
-              :loading="loading"
-              :disabled="loading"
-            ></v-text-field>
-            <lazy-admin-shared-field-label>
-              Tell me your fancy email address?
-            </lazy-admin-shared-field-label>
-            <v-text-field
-              flat
-              :rules="rules['emailRules']"
-              v-model="form['email']"
-              bg-color="transparent"
-              placeholder="e.g. john.doe@example.com"
-              :loading="loading"
-              :disabled="loading"
-            ></v-text-field>
-            <lazy-admin-shared-field-label>
-              So, what are services are you interested in?
-            </lazy-admin-shared-field-label>
-            <v-textarea
-              flat
-              :rules="rules['messageRules']"
-              v-model="form['message']"
-              bg-color="transparent"
-              :loading="loading"
-              :disabled="loading"
-              rows="2"
-              auto-grow
-              placeholder="e.g. Lorem ipsum dolor :)"
-            ></v-textarea>
-            <v-row justify="end">
-              <v-hover v-slot="{ isHovering, props }">
-                <v-btn
-                  v-bind="props"
-                  type="submit"
-                  rounded="lg"
-                  color="primary"
-                  variant="flat"
-                  class="px-10"
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-card>
+            <v-card-text class="py-10 px-6">
+              <v-form
+                fast-fail
+                lazy-validation
+                ref="contactForm"
+                @submit.prevent="submitForm"
+              >
+                <lazy-admin-shared-field-label>
+                  Your awesome name?
+                </lazy-admin-shared-field-label>
+                <v-text-field
+                  flat
+                  :rules="rules['firstNameRules']"
+                  v-model="form['name']"
+                  bg-color="transparent"
+                  placeholder="e.g. John Doe"
                   :loading="loading"
                   :disabled="loading"
-                >
-                  Send Message
-                  <v-icon
-                    :class="isHovering ? 'ml-4' : 'ml-2'"
-                    style="transition: all 100ms linear"
-                    ><Icon icon="mdi:arrow-right"
-                  /></v-icon>
-                </v-btn>
-              </v-hover>
-            </v-row>
-          </v-form>
+                ></v-text-field>
+                <lazy-admin-shared-field-label>
+                  Tell me your fancy email address?
+                </lazy-admin-shared-field-label>
+                <v-text-field
+                  flat
+                  :rules="rules['emailRules']"
+                  v-model="form['email']"
+                  bg-color="transparent"
+                  placeholder="e.g. john.doe@example.com"
+                  :loading="loading"
+                  :disabled="loading"
+                ></v-text-field>
+                <lazy-admin-shared-field-label>
+                  So, what are services are you interested in?
+                </lazy-admin-shared-field-label>
+                <v-textarea
+                  flat
+                  :rules="rules['messageRules']"
+                  v-model="form['message']"
+                  bg-color="transparent"
+                  :loading="loading"
+                  :disabled="loading"
+                  rows="2"
+                  auto-grow
+                  placeholder="e.g. Lorem ipsum dolor :)"
+                ></v-textarea>
+                <v-row justify="end">
+                  <v-hover v-slot="{ isHovering, props }">
+                    <v-btn
+                      v-bind="props"
+                      type="submit"
+                      rounded="lg"
+                      color="primary"
+                      variant="flat"
+                      class="px-10"
+                      :loading="loading"
+                      :disabled="loading"
+                    >
+                      Send Message
+                      <v-icon
+                        :class="isHovering ? 'ml-4' : 'ml-2'"
+                        style="transition: all 100ms linear"
+                        ><Icon icon="mdi:arrow-right"
+                      /></v-icon>
+                    </v-btn>
+                  </v-hover>
+                </v-row>
+              </v-form>
+            </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>

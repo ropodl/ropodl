@@ -103,13 +103,6 @@ const tags = [
             placeholder="Summarize the post in 255 letters"
           ></v-textarea>
           <lazy-admin-shared-field-label>
-            Blog Category
-          </lazy-admin-shared-field-label>
-          <v-select
-            placeholder="Select a category"
-            :items="['Test', 'why']"
-          ></v-select>
-          <lazy-admin-shared-field-label>
             Blog Content
           </lazy-admin-shared-field-label>
           <v-card flat class="ext-editor mb-6">
@@ -120,35 +113,51 @@ const tags = [
           <lazy-admin-shared-field-label>
             Blog Tags
           </lazy-admin-shared-field-label>
-          <v-autocomplete
-            v-model="tag"
-            :items="tags"
-            placeholder="Select multiple tags for the blog"
-            item-title="name"
-            item-value="name"
-            chips
-            closable-chips
-            multiple
-          >
-            <template v-slot:chip="{ props, item }">
-              <v-chip
-                v-bind="props"
-                size="large"
-                :text="item.raw.name"
-              ></v-chip>
-            </template>
-
-            <template v-slot:item="{ props, item }">
-              <v-list-item
-                v-bind="props"
-                :subtitle="item.raw.group"
-                :title="item.raw.name"
-              ></v-list-item>
-            </template>
-          </v-autocomplete>
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form />
+          <v-card class="mb-3">
+            <v-card-title>Category</v-card-title>
+            <v-divider></v-divider>
+            <v-card-text class="pb-0">
+              <v-select
+                placeholder="Select a category"
+                :items="['Test', 'why']"
+              ></v-select>
+            </v-card-text>
+          </v-card>
+          <v-card class="mb-3">
+            <v-card-title>Tags</v-card-title>
+            <v-divider></v-divider>
+            <v-card-text class="pb-0">
+              <v-autocomplete
+                v-model="tag"
+                :items="tags"
+                placeholder="Select multiple tags for the blog"
+                item-title="name"
+                item-value="name"
+                chips
+                closable-chips
+                multiple
+              >
+                <template v-slot:chip="{ props, item }">
+                  <v-chip
+                    v-bind="props"
+                    size="large"
+                    :text="item.raw.name"
+                  ></v-chip>
+                </template>
+
+                <template v-slot:item="{ props, item }">
+                  <v-list-item
+                    v-bind="props"
+                    :subtitle="item.raw.group"
+                    :title="item.raw.name"
+                  ></v-list-item>
+                </template>
+              </v-autocomplete>
+            </v-card-text>
+          </v-card>
           <LazyAdminSharedImageUpload
             title="Upload Featured Image"
             :form
