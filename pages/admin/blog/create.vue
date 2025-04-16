@@ -76,6 +76,9 @@ const tags = [
   { name: "John Smith", group: "Group 2", avatar: srcs[1] },
   { name: "Sandra Williams", group: "Group 2", avatar: srcs[3] },
 ];
+
+const current = ref("");
+const categories = ref(["test", "asd"]);
 </script>
 <template>
   <v-container :fluid="isFluid">
@@ -110,20 +113,18 @@ const tags = [
               <lazy-admin-shared-quill-editor v-model:content="form.content" />
             </ClientOnly>
           </v-card>
-          <lazy-admin-shared-field-label>
-            Blog Tags
-          </lazy-admin-shared-field-label>
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form />
           <v-card class="mb-3">
             <v-card-title>Category</v-card-title>
             <v-divider></v-divider>
-            <v-card-text class="pb-0">
+            <v-card-text>
               <v-select
                 placeholder="Select a category"
                 :items="['Test', 'why']"
               ></v-select>
+              <v-btn block>Add New Category</v-btn>
             </v-card-text>
           </v-card>
           <v-card class="mb-3">
@@ -164,6 +165,62 @@ const tags = [
             bucket="blogs"
             type="featured_image"
           />
+          <v-card>
+            <v-card-title>Featured Image</v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-dialog scrollable scrim="black" height="90vh">
+                <template v-slot:activator="{ props: activatorProps }">
+                  <v-btn v-bind="activatorProps" text="Open Dialog"></v-btn>
+                </template>
+                <template v-slot:default="{ isActive }">
+                  <v-card>
+                    <v-card-title class="mb-3"
+                      >Upload Featured Image</v-card-title
+                    >
+                    <v-btn
+                      size="small"
+                      icon="mdi-close"
+                      class="position-absolute"
+                      style="top: 5px; right: 5px"
+                    ></v-btn>
+                    <v-card-text class="py-0" style="flex: none !important">
+                      <v-card
+                        border
+                        class="pa-1"
+                        style="max-width: max-content"
+                      >
+                        <v-tabs
+                          v-model="current"
+                          color="primary"
+                          density="compact"
+                          hide-slider
+                          show-arrows
+                          rounded="lg"
+                        >
+                          <template v-for="item in categories">
+                            <v-tab
+                              color="primary"
+                              rounded="lg"
+                              class="px-12"
+                              :value="item"
+                              :variant="current === item ? 'tonal' : 'text'"
+                            >
+                              {{ item }}
+                              {{ current }}
+                            </v-tab>
+                          </template>
+                        </v-tabs>
+                      </v-card>
+                    </v-card-text>
+                    <v-card-text class="fill-height">
+                      <v-file-upload class="fill-height"></v-file-upload>
+                    </v-card-text>
+                  </v-card>
+                </template>
+              </v-dialog>
+            </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
     </v-form>
