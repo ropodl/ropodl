@@ -1,11 +1,10 @@
-import { vuetifyOptions } from "./utils/module/vuetify.ts";
-import { BSDateAdapter } from './utils/module/adapter/nepaliAdapter.ts'
+import { vuetifyOptions } from "./app/utils/module/vuetify.ts";
 
 export default defineNuxtConfig({
   ssr: true,
-  // future: {
-  // compatibilityVersion: 4
-  // },
+  future: {
+    compatibilityVersion: 4
+  },
   app: {
     head: {
       charset: "utf-8",
@@ -147,3 +146,4 @@ export default defineNuxtConfig({
     },
   },
 });
+
