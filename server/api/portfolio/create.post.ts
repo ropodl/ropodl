@@ -1,5 +1,5 @@
 import { serverSupabaseClient } from "#supabase/server";
-import { getSlug } from "~/server/utils/slugify";
+import { getSlug } from "../../utils/slugify";
 
 export default defineEventHandler(async (event) => {
   const form = <any>await readBody(event);

@@ -32,7 +32,7 @@ const pages = [
 ];
 </script>
 <template>
-  <v-container class="position-fixed left-0 right-0" style="z-index: 1008">
+  <v-container class="position-fixed left-0 right-0 py-0" style="z-index: 1008">
     <v-row align="center">
       <v-col class="pa-0">
         <v-card
@@ -78,8 +78,8 @@ const pages = [
                     route.fullPath.includes(title) ? 'text-brand' : 'text-white'
                   "
                 >
-                  {{ title
-                  }}<span :class="isHovering ? 'text-brand' : ''">.</span>
+                  {{ title }}
+                  <span :class="isHovering ? 'text-brand' : ''">.</span>
                 </span>
               </v-btn>
             </v-hover>
