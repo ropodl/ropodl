@@ -13,6 +13,10 @@ export const useAdminBlogStore = defineStore(
         title: "Title",
         key: "title",
       },
+      {
+        title: "Category",
+        key: "category",
+      },
       { title: "Created At", key: "created_at", align: "center", width: 150 },
       {
         title: "Status",
@@ -32,9 +36,9 @@ export const useAdminBlogStore = defineStore(
     const showFilters = ref(false);
     const filters = ref({
       status: null,
-      date: null
+      date: null,
     });
-    const searching = ref(false)
+    const searching = ref(false);
     const loading = ref(false);
     // computed
     const isFiltered = computed(() => {
@@ -42,7 +46,8 @@ export const useAdminBlogStore = defineStore(
     });
     const currentDisplayedRange = computed(() => {
       const start =
-        (pagination.value?.currentPage - 1) * pagination.value?.itemsPerPage + 1;
+        (pagination.value?.currentPage - 1) * pagination.value?.itemsPerPage +
+        1;
       const end = Math.min(
         pagination.value?.currentPage * pagination.value?.itemsPerPage,
         pagination.value?.totalItems
@@ -50,25 +55,30 @@ export const useAdminBlogStore = defineStore(
       return { start, end };
     });
     // watch
-    watch(filters, () => {
-      pagination.value.currentPage = 1;
-      all('')
-    }, {
-      deep: true
-    })
+    watch(
+      filters,
+      () => {
+        pagination.value.currentPage = 1;
+        all("");
+      },
+      {
+        deep: true,
+      }
+    );
     // methods
     const all = (sortBy: any, search?: string) => {
       loading.value = true;
-      useAxios.get("/api/blog", {
-        query: {
-          page: pagination.value?.currentPage || 1,
-          itemsPerPage: pagination.value?.itemsPerPage || 10,
-          sortBy,
-          search,
-          status: filters.value?.status,
-          date: filters.value?.date
-        },
-      })
+      useAxios
+        .get("/api/blog", {
+          query: {
+            page: pagination.value?.currentPage || 1,
+            itemsPerPage: pagination.value?.itemsPerPage || 10,
+            sortBy,
+            search,
+            status: filters.value?.status,
+            date: filters.value?.date,
+          },
+        })
         .then((res: any) => {
           blogs.value = res.blogs;
           pagination.value = res.pagination;
@@ -81,7 +91,7 @@ export const useAdminBlogStore = defineStore(
     const resetFilters = () => {
       filters.value = {
         status: null,
-        date: null
+        date: null,
       };
     };
 
@@ -96,7 +106,7 @@ export const useAdminBlogStore = defineStore(
       searching,
       currentDisplayedRange,
       all,
-      resetFilters
+      resetFilters,
     };
   },
   {

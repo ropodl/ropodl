@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { itemsPerPageOptions } from "@/utils/constants";
-// useAdminBlogStore
-const blog = useAdminBlogStore();
+
+const tag = useAdminTagStore();
 const {
-  blogs: items,
+  tags: items,
   loading,
   pagination,
   showFilters,
@@ -12,8 +12,8 @@ const {
   headers,
   searching,
   currentDisplayedRange,
-} = storeToRefs(blog);
-const { all, resetFilters } = blog;
+} = storeToRefs(tag);
+const { all, resetFilters } = tag;
 
 const appearance = useAdminAppearanceStore();
 const { isFluid } = storeToRefs(appearance);
@@ -39,13 +39,13 @@ interface Options {
     order: string;
   }>;
 }
-const loadBlogs = (options: Options) => {
+const loadTags = (options: Options) => {
   all(options.sortBy || []);
 };
 
 const removeId = (id: string) => {
   useAxios
-    .delete(`/api/blog/${id}`)
+    .delete(`/api/tag/${id}`)
     .then(() => {})
     .catch(() => {});
 };
@@ -56,7 +56,7 @@ const getColor = (item: boolean) => {
 
 const reload = () => {
   if (pagination.value) pagination.value.currentPage = 1;
-  loadBlogs({
+  loadTags({
     sortBy: [],
   });
 };
@@ -67,12 +67,8 @@ const breadcrumbs = [
     to: "/admin/",
   },
   {
-    title: "All blogs",
-    to: "/admin/blog",
-  },
-  {
-    title: "Category",
-    to: "/admin/blog/category",
+    title: "Tag",
+    to: "/admin/blog/tag",
   },
 ];
 // search logic
@@ -91,8 +87,8 @@ const searchFn = useDebounceFn(async () => {
 </script>
 <template>
   <v-container :fluid="isFluid">
-    <lazy-admin-layout-page-title title="All Tags" :items="breadcrumbs">
-      <v-btn color="primary" class="text-capitalize" to="/admin/blog/create">
+    <lazy-admin-layout-page-title title="Tag" :items="breadcrumbs">
+      <v-btn color="primary" class="text-capitalize" to="/admin/tag/create">
         Add new
       </v-btn>
     </lazy-admin-layout-page-title>
@@ -226,7 +222,7 @@ const searchFn = useDebounceFn(async () => {
             :search="debouncedSearch"
             hide-default-footer
             item-value="id"
-            @update:options="loadBlogs"
+            @update:options="loadTags"
           >
             <template #item.created_at="{ item: { created_at } }">
               {{ useDateFormat(created_at, "MMM DD, YYYY") }}
@@ -241,7 +237,7 @@ const searchFn = useDebounceFn(async () => {
               </v-chip>
             </template>
             <template #item.actions="{ item: { id, title } }">
-              <lazy-admin-shared-blogs-preview-post :id />
+              <!-- <lazy-admin-shared-blogs-preview-post :id /> -->
               <v-btn
                 v-tooltip="'Edit Post'"
                 icon="mdi-pencil"
