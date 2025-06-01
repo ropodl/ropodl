@@ -1,65 +1,100 @@
 import { serverSupabaseClient } from "#supabase/server";
 
-interface Pagination {
-  itemsPerPage: number;
-  currentPage: number;
-  totalItems: number;
-  totalPages: number;
-}
-
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  created_at: string;
-}
-
-interface ResponseData {
-  blogs: Blog[];
-  pagination: Pagination;
-}
+// Cache client instance to avoid repeated initialization
+let cachedClient: any = null;
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
-  const client = await serverSupabaseClient(event);
 
-  const page = <number>parseInt(query.page as string) || 1;
-  const itemsPerPage = <number>parseInt(query.itemsPerPage as string) || 10;
-  const sortBy = <string>(query.sortBy || 'created_at');
+  // Reuse client instance when possible
+  if (!cachedClient) {
+    cachedClient = await serverSupabaseClient(event);
+  }
+  const client = cachedClient;
+
+  // Parse and validate parameters with defaults
+  const page = Math.max(1, parseInt(query.page as string) || 1);
+  const itemsPerPage = Math.min(
+    100,
+    Math.max(1, parseInt(query.itemsPerPage as string) || 10)
+  ); // Cap at 100
+  const sortBy = (query.sortBy as string) || "created_at";
   const order = query.order === "asc";
-  const search = <string>(query.search || null);
-  const status = <string>(query.status || null);
+  const search = query.search ? (query.search as string).trim() : null;
+  const status = query.status ? (query.status as string).trim() : null;
 
   const from = (page - 1) * itemsPerPage;
   const to = from + itemsPerPage - 1;
 
-  let call = client
-    .from("blogs")
-    .select("id, created_at, title, status", { count: "exact" })
+  // Validate sortBy to prevent injection
+  const allowedSortFields = ["created_at", "title", "status"];
+  const safeSortBy = allowedSortFields.includes(sortBy) ? sortBy : "created_at";
 
-  if (search) call = call.ilike('title', `%${search}%`);
+  try {
+    // Build query with optimized select - only fetch what's needed
+    let queryBuilder = client.from("blogs").select(
+      `
+        id,
+        created_at,
+        title,
+        status,
+        category!inner(title)
+      `,
+      { count: "exact" }
+    );
 
-  if (status) call = call.eq("status", status)
+    // Apply filters efficiently
+    if (search && search.length >= 2) {
+      // Minimum search length for performance
+      queryBuilder = queryBuilder.ilike("title", `%${search}%`);
+    }
 
-  call = call.order(sortBy, { ascending: order }).range(from, to)
+    if (status) {
+      queryBuilder = queryBuilder.eq("status", status);
+    }
 
-  const { data: blogs, error, count } = await call;
+    // Apply sorting and pagination
+    const {
+      data: blogs,
+      error,
+      count,
+    } = await queryBuilder
+      .order(safeSortBy, { ascending: order })
+      .range(from, to);
 
-  if (error) {
+    if (error) {
+      throw createError({
+        statusCode: error.code ? parseInt(error.code) : 500,
+        statusMessage: error.message || "Database query failed",
+      });
+    }
+
+    // Transform data to match expected format
+    const transformedBlogs =
+      blogs?.map((blog: any) => ({
+        id: blog.id,
+        created_at: blog.created_at,
+        title: blog.title,
+        status: blog.status,
+        category: blog.category?.title || null,
+      })) || [];
+
+    const totalPages = count ? Math.ceil(count / itemsPerPage) : 0;
+
+    return {
+      blogs: transformedBlogs,
+      pagination: {
+        itemsPerPage,
+        currentPage: page,
+        totalItems: count || 0,
+        totalPages,
+      },
+    };
+  } catch (err: any) {
+    // Enhanced error handling
     throw createError({
-      statusCode: parseInt(error.code),
-      statusMessage: error.message,
+      statusCode: err.statusCode || 500,
+      statusMessage: err.statusMessage || "Internal server error",
     });
   }
-
-  return {
-    blogs: blogs || [],
-    pagination: {
-      itemsPerPage,
-      currentPage: page,
-      totalItems: count || 0,
-      totalPages: count ? Math.ceil(count / itemsPerPage) : 0,
-    },
-  };
-}
-);
+});

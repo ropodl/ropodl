@@ -1,7 +1,7 @@
 export const useAdminBlogCategoryStore = defineStore(
   "useAdminBlogCategoryStore",
   () => {
-    const blogs = ref([]);
+    const categories = ref([]);
     const pagination = ref({
       itemsPerPage: 10,
       currentPage: 1,
@@ -12,10 +12,11 @@ export const useAdminBlogCategoryStore = defineStore(
       {
         title: "Title",
         key: "title",
-      }, {
+      },
+      {
         title: "Count",
         key: "count",
-        align: "center"
+        align: "center",
       },
       { title: "Created At", key: "created_at", align: "center", width: 150 },
       {
@@ -36,9 +37,9 @@ export const useAdminBlogCategoryStore = defineStore(
     const showFilters = ref(false);
     const filters = ref({
       status: null,
-      date: null
+      date: null,
     });
-    const searching = ref(false)
+    const searching = ref(false);
     const loading = ref(false);
     // computed
     const isFiltered = computed(() => {
@@ -46,7 +47,8 @@ export const useAdminBlogCategoryStore = defineStore(
     });
     const currentDisplayedRange = computed(() => {
       const start =
-        (pagination.value?.currentPage - 1) * pagination.value?.itemsPerPage + 1;
+        (pagination.value?.currentPage - 1) * pagination.value?.itemsPerPage +
+        1;
       const end = Math.min(
         pagination.value?.currentPage * pagination.value?.itemsPerPage,
         pagination.value?.totalItems
@@ -54,27 +56,32 @@ export const useAdminBlogCategoryStore = defineStore(
       return { start, end };
     });
     // watch
-    watch(filters, () => {
-      pagination.value.currentPage = 1;
-      all('')
-    }, {
-      deep: true
-    })
+    watch(
+      filters,
+      () => {
+        pagination.value.currentPage = 1;
+        all("");
+      },
+      {
+        deep: true,
+      }
+    );
     // methods
     const all = (sortBy: any, search?: string) => {
       loading.value = true;
-      useAxios.get("/api/blog-category", {
-        query: {
-          page: pagination.value?.currentPage || 1,
-          itemsPerPage: pagination.value?.itemsPerPage || 10,
-          sortBy,
-          search,
-          status: filters.value?.status,
-          date: filters.value?.date
-        },
-      })
+      useAxios
+        .get("/api/blog-category", {
+          query: {
+            page: pagination.value?.currentPage || 1,
+            itemsPerPage: pagination.value?.itemsPerPage || 10,
+            sortBy,
+            search,
+            status: filters.value?.status,
+            date: filters.value?.date,
+          },
+        })
         .then((res: any) => {
-          blogs.value = res.blogs;
+          categories.value = res.categories;
           pagination.value = res.pagination;
         })
         .finally(() => {
@@ -85,13 +92,13 @@ export const useAdminBlogCategoryStore = defineStore(
     const resetFilters = () => {
       filters.value = {
         status: null,
-        date: null
+        date: null,
       };
     };
 
     return {
       headers,
-      blogs,
+      categories,
       pagination,
       loading,
       showFilters,
@@ -100,7 +107,7 @@ export const useAdminBlogCategoryStore = defineStore(
       searching,
       currentDisplayedRange,
       all,
-      resetFilters
+      resetFilters,
     };
   },
   {
@@ -109,5 +116,7 @@ export const useAdminBlogCategoryStore = defineStore(
 );
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useAdminBlogStore, import.meta.hot));
+  import.meta.hot.accept(
+    acceptHMRUpdate(useAdminBlogCategoryStore, import.meta.hot)
+  );
 }

@@ -3,7 +3,7 @@ import { itemsPerPageOptions } from "@/utils/constants";
 
 const blog = useAdminBlogCategoryStore();
 const {
-  blogs: items,
+  categories: items,
   loading,
   pagination,
   showFilters,

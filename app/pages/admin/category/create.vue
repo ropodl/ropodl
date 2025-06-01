@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 const appearance = useAdminAppearanceStore();
 const { isFluid } = storeToRefs(appearance);
+
+definePageMeta({
+  layout: "admin",
+});
+useHead({
+  title: "Add New Tag",
+});
 </script>
 <template>
   <v-container :fluid="isFluid">

@@ -11,7 +11,7 @@ useHead({
 });
 
 const rules = {
-  title: [(v: any) => !!v || "Name is required"],
+  title: [(v: string) => !!v || "Name is required"],
 };
 
 const form = ref({

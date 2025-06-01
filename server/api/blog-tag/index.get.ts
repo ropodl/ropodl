@@ -19,8 +19,8 @@ export default defineEventHandler(async (event) => {
   const to = from + itemsPerPage - 1;
 
   try {
-    // Single optimized query using LEFT JOIN to get categories with their usage counts
-    const queryBuilder = client.from("blogs_category").select(
+    // Single optimized query using LEFT JOIN to get tags with their usage counts
+    const queryBuilder = client.from("blogs_tag").select(
       `
         id,
         created_at,
@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
 
     // Apply sorting and pagination
     const {
-      data: categories,
+      data: tags,
       error,
       count,
     } = await queryBuilder.order(sortBy, { ascending: order }).range(from, to);
@@ -53,19 +53,18 @@ export default defineEventHandler(async (event) => {
         statusMessage: error.message,
       });
     }
-    console.log(typeof categories[0].blogs);
 
     // Transform the data to include usage counts
-    const transformedCategories = (categories || []).map((cat: any) => ({
-      id: cat.id,
-      created_at: cat.created_at,
-      title: cat.title,
-      status: cat.status,
-      count: cat.blogs[0].count || 0,
+    const transformedTags = (tags || []).map((tag: any) => ({
+      id: tag.id,
+      created_at: tag.created_at,
+      title: tag.title,
+      status: tag.status,
+      count: tag.blogs?.length || 0,
     }));
 
     return {
-      categories: transformedCategories,
+      tags: transformedTags,
       pagination: {
         itemsPerPage,
         currentPage: page,

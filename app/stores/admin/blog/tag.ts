@@ -1,7 +1,9 @@
-export const useAdminBlogStore = defineStore(
-  "useAdminBlogStore",
+import { defineStore } from "pinia";
+
+export const useAdminTagStore = defineStore(
+  "useAdminBlogTagStore",
   () => {
-    const blogs = ref([]);
+    const tags = ref([]);
     const pagination = ref({
       itemsPerPage: 10,
       currentPage: 1,
@@ -14,8 +16,9 @@ export const useAdminBlogStore = defineStore(
         key: "title",
       },
       {
-        title: "Category",
-        key: "category",
+        title: "Count",
+        key: "count",
+        align: "center",
       },
       { title: "Created At", key: "created_at", align: "center", width: 150 },
       {
@@ -30,7 +33,7 @@ export const useAdminBlogStore = defineStore(
         key: "actions",
         align: "center",
         sortable: false,
-        width: 200,
+        width: 150,
       },
     ]);
     const showFilters = ref(false);
@@ -40,6 +43,7 @@ export const useAdminBlogStore = defineStore(
     });
     const searching = ref(false);
     const loading = ref(false);
+
     // computed
     const isFiltered = computed(() => {
       return Object.values(filters.value).some((item) => item !== null);
@@ -54,6 +58,7 @@ export const useAdminBlogStore = defineStore(
       );
       return { start, end };
     });
+
     // watch
     watch(
       filters,
@@ -61,15 +66,13 @@ export const useAdminBlogStore = defineStore(
         pagination.value.currentPage = 1;
         all("");
       },
-      {
-        deep: true,
-      }
+      { deep: true }
     );
-    // methods
+
     const all = (sortBy: any, search?: string) => {
       loading.value = true;
       useAxios
-        .get("/api/blog", {
+        .get("/api/blog-tag", {
           query: {
             page: pagination.value?.currentPage || 1,
             itemsPerPage: pagination.value?.itemsPerPage || 10,
@@ -80,7 +83,7 @@ export const useAdminBlogStore = defineStore(
           },
         })
         .then((res: any) => {
-          blogs.value = res.blogs;
+          tags.value = res.tags;
           pagination.value = res.pagination;
         })
         .finally(() => {
@@ -96,14 +99,14 @@ export const useAdminBlogStore = defineStore(
     };
 
     return {
-      headers,
-      blogs,
+      tags,
       pagination,
-      loading,
+      headers,
       showFilters,
       filters,
-      isFiltered,
       searching,
+      loading,
+      isFiltered,
       currentDisplayedRange,
       all,
       resetFilters,
@@ -115,5 +118,5 @@ export const useAdminBlogStore = defineStore(
 );
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useAdminBlogStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useAdminTagStore, import.meta.hot));
 }

@@ -3,7 +3,7 @@ import { vuetifyOptions } from "./app/utils/module/vuetify.ts";
 export default defineNuxtConfig({
   ssr: true,
   future: {
-    compatibilityVersion: 4
+    compatibilityVersion: 4,
   },
   app: {
     head: {
@@ -75,11 +75,11 @@ export default defineNuxtConfig({
     },
   },
   vuetify: {
-    vuetifyOptions: vuetifyOptions
+    vuetifyOptions: vuetifyOptions,
   },
   site: {
     url: "https://ropodl.com/",
-    name: "Saroj Poudel"
+    name: "Saroj Poudel",
   },
   sitemap: {
     sitemapName: "sitemap.xml",
@@ -116,7 +116,7 @@ export default defineNuxtConfig({
     },
   },
   pinia: {
-    storesDirs: ["./stores/**"],
+    storesDirs: ["./app/stores/**"],
   },
   piniaPersistedstate: {
     storage: "localStorage",
@@ -125,15 +125,15 @@ export default defineNuxtConfig({
     minify: true,
     experimental: {
       websocket: true,
-      openAPI: true
+      openAPI: true,
     },
     openAPI: {
       ui: {
         scalar: {
-          theme: 'purple'
-        }
-      }
-    }
+          theme: "purple",
+        },
+      },
+    },
   },
   compatibilityDate: "2024-11-18",
   vite: {
@@ -146,4 +146,3 @@ export default defineNuxtConfig({
     },
   },
 });
-
