@@ -2,14 +2,14 @@
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
-const content = defineModel("content");
+const content = defineModel();
 </script>
 <template>
   <QuillEditor
     theme="snow"
     toolbar="full"
     content-type="html"
-    v-model:content="content"
+    v-model="content"
     style="min-height: 500px"
   ></QuillEditor>
 </template>

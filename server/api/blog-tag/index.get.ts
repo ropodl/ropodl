@@ -4,78 +4,74 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event);
   const client = await serverSupabaseClient(event);
 
-  // Parse and validate parameters
-  const page = Math.max(1, parseInt(query.page as string) || 1);
-  const itemsPerPage = Math.min(
-    100,
-    Math.max(1, parseInt(query.itemsPerPage as string) || 10)
-  );
-  const sortBy = (query.sortBy as string) || "created_at";
+  const page = <number>parseInt(query.page as string) || 1;
+  const itemsPerPage = <number>parseInt(query.itemsPerPage as string) || 10;
+  const sortBy = <string>(query.sortBy || "created_at");
   const order = query.order === "asc";
-  const search = query.search ? (query.search as string).trim() : null;
-  const status = query.status ? (query.status as string) : null;
+  const search = <string>(query.search || null);
+  const status = <string>(query.status || null);
 
   const from = (page - 1) * itemsPerPage;
   const to = from + itemsPerPage - 1;
 
-  try {
-    // Single optimized query using LEFT JOIN to get tags with their usage counts
-    const queryBuilder = client.from("blogs_tag").select(
-      `
-        id,
-        created_at,
-        title,
-        status,
-        blogs!left(count)
-      `,
-      { count: "exact" }
-    );
+  let call = client
+    .from("blogs_tag")
+    .select("id, created_at, title, status", { count: "exact" });
 
-    // Apply filters
-    if (search) {
-      queryBuilder.ilike("title", `%${search}%`);
-    }
+  if (search) call = call.ilike("title", `%${search}%`);
 
-    if (status) {
-      queryBuilder.eq("status", status);
-    }
+  if (status) call = call.eq("status", status);
 
-    // Apply sorting and pagination
-    const {
-      data: tags,
-      error,
-      count,
-    } = await queryBuilder.order(sortBy, { ascending: order }).range(from, to);
+  call = call.order(sortBy, { ascending: order }).range(from, to);
 
-    if (error) {
+  const { data: tags, error, count } = await call;
+
+  if (tags && tags.length > 0) {
+    const tagIds = tags.map((cat: any) => cat.id);
+
+    // Query to count usage of each category in the "blogs" table (column is "category")
+    const { data: usageCounts, error: usageError } = await client
+      .from("blogs")
+      .select("tag, count:tag", { count: "exact" })
+      .in("tag", tagIds);
+
+    if (usageError) {
       throw createError({
-        statusCode: parseInt(error.code) || 500,
-        statusMessage: error.message,
+        statusCode: parseInt(usageError.code),
+        statusMessage: usageError.message,
       });
     }
 
-    // Transform the data to include usage counts
-    const transformedTags = (tags || []).map((tag: any) => ({
-      id: tag.id,
-      created_at: tag.created_at,
-      title: tag.title,
-      status: tag.status,
-      count: tag.blogs?.length || 0,
-    }));
+    // Map category id to count
+    const usageMap: Record<number, number> = {};
+    (usageCounts || []).forEach((row: any) => {
+      usageMap[row.tag] = row.count;
+      // If count is returned as a string, convert to number
+      if (typeof row.count === "string") {
+        usageMap[row.tag] = parseInt(row.count, 10);
+      }
+    });
 
-    return {
-      tags: transformedTags,
-      pagination: {
-        itemsPerPage,
-        currentPage: page,
-        totalItems: count || 0,
-        totalPages: count ? Math.ceil(count / itemsPerPage) : 0,
-      },
-    };
-  } catch (err: any) {
-    throw createError({
-      statusCode: err.statusCode || 500,
-      statusMessage: err.statusMessage || "Internal server error",
+    // Add count to each category
+    tags.forEach((tag: any) => {
+      tag.count = usageMap[tag.id] || 0;
     });
   }
+
+  if (error) {
+    throw createError({
+      statusCode: parseInt(error.code),
+      statusMessage: error.message,
+    });
+  }
+
+  return {
+    tags: tags || [],
+    pagination: {
+      itemsPerPage,
+      currentPage: page,
+      totalItems: count || 0,
+      totalPages: count ? Math.ceil(count / itemsPerPage) : 0,
+    },
+  };
 });
