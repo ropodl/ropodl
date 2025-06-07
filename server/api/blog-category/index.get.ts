@@ -53,7 +53,6 @@ export default defineEventHandler(async (event) => {
         statusMessage: error.message,
       });
     }
-    console.log(typeof categories[0].blogs);
 
     // Transform the data to include usage counts
     const transformedCategories = (categories || []).map((cat: any) => ({
