@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { setSnackbar } = useSnackbarStore();
 const appearance = useAdminAppearanceStore();
 const { isFluid } = storeToRefs(appearance);
 
@@ -36,6 +37,10 @@ const addBlog = async () => {
         data: form.value,
       })
       .then((res) => {
+        setSnackbar(
+          "Blog created successfully, navigating to edit page",
+          "success"
+        );
         navigateTo("/admin/blog/" + res.id);
       })
       .catch((err) => {

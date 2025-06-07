@@ -5,6 +5,10 @@ defineProps({
     type: String,
     default: "",
   },
+  multiple: {
+    type: Boolean,
+    default: false,
+  },
   form: {
     type: Object,
     required: true,
@@ -18,14 +22,90 @@ const tabs = ref([
     value: 0,
   },
   {
-    title: "All Media",
+    title: "Media Library",
     value: 1,
+  },
+]);
+
+const selectedImages = ref([]);
+// test
+const example = ref([
+  {
+    id: "as",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "sd",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "df",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "fg",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "gh",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "hj",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "jk",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "kl",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "qw",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "we",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "er",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
+  },
+  {
+    id: "rt",
+    title: "Hi my name is",
+    created_at: "2021/1/1/1",
+    size: "123kb",
   },
 ]);
 </script>
 <template>
-  <v-card>
-    <v-card-title>{{ title }}</v-card-title>
+  <v-card :title>
     <v-divider></v-divider>
     <v-card-text>
       <template v-if="form.featured_image && form.featured_image.url">
@@ -37,7 +117,7 @@ const tabs = ref([
         ></v-img>
       </template>
       <template v-else>
-        <v-dialog scrollable scrim="black" height="900">
+        <v-dialog scrollable persistent scrim="black" height="95vh">
           <template v-slot:activator="{ props: activatorProps }">
             <v-btn
               v-bind="activatorProps"
@@ -56,7 +136,7 @@ const tabs = ref([
                   @click="isActive.value = false"
                 ></v-btn>
               </v-card-title>
-              <v-card-title class="pt-0">
+              <v-card-title class="py-0">
                 <v-card class="pa-1" style="max-width: max-content">
                   <v-tabs
                     v-model="tab"
@@ -80,24 +160,94 @@ const tabs = ref([
                   </v-tabs>
                 </v-card>
               </v-card-title>
-              <v-card-text class="fill-height">
-                <v-tabs-window
-                  v-model="tab"
+              <v-tabs-window
+                v-model="tab"
+                class="fill-height"
+                :transition="false"
+              >
+                <v-tabs-window-item
+                  :value="0"
                   class="fill-height"
-                  :transition="false"
+                  transition="none"
+                  reverse-transition="none"
                 >
-                  <v-tabs-window-item
-                    :value="0"
-                    class="fill-height"
-                    transition="none"
-                  >
+                  <v-card-text class="fill-height">
                     <v-file-upload class="fill-height"></v-file-upload>
-                  </v-tabs-window-item>
-                  <v-tabs-window-item :value="1" transition="none">
-                    hi again
-                  </v-tabs-window-item>
-                </v-tabs-window>
-              </v-card-text>
+                  </v-card-text>
+                </v-tabs-window-item>
+                <v-tabs-window-item
+                  :value="1"
+                  transition="none"
+                  reverse-transition="none"
+                  class="overflow-scroll"
+                >
+                  <v-card-text v-auto-animate>
+                    <v-row v-auto-animate>
+                      <v-col
+                        cols="12"
+                        :md="selectedImages ? 9 : 12"
+                        v-auto-animate
+                      >
+                        <v-item-group
+                          v-model="selectedImages"
+                          :multiple
+                          v-auto-animate
+                        >
+                          <v-row v-auto-animate>
+                            <template v-for="(item, i) in example" :key="i">
+                              <v-col cols="12" md="3">
+                                <v-item
+                                  :value="item"
+                                  v-slot="{ isSelected, toggle }"
+                                >
+                                  <v-card
+                                    border
+                                    :border-color="
+                                      isSelected ? 'primary' : 'warning'
+                                    "
+                                    @click="toggle"
+                                  >
+                                    <v-img
+                                      cover
+                                      height="150"
+                                      src="https://wuhpdygzsumkrgmakgqr.supabase.co/storage/v1/object/public/blogs/featured_image/2023/12/24/android_toy.jpg"
+                                    >
+                                      <template v-if="isSelected">
+                                        <v-checkbox
+                                          color="primary"
+                                          :model-value="isSelected"
+                                          density="comfortable"
+                                          hide-details
+                                        ></v-checkbox>
+                                      </template>
+                                    </v-img>
+                                  </v-card>
+                                </v-item>
+                              </v-col>
+                            </template>
+                          </v-row>
+                        </v-item-group>
+                      </v-col>
+                      <template v-if="selectedImages">
+                        <v-col cols="12" md="3">
+                          {{ selectedImages }}
+                        </v-col>
+                      </template>
+                    </v-row>
+                  </v-card-text>
+                </v-tabs-window-item>
+              </v-tabs-window>
+              <template v-if="tab === 1">
+                <v-card-actions>
+                  <v-pagination
+                    density="compact"
+                    :length="10"
+                    total-visible="5"
+                  ></v-pagination>
+                  <v-spacer></v-spacer>
+                  <v-btn variant="flat" color="primary">hi </v-btn>
+                </v-card-actions>
+              </template>
             </v-card>
           </template>
         </v-dialog>

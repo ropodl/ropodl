@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { socials } from "@/utils/socials";
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
-import { useRoute } from "vue-router";
 
 const route = useRoute();
 

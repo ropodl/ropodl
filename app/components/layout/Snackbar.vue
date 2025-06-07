@@ -1,40 +1,26 @@
-<script lang="ts" setup>
-import { Icon } from "@iconify/vue";
-
-const { show, text, color } = useSnackbar();
-
-defineComponent({
-  name: "Snackbar",
-});
+<script setup lang="ts">
+const snackbar = useSnackbarStore();
+const { snackbar: toast } = storeToRefs(snackbar);
+const { color } = toast.value;
 </script>
 <template>
   <v-snackbar
-    dense
-    rounded="pill"
-    theme="light"
-    v-model="show"
-    :color="color"
-    class="global-snackbar"
-    :timeout="-1"
+    v-model="toast.show"
+    location="top right"
+    variant="outlined"
+    :color
+    content-class="background"
   >
-    {{ text }}
+    {{ toast.text }}
     <template v-slot:actions>
       <v-btn
-        icon
-        variant="tonal"
-        theme="dark"
-        color="white"
-        @click="show = false"
+        icon="mdi-close"
+        size="x-small"
+        rounded="lg"
+        variant="text"
+        @click="toast.show = false"
       >
-        <v-icon>
-          <Icon icon="mdi:close" />
-        </v-icon>
       </v-btn>
     </template>
   </v-snackbar>
 </template>
-<style>
-.global-snackbar .v-snackbar__actions {
-  margin: 0 !important;
-}
-</style>
