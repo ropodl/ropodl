@@ -37,7 +37,7 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
     "vuetify-nuxt-module",
-    "nuxt-simple-sitemap",
+    // "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
     // "nuxt-capo",
     // "nuxt-security",
