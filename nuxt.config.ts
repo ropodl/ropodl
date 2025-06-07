@@ -1,7 +1,7 @@
 import { vuetifyOptions } from "./app/utils/module/vuetify.ts";
 
 export default defineNuxtConfig({
-  // ssr: true,
+  ssr: true,
   future: {
     compatibilityVersion: 4,
   },
@@ -17,8 +17,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   experimental: {
     viewTransition: true,
-    renderJsonPayloads: false,
-    componentIslands: true,
+    renderJsonPayloads: true,
+    componentIslands: false,
     defaults: {
       nuxtLink: {
         prefetch: true,
