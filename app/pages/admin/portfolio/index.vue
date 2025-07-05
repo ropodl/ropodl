@@ -116,7 +116,7 @@ const searchFn = useDebounceFn(async () => {
         </div>
       </v-col>
       <v-col class="py-md-0" cols="12" sm="6" md="4">
-        <div v-auto-animate class="d-flex align-center justify-end">
+        <div class="d-flex align-center justify-end">
           <template v-if="selected.length > 0">
             <v-btn
               v-tooltip="'Delete Bulk Item'"
@@ -156,7 +156,7 @@ const searchFn = useDebounceFn(async () => {
         </div>
       </v-col>
     </v-row>
-    <v-row v-auto-animate>
+    <v-row>
       <template v-if="showFilters">
         <v-col cols="12" sm="4" md="3" class="pb-0">
           <v-select

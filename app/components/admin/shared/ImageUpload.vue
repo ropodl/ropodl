@@ -181,19 +181,11 @@ const example = ref([
                   reverse-transition="none"
                   class="overflow-scroll"
                 >
-                  <v-card-text v-auto-animate>
-                    <v-row v-auto-animate>
-                      <v-col
-                        cols="12"
-                        :md="selectedImages ? 9 : 12"
-                        v-auto-animate
-                      >
-                        <v-item-group
-                          v-model="selectedImages"
-                          :multiple
-                          v-auto-animate
-                        >
-                          <v-row v-auto-animate>
+                  <v-card-text>
+                    <v-row>
+                      <v-col cols="12" :md="selectedImages ? 9 : 12">
+                        <v-item-group v-model="selectedImages" :multiple>
+                          <v-row>
                             <template v-for="(item, i) in example" :key="i">
                               <v-col cols="12" md="3">
                                 <v-item

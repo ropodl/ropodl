@@ -26,15 +26,15 @@ export const vuetifyOptions = {
     VDataTableServer: {
       hover: true,
       class: "bg-transparent",
-      density: "comfortable"
+      density: "comfortable",
     },
     VSelect: {
       density: "comfortable",
       variant: "outlined",
     },
     VTooltip: {
-      theme: "light"
-    }
+      theme: "light",
+    },
   },
   theme: {
     defaultTheme: "dark",
@@ -54,9 +54,9 @@ export const vuetifyOptions = {
           warning: "#F59E0B", // Amber 500
           error: "#EF4444", // Red 500
           success: "#22C55E", // Green 500
-          brand: "#ff7a03"
+          brand: "#e60023",
         },
-      }
+      },
     },
   },
 };

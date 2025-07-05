@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
   // Reuse client instance when possible
   if (!cachedClient) {
     cachedClient = await serverSupabaseClient(event);
+    console.log("Supabase client initialized", cachedClient);
   }
   const client = cachedClient;
 
@@ -61,6 +62,7 @@ export default defineEventHandler(async (event) => {
     } = await queryBuilder
       .order(safeSortBy, { ascending: order })
       .range(from, to);
+    console.log(blogs); // Log the query for debugging
 
     if (error) {
       throw createError({

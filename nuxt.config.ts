@@ -25,6 +25,8 @@ export default defineNuxtConfig({
         prefetchOn: { visibility: true },
       },
     },
+    payloadExtraction: true,
+    treeshakeClientOnly: true,
   },
   routeRules: {
     "/": { prerender: true },
@@ -35,12 +37,11 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
-    "@formkit/auto-animate/nuxt",
     "vuetify-nuxt-module",
-    // "nuxt-simple-sitemap",
-    "nuxt-delay-hydration",
-    // "nuxt-capo",
-    // "nuxt-security",
+    "nuxt-simple-sitemap",
+    // "nuxt-delay-hydration",
+    "nuxt-capo",
+    "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
     "@nuxtjs/supabase",
@@ -76,6 +77,24 @@ export default defineNuxtConfig({
   },
   vuetify: {
     vuetifyOptions: vuetifyOptions,
+    moduleOptions: {
+      // check https://nuxt.vuetifyjs.com/guide/server-side-rendering.html
+      ssrClientHints: {
+        reloadOnFirstRequest: false,
+        viewportSize: true,
+        prefersColorScheme: false,
+
+        prefersColorSchemeOptions: {
+          useBrowserThemeOnly: false,
+        },
+      },
+
+      // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
+      // disableVuetifyStyles: true,
+      // styles: {
+      //   configFile: "assets/settings.scss",
+      // },
+    },
   },
   site: {
     url: "https://ropodl.com/",
@@ -123,6 +142,10 @@ export default defineNuxtConfig({
   },
   nitro: {
     minify: true,
+    compressor: {
+      gzip: true,
+      brotli: true,
+    },
     experimental: {
       websocket: true,
       openAPI: true,
@@ -144,5 +167,8 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  build: {
+    transpile: ["vuetify"],
   },
 });

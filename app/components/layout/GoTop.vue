@@ -40,7 +40,6 @@ const goTop = () => {
       @click="goTop"
     >
       <v-progress-circular
-        color="brand"
         width="3"
         size="40"
         :model-value="progress"
