@@ -80,7 +80,7 @@ export default defineNuxtConfig({
     moduleOptions: {
       // check https://nuxt.vuetifyjs.com/guide/server-side-rendering.html
       ssrClientHints: {
-        reloadOnFirstRequest: true,
+        reloadOnFirstRequest: false,
         viewportSize: true,
         prefersColorScheme: true,
         prefersColorSchemeOptions: {
