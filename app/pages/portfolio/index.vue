@@ -173,7 +173,6 @@ const works = [
                 <v-tab
                   color="brand"
                   rounded="lg"
-                  class="px-12"
                   :value="item"
                   :variant="current === item ? 'tonal' : 'text'"
                 >
