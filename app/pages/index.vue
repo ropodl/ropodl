@@ -24,8 +24,7 @@ useSeoMeta({
     border="0"
     color="transparent"
     rounded="0"
-    class="position-relative h-100"
-    style="padding-top: 100px; padding-bottom: 100px"
+    class="position-relative fill-height"
   >
     <v-container class="h-100">
       <v-row justify="center" class="position-relative h-100">
