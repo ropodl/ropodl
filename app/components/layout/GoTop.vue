@@ -34,49 +34,23 @@ const goTop = () => {
       border
       icon
       size="56"
+      class="overflow-hidden"
       v-scroll="onScroll"
       aria-label="Go to top button"
       @click="goTop"
     >
       <v-icon color="white" icon="mdi-arrow-up" />
-      <!-- Add pill shape to button -->
-      <!-- <div class="progress-container">
-        New container for custom progress
-        <div class="progress-track" :style="{ height: progress + '%' }"></div>
-      </div> -->
-      <div class="progres"></div>
+      <div class="progress-track" :style="{ height: progress + '%' }"></div>
     </v-btn>
   </div>
 </template>
 <style lang="scss">
-/* Remove old circular styles */
-// .circular-no-animation {
-//   display: none;
-// }
-
-// /* New progress bar styles */
-// .progress-container {
-//   position: relative;
-//   width: 40px;
-//   height: 40px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   border-radius: 20px; /* Fully rounded pill shape */
-//   overflow: hidden; /* Clip progress bar to container */
-// }
-
-// .progress-track {
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   width: 100%;
-//   background: rgba(255, 255, 255, 0.3); /* Progress color */
-//   transition: height 0.1s linear;
-// }
-
-// /* Override Vuetify's circular button */
-// .v-btn--icon.v-btn--density-default {
-//   border-radius: 20px !important;
-// }
+.progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: height 0s;
+}
 </style>
