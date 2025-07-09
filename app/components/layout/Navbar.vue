@@ -30,20 +30,78 @@ const pages = [
 ];
 </script>
 <template>
-  <v-container class="position-fixed left-0 right-0 py-0" style="z-index: 1008">
+  <v-app-bar flat location="top" color="transparent">
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="12" md="8">
+          <v-card
+            class="d-flex align-center"
+            height="56"
+            style="
+              background-color: rgba(var(--v-theme-surface), 0.7);
+              backdrop-filter: blur(8px);
+            "
+          >
+            <v-card-text class="py-0 d-flex align-center">
+              <v-btn to="/">Saroj Poudel</v-btn>
+              <v-spacer></v-spacer>
+              <v-tabs hide-slider height="36">
+                <template v-for="{ title, to } in pages">
+                  <v-tab :to :variant="route.path === to ? 'tonal' : 'text'">
+                    {{ title }}
+                  </v-tab>
+                </template>
+              </v-tabs>
+              <!-- <v-btn>Test</v-btn> -->
+              <!-- <v-hover #default="{ isHovering, props }">
+                <v-btn
+                  v-bind="props"
+                  height="60"
+                  rounded="lg"
+                  color="transparent"
+                  :variant="isHovering ? 'text' : 'plain'"
+                  class="text-lowercase hidden-sm-and-down"
+                  :active="false"
+                  :to
+                >
+                  <span
+                    :class="
+                      route.fullPath.includes(title)
+                        ? 'text-brand'
+                        : 'text-white'
+                    "
+                  >
+                    {{ title }}
+                    <span :class="isHovering ? 'text-brand' : ''">.</span>
+                  </span>
+                </v-btn>
+              </v-hover> -->
+              <!-- <v-spacer></v-spacer>
+              <template v-for="{ name, icon, link } in socials">
+                <v-btn icon>
+                  <Icon :icon="icon" />
+                </v-btn>
+              </template> -->
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app-bar>
+  <!-- <v-container class="position-fixed left-0 right-0" style="z-index: 1008">
     <v-row align="center">
       <v-col class="pa-0">
         <v-card
           border
           relative
-          height="60"
+          height="40"
           elevation="0"
           rounded="lg"
           class="pa-0 left-0 right-0 d-flex justify-self-center align-center"
           style="
             background-color: rgba(var(--v-theme-surface), 0.8);
             backdrop-filter: blur(8px);
-            top: 20px;
+            top: 10px;
           "
         >
           <v-btn
@@ -57,6 +115,7 @@ const pages = [
             aria-label="home"
           >
             <lazy-shared-logo :width="30" :height="60" />
+            Saroj
           </v-btn>
           <v-spacer></v-spacer>
           <template v-for="{ title, to } in pages">
@@ -116,7 +175,7 @@ const pages = [
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </v-container> -->
   <v-bottom-sheet v-model="drawer" scrim="black">
     <v-card rounded="0">
       <v-list>

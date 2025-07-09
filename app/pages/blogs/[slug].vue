@@ -35,8 +35,8 @@ const getBlogBySlug = async () => {
 </script>
 <template>
   <v-container>
-    <v-row style="padding-top: 80px">
-      <v-col>
+    <v-row>
+      <v-col cols="12">
         <v-card>
           <v-img
             cover
