@@ -39,7 +39,7 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
-    // "nuxt-delay-hydration",
+    "nuxt-delay-hydration",
     "nuxt-capo",
     "nuxt-security",
     "nuxt-gtag",
@@ -80,17 +80,19 @@ export default defineNuxtConfig({
     moduleOptions: {
       // check https://nuxt.vuetifyjs.com/guide/server-side-rendering.html
       ssrClientHints: {
-        reloadOnFirstRequest: false,
+        reloadOnFirstRequest: true,
         viewportSize: true,
-        prefersColorScheme: false,
-
+        prefersColorScheme: true,
         prefersColorSchemeOptions: {
-          useBrowserThemeOnly: false,
+          useBrowserThemeOnly: true,
+          cookieName: "color-scheme",
+          darkThemeName: "dark",
+          lightThemeName: "light",
         },
       },
 
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
-      // disableVuetifyStyles: true,
+      // disableVuetifyStyles: false,
       // styles: {
       //   configFile: "assets/settings.scss",
       // },
