@@ -54,7 +54,18 @@ export const vuetifyOptions = {
           warning: "#F59E0B", // Amber 500
           error: "#EF4444", // Red 500
           success: "#22C55E", // Green 500
-          brand: "#e60023",
+        },
+      },
+      light: {
+        dark: false,
+        colors: {
+          primary: "#FFFFFF", // White
+          accent: "#374151", // Gray 700 (Tailwind equivalent)
+          secondary: "#D97706", // Amber 600
+          info: "#14B8A6", // Teal 500
+          warning: "#F59E0B", // Amber 500
+          error: "#EF4444", // Red 500
+          success: "#22C55E", // Green 500
         },
       },
     },
