@@ -8,11 +8,11 @@ const pages = [
     title: "about",
     to: "/about",
   },
-  {
-    icon: "mdi-post-outline",
-    title: "blogs",
-    to: "/blogs",
-  },
+  // {
+  //   icon: "mdi-post-outline",
+  //   title: "blogs",
+  //   to: "/blogs",
+  // },
   {
     icon: "mdi-file-certificate-outline",
     title: "portfolio",
