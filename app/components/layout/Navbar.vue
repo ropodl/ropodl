@@ -1,11 +1,7 @@
-<script lang="ts" setup>
-import { socials } from "@/utils/socials";
-import { Icon } from "@iconify/vue";
-
+<script setup lang="ts">
 const route = useRoute();
 
 const drawer = ref(false);
-
 const pages = [
   {
     icon: "mdi-information-outline",
@@ -33,7 +29,7 @@ const pages = [
   <v-app-bar flat location="top" color="transparent">
     <v-container>
       <v-row justify="center">
-        <v-col cols="12" md="8">
+        <v-col cols="12" md="12">
           <v-card
             class="d-flex align-center"
             height="56"
@@ -45,14 +41,27 @@ const pages = [
             <v-card-text class="py-0 d-flex align-center">
               <v-btn to="/">Saroj Poudel</v-btn>
               <v-spacer></v-spacer>
-              <v-tabs hide-slider height="36">
+              <v-tabs hide-slider height="36" class="hidden-md-and-down">
                 <template v-for="{ title, to } in pages">
                   <v-tab :to :variant="route.path === to ? 'tonal' : 'text'">
                     {{ title }}
                   </v-tab>
                 </template>
               </v-tabs>
-              <!-- <v-btn>Test</v-btn> -->
+              <v-spacer></v-spacer>
+              <v-btn
+                color="white"
+                variant="elevated"
+                to="/contact"
+                class="mr-3 hidden-xs"
+              >
+                Get a Quote
+              </v-btn>
+              <v-btn
+                height="36"
+                icon="mdi-menu"
+                @click="drawer = !drawer"
+              ></v-btn>
               <!-- <v-hover #default="{ isHovering, props }">
                 <v-btn
                   v-bind="props"
@@ -176,9 +185,16 @@ const pages = [
       </v-col>
     </v-row>
   </v-container> -->
-  <v-bottom-sheet v-model="drawer" scrim="black">
-    <v-card rounded="0">
-      <v-list>
+  <v-bottom-sheet v-model="drawer" inset scrim="black">
+    <v-card
+      rounded="t-lg"
+      class="border-b-0"
+      style="
+        background-color: rgba(var(--v-theme-surface), 0.7);
+        backdrop-filter: blur(8px);
+      "
+    >
+      <v-list bg-color="transparent">
         <v-list-subheader>Navigate to</v-list-subheader>
         <v-list-item
           prepend-icon="mdi-home"
