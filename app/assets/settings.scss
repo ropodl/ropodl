@@ -1,0 +1,9 @@
+// main.scss
+$heading-font: 'Roboto', sans-serif;
+$body-font: 'Ubuntu', sans-serif;
+ 
+@use 'vuetify' with (
+  $heading-font-family: $heading-font,
+  $body-font-family: $body-font,
+);
+

@@ -31,35 +31,31 @@ useSeoMeta({
         <v-col cols="12" md="8">
           <div class="d-flex align-center justify-center h-100">
             <div>
-              <div v-motion-slide-left :duration="500" class="text-overline">
+              <div :duration="500" class="text-overline">
                 Hello, World! I am
               </div>
               <div
-                v-motion-fade
+                v-gsap.from="{ y: 12 }"
                 :duration="500"
                 class="text-h1 font-weight-bold mb-3"
               >
                 Saroj Poudel<span class="text-brand">.</span>
               </div>
               <div>
-                <div
-                  v-motion-slide-right
-                  :duration="500"
-                  class="text-h4 font-weight-medium mb-6"
-                >
+                <div :duration="500" class="text-h4 font-weight-medium mb-6">
                   Fullstack developer from Kathmandu, Nepal.
                 </div>
                 <v-row justify="end">
-                  <v-col cols="6" sm="4" md="4">
-                    <v-hover v-slot="{ isHovering, props }">
+                  <v-col cols="6" sm="4" md="4" v-gsap.magnetic.weak>
+                    <!-- <v-hover v-slot="{ isHovering, props }">
                       <v-btn
-                        v-bind="props"
                         block
+                        v-bind="props"
                         rounded="lg"
                         color="brand"
                         height="40"
+                        width="30"
                         variant="tonal"
-                        v-motion-slide-visible-once-bottom
                         to="/blogs"
                       >
                         Blogs
@@ -71,9 +67,9 @@ useSeoMeta({
                           <Icon icon="line-md:arrow-right" />
                         </v-icon>
                       </v-btn>
-                    </v-hover>
+                    </v-hover> -->
                   </v-col>
-                  <v-col cols="6" sm="4" md="4">
+                  <v-col cols="6" sm="4" md="4" v-gsap.magnetic.weak>
                     <v-hover v-slot="{ isHovering, props }">
                       <v-btn
                         v-bind="props"
@@ -82,7 +78,6 @@ useSeoMeta({
                         color="primary"
                         height="40"
                         variant="text"
-                        v-motion-slide-visible-once-bottom
                         :delay="200"
                         to="/portfolio"
                       >
