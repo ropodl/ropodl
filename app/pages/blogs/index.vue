@@ -51,13 +51,7 @@ const {
             <template
               v-for="{ slug, title, featured_image, created_at } in blogs"
             >
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-                v-motion-fade-visible-once
-                :duration="500"
-              >
+              <v-col cols="12" sm="6" md="4" :duration="500">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-card
                     v-bind="props"

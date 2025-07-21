@@ -226,14 +226,7 @@ const works = [
             <!-- here -->
             <template v-for="(work, i) in works" :key="i">
               <template v-if="work.category === current || current === 'All'">
-                <v-col
-                  cols="12"
-                  sm="4"
-                  md="4"
-                  lg="4"
-                  v-motion-fade-visible-once
-                  :duration="500"
-                >
+                <v-col cols="12" sm="4" md="4" lg="4" :duration="500">
                   <v-hover v-slot="{ isHovering, props: hover }">
                     <v-dialog
                       persistent

@@ -40,13 +40,14 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
-    "nuxt-capo",
-    "nuxt-security",
+    // "nuxt-capo",
+    // "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
     // "@nuxtjs/supabase",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/strapi",
+    "v-gsap-nuxt",
   ],
   googleFonts: {
     families: {
@@ -98,9 +99,9 @@ export default defineNuxtConfig({
 
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: false,
-      // styles: {
-      //   configFile: "assets/settings.scss",
-      // },
+      styles: {
+        configFile: "assets/settings.scss",
+      },
     },
   },
   site: {
@@ -117,7 +118,7 @@ export default defineNuxtConfig({
     manifest: {
       name: "Saroj Poudel",
       short_name: "ropodl",
-      theme_color: "#ff7a03",
+      theme_color: "#ffffffff",
       description: "Official Website of Saroj Poudel",
       icons: [
         {
