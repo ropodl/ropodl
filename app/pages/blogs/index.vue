@@ -16,16 +16,14 @@ useSeoMeta({
 });
 
 const page = ref(1);
-
-const {
-  data: blogs,
-  error,
-  status,
-} = await useLazyFetch("/api/frontend/blog", {
-  params: {
-    page,
-    per_page: 10,
-  },
+const blogs = ref([]);
+const getBlogs = async () => {
+  await useAxios.get("http://localhost:1337/api/blogs").then((res) => {
+    blogs.value = res.data;
+  });
+};
+onMounted(() => {
+  getBlogs();
 });
 </script>
 
@@ -49,7 +47,13 @@ const {
         <template v-else>
           <template v-if="blogs.length">
             <template
-              v-for="{ slug, title, featured_image, created_at } in blogs"
+              v-for="{
+                documentId,
+                slug,
+                title,
+                featured_image,
+                created_at,
+              } in blogs"
             >
               <v-col cols="12" sm="6" md="4" :duration="500">
                 <v-hover v-slot="{ isHovering, props }">
@@ -59,7 +63,7 @@ const {
                     variant="text"
                     color="transparent"
                     class="h-100"
-                    :to="`/blogs/${slug}`"
+                    :to="`/blogs/${documentId}`"
                   >
                     <v-card border flat>
                       <v-img
