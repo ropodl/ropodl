@@ -24,9 +24,9 @@ onMounted(() => {
 
 const getBlogBySlug = async () => {
   await useAxios
-    .get(`/api/frontend/blog/${slug}`)
+    .get(`http://localhost:1337/api/blogs/${slug}`)
     .then((res) => {
-      blog.value = res;
+      blog.value = res.data;
     })
     .finally(() => {
       loading.value = false;

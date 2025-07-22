@@ -39,7 +39,7 @@ const pages = [
             "
           >
             <v-card-text class="py-0 d-flex align-center">
-              <v-btn variant="text" to="/"> Saroj Poudel </v-btn>
+              <v-btn variant="text" to="/">Saroj Poudel</v-btn>
               <v-spacer></v-spacer>
               <v-tabs hide-slider height="36" class="hidden-md-and-down">
                 <template v-for="{ title, to } in pages">

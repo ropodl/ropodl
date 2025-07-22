@@ -1,10 +1,8 @@
 import { vuetifyOptions } from "./app/utils/module/vuetify.ts";
 
 export default defineNuxtConfig({
+  compatibilityDate: "2024-11-18",
   ssr: true,
-  future: {
-    compatibilityVersion: 4,
-  },
   app: {
     head: {
       charset: "utf-8",
@@ -78,8 +76,8 @@ export default defineNuxtConfig({
   //   },
   // },
   strapi: {
-    url: process.env.STRAPI_URL || "http://localhost:1337/api",
-    // entities: ["articles", "categories"],
+    devtools: true,
+    url: process.env.STRAPI_URL,
   },
   vuetify: {
     vuetifyOptions: vuetifyOptions,
@@ -99,9 +97,9 @@ export default defineNuxtConfig({
 
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: false,
-      styles: {
-        configFile: "assets/settings.scss",
-      },
+      // styles: {
+      //   configFile: "assets/settings.scss",
+      // },
     },
   },
   site: {
@@ -158,16 +156,6 @@ export default defineNuxtConfig({
       ui: {
         scalar: {
           theme: "purple",
-        },
-      },
-    },
-  },
-  compatibilityDate: "2024-11-18",
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: "modern-compiler",
         },
       },
     },
