@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-
 const appearance = useAdminAppearanceStore();
 const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
 });
-
-const user = useSupabaseUser();
 
 useHead({
   title: "Admin Dashboard",
@@ -29,9 +25,7 @@ const getDashboard = async () => {
   <v-container :fluid="isFluid">
     <v-row>
       <v-col cols="12">
-        <div class="text-h4 font-weight-bold">
-          Welcome back, {{ user?.email || "User" }}
-        </div>
+        <div class="text-h4 font-weight-bold">Welcome back, {{ "User" }}</div>
       </v-col>
     </v-row>
     <v-row>
@@ -43,7 +37,7 @@ const getDashboard = async () => {
             class="position-absolute"
             style="top: 10px; right: 10px"
           >
-            <Icon :icon />
+            <Icon :name="icon" />
           </v-icon>
           <v-card-title>
             <div class="text-h4 font-weight-bold">

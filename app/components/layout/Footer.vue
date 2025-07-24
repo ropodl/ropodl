@@ -1,17 +1,31 @@
+<script setup></script>
 <template>
-  <v-container class="py-0">
-    <v-card
-      border
-      rounded
-      class="border-b-0 rounded-b-0"
-      style="
-        background-color: rgba(var(--v-theme-surface), 0.7);
-        backdrop-filter: blur(8px);
-      "
-    >
-      <v-card-title class="d-flex justify-center text-overline text-capitalize">
-        Copyright © {{ new Date().getFullYear() }} - Saroj Poudel
-      </v-card-title>
-    </v-card>
+  <v-container class="py-1">
+    <v-row justify="center">
+      <v-col cols="12" md="7">
+        <div class="d-flex align-center justify-space-between text-body-2">
+          Copyright © {{ new Date().getFullYear() }} - Saroj Poudel
+          <v-spacer></v-spacer>
+          <ul class="list-style-none d-flex">
+            <template v-for="social in socials">
+              <li>
+                <v-btn
+                  icon
+                  size="small"
+                  rounded="lg"
+                  color="primary"
+                  variant="text"
+                  class="mr-3"
+                >
+                  <v-icon>
+                    <Icon :name="social.icon" />
+                  </v-icon>
+                </v-btn>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </v-col>
+    </v-row>
   </v-container>
 </template>

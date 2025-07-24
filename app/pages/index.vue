@@ -1,10 +1,4 @@
 <script setup>
-import { Icon } from "@iconify/vue";
-
-definePageMeta({
-  keepalive: true,
-});
-
 useSeoMeta({
   title: "Saroj Poudel",
   description:
@@ -20,84 +14,65 @@ useSeoMeta({
 });
 </script>
 <template>
-  <v-card
-    border="0"
-    color="transparent"
-    rounded="0"
-    class="position-relative fill-height"
-  >
-    <v-container class="h-100">
-      <v-row justify="center" class="position-relative h-100">
-        <v-col cols="12" md="8">
-          <div class="d-flex align-center justify-center h-100">
-            <div>
-              <div :duration="500" class="text-overline">
-                Hello, World! I am
-              </div>
+  <section class="py-16">
+    <v-container>
+      <v-row justify="center">
+        <v-col
+          cols="12"
+          md="6"
+          class="d-flex flex-column justify-center align-center"
+        >
+          <v-avatar size="256" class="mb-n10">
+            <v-img src="/avatar.jpg">
               <div
-                v-gsap.from="{ y: 12 }"
-                :duration="500"
-                class="text-h1 font-weight-bold mb-3"
-              >
-                Saroj Poudel<span class="text-brand">.</span>
-              </div>
-              <div>
-                <div :duration="500" class="text-h4 font-weight-medium mb-6">
-                  Fullstack developer from Kathmandu, Nepal.
-                </div>
-                <v-row justify="end">
-                  <v-col cols="6" sm="4" md="4" v-gsap.magnetic.weak>
-                    <!-- <v-hover v-slot="{ isHovering, props }">
-                      <v-btn
-                        block
-                        v-bind="props"
-                        rounded="lg"
-                        color="brand"
-                        height="40"
-                        width="30"
-                        variant="tonal"
-                        to="/blogs"
-                      >
-                        Blogs
-                        <v-icon
-                          size="small"
-                          :class="isHovering ? 'ml-4' : 'ml-2'"
-                          style="transition: all 100ms linear"
-                        >
-                          <Icon icon="line-md:arrow-right" />
-                        </v-icon>
-                      </v-btn>
-                    </v-hover> -->
-                  </v-col>
-                  <v-col cols="6" sm="4" md="4" v-gsap.magnetic.weak>
-                    <v-hover v-slot="{ isHovering, props }">
-                      <v-btn
-                        v-bind="props"
-                        block
-                        rounded="lg"
-                        color="primary"
-                        height="40"
-                        variant="text"
-                        :delay="200"
-                        to="/portfolio"
-                      >
-                        Portfolio
-                        <v-icon
-                          size="small"
-                          :class="isHovering ? 'ml-4' : 'ml-2'"
-                          style="transition: all 100ms linear"
-                        >
-                          <Icon icon="line-md:arrow-right" />
-                        </v-icon>
-                      </v-btn>
-                    </v-hover>
-                  </v-col>
-                </v-row>
-              </div>
-            </div>
+                class="w-100 h-100"
+                style="
+                  background: linear-gradient(
+                    transparent 50%,
+                    rgba(var(--v-theme-background))
+                  );
+                "
+              ></div>
+            </v-img>
+          </v-avatar>
+          <div
+            class="text-center text-h3 font-weight-bold mb-6"
+            style="z-index: 1"
+          >
+            Hi, I'm <br />
+            Saroj Poudel <br />
+            FullStack Developer
+          </div>
+          <div class="text-center mb-6">
+            Crafting thoughtful, user-first digital experiences at the
+            <br />
+            intersection of design and development. Proudly Nepal-based.
+          </div>
+          <!-- <div class="mb-6">
+            <v-btn color="white">Use this template</v-btn>
+          </div> -->
+          <div>
+            <ul class="list-style-none d-flex">
+              <template v-for="social in socials">
+                <li>
+                  <v-btn
+                    icon
+                    size="small"
+                    rounded="lg"
+                    color="primary"
+                    variant="text"
+                    class="mr-3"
+                  >
+                    <v-icon>
+                      <Icon :name="social.icon" />
+                    </v-icon>
+                  </v-btn>
+                </li>
+              </template>
+            </ul>
           </div>
         </v-col>
       </v-row>
     </v-container>
-  </v-card>
+  </section>
 </template>

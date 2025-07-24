@@ -1,5 +1,4 @@
 <script setup>
-import { Icon } from "@iconify/vue";
 import { socials } from "~/utils/socials";
 
 definePageMeta({
@@ -164,7 +163,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                   size="90"
                   class="position-absolute opacity-40 right-0 top-0"
                 >
-                  <Icon icon="mdi:calendar-clock-outline" />
+                  <Icon name="mdi:calendar-clock-outline" />
                 </v-icon>
                 <div class="w-100">
                   <v-card-title
@@ -187,7 +186,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                   size="90"
                   class="position-absolute opacity-40 left-0 top-0"
                 >
-                  <Icon icon="streamline:business-handshake" />
+                  <Icon name="streamline:business-handshake" />
                 </v-icon>
                 <div>
                   <v-card-title
@@ -244,7 +243,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                       <template v-slot:activator="{ props }">
                         <v-btn flat icon v-bind="props" color="transparent">
                           <v-icon size="40">
-                            <Icon :icon />
+                            <Icon :name="icon" />
                           </v-icon>
                         </v-btn>
                       </template>
@@ -265,7 +264,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                       <template v-slot:activator="{ props }">
                         <v-btn flat icon v-bind="props" color="transparent">
                           <v-icon color="brand" size="40">
-                            <Icon :icon />
+                            <Icon :name="icon" />
                           </v-icon>
                         </v-btn>
                       </template>
@@ -314,7 +313,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                               color="transparent"
                             >
                               <v-icon>
-                                <Icon :icon />
+                                <Icon :name="icon" />
                               </v-icon>
                             </v-btn>
                           </template>
@@ -458,7 +457,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                                   color="transparent"
                                 >
                                   <v-icon size="x-large">
-                                    <Icon :icon />
+                                    <Icon :name="icon" />
                                   </v-icon>
                                 </v-btn>
                               </template>
@@ -471,7 +470,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                   <v-row dense>
                     <v-col cols="12" md="6">
                       <v-card border height="121" class="mb-2 pa-0">
-                        <v-img cover src="/image/me2_optimized.webp"></v-img>
+                        <v-img cover src="/avatar.jpg"></v-img>
                       </v-card>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -541,7 +540,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                                   variant="text"
                                 >
                                   <v-icon>
-                                    <Icon icon="mdi:open-in-new" />
+                                    <Icon name="mdi:open-in-new" />
                                   </v-icon>
                                 </v-btn>
                               </template>
