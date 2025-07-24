@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-
+import { socials } from "@/utils/socials";
 definePageMeta({
   keepalive: true,
 });
@@ -115,9 +114,9 @@ const submitForm = async () => {
                   variant="text"
                   class="mr-3"
                 >
-                  <v-icon>
-                    <Icon :icon="social.icon" />
-                  </v-icon>
+                  <Icon :name="social.icon" />
+                  <!-- <v-icon>
+                  </v-icon> -->
                 </v-btn>
               </li>
             </template>
@@ -186,7 +185,7 @@ const submitForm = async () => {
                     <v-icon
                       :class="isHovering ? 'ml-4' : 'ml-2'"
                       style="transition: all 100ms linear"
-                      ><Icon icon="mdi:arrow-right"
+                      ><Icon name="mdi:arrow-right"
                     /></v-icon>
                   </v-btn>
                 </v-hover>
@@ -215,7 +214,7 @@ const submitForm = async () => {
           @click="snackbar.show = false"
         >
           <v-icon>
-            <Icon icon="mdi:close" />
+            <Icon name="mdi:close" />
           </v-icon>
         </v-btn>
       </template>

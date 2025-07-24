@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/strapi",
     "v-gsap-nuxt",
+    "@nuxt/icon",
   ],
   googleFonts: {
     families: {
@@ -148,17 +149,17 @@ export default defineNuxtConfig({
   },
   nitro: {
     minify: true,
-    experimental: {
-      websocket: true,
-      openAPI: true,
-    },
-    openAPI: {
-      ui: {
-        scalar: {
-          theme: "purple",
-        },
-      },
-    },
+    // experimental: {
+    //   websocket: true,
+    //   openAPI: true,
+    // },
+    // openAPI: {
+    //   ui: {
+    //     scalar: {
+    //       theme: "purple",
+    //     },
+    //   },
+    // },
   },
   build: {
     transpile: ["vuetify"],

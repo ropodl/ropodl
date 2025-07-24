@@ -26,49 +26,68 @@ const pages = [
 ];
 </script>
 <template>
-  <v-app-bar flat location="top" color="transparent">
-    <v-container>
+  <v-card
+    flat
+    width="700"
+    height="48"
+    location="top"
+    class="position-fixed"
+    style="
+      top: 10px;
+      z-index: 1010;
+      background-color: rgba(var(--v-theme-surface), 0.7);
+      backdrop-filter: blur(8px);
+    "
+  >
+    <v-card-text class="pa-0 h-100 d-flex align-center">
+      <v-btn rounded="0" variant="text" height="48" to="/">
+        Saroj Poudel
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-tabs hide-slider height="48" class="hidden-md-and-down">
+        <template v-for="{ title, to } in pages">
+          <v-tab
+            rounded="0"
+            :to
+            :variant="route.path === to ? 'tonal' : 'text'"
+          >
+            {{ title }}
+          </v-tab>
+        </template>
+      </v-tabs>
+      <!-- <v-spacer></v-spacer>
+      <v-btn
+        rounded="0"
+        height="48"
+        color="white"
+        variant="elevated"
+        to="/contact"
+        class="hidden-xs"
+      >
+        Get a Quote
+      </v-btn> -->
+      <v-btn
+        rounded="0"
+        class="hidden-lg-and-up"
+        height="48"
+        icon="mdi-menu"
+        @click="drawer = !drawer"
+      ></v-btn>
+    </v-card-text>
+    <!-- <v-container>
       <v-row justify="center">
-        <v-col cols="12" md="12">
+        <v-col cols="12" md="8">
           <v-card
             class="d-flex align-center"
-            height="56"
-            style="
-              background-color: rgba(var(--v-theme-surface), 0.7);
-              backdrop-filter: blur(8px);
-            "
-          >
-            <v-card-text class="py-0 d-flex align-center">
-              <v-btn variant="text" to="/">Saroj Poudel</v-btn>
-              <v-spacer></v-spacer>
-              <v-tabs hide-slider height="36" class="hidden-md-and-down">
-                <template v-for="{ title, to } in pages">
-                  <v-tab :to :variant="route.path === to ? 'tonal' : 'text'">
-                    {{ title }}
-                  </v-tab>
-                </template>
-              </v-tabs>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="white"
-                variant="elevated"
-                to="/contact"
-                class="mr-3 hidden-xs"
-              >
-                Get a Quote
-              </v-btn>
-              <v-btn
-                class="hidden-lg-and-up"
-                height="36"
-                icon="mdi-menu"
-                @click="drawer = !drawer"
-              ></v-btn>
+            height="46"
+            >
+            <v-card-text class="d-flex align-center">
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
-  </v-app-bar>
+    </v-container> -->
+  </v-card>
   <v-bottom-sheet v-model="drawer" inset scrim="black">
     <v-card
       rounded="t-lg"
