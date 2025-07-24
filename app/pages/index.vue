@@ -14,12 +14,14 @@ useSeoMeta({
 });
 </script>
 <template>
-  <section class="py-16">
+  <section class="pt-16">
     <v-container>
       <v-row justify="center">
         <v-col
           cols="12"
-          md="6"
+          sm="12"
+          md="8"
+          lg="6"
           class="d-flex flex-column justify-center align-center"
         >
           <v-avatar size="256" class="mb-n10">

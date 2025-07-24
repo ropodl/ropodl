@@ -98,9 +98,9 @@ export default defineNuxtConfig({
 
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: false,
-      // styles: {
-      //   configFile: "assets/settings.scss",
-      // },
+      styles: {
+        configFile: "assets/settings.scss",
+      },
     },
   },
   site: {

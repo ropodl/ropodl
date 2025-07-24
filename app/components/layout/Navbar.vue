@@ -29,7 +29,7 @@ const pages = [
   <v-card
     flat
     width="700"
-    height="48"
+    height="50"
     location="top"
     class="position-fixed"
     style="
@@ -40,11 +40,11 @@ const pages = [
     "
   >
     <v-card-text class="pa-0 h-100 d-flex align-center">
-      <v-btn rounded="0" variant="text" height="48" to="/">
+      <v-btn rounded="0" variant="text" height="50" to="/">
         Saroj Poudel
       </v-btn>
       <v-spacer></v-spacer>
-      <v-tabs hide-slider height="48" class="hidden-md-and-down">
+      <v-tabs hide-slider height="50" class="hidden-md-and-down">
         <template v-for="{ title, to } in pages">
           <v-tab
             rounded="0"
@@ -55,38 +55,14 @@ const pages = [
           </v-tab>
         </template>
       </v-tabs>
-      <!-- <v-spacer></v-spacer>
-      <v-btn
-        rounded="0"
-        height="48"
-        color="white"
-        variant="elevated"
-        to="/contact"
-        class="hidden-xs"
-      >
-        Get a Quote
-      </v-btn> -->
       <v-btn
         rounded="0"
         class="hidden-lg-and-up"
-        height="48"
+        height="50"
         icon="mdi-menu"
         @click="drawer = !drawer"
       ></v-btn>
     </v-card-text>
-    <!-- <v-container>
-      <v-row justify="center">
-        <v-col cols="12" md="8">
-          <v-card
-            class="d-flex align-center"
-            height="46"
-            >
-            <v-card-text class="d-flex align-center">
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container> -->
   </v-card>
   <v-bottom-sheet v-model="drawer" inset scrim="black">
     <v-card
