@@ -15,7 +15,7 @@ useIsFullScreen(app);
         <NuxtPage />
       </NuxtLayout>
       <LazyLayoutOfflineBanner v-if="!isOnline" />
-      <LazyLayoutGoTop v-if="!route.fullPath.includes('/admin/')" />
+      <!-- <LazyLayoutGoTop v-if="!route.fullPath.includes('/admin/')" /> -->
     </v-app>
   </div>
 </template>

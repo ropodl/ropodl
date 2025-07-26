@@ -10220,6 +10220,19 @@ vue-router@^4.5.1:
   dependencies:
     "@vue/devtools-api" "^6.6.4"
 
+vue3-carousel-nuxt@1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/vue3-carousel-nuxt/-/vue3-carousel-nuxt-1.1.6.tgz#71764a4833f4d865a02bd4236541ef70d3ab44b1"
+  integrity sha512-y5CTJBj3HryL0l+8pzvXyWHTj/SUiBYChsces5GMyKQoad2yMXsdofzpKSrTquoCgrd1hWHUO2DBnN6ougA0Gg==
+  dependencies:
+    "@nuxt/kit" "^3.12.4"
+    vue3-carousel "^0.15.0"
+
+vue3-carousel@^0.15.0:
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/vue3-carousel/-/vue3-carousel-0.15.1.tgz#df8ab7e8545730783555007e400a290497404ef2"
+  integrity sha512-nV2ChLZtgAOikmls8WaVe37vO4Wagk4RYawePHIvXrFtduFnQODyzPx8MmXaAb6l+ka72yAi04ZeCyciiyJMyA==
+
 vue@3.5.18:
   version "3.5.18"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.5.18.tgz#3d622425ad1391a2b0138323211ec784f4415686"

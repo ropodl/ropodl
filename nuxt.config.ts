@@ -38,15 +38,15 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
     "nuxt-delay-hydration",
-    // "nuxt-capo",
-    // "nuxt-security",
+    "nuxt-capo",
+    "nuxt-security",
     "nuxt-gtag",
     "nuxt-link-checker",
-    // "@nuxtjs/supabase",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/strapi",
     "v-gsap-nuxt",
     "@nuxt/icon",
+    "vue3-carousel-nuxt",
   ],
   googleFonts: {
     families: {
@@ -59,23 +59,6 @@ export default defineNuxtConfig({
   gtag: {
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
-  // supabase: {
-  //   url: process.env.SUPABASE_URL,
-  //   key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  //   redirectOptions: {
-  //     login: "/login",
-  //     callback: "/confirm",
-  //     exclude: [
-  //       "/",
-  //       "/about",
-  //       "/contact",
-  //       "/blogs",
-  //       "/blogs/*",
-  //       "/portfolio",
-  //       "/portfolio/*",
-  //     ],
-  //   },
-  // },
   strapi: {
     devtools: true,
     url: process.env.STRAPI_URL,
@@ -136,11 +119,6 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
   },
-  // runtimeConfig: {
-  //   public: {
-  //     supabase_url: process.env.SUPABASE_URL,
-  //   },
-  // },
   pinia: {
     storesDirs: ["./app/stores/**"],
   },
@@ -149,17 +127,6 @@ export default defineNuxtConfig({
   },
   nitro: {
     minify: true,
-    // experimental: {
-    //   websocket: true,
-    //   openAPI: true,
-    // },
-    // openAPI: {
-    //   ui: {
-    //     scalar: {
-    //       theme: "purple",
-    //     },
-    //   },
-    // },
   },
   build: {
     transpile: ["vuetify"],
