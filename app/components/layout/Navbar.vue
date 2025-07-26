@@ -4,15 +4,15 @@ const route = useRoute();
 const drawer = ref(false);
 const pages = [
   {
-    icon: "mdi-information-outline",
-    title: "about",
-    to: "/about",
+    icon: "mdi-post-outline",
+    title: "home",
+    to: "/",
   },
-  // {
-  //   icon: "mdi-post-outline",
-  //   title: "blogs",
-  //   to: "/blogs",
-  // },
+  {
+    icon: "mdi-post-outline",
+    title: "blogs",
+    to: "/blogs",
+  },
   {
     icon: "mdi-file-certificate-outline",
     title: "portfolio",
@@ -23,12 +23,16 @@ const pages = [
     title: "contact",
     to: "/contact",
   },
+  {
+    icon: "mdi-information-outline",
+    title: "about",
+    to: "/about",
+  },
 ];
 </script>
 <template>
   <v-card
     flat
-    width="700"
     height="50"
     location="top"
     class="position-fixed"
@@ -40,10 +44,10 @@ const pages = [
     "
   >
     <v-card-text class="pa-0 h-100 d-flex align-center">
-      <v-btn rounded="0" variant="text" height="50" to="/">
+      <!-- <v-btn rounded="0" variant="text" height="50" to="/">
         Saroj Poudel
       </v-btn>
-      <v-spacer></v-spacer>
+      <v-spacer></v-spacer> -->
       <v-tabs hide-slider height="50" class="hidden-md-and-down">
         <template v-for="{ title, to } in pages">
           <v-tab
@@ -75,13 +79,6 @@ const pages = [
     >
       <v-list bg-color="transparent">
         <v-list-subheader>Navigate to</v-list-subheader>
-        <v-list-item
-          prepend-icon="mdi-home"
-          title="home."
-          active-class="text-brand"
-          to="/"
-          @click="drawer = false"
-        />
         <template v-for="{ title, icon, to } in pages">
           <v-list-item
             :title="`${title}.`"

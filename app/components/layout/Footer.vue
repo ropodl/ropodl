@@ -11,7 +11,7 @@
               <li>
                 <v-btn
                   icon
-                  size="small"
+                  size="x-small"
                   rounded="lg"
                   color="primary"
                   variant="text"

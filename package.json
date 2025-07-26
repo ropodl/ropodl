@@ -36,6 +36,7 @@
     "nuxt-simple-sitemap": "^4.4.1",
     "sass-embedded": "^1.89.2",
     "v-gsap-nuxt": "^1.4.4",
+    "vue3-carousel-nuxt": "1.1.6",
     "vuetify-nuxt-module": "^0.18.7"
   }
 }
