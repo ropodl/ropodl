@@ -1,5 +1,7 @@
 import { vuetifyOptions } from "./app/utils/module/vuetify.ts";
 
+console.log(process.env.NODE_ENV);
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-18",
   ssr: true,
@@ -32,21 +34,20 @@ export default defineNuxtConfig({
   modules: [
     "@pinia/nuxt",
     "@vueuse/nuxt",
-    "@vueuse/motion/nuxt",
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "vuetify-nuxt-module",
     "nuxt-simple-sitemap",
-    "nuxt-delay-hydration",
-    "nuxt-capo",
-    "nuxt-security",
-    "nuxt-gtag",
     "nuxt-link-checker",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/strapi",
     "v-gsap-nuxt",
     "@nuxt/icon",
     "vue3-carousel-nuxt",
+    "nuxt-gtag",
+    process.env.NODE_ENV === "production"
+      ? "nuxt-delay-hydration nuxt-capo nuxt-security"
+      : "",
   ],
   googleFonts: {
     families: {
@@ -62,6 +63,12 @@ export default defineNuxtConfig({
   strapi: {
     devtools: true,
     url: process.env.STRAPI_URL,
+    cookie: {
+      path: "/",
+      maxAge: 14 * 24 * 60 * 60,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: true,
+    },
   },
   vuetify: {
     vuetifyOptions: vuetifyOptions,
@@ -81,9 +88,9 @@ export default defineNuxtConfig({
 
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: false,
-      styles: {
-        configFile: "assets/settings.scss",
-      },
+      // styles: {
+      //   configFile: "assets/settings.scss",
+      // },
     },
   },
   site: {

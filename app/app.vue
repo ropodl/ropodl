@@ -20,9 +20,9 @@ useIsFullScreen(app);
   </div>
 </template>
 <style lang="scss">
-body {
-  background-color: rgb(var(--v-theme-background));
-}
+// body {
+//   background-color: rgb(var(--v-theme-background));
+// }
 .v-skeleton-loader__image {
   height: 100% !important;
 }

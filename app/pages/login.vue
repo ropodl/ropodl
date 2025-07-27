@@ -1,39 +1,55 @@
 <script setup>
-const supabase = useSupabaseClient();
+const { login } = useStrapiAuth();
 
 const loading = ref(true);
+const show = ref(true);
 
-const form = reactive({
-  email: "",
+const form = ref({
+  identifier: "",
   password: "",
 });
 
 const signIn = async () => {
-  const { error } = await supabase.auth.signInWithPassword({
-    email: form.email,
-    password: form.password,
-  });
-  if (error) return console.log(error.message);
-  navigateTo("/admin/", { replace: true });
+  loading.value = true;
+  await login(form.value)
+    .then((res) => {
+      console.log("res");
+      console.log(res);
+      navigateTo("/admin/", { replace: true });
+    })
+    .catch(({ error }) => {
+      console.log("err");
+      console.log(error);
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
 </script>
 <template>
-  <v-container class="h-100" style="margin-top: 64px">
-    <v-row align="center" justify="center" class="h-100">
+  <v-container>
+    <v-row align="center" justify="center" class="h-100 py-16">
       <v-col cols="12" sm="8" md="6" lg="4">
         <v-card border>
           <v-card-title class="text-center">Sign In With Email</v-card-title>
           <v-form @submit.prevent="signIn">
             <v-card-text class="pb-0">
+              {{ form }}
               <v-text-field
-                v-model="form.email"
+                v-model="form.identifier"
                 placeholder="Enter Email Address"
               ></v-text-field>
               <v-text-field
-                type="password"
                 v-model="form.password"
                 placeholder="Enter Password"
-              ></v-text-field>
+                :type="show ? 'password' : 'text'"
+              >
+                <template #append-inner>
+                  <v-icon @click="show = !show">
+                    <Icon :name="show ? 'lucide:eye' : 'lucide:eye-closed'" />
+                  </v-icon>
+                </template>
+              </v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-btn
