@@ -45,9 +45,9 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "vue3-carousel-nuxt",
     "nuxt-gtag",
-    process.env.NODE_ENV === "production"
-      ? "nuxt-delay-hydration nuxt-capo nuxt-security"
-      : "",
+    "nuxt-delay-hydration",
+    "nuxt-capo",
+    "nuxt-security",
   ],
   googleFonts: {
     families: {
