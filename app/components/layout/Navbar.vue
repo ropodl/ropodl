@@ -44,10 +44,6 @@ const pages = [
     "
   >
     <v-card-text class="pa-0 h-100 d-flex align-center">
-      <!-- <v-btn rounded="0" variant="text" height="50" to="/">
-        Saroj Poudel
-      </v-btn>
-      <v-spacer></v-spacer> -->
       <v-tabs hide-slider height="50" class="hidden-md-and-down">
         <template v-for="{ title, to } in pages">
           <v-tab

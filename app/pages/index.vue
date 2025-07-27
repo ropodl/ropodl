@@ -1,4 +1,5 @@
 <script setup>
+import { socials } from "@/utils/socials";
 useSeoMeta({
   title: "Saroj Poudel",
   description:
@@ -25,16 +26,8 @@ useSeoMeta({
           class="d-flex flex-column justify-center align-center"
         >
           <v-avatar size="256" class="mb-n10">
-            <v-img src="/avatar.jpg">
-              <div
-                class="w-100 h-100"
-                style="
-                  background: linear-gradient(
-                    transparent 50%,
-                    rgba(var(--v-theme-background))
-                  );
-                "
-              ></div>
+            <v-img src="/avatar.webp">
+              <div class="w-100 h-100 gradient"></div>
             </v-img>
           </v-avatar>
           <div
@@ -47,12 +40,8 @@ useSeoMeta({
           </div>
           <div class="text-center mb-6">
             Crafting thoughtful, user-first digital experiences at the
-            <br />
             intersection of design and development. Proudly Nepal-based.
           </div>
-          <!-- <div class="mb-6">
-            <v-btn color="white">Use this template</v-btn>
-          </div> -->
           <div>
             <ul class="list-style-none d-flex">
               <template v-for="social in socials">
@@ -64,6 +53,7 @@ useSeoMeta({
                     color="primary"
                     variant="text"
                     class="mr-3"
+                    href=""
                   >
                     <v-icon>
                       <Icon :name="social.icon" />
@@ -77,4 +67,36 @@ useSeoMeta({
       </v-row>
     </v-container>
   </section>
+  <!-- <section>
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="12" sm="12" md="8" lg="6">
+          <div class="text-h6">About Me</div>
+          <div>
+            As a UX/UI designer and front-end developer with 6 years of
+            experience, I leverage my Boston University Interactive Design
+            degree to craft user-centered digital experiences. My approach
+            blends creative strategy with technical expertise, transforming
+            concepts into functional, purposeful digital products that
+            seamlessly integrate design and technology.
+          </div>
+        </v-col>
+        <v-col cols="12" md="6">
+          <div class="text-h6">Work Experience</div>
+          <ul>
+            <li class="d-flex align-center">
+              2023-present <v-divider></v-divider> Aayulogic
+            </li>
+            <li>2023-present ----------------------- Aayulogic</li>
+            <li>2023-present ----------------------- Aayulogic</li>
+          </ul>
+        </v-col>
+      </v-row>
+    </v-container>
+  </section> -->
 </template>
+<style scoped>
+.gradient {
+  background: linear-gradient(transparent 50%, rgba(var(--v-theme-background)));
+}
+</style>
