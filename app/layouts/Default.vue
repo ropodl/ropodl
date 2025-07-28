@@ -1,6 +1,5 @@
 <script setup>
 const display = useDisplay();
-console.log(display);
 
 const active = computed(() => {
   return false;

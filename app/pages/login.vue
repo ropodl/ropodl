@@ -1,5 +1,10 @@
 <script setup>
 const { login } = useStrapiAuth();
+const user = useStrapiUser();
+
+if (user.value) {
+  navigateTo("/admin");
+}
 
 const loading = ref(true);
 const show = ref(true);
@@ -34,7 +39,6 @@ const signIn = async () => {
           <v-card-title class="text-center">Sign In With Email</v-card-title>
           <v-form @submit.prevent="signIn">
             <v-card-text class="pb-0">
-              {{ form }}
               <v-text-field
                 v-model="form.identifier"
                 placeholder="Enter Email Address"

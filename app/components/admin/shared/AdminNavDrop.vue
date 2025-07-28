@@ -5,9 +5,6 @@ defineProps({
   },
 });
 
-const supabase = useSupabaseClient();
-const user = useSupabaseUser();
-
 const routes = [
   {
     title: "Dashboard",
@@ -16,8 +13,6 @@ const routes = [
 ];
 
 const signOut = async () => {
-  const { error } = await supabase.auth.signOut();
-  if (error) return console.log(error.message);
   navigateTo("/", { replace: true, external: true });
 };
 </script>
