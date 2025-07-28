@@ -4,6 +4,7 @@ const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 useHead({
   title: "Add New Tag",
