@@ -62,6 +62,7 @@ export default defineNuxtConfig({
     version: "v5",
     devtools: true,
     url: process.env.STRAPI_URL,
+    cookieName: "strapi_jwt",
     cookie: {
       path: "/",
       maxAge: 14 * 24 * 60 * 60,
