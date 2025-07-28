@@ -17,6 +17,7 @@ const { all, resetFilters } = portfolio;
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({

@@ -20,6 +20,7 @@ const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({

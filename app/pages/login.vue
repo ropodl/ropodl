@@ -1,4 +1,5 @@
 <script setup>
+const snackbar = useSnackbarStore();
 const { login } = useStrapiAuth();
 const user = useStrapiUser();
 
@@ -6,7 +7,7 @@ if (user.value) {
   navigateTo("/admin");
 }
 
-const loading = ref(true);
+const loading = ref(false);
 const show = ref(true);
 
 const form = ref({
@@ -17,14 +18,12 @@ const form = ref({
 const signIn = async () => {
   loading.value = true;
   await login(form.value)
-    .then((res) => {
-      console.log("res");
-      console.log(res);
+    .then(() => {
+      snackbar.setSnackbar("Logged In, successfully!!", "success");
       navigateTo("/admin/", { replace: true });
     })
     .catch(({ error }) => {
-      console.log("err");
-      console.log(error);
+      snackbar.setSnackbar(error.message, "error");
     })
     .finally(() => {
       loading.value = false;
@@ -42,11 +41,15 @@ const signIn = async () => {
               <v-text-field
                 v-model="form.identifier"
                 placeholder="Enter Email Address"
+                :loading
+                :disabled="loading"
               ></v-text-field>
               <v-text-field
                 v-model="form.password"
                 placeholder="Enter Password"
                 :type="show ? 'password' : 'text'"
+                :loading
+                :disabled="loading"
               >
                 <template #append-inner>
                   <v-icon @click="show = !show">

@@ -37,6 +37,7 @@ const pages = [
     <slot />
   </v-main>
   <lazy-layout-footer />
+  <lazy-layout-snackbar />
   <template v-if="active">
     <v-bottom-navigation
       v-model="page"

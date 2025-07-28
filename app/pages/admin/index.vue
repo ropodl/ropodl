@@ -11,17 +11,6 @@ definePageMeta({
 useHead({
   title: "Admin Dashboard",
 });
-
-// onMounted(() => {
-//   getDashboard();
-// });
-
-const stats = ref([]);
-const getDashboard = async () => {
-  await useAxios.get("/api/dashboard").then((res) => {
-    stats.value = res.stats;
-  });
-};
 </script>
 <template>
   <v-container :fluid="isFluid">
@@ -32,7 +21,7 @@ const getDashboard = async () => {
         </div>
       </v-col>
     </v-row>
-    <v-row>
+    <!-- <v-row>
       <v-col cols="12" md="3" v-for="{ icon, number, title, growth } in stats">
         <v-card border>
           <v-icon
@@ -59,6 +48,6 @@ const getDashboard = async () => {
           </template>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
