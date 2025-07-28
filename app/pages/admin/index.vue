@@ -1,18 +1,20 @@
 <script setup lang="ts">
+const user = useStrapiUser();
 const appearance = useAdminAppearanceStore();
 const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({
   title: "Admin Dashboard",
 });
 
-onMounted(() => {
-  getDashboard();
-});
+// onMounted(() => {
+//   getDashboard();
+// });
 
 const stats = ref([]);
 const getDashboard = async () => {
@@ -25,7 +27,9 @@ const getDashboard = async () => {
   <v-container :fluid="isFluid">
     <v-row>
       <v-col cols="12">
-        <div class="text-h4 font-weight-bold">Welcome back, {{ "User" }}</div>
+        <div class="text-h4 font-weight-bold">
+          Welcome back, {{ user?.username || "User" }}
+        </div>
       </v-col>
     </v-row>
     <v-row>
@@ -48,8 +52,9 @@ const getDashboard = async () => {
           <template v-if="growth">
             <v-card-text class="d-flex align-center">
               <v-chip size="small" :color="growth > 1 ? 'success' : ''">
-                {{ growth }} % </v-chip
-              >&nbsp; since last month
+                {{ growth }} %
+              </v-chip>
+              &nbsp; since last month
             </v-card-text>
           </template>
         </v-card>
