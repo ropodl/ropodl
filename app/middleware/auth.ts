@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware((to, _from) => {
+export default defineNuxtRouteMiddleware(async (to, _from) => {
   // Skip middleware during server-side rendering
   if (process.server) return;
 
