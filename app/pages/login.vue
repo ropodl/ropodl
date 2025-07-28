@@ -20,7 +20,13 @@ const signIn = async () => {
   await login(form.value)
     .then(() => {
       snackbar.setSnackbar("Logged In, successfully!!", "success");
-      navigateTo("/admin/", { replace: true });
+
+      // Get and clear redirect cookie
+      const redirectCookie = useCookie("redirect", { path: "/" });
+      const redirectPath = redirectCookie.value || "/admin/";
+      redirectCookie.value = null;
+
+      navigateTo(redirectPath, { replace: true });
     })
     .catch(({ error }) => {
       snackbar.setSnackbar(error.message, "error");
