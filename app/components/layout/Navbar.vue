@@ -8,16 +8,16 @@ const pages = [
     title: "home",
     to: "/",
   },
-  {
-    icon: "mdi-post-outline",
-    title: "blogs",
-    to: "/blogs",
-  },
-  {
-    icon: "mdi-file-certificate-outline",
-    title: "portfolio",
-    to: "/portfolio",
-  },
+  // {
+  //   icon: "mdi-post-outline",
+  //   title: "blogs",
+  //   to: "/blogs",
+  // },
+  // {
+  //   icon: "mdi-file-certificate-outline",
+  //   title: "portfolio",
+  //   to: "/portfolio",
+  // },
   {
     icon: "mdi-contacts-outline",
     title: "contact",
