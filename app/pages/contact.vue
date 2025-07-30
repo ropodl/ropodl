@@ -19,9 +19,9 @@ useSeoMeta({
 });
 
 const loading = ref(false);
-const contactForm = ref();
+const contact = ref();
 
-const form = reactive({
+const form = ref({
   name: "",
   email: "",
   message: "",
@@ -34,16 +34,23 @@ const snackbar = reactive({
 });
 
 const rules = {
-  firstNameRules: [
+  name: [
+    (value: string) => {
+      if (value) return true;
+      return "Name is requred";
+    },
     (value: String) => {
-      if (value?.length > 3) return true;
-
+      if (value?.length >= 3) return true;
       return "Full name must be at least 3 characters.";
     },
   ],
-  emailRules: [
+  email: [
+    (value: string) => {
+      if (value) return true;
+      return "Email is requred";
+    },
     (value: String) => {
-      if (value?.length > 3) return true;
+      if (value?.length >= 3) return true;
       return "Email Address must be at least 3 characters.";
     },
     (value: string) =>
@@ -51,43 +58,37 @@ const rules = {
         value
       ) || "Email Address must be in a valid format",
   ],
-  messageRules: [
-    (value: String) => {
-      if (value?.length > 3) return true;
+  message: [
+    (value: string) => {
+      if (value) return true;
+      return "Message is requred";
+    },
+    (value: string) => {
+      if (value?.length >= 3) return true;
       return "Message must be at least 3 characters.";
     },
   ],
 };
 
-const submitForm = async () => {
-  loading.value = true;
-  const { valid } = await contactForm.value.validate();
-  if (valid) {
-    const { data, error } = useFetch("/api/frontend/contact", {
-      method: "POST",
-      body: form,
-      watch: false,
-    });
-    if (error.value) {
-      loading.value = false;
-      snackbar.text = "Error Occurred";
-      snackbar.color = "error";
-      snackbar.show = true;
-      return console.log(error.value);
-    }
-    form.name = "";
-    form.email = "";
-    form.message = "";
+const { create } = useStrapi();
+const { setSnackbar } = useSnackbarStore();
 
-    nextTick(async () => {
-      snackbar.text = "Message Sent";
-      snackbar.color = "success";
-      snackbar.show = true;
-      await contactForm.value.resetValidation();
-      loading.value = false;
-    });
-  } else console.log("failed");
-  loading.value = false;
+const submit = async () => {
+  loading.value = true;
+  const { valid } = await contact.value.validate();
+  if (valid) {
+    await create("contact-requests", form.value)
+      .then(() => {
+        contact.value.reset();
+        setSnackbar("Message sent!");
+      })
+      .catch(() => {
+        setSnackbar("Some kind of error occured. Try again later?");
+      })
+      .finally(() => {
+        loading.value = false;
+      });
+  }
 };
 </script>
 <template>
@@ -125,22 +126,17 @@ const submitForm = async () => {
         <v-col cols="12" md="6">
           <!-- <v-card> -->
           <v-card-text class="px-6">
-            <v-form
-              fast-fail
-              lazy-validation
-              ref="contactForm"
-              @submit.prevent="submitForm"
-            >
+            <v-form ref="contact" @submit.prevent="submit">
               <lazy-admin-shared-field-label>
                 Your awesome name?
               </lazy-admin-shared-field-label>
               <v-text-field
                 flat
-                :rules="rules['firstNameRules']"
-                v-model="form['name']"
+                :rules="rules.name"
+                v-model="form.name"
                 bg-color="transparent"
                 placeholder="e.g. John Doe"
-                :loading="loading"
+                :loading
                 :disabled="loading"
               ></v-text-field>
               <lazy-admin-shared-field-label>
@@ -148,11 +144,11 @@ const submitForm = async () => {
               </lazy-admin-shared-field-label>
               <v-text-field
                 flat
-                :rules="rules['emailRules']"
-                v-model="form['email']"
+                :rules="rules.email"
+                v-model="form.email"
                 bg-color="transparent"
                 placeholder="e.g. john.doe@example.com"
-                :loading="loading"
+                :loading
                 :disabled="loading"
               ></v-text-field>
               <lazy-admin-shared-field-label>
@@ -160,10 +156,10 @@ const submitForm = async () => {
               </lazy-admin-shared-field-label>
               <v-textarea
                 flat
-                :rules="rules['messageRules']"
-                v-model="form['message']"
+                :rules="rules.message"
+                v-model="form.message"
                 bg-color="transparent"
-                :loading="loading"
+                :loading
                 :disabled="loading"
                 rows="2"
                 auto-grow

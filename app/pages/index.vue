@@ -15,7 +15,7 @@ useSeoMeta({
 });
 </script>
 <template>
-  <section class="pt-16">
+  <section class="pt-10">
     <v-container>
       <v-row justify="center">
         <v-col
