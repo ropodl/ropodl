@@ -8,21 +8,21 @@ const pages = [
     title: "home",
     to: "/",
   },
-  // {
-  //   icon: "mdi-post-outline",
-  //   title: "blogs",
-  //   to: "/blogs",
-  // },
+  {
+    icon: "mdi-post-outline",
+    title: "blogs",
+    to: "/blogs",
+  },
   // {
   //   icon: "mdi-file-certificate-outline",
   //   title: "portfolio",
   //   to: "/portfolio",
   // },
-  {
-    icon: "mdi-contacts-outline",
-    title: "contact",
-    to: "/contact",
-  },
+  // {
+  //   icon: "mdi-contacts-outline",
+  //   title: "contact",
+  //   to: "/contact",
+  // },
   {
     icon: "mdi-information-outline",
     title: "about",
@@ -33,7 +33,6 @@ const pages = [
 <template>
   <v-card
     flat
-    height="50"
     location="top"
     class="position-fixed"
     style="
@@ -44,7 +43,7 @@ const pages = [
     "
   >
     <v-card-text class="pa-0 h-100 d-flex align-center">
-      <v-tabs hide-slider height="50" class="hidden-md-and-down">
+      <v-tabs hide-slider class="hidden-md-and-down">
         <template v-for="{ title, to } in pages">
           <v-tab
             rounded="0"
@@ -53,6 +52,7 @@ const pages = [
           >
             {{ title }}
           </v-tab>
+          <v-divider vertical></v-divider>
         </template>
       </v-tabs>
       <v-btn

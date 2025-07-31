@@ -15,7 +15,7 @@ useSeoMeta({
 });
 </script>
 <template>
-  <section class="pt-10">
+  <section class="pt-16 mt-4">
     <v-container>
       <v-row justify="center">
         <v-col
@@ -31,7 +31,7 @@ useSeoMeta({
             </v-img>
           </v-avatar>
           <div
-            class="text-center text-h3 font-weight-bold mb-6"
+            class="text-center text-h3 font-weight-black mb-6"
             style="z-index: 1"
           >
             Hi, I'm <br />
@@ -42,21 +42,35 @@ useSeoMeta({
             Crafting thoughtful, user-first digital experiences at the
             intersection of design and development. Proudly Nepal-based.
           </div>
+          <div class="mb-6">
+            <v-btn
+              color="white"
+              width="200"
+              variant="flat"
+              class="mr-3"
+              to="/blogs"
+              >Blog</v-btn
+            >
+            <v-btn width="200" variant="text" to="/portfolio">
+              Portfolio
+              <v-icon end>
+                <Icon name="tabler:arrow-right" />
+              </v-icon>
+            </v-btn>
+          </div>
           <div>
             <ul class="list-style-none d-flex">
-              <template v-for="social in socials">
+              <template v-for="({ icon, link }, i) in socials">
                 <li>
                   <v-btn
                     icon
-                    size="small"
                     rounded="lg"
                     color="primary"
                     variant="text"
-                    class="mr-3"
-                    href=""
+                    :href="link"
                   >
                     <v-icon>
-                      <Icon :name="social.icon" />
+                      <Icon :name="icon" />
                     </v-icon>
                   </v-btn>
                 </li>

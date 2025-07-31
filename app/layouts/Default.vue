@@ -5,7 +5,7 @@ const { mdAndUp } = useDisplay();
   <template v-if="mdAndUp">
     <lazy-layout-navbar />
   </template>
-  <v-main style="margin-top: 50px">
+  <v-main>
     <slot />
   </v-main>
   <lazy-layout-footer />

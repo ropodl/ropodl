@@ -52,6 +52,9 @@ export default defineNuxtConfig({
       Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
       },
+      Ubuntu: {
+        wght: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+      },
     },
     display: "swap",
   },

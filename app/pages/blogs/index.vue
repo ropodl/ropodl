@@ -1,5 +1,26 @@
-<script setup>
-import { formatTimeAgo } from "@vueuse/core";
+<script setup lang="ts">
+const { find } = useStrapi();
+
+const loading = ref(true);
+const page = ref(1);
+const blogs = ref<any[]>([]);
+
+const getBlogs = async () => {
+  loading.value = true;
+  await find("blogs", {
+    populate: "*",
+    fields: [],
+  })
+    .then((res) => {
+      blogs.value = res.data;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+onMounted(() => {
+  getBlogs();
+});
 
 useSeoMeta({
   title: "Saroj Poudel",
@@ -14,48 +35,26 @@ useSeoMeta({
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
   twitterCard: "summary",
 });
-
-const page = ref(1);
-const blogs = ref([]);
-const getBlogs = async () => {
-  await useAxios.get("http://localhost:1337/api/blogs").then((res) => {
-    blogs.value = res.data;
-  });
-};
-onMounted(() => {
-  getBlogs();
-});
 </script>
 
 <template>
   <NuxtLayout name="page-title">
     <template #title>Blogs</template>
     <v-container>
-      <v-row>
-        <template v-if="status === 'pending'">
-          <template v-for="i in 6">
-            <v-col cols="12" sm="6" md="4">
-              <v-card height="260">
-                <v-skeleton-loader
-                  class="w-100 h-100"
-                  type="image"
-                ></v-skeleton-loader>
-              </v-card>
-            </v-col>
-          </template>
-        </template>
-        <template v-else>
-          <template v-if="blogs.length">
+      <template v-if="loading">
+        <v-row>
+          <v-col>
+            <v-progress-circular indeterminate></v-progress-circular>
+          </v-col>
+        </v-row>
+      </template>
+      <template v-else>
+        <template v-if="blogs.length">
+          <v-row>
             <template
-              v-for="{
-                documentId,
-                slug,
-                title,
-                featured_image,
-                created_at,
-              } in blogs"
+              v-for="{ slug, title, featured_image: { name, url } } in blogs"
             >
-              <v-col cols="12" sm="6" md="4" :duration="500">
+              <v-col cols="12" sm="6" md="4">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-card
                     v-bind="props"
@@ -63,16 +62,16 @@ onMounted(() => {
                     variant="text"
                     color="transparent"
                     class="h-100"
-                    :to="`/blogs/${documentId}`"
+                    :to="`/blogs/${slug}`"
                   >
-                    <v-card border flat>
+                    <v-card border flat class="mb-3">
                       <v-img
                         cover
-                        class="w-100 h-100 pa-2"
+                        class="w-100 h-100"
                         :aspect-ratio="16 / 9"
                         :class="[isHovering ? 'zoom-image active' : '']"
-                        :src="featured_image?.url"
-                        :alt="featured_image?.id"
+                        :src="useStrapiMedia(url)"
+                        :alt="name"
                       >
                         <template v-slot:placeholder>
                           <div
@@ -86,20 +85,20 @@ onMounted(() => {
                         </template>
                       </v-img>
                     </v-card>
-                    <v-card-text class="ps-0 pb-0 text-brand">
-                      [ {{ formatTimeAgo(new Date(created_at)) }} ]
-                    </v-card-text>
                     <v-card-text
-                      class="pt-2 text-h6 font-weight-bold text-white px-0 pb-0 line-clamp-3"
+                      class="pt-2 text-h6 font-weight-light text-white px-0 pb-0 line-clamp-3"
                       style="line-height: normal; white-space: normal"
-                      v-text="title"
-                    />
+                    >
+                      {{ title }}
+                    </v-card-text>
                   </v-card>
                 </v-hover>
               </v-col>
             </template>
-          </template>
-          <template v-else>
+          </v-row>
+        </template>
+        <template v-else>
+          <v-row>
             <v-col cols="12">
               <v-card border>
                 <v-card-text>
@@ -107,9 +106,10 @@ onMounted(() => {
                 </v-card-text>
               </v-card>
             </v-col>
-          </template>
+          </v-row>
         </template>
-        <!-- <template v-if="pagination?.totalPage > 1">
+      </template>
+      <!-- <template v-if="pagination?.totalPage > 1">
           <v-col cols="12" md="12">
             <v-pagination
               v-model="page"
@@ -120,7 +120,6 @@ onMounted(() => {
             ></v-pagination>
           </v-col>
         </template> -->
-      </v-row>
     </v-container>
   </NuxtLayout>
 </template>
