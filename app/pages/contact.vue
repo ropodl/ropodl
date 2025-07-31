@@ -74,9 +74,9 @@ const { create } = useStrapi();
 const { setSnackbar } = useSnackbarStore();
 
 const submit = async () => {
-  loading.value = true;
   const { valid } = await contact.value.validate();
   if (valid) {
+    loading.value = true;
     await create("contact-requests", form.value)
       .then(() => {
         contact.value.reset();
