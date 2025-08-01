@@ -1,22 +1,22 @@
 export const socials = [
   {
     name: "Instagram",
-    icon: "fa6-brands:instagram",
+    icon: "tabler:brand-instagram",
     link: "https://instagram.com/ropodl/",
   },
   {
     name: "Dribbble",
-    icon: "fa6-brands:dribbble",
+    icon: "tabler:brand-dribbble",
     link: "https://dribbble.com/ropodl/",
   },
   {
     name: "Linkedin",
-    icon: "fa6-brands:linkedin-in",
+    icon: "tabler:brand-linkedin",
     link: "https://linkedin.com/in/ropodl/",
   },
   {
     name: "GitHub",
-    icon: "fa6-brands:github",
+    icon: "tabler:brand-github",
     link: "https://github.com/ropodl/",
   },
 ];

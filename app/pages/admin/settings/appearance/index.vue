@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: "admin-settings",
+  middleware: "auth",
 });
 
 const appearance = useAdminAppearanceStore();

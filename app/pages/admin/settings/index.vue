@@ -4,6 +4,7 @@ const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin-settings",
+  middleware: "auth",
 });
 
 const form = ref({

@@ -1,6 +1,6 @@
 <script setup>
-// const user = useSupabaseUser();
-// const supabase = useSupabaseClient();
+const { logout } = useStrapiAuth();
+
 const route = useRoute();
 const router = useRouter();
 
@@ -55,9 +55,8 @@ const settings = ref([
 ]);
 
 const signOut = async () => {
-  const { error } = await supabase.auth.signOut();
-  if (error) console.error(error.message);
-  else router.push("/", { replace: true });
+  logout();
+  router.push("/", { replace: true });
 };
 
 /**
