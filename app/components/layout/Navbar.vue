@@ -13,11 +13,11 @@ const pages = [
     title: "blogs",
     to: "/blogs",
   },
-  // {
-  //   icon: "mdi-file-certificate-outline",
-  //   title: "portfolio",
-  //   to: "/portfolio",
-  // },
+  {
+    icon: "mdi-file-certificate-outline",
+    title: "portfolio",
+    to: "/portfolio",
+  },
   // {
   //   icon: "mdi-contacts-outline",
   //   title: "contact",
