@@ -1,7 +1,13 @@
 <script setup>
+const snackbar = useSnackbarStore();
 const { login } = useStrapiAuth();
+const user = useStrapiUser();
 
-const loading = ref(true);
+if (user.value) {
+  navigateTo("/admin");
+}
+
+const loading = ref(false);
 const show = ref(true);
 
 const form = ref({
@@ -12,14 +18,18 @@ const form = ref({
 const signIn = async () => {
   loading.value = true;
   await login(form.value)
-    .then((res) => {
-      console.log("res");
-      console.log(res);
-      navigateTo("/admin/", { replace: true });
+    .then(() => {
+      snackbar.setSnackbar("Logged In, successfully!!", "success");
+
+      // Get and clear redirect cookie
+      const redirectCookie = useCookie("redirect", { path: "/" });
+      const redirectPath = redirectCookie.value || "/admin/";
+      redirectCookie.value = null;
+
+      navigateTo(redirectPath, { replace: true });
     })
     .catch(({ error }) => {
-      console.log("err");
-      console.log(error);
+      snackbar.setSnackbar(error.message, "error");
     })
     .finally(() => {
       loading.value = false;
@@ -34,15 +44,18 @@ const signIn = async () => {
           <v-card-title class="text-center">Sign In With Email</v-card-title>
           <v-form @submit.prevent="signIn">
             <v-card-text class="pb-0">
-              {{ form }}
               <v-text-field
                 v-model="form.identifier"
                 placeholder="Enter Email Address"
+                :loading
+                :disabled="loading"
               ></v-text-field>
               <v-text-field
                 v-model="form.password"
                 placeholder="Enter Password"
                 :type="show ? 'password' : 'text'"
+                :loading
+                :disabled="loading"
               >
                 <template #append-inner>
                   <v-icon @click="show = !show">

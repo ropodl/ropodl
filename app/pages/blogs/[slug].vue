@@ -1,13 +1,8 @@
-<script setup>
-import { formatTimeAgo } from "@vueuse/core";
-
+<script setup lang="ts">
+const { findOne } = useStrapi();
 const route = useRoute();
 
-const {
-  params: { slug },
-} = route;
-
-const blog = ref({});
+const blog = ref<any>({});
 const loading = ref(false);
 
 useSeoMeta({
@@ -23,10 +18,14 @@ onMounted(() => {
 });
 
 const getBlogBySlug = async () => {
-  await useAxios
-    .get(`http://localhost:1337/api/blogs/${slug}`)
+  await findOne<any>("blogs", "", <any>{
+    filters: {
+      slug: route.params.slug,
+    },
+    populate: "*",
+  })
     .then((res) => {
-      blog.value = res.data;
+      blog.value = res.data[0];
     })
     .finally(() => {
       loading.value = false;
@@ -34,34 +33,36 @@ const getBlogBySlug = async () => {
 };
 </script>
 <template>
+  <v-card border="b" rounded="0">
+    <v-img
+      cover
+      height="730"
+      :src="useStrapiMedia(blog.featured_image?.url)"
+      class="d-flex align-end"
+    >
+      <template v-if="blog.title">
+        <v-container>
+          <v-row>
+            <v-col cols="12">
+              <v-card-title
+                class="text-sm-h2 text-h4 font-weight-bold"
+                style="
+                  line-height: 1.2;
+                  font-family: Ubuntu;
+                  white-space: unset !important;
+                "
+              >
+                {{ blog.title }}
+              </v-card-title>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
+    </v-img>
+  </v-card>
   <v-container>
     <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-img
-            cover
-            height="500"
-            class="d-flex align-end rounded-0"
-            :src="blog.featured_image?.url"
-          >
-            <template v-if="blog.title">
-              <v-row>
-                <v-col cols="12">
-                  <v-card-title
-                    class="text-sm-h2 text-h4 pb-0"
-                    style="white-space: unset !important"
-                  >
-                    {{ blog.title }}
-                  </v-card-title>
-                  <v-card-text class="text-overline">
-                    Published {{ formatTimeAgo(new Date(blog.created_at)) }}
-                  </v-card-text>
-                </v-col>
-              </v-row>
-            </template>
-          </v-img>
-        </v-card>
-      </v-col>
+      <v-col cols="12"> </v-col>
     </v-row>
     <v-row v-if="blog.excerpt">
       <v-col cols="12" md="12">

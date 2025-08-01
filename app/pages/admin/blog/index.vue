@@ -20,6 +20,7 @@ const { all, resetFilters } = blog;
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({

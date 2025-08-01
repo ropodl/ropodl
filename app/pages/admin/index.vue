@@ -1,34 +1,27 @@
 <script setup lang="ts">
+const user = useStrapiUser();
 const appearance = useAdminAppearanceStore();
 const { isFluid } = storeToRefs(appearance);
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 useHead({
   title: "Admin Dashboard",
 });
-
-onMounted(() => {
-  getDashboard();
-});
-
-const stats = ref([]);
-const getDashboard = async () => {
-  await useAxios.get("/api/dashboard").then((res) => {
-    stats.value = res.stats;
-  });
-};
 </script>
 <template>
   <v-container :fluid="isFluid">
     <v-row>
       <v-col cols="12">
-        <div class="text-h4 font-weight-bold">Welcome back, {{ "User" }}</div>
+        <div class="text-h4 font-weight-bold">
+          Welcome back, {{ user?.username || "User" }}
+        </div>
       </v-col>
     </v-row>
-    <v-row>
+    <!-- <v-row>
       <v-col cols="12" md="3" v-for="{ icon, number, title, growth } in stats">
         <v-card border>
           <v-icon
@@ -48,12 +41,13 @@ const getDashboard = async () => {
           <template v-if="growth">
             <v-card-text class="d-flex align-center">
               <v-chip size="small" :color="growth > 1 ? 'success' : ''">
-                {{ growth }} % </v-chip
-              >&nbsp; since last month
+                {{ growth }} %
+              </v-chip>
+              &nbsp; since last month
             </v-card-text>
           </template>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>

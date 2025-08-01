@@ -1,7 +1,5 @@
 import { vuetifyOptions } from "./app/utils/module/vuetify.ts";
 
-console.log(process.env.NODE_ENV);
-
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-18",
   ssr: true,
@@ -46,13 +44,16 @@ export default defineNuxtConfig({
     "vue3-carousel-nuxt",
     "nuxt-gtag",
     "nuxt-delay-hydration",
-    "nuxt-capo",
-    "nuxt-security",
+    // "nuxt-capo",
+    // "nuxt-security",
   ],
   googleFonts: {
     families: {
       Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
+      },
+      Ubuntu: {
+        wght: [100, 200, 300, 400, 500, 600, 700, 800, 900],
       },
     },
     display: "swap",
@@ -61,8 +62,10 @@ export default defineNuxtConfig({
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
   strapi: {
+    version: "v5",
     devtools: true,
     url: process.env.STRAPI_URL,
+    cookieName: "strapi_jwt",
     cookie: {
       path: "/",
       maxAge: 14 * 24 * 60 * 60,
@@ -74,23 +77,22 @@ export default defineNuxtConfig({
     vuetifyOptions: vuetifyOptions,
     moduleOptions: {
       // check https://nuxt.vuetifyjs.com/guide/server-side-rendering.html
-      ssrClientHints: {
-        reloadOnFirstRequest: false,
-        viewportSize: true,
-        prefersColorScheme: true,
-        prefersColorSchemeOptions: {
-          useBrowserThemeOnly: true,
-          cookieName: "color-scheme",
-          darkThemeName: "dark",
-          lightThemeName: "light",
-        },
-      },
-
+      // ssrClientHints: {
+      //   reloadOnFirstRequest: false,
+      //   viewportSize: true,
+      //   prefersColorScheme: true,
+      //   prefersColorSchemeOptions: {
+      //     useBrowserThemeOnly: true,
+      //     cookieName: "color-scheme",
+      //     darkThemeName: "dark",
+      //     lightThemeName: "light",
+      //   },
+      // },
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: false,
-      // styles: {
-      //   configFile: "assets/settings.scss",
-      // },
+      styles: {
+        configFile: "assets/settings.scss",
+      },
     },
   },
   site: {

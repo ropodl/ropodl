@@ -6,7 +6,6 @@ export const useSnackbarStore = defineStore("snackbarStore", () => {
   });
 
   function setSnackbar(text: string, color: string = "primary") {
-    console.log(`Setting snackbar: text=${text}, color=${color}`);
     snackbar.value.show = true;
     snackbar.value.text = text;
     snackbar.value.color = color;
