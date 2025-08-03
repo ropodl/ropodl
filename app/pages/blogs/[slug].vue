@@ -36,9 +36,9 @@ const getBlogBySlug = async () => {
   <v-card border="b" rounded="0">
     <v-img
       cover
-      height="730"
+      height="1000"
       :src="useStrapiMedia(blog.featured_image?.url)"
-      class="d-flex align-end"
+      class="d-flex align-end h-100"
     >
       <template v-if="blog.title">
         <v-container>
@@ -72,13 +72,9 @@ const getBlogBySlug = async () => {
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="12">
         <template v-if="blog.content">
-          <v-card border="0" flat color="transparent">
-            <v-card-text class="pa-0">
-              <LazySharedDynamicContent :content="blog.content" />
-            </v-card-text>
-          </v-card>
+          <LazySharedDynamicContent :content="blog.content" />
         </template>
       </v-col>
     </v-row>

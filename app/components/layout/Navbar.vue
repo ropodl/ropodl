@@ -33,6 +33,7 @@ const pages = [
 <template>
   <v-card
     flat
+    rounded="pill"
     location="top"
     class="position-fixed"
     style="
@@ -52,7 +53,7 @@ const pages = [
           >
             {{ title }}
           </v-tab>
-          <v-divider vertical></v-divider>
+          <v-divider inset vertical></v-divider>
         </template>
       </v-tabs>
       <v-btn

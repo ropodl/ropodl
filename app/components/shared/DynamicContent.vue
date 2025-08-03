@@ -6,38 +6,45 @@ defineProps({
   },
 });
 </script>
+
 <template>
-  <template></template>
   <div v-html="content" class="dynamic-content mb-3"></div>
 </template>
 
 <style lang="scss">
-// Variables for easy customization
+@use "sass:color";
+
+// Variables for easy customization - Dark theme optimized
 $font-family-base: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-code: "Fira Code", "Cascadia Code", "Consolas", monospace;
 
-$text-color-base: #333;
-$text-color-heading: #222;
-$text-color-link: #007bff;
-$text-color-link-hover: #0056b3;
-$text-color-blockquote: #457b9d;
-$text-color-caption: #777;
-$text-color-inline-code: #c7254e;
-$text-color-code-block: #abb2bf;
-$text-color-info: #888;
+// Dark theme colors
+$bg-color-main: #121212;
+$text-color-base: #e0e0e0;
+$text-color-heading: #ffffff;
+$text-color-link: #4fc3f7;
+$text-color-link-hover: #29b6f6;
+$text-color-blockquote: #81c784;
+$text-color-caption: #aaaaaa;
+$text-color-inline-code: #ff7043;
+$text-color-code-block: #e0e0e0;
+$text-color-info: #999999;
 
-$border-color-light: #eee;
-$border-color-medium: #ddd;
-$border-color-blockquote: #a8dadc;
-$border-color-hr: #ccc;
+// Dark theme borders
+$border-color-light: #333333;
+$border-color-medium: #404040;
+$border-color-blockquote: #4caf50;
+$border-color-hr: #555555;
 
-$bg-color-blockquote: #f1faee;
-$bg-color-table-header: #e0f2f7;
-$bg-color-table-even-row: #f9f9f9;
-$bg-color-code-block: #282c34;
-$bg-color-inline-code: #e7e7e7;
+// Dark theme backgrounds
+$bg-color-blockquote: #1e2e1e;
+$bg-color-table-header: #2d2d2d;
+$bg-color-table-even-row: #1a1a1a;
+$bg-color-code-block: #1e1e1e;
+$bg-color-inline-code: #2d2d2d;
 
-$box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
+// Dark theme shadows
+$box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.4);
 
 // Container for dynamic content
 .dynamic-content {
@@ -45,14 +52,23 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
   line-height: 1.65;
   color: $text-color-base;
   word-wrap: break-word;
-  max-width: 800px;
   margin: 0 auto;
   padding: 15px;
   box-sizing: border-box;
+  overflow-x: hidden; // Prevent horizontal scroll from full-width elements
 
   // Basic paragraph styling
   p {
     margin-bottom: 1.1em;
+  }
+  p:not(:has(img), :has(iframe)) {
+    margin: auto;
+    max-width: 800px;
+  }
+  p:has(img),
+  p:has(iframe) {
+    max-width: 100%;
+    height: auto;
   }
 
   // Headings
@@ -62,6 +78,8 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
   h4,
   h5,
   h6 {
+    margin: auto;
+    max-width: 800px;
     margin-top: 2.5em;
     margin-bottom: 1em;
     font-weight: 700;
@@ -78,36 +96,39 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   h2 {
     font-size: 2em;
-    color: lighten($text-color-heading, 10%);
+    color: color.adjust($text-color-heading, $lightness: -10%);
     border-bottom: 1px dashed $border-color-light;
     padding-bottom: 0.3em;
   }
 
   h3 {
     font-size: 1.7em;
-    color: lighten($text-color-heading, 20%);
+    color: color.adjust($text-color-heading, $lightness: -20%);
   }
 
   h4 {
     font-size: 1.4em;
-    color: lighten($text-color-heading, 30%);
+    color: color.adjust($text-color-heading, $lightness: -30%);
   }
 
   h5 {
     font-size: 1.2em;
-    color: lighten($text-color-heading, 40%);
+    color: color.adjust($text-color-heading, $lightness: -40%);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   h6 {
     font-size: 1.05em;
-    color: lighten($text-color-heading, 50%);
+    color: color.adjust($text-color-heading, $lightness: -50%);
     font-style: italic;
   }
 
   // Links
   a {
+    margin: auto;
+    max-width: 800px;
+
     color: $text-color-link;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -121,6 +142,8 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
   // Lists
   ul,
   ol {
+    margin: auto;
+    max-width: 800px;
     margin-bottom: 1.2em;
     padding-left: 2.2em;
 
@@ -146,7 +169,7 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 0.6em;
   }
 
-  // Strong and Emphasis
+  // Strong and Emphasis - Dark theme optimized
   strong {
     font-weight: 700;
     color: $text-color-heading;
@@ -154,7 +177,18 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   em {
     font-style: italic;
-    color: lighten($text-color-base, 20%);
+    color: color.adjust($text-color-base, $lightness: 15%);
+  }
+
+  // Selection colors for dark theme
+  ::selection {
+    background-color: #4fc3f7;
+    color: #121212;
+  }
+
+  ::-moz-selection {
+    background-color: #4fc3f7;
+    color: #121212;
   }
 
   // Blockquote
@@ -173,19 +207,47 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
   }
 
-  // Images and Figures
+  // Images and Figures - Full width media
   img {
+    width: 100vw;
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 1.5em auto;
-    border-radius: 5px;
-    box-shadow: $box-shadow-subtle;
+    margin: 1.5em 0;
+    border-radius: 0;
+
+    // Prevent overflow on smaller screens
+    @media (max-width: 768px) {
+      margin-left: calc(50% - 50vw + 10px);
+      margin-right: calc(50% - 50vw + 10px);
+      width: calc(100vw - 20px);
+    }
   }
 
   figure {
-    margin: 1.5em auto;
+    width: 100vw;
+    margin: 1.5em 0;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     text-align: center;
+    position: relative;
+
+    img {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    // Prevent overflow on smaller screens
+    @media (max-width: 768px) {
+      margin-left: calc(50% - 50vw + 10px);
+      margin-right: calc(50% - 50vw + 10px);
+      width: calc(100vw - 20px);
+    }
+
+    table {
+      margin: auto;
+      max-width: 800px;
+    }
   }
 
   figcaption {
@@ -193,14 +255,70 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: $text-color-caption;
     margin-top: 0.8em;
     font-style: italic;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+    position: relative;
+    z-index: 1;
   }
 
-  // Tables
+  // Video and other media elements
+  video,
+  iframe,
+  embed,
+  object {
+    width: 100vw;
+    max-width: none;
+    height: auto;
+    display: block;
+    margin: 1.5em 0;
+    width: 100%;
+
+    // Maintain aspect ratio for videos and iframes
+    &[src*="youtube"],
+    &[src*="vimeo"],
+    &[src*="video"] {
+      aspect-ratio: 16/9;
+      height: auto;
+    }
+
+    // Prevent overflow on smaller screens
+    @media (max-width: 768px) {
+      margin-left: calc(50% - 50vw + 10px);
+      margin-right: calc(50% - 50vw + 10px);
+      width: calc(100vw - 20px);
+    }
+  }
+
+  // Tables - Full width on larger screens, scrollable on mobile
   table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 2em;
     font-size: 0.95em;
+
+    // Make tables full-width on larger screens
+    @media (min-width: 900px) {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+
+    // Horizontal scroll on mobile
+    @media (max-width: 768px) {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+
+      thead,
+      tbody,
+      tr,
+      th,
+      td {
+        display: table-cell;
+      }
+    }
 
     th,
     td {
@@ -271,7 +389,7 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: justify;
   }
 
-  // Optional: Drop Cap
+  // Optional: Drop Cap - Dark theme optimized
   p.dropcap::first-letter {
     float: left;
     font-size: 4em;
@@ -280,9 +398,10 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Georgia, serif;
     font-weight: bold;
     color: $text-color-link;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 
-  // Optional: Custom Classes for Alerts/Highlights
+  // Optional: Custom Classes for Alerts/Highlights - Dark theme
   .alert {
     padding: 1em 1.5em;
     border-left: 5px solid;
@@ -292,27 +411,27 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .alert-info {
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
-    color: #0c5460;
+    background-color: #1a2332;
+    border-color: #2196f3;
+    color: #81d4fa;
   }
 
   .alert-success {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
+    background-color: #1b2e1b;
+    border-color: #4caf50;
+    color: #a5d6a7;
   }
 
   .alert-warning {
-    background-color: #fff3cd;
-    border-color: #ffeeba;
-    color: #856404;
+    background-color: #2e2416;
+    border-color: #ff9800;
+    color: #ffcc02;
   }
 
   .alert-danger {
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    color: #721c24;
+    background-color: #2e1618;
+    border-color: #f44336;
+    color: #ef9a9a;
   }
 
   // Optional: Spacing for elements without explicit margins
@@ -330,22 +449,85 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 2.5em;
   }
 
-  // Specific CKEditor 5 image classes (if using image styles)
+  // Modified CKEditor 5 image classes for full-width context
   .image {
     &.image-style-side {
       width: 50%;
       float: right;
       margin: 0 0 1em 1.5em;
+      // Reset full-width styles for floated images
+      margin-left: 1.5em !important;
+      margin-right: 0 !important;
+      max-width: 50%;
+
+      img {
+        width: 100% !important;
+        margin: 0 !important;
+        box-shadow: $box-shadow-subtle;
+        border-radius: 5px;
+      }
     }
 
     &.image-style-align-left {
+      width: 50%;
       float: left;
       margin: 0 1.5em 1em 0;
+      // Reset full-width styles for floated images
+      margin-left: 0 !important;
+      margin-right: 1.5em !important;
+      max-width: 50%;
+
+      img {
+        width: 100% !important;
+        margin: 0 !important;
+        box-shadow: $box-shadow-subtle;
+        border-radius: 5px;
+      }
     }
 
     &.image-style-align-right {
+      width: 50%;
       float: right;
       margin: 0 0 1em 1.5em;
+      // Reset full-width styles for floated images
+      margin-left: 1.5em !important;
+      margin-right: 0 !important;
+      max-width: 50%;
+
+      img {
+        width: 100% !important;
+        margin: 0 !important;
+        box-shadow: $box-shadow-subtle;
+        border-radius: 5px;
+      }
+    }
+
+    // Full-width image class
+    &.image-style-full-width {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+
+      img {
+        width: 100%;
+        margin: 0;
+      }
+    }
+
+    // Responsive behavior for floated images
+    @media (max-width: 768px) {
+      &.image-style-side,
+      &.image-style-align-left,
+      &.image-style-align-right {
+        width: 100% !important;
+        float: none !important;
+        margin: 1.5em 0 !important;
+        max-width: none !important;
+
+        img {
+          width: 100% !important;
+        }
+      }
     }
   }
 
@@ -356,13 +538,20 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.1);
     clear: both;
   }
 
-  // Optional: Placeholder for custom styles generated by plugins
+  // Optional: Placeholder for custom styles generated by plugins - Dark theme
   .text-blue {
-    color: #007bff !important;
+    color: #4fc3f7 !important;
   }
 
   .bg-light-yellow {
-    background-color: #fffacd !important;
+    background-color: #2d2a1a !important;
+  }
+
+  .text-highlight {
+    background-color: #4a4a00 !important;
+    color: #ffff88 !important;
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
   }
 }
 

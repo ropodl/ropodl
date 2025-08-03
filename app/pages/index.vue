@@ -1,5 +1,29 @@
 <script setup>
 import { socials } from "@/utils/socials";
+import "vue3-carousel/carousel.css";
+import { Carousel, Slide } from "vue3-carousel";
+
+const { smAndDown } = useDisplay();
+
+const img = ref([
+  {
+    title: "AnimeZone",
+    link: "/image/portfolio/animezone/thumb.webp",
+  },
+  {
+    title: "Api Technology",
+    link: "/image/portfolio/api(new)/thumb.webp",
+  },
+  {
+    title: "VueDash",
+    link: "/image/portfolio/vuedash/thumb.webp",
+  },
+  {
+    title: "image1",
+    link: "/image/portfolio/images/1.jpg",
+  },
+]);
+
 useSeoMeta({
   title: "Saroj Poudel",
   description:
@@ -15,7 +39,7 @@ useSeoMeta({
 });
 </script>
 <template>
-  <section class="pt-16 mt-10">
+  <section class="mb-9" :class="smAndDown ? '' : 'mt-16'">
     <v-container>
       <v-row justify="center">
         <v-col
@@ -77,6 +101,36 @@ useSeoMeta({
               </template>
             </ul>
           </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </section>
+  <section>
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="12" md="12">
+          <client-only>
+            <Carousel
+              :gap="20"
+              pause-autoplay-on-hover
+              :items-to-show="4"
+              wrap-around
+              :autoplay="2000"
+              :transition="2000"
+            >
+              <template v-for="{ title, link } in img">
+                <Slide>
+                  <v-img
+                    width="300"
+                    height="150"
+                    rounded="lg"
+                    :alt="title"
+                    :src="link"
+                  ></v-img>
+                </Slide>
+              </template>
+            </Carousel>
+          </client-only>
         </v-col>
       </v-row>
     </v-container>
