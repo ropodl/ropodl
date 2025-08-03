@@ -1,15 +1,23 @@
 <script setup lang="ts">
 const { find } = useStrapi();
 
+const date = useDate();
+
 const loading = ref(true);
 const page = ref(1);
 const blogs = ref<any[]>([]);
 
 const getBlogs = async () => {
   loading.value = true;
-  await find("blogs", {
-    populate: "*",
-    fields: [],
+  await find<any>("blogs", {
+    fields: ["title", "slug", "createdAt"],
+    sort: "createdAt:desc",
+    status: "published",
+    populate: {
+      featured_image: {
+        fields: ["name", "url"],
+      },
+    },
   })
     .then((res) => {
       blogs.value = res.data;
@@ -52,7 +60,12 @@ useSeoMeta({
         <template v-if="blogs.length">
           <v-row>
             <template
-              v-for="{ slug, title, featured_image: { name, url } } in blogs"
+              v-for="{
+                slug,
+                title,
+                featured_image: { name, url },
+                createdAt,
+              } in blogs"
             >
               <v-col cols="12" sm="6" md="4">
                 <v-hover v-slot="{ isHovering, props }">
@@ -91,8 +104,14 @@ useSeoMeta({
                     >
                       {{ title }}
                     </v-card-text>
+                    <v-card-text
+                      class="text-white text-caption pl-0 font-weight-light"
+                    >
+                      {{ date.format(createdAt, "fullDate") }}
+                    </v-card-text>
                   </v-card>
                 </v-hover>
+                <v-divider></v-divider>
               </v-col>
             </template>
           </v-row>
