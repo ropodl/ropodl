@@ -45,7 +45,7 @@ export default defineNuxtConfig({
     "nuxt-gtag",
     "nuxt-delay-hydration",
     "nuxt-capo",
-    "nuxt-security",
+    // "nuxt-security",
   ],
   googleFonts: {
     families: {
