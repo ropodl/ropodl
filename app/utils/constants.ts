@@ -19,4 +19,27 @@ export const itemsPerPageOptions = [
     title: "100",
     value: 100,
   },
-]
+];
+
+export const pages = [
+  {
+    icon: "carbon:home",
+    title: "home",
+    to: "/",
+  },
+  {
+    icon: "carbon:blog",
+    title: "blogs",
+    to: "/blogs",
+  },
+  {
+    icon: "carbon:workspace",
+    title: "portfolio",
+    to: "/portfolio",
+  },
+  {
+    icon: "carbon:information",
+    title: "about",
+    to: "/about",
+  },
+];
