@@ -44,8 +44,8 @@ export default defineNuxtConfig({
     "vue3-carousel-nuxt",
     "nuxt-gtag",
     "nuxt-delay-hydration",
-    // "nuxt-capo",
-    // "nuxt-security",
+    "nuxt-capo",
+    "nuxt-security",
   ],
   googleFonts: {
     families: {
