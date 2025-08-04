@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: false },
   experimental: {
-    viewTransition: "always",
+    viewTransition: true,
     renderJsonPayloads: true,
     componentIslands: false,
     defaults: {
