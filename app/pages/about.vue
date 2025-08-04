@@ -37,24 +37,6 @@ const experience = [
   },
 ];
 
-const skills = [
-  {
-    title: "Product Design",
-  },
-  {
-    title: "Video Editing",
-  },
-  {
-    title: "Team Player / Manager",
-  },
-  {
-    title: "Research and Development",
-  },
-  {
-    title: "Problem Solving",
-  },
-];
-
 const software = [
   {
     text: "Adobe Illustrator",
@@ -83,29 +65,6 @@ const software = [
   {
     text: "Linux",
     icon: "carbon:linux",
-  },
-];
-
-const education = [
-  // {
-  //   title: "BSCSIT",
-  //   year: "2021",
-  //   desc: "Sagarmatha College of Information Technology @ Sanepa, Lalitpur",
-  // },
-  {
-    title: "BE.SE",
-    year: "2014 - 2017",
-    desc: " Nepal College of Information Technology @ Balkumari, Lalitpur",
-  },
-  {
-    title: "Ten Plus Two (+2)",
-    year: "2012 - 2013",
-    desc: "Arniko International College/HSS @ Talchikhel, Lalitpur",
-  },
-  {
-    title: "SLC (School Leaving Certificate)",
-    year: "2011",
-    desc: "National United High School @ Ganesh Chowk, Kathmandu",
   },
 ];
 
@@ -364,26 +323,6 @@ const { data: repos, error: reposError } = await useLazyFetch(
                 </v-card-text>
               </v-card>
             </v-col>
-            <!-- <v-col cols="6" sm="6" md="12">
-              <v-card border height="121">
-                <v-img
-                  height="70"
-                  class="h-100"
-                  src="/image/clients/apitech.avif"
-                  alt="api technology"
-                ></v-img>
-              </v-card>
-            </v-col>
-            <v-col cols="6" sm="12">
-              <v-card border height="121">
-                <v-img
-                  height="70"
-                  class="h-100"
-                  src="/image/clients/genese.avif"
-                  alt="api technology"
-                ></v-img>
-              </v-card>
-            </v-col> -->
           </v-row>
         </v-col>
         <v-col cols="12" md="6">
@@ -405,7 +344,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
             </v-col>
             <v-col cols="12">
               <v-row dense>
-                <v-col cols="12" sm="6" md="6">
+                <!-- <v-col cols="12" sm="6" md="6">
                   <v-card border height="508">
                     <v-card-title>Education</v-card-title>
                     <v-divider></v-divider>
@@ -438,7 +377,7 @@ const { data: repos, error: reposError } = await useLazyFetch(
                       </v-timeline>
                     </v-card-text>
                   </v-card>
-                </v-col>
+                </v-col> -->
                 <v-col cols="12" sm="6" md="6">
                   <v-card border height="121" class="mb-2">
                     <v-card-title

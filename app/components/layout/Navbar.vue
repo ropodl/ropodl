@@ -1,34 +1,8 @@
 <script setup lang="ts">
+import { pages } from "@/utils/constants";
 const route = useRoute();
 
-const drawer = ref(false);
-const pages = [
-  {
-    icon: "mdi-post-outline",
-    title: "home",
-    to: "/",
-  },
-  {
-    icon: "mdi-post-outline",
-    title: "blogs",
-    to: "/blogs",
-  },
-  {
-    icon: "mdi-file-certificate-outline",
-    title: "portfolio",
-    to: "/portfolio",
-  },
-  // {
-  //   icon: "mdi-contacts-outline",
-  //   title: "contact",
-  //   to: "/contact",
-  // },
-  {
-    icon: "mdi-information-outline",
-    title: "about",
-    to: "/about",
-  },
-];
+// const drawer = ref(false);
 </script>
 <template>
   <v-card
@@ -44,7 +18,7 @@ const pages = [
     "
   >
     <v-card-text class="pa-0 h-100 d-flex align-center">
-      <v-tabs hide-slider class="hidden-md-and-down">
+      <v-tabs hide-slider>
         <template v-for="{ title, to } in pages">
           <v-tab
             rounded="0"
@@ -56,16 +30,16 @@ const pages = [
           <v-divider inset vertical></v-divider>
         </template>
       </v-tabs>
-      <v-btn
+      <!-- <v-btn
         rounded="0"
-        class="hidden-lg-and-up"
+        class="hidden-lg-and-down"
         height="50"
         icon="mdi-menu"
         @click="drawer = !drawer"
-      ></v-btn>
+      ></v-btn> -->
     </v-card-text>
   </v-card>
-  <v-bottom-sheet v-model="drawer" inset scrim="black">
+  <!-- <v-bottom-sheet v-model="drawer" inset scrim="black">
     <v-card
       rounded="t-lg"
       class="border-b-0"
@@ -88,5 +62,5 @@ const pages = [
         </template>
       </v-list>
     </v-card>
-  </v-bottom-sheet>
+  </v-bottom-sheet> -->
 </template>

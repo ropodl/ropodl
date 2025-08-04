@@ -3,7 +3,7 @@ import { socials } from "@/utils/socials";
 import "vue3-carousel/carousel.css";
 import { Carousel, Slide } from "vue3-carousel";
 
-const { smAndDown } = useDisplay();
+const { smAndDown, xs, mdAndDown, mdAndUp } = useDisplay();
 
 const img = ref([
   {
@@ -37,6 +37,13 @@ useSeoMeta({
     "Web Developer and Graphic Designer specializing in VueJs and Express JS",
   twitterCard: "summary_large_image",
 });
+
+const itemsToShow = computed(() => {
+  if (xs.value) return 1;
+  if (smAndDown.value) return 2;
+  if (mdAndDown.value) return 3;
+  if (mdAndUp.value) return 4;
+});
 </script>
 <template>
   <section class="mb-9" :class="smAndDown ? '' : 'mt-16'">
@@ -66,22 +73,21 @@ useSeoMeta({
             Crafting thoughtful, user-first digital experiences at the
             intersection of design and development. Proudly Nepal-based.
           </div>
-          <div class="mb-6">
-            <v-btn
-              color="white"
-              width="200"
-              variant="flat"
-              class="mr-3"
-              to="/blogs"
-              >Blog</v-btn
-            >
-            <v-btn width="200" variant="text" to="/portfolio">
-              Portfolio
-              <v-icon end>
-                <Icon name="tabler:arrow-right" />
-              </v-icon>
-            </v-btn>
-          </div>
+          <v-row justify="center" class="w-100 mb-6">
+            <v-col cols="12" sm="4" md="4">
+              <v-btn block color="white" variant="flat" to="/blogs">
+                Blog
+              </v-btn>
+            </v-col>
+            <v-col cols="12" sm="4" md="4">
+              <v-btn block variant="text" to="/portfolio">
+                Portfolio
+                <v-icon end>
+                  <Icon name="tabler:arrow-right" />
+                </v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
           <div>
             <ul class="list-style-none d-flex">
               <template v-for="({ icon, link }, i) in socials">
@@ -113,7 +119,7 @@ useSeoMeta({
             <Carousel
               :gap="20"
               pause-autoplay-on-hover
-              :items-to-show="4"
+              :items-to-show="itemsToShow"
               wrap-around
               :autoplay="2000"
               :transition="2000"
@@ -122,7 +128,7 @@ useSeoMeta({
                 <Slide>
                   <v-img
                     width="300"
-                    height="150"
+                    height="auto"
                     rounded="lg"
                     :alt="title"
                     :src="link"

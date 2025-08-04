@@ -72,8 +72,13 @@ useSeoMeta({
                   <v-card
                     v-bind="props"
                     border="0"
-                    variant="text"
-                    color="transparent"
+                    rounded="0"
+                    :variant="isHovering ? 'tonal' : 'text'"
+                    :color="
+                      isHovering
+                        ? 'rgba(var(--v-theme-primary),0.1)'
+                        : 'transparent'
+                    "
                     class="h-100"
                     :to="`/blogs/${slug}`"
                   >
@@ -129,16 +134,16 @@ useSeoMeta({
         </template>
       </template>
       <!-- <template v-if="pagination?.totalPage > 1">
-          <v-col cols="12" md="12">
-            <v-pagination
-              v-model="page"
-              density="compact"
-              :length="pagination.totalPage"
-              show-first-last-page
-              @update:modelValue="test"
-            ></v-pagination>
-          </v-col>
-        </template> -->
+        <v-col cols="12" md="12">
+          <v-pagination
+            v-model="page"
+            density="compact"
+            :length="pagination.totalPage"
+            show-first-last-page
+            @update:modelValue="test"
+          ></v-pagination>
+        </v-col>
+      </template> -->
     </v-container>
   </NuxtLayout>
 </template>
