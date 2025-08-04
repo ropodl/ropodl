@@ -14,13 +14,13 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: false },
   experimental: {
-    viewTransition: true,
+    viewTransition: "always",
     renderJsonPayloads: true,
     componentIslands: false,
     defaults: {
       nuxtLink: {
         prefetch: true,
-        prefetchOn: { visibility: true },
+        prefetchOn: { visibility: true, interaction: true },
       },
     },
     payloadExtraction: true,
