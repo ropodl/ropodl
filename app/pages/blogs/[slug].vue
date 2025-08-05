@@ -36,9 +36,9 @@ const getBlogBySlug = async () => {
   <v-card border="b" rounded="0">
     <v-img
       cover
-      height="1000"
+      height="700"
       :src="useMedia(blog.featured_image?.url)"
-      class="d-flex align-end h-100"
+      class="d-flex align-end"
     >
       <template v-if="blog.title">
         <v-container>
