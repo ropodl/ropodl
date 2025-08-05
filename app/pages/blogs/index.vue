@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { periodicSyncForUpdates } from "virtual:nuxt-pwa-configuration";
-
 const { find } = useStrapi();
 
 const date = useDate();
