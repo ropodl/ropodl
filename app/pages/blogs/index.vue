@@ -83,13 +83,12 @@ useSeoMeta({
                     :to="`/blogs/${slug}`"
                   >
                     <v-card border flat class="mb-3">
-                      {{ useStrapiMedia(url) }}--{{ url }}
                       <v-img
                         cover
                         class="w-100 h-100"
                         :aspect-ratio="16 / 9"
                         :class="[isHovering ? 'zoom-image active' : '']"
-                        :src="useStrapiMedia(url)"
+                        :src="useMedia(url)"
                         :alt="name"
                       >
                         <template v-slot:placeholder>
