@@ -35,16 +35,16 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "vuetify-nuxt-module",
-    "nuxt-simple-sitemap",
+    // "nuxt-simple-sitemap",
     "nuxt-link-checker",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/strapi",
     "v-gsap-nuxt",
     "@nuxt/icon",
     "vue3-carousel-nuxt",
-    "nuxt-gtag",
-    "nuxt-delay-hydration",
-    "nuxt-capo",
+    // "nuxt-gtag",
+    // "nuxt-delay-hydration",
+    // "nuxt-capo",
     // "nuxt-security",
   ],
   googleFonts: {
@@ -63,7 +63,6 @@ export default defineNuxtConfig({
   },
   strapi: {
     version: "v5",
-    devtools: true,
     url: process.env.STRAPI_URL,
     cookieName: "strapi_jwt",
     cookie: {
