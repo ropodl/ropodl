@@ -83,9 +83,6 @@ useSeoMeta({
                     :to="`/blogs/${slug}`"
                   >
                     <v-card border flat class="mb-3">
-                      useMedia:{{ useMedia(url) }} useStrapiMedia:{{
-                        useStrapiMedia(url)
-                      }}
                       <v-img
                         cover
                         class="w-100 h-100"
