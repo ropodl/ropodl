@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { periodicSyncForUpdates } from "virtual:nuxt-pwa-configuration";
+
 const { find } = useStrapi();
 
 const date = useDate();
@@ -83,6 +85,10 @@ useSeoMeta({
                     :to="`/blogs/${slug}`"
                   >
                     <v-card border flat class="mb-3">
+                      env:{{ process.env }} useMedia:{{
+                        useMedia(url)
+                      }}
+                      useStrapiMedia:{{ useStrapiMedia(url) }}
                       <v-img
                         cover
                         class="w-100 h-100"
