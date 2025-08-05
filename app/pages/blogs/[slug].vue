@@ -37,7 +37,7 @@ const getBlogBySlug = async () => {
     <v-img
       cover
       height="1000"
-      :src="useStrapiMedia(blog.featured_image?.url)"
+      :src="useMedia(blog.featured_image?.url)"
       class="d-flex align-end h-100"
     >
       <template v-if="blog.title">
