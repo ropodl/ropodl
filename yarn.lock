@@ -3294,7 +3294,7 @@
     picomatch "^4.0.2"
     resolve-from "^5.0.0"
 
-"@vite-pwa/nuxt@1.0.4":
+"@vite-pwa/nuxt@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@vite-pwa/nuxt/-/nuxt-1.0.4.tgz#8370d94c426ebf961cb4700dd965aa9b2ec26005"
   integrity sha512-afnNGawRmTK7MZc7gqI41ekMYG195uTWWdWSCY1wst3uQUpOoMtcs8h/wtrTwiUxv1paTKPIR5GS7vKNI07VnQ==
