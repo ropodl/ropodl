@@ -111,7 +111,7 @@ const itemsToShow = computed(() => {
       </v-row>
     </v-container>
   </section>
-  <section>
+  <!-- <section>
     <v-container>
       <v-row justify="center">
         <v-col cols="12" md="12">
@@ -140,7 +140,7 @@ const itemsToShow = computed(() => {
         </v-col>
       </v-row>
     </v-container>
-  </section>
+  </section> -->
   <!-- <section>
     <v-container>
       <v-row justify="center">

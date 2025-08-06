@@ -31,12 +31,22 @@ const getBlogBySlug = async () => {
       loading.value = false;
     });
 };
+
+const { xs, sm, md, lg, xlAndUp } = useDisplay();
+const calculateHeight = computed(() => {
+  if (xs.value) return 300;
+  else if (sm.value) return 400;
+  else if (md.value) return 550;
+  else if (lg.value) return 650;
+  else if (xlAndUp.value) return 800;
+  return 700;
+});
 </script>
 <template>
   <v-card border="b" rounded="0">
     <v-img
       cover
-      height="700"
+      :height="calculateHeight"
       :src="useMedia(blog.featured_image?.url)"
       class="d-flex align-end"
     >
@@ -45,7 +55,7 @@ const getBlogBySlug = async () => {
           <v-row>
             <v-col cols="12">
               <v-card-title
-                class="text-sm-h2 text-h4 font-weight-bold"
+                class="text-md-h2 text-h4 font-weight-bold"
                 style="
                   line-height: 1.2;
                   font-family: Ubuntu;

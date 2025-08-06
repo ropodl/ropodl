@@ -3,7 +3,6 @@ defineProps({
   error: Object,
 });
 </script>
-
 <template>
   <v-app>
     <NuxtLayout>
