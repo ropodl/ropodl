@@ -46,6 +46,9 @@ $bg-color-inline-code: #2d2d2d;
 // Dark theme shadows
 $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.4);
 
+// utils
+$max-width: 800px;
+
 // Container for dynamic content
 .dynamic-content {
   font-family: $font-family-base;
@@ -63,7 +66,7 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
   p:not(:has(img), :has(iframe)) {
     margin: auto;
-    max-width: 800px;
+    max-width: $max-width;
   }
   p:has(img),
   p:has(iframe) {
@@ -182,18 +185,19 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.4);
 
   // Selection colors for dark theme
   ::selection {
-    background-color: #4fc3f7;
-    color: #121212;
+    background-color: white;
+    color: black;
   }
 
   ::-moz-selection {
-    background-color: #4fc3f7;
-    color: #121212;
+    background-color: white;
+    color: black;
   }
 
   // Blockquote
   blockquote {
-    margin: 2em 0;
+    max-width: calc($max-width + 5em);
+    margin: 2em auto;
     padding: 1.5em 2em;
     border-left: 5px solid $border-color-blockquote;
     background-color: $bg-color-blockquote;
@@ -246,7 +250,7 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.4);
 
     table {
       margin: auto;
-      max-width: 800px;
+      max-width: $max-width;
     }
   }
 
@@ -255,7 +259,7 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.4);
     color: $text-color-caption;
     margin-top: 0.8em;
     font-style: italic;
-    max-width: 800px;
+    max-width: $max-width;
     margin-left: auto;
     margin-right: auto;
     padding: 0 15px;
