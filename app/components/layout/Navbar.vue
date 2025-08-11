@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { pages } from "@/utils/constants";
-const route = useRoute();
 
-// const drawer = ref(false);
+const current = ref("/");
 </script>
 <template>
   <v-card
     flat
-    rounded="pill"
+    rounded="lg"
     location="top"
-    class="position-fixed"
+    class="position-fixed pa-1"
     style="
       top: 10px;
       z-index: 1010;
@@ -17,50 +16,25 @@ const route = useRoute();
       backdrop-filter: blur(8px);
     "
   >
-    <v-card-text class="pa-0 h-100 d-flex align-center">
-      <v-tabs hide-slider>
-        <template v-for="{ title, to } in pages">
-          <v-tab
-            rounded="0"
-            :to
-            :variant="route.path === to ? 'tonal' : 'text'"
-          >
-            {{ title }}
-          </v-tab>
-          <v-divider inset vertical></v-divider>
-        </template>
-      </v-tabs>
-      <!-- <v-btn
-        rounded="0"
-        class="hidden-lg-and-down"
-        height="50"
-        icon="mdi-menu"
-        @click="drawer = !drawer"
-      ></v-btn> -->
-    </v-card-text>
-  </v-card>
-  <!-- <v-bottom-sheet v-model="drawer" inset scrim="black">
-    <v-card
-      rounded="t-lg"
-      class="border-b-0"
-      style="
-        background-color: rgba(var(--v-theme-surface), 0.7);
-        backdrop-filter: blur(8px);
-      "
+    <v-tabs
+      v-model="current"
+      color="primary"
+      density="compact"
+      hide-slider
+      show-arrows
+      rounded="lg"
     >
-      <v-list bg-color="transparent">
-        <v-list-subheader>Navigate to</v-list-subheader>
-        <template v-for="{ title, icon, to } in pages">
-          <v-list-item
-            :title="`${title}.`"
-            :to
-            density="compact"
-            :prepend-icon="icon"
-            active-class="text-brand"
-            @click="drawer = false"
-          />
-        </template>
-      </v-list>
-    </v-card>
-  </v-bottom-sheet> -->
+      <template v-for="{ icon, title, to } in pages">
+        <v-tab
+          color="brand"
+          rounded="lg"
+          :to
+          :value="to"
+          :variant="current === to ? 'tonal' : 'text'"
+        >
+          {{ title }}.
+        </v-tab>
+      </template>
+    </v-tabs>
+  </v-card>
 </template>

@@ -7,7 +7,7 @@ const paddedNav = ref(["blogs-slug"]);
 const isBlog = computed(() => {
   if (paddedNav.value.includes(route.name?.toString() ?? "")) return "";
   else if (smAndDown.value) return "";
-  else return "mt-16";
+  else return "mt-10";
 });
 </script>
 
