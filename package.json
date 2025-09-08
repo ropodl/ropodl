@@ -17,7 +17,7 @@
     "pinia": "3.0.3",
     "slugify": "^1.6.6",
     "vue": "3.5.18",
-    "vuetify": "3.9.4"
+    "vuetify": "3.9.5"
   },
   "devDependencies": {
     "@mdi/font": "^7.4.47",
