@@ -6,7 +6,7 @@ import socials from '@/utils/social';
       <v-row class="mb-3">
         <v-col cols="12">
           <div class="text-lg-h1 text-h2 font-weight-bold mb-9">
-            I’m a fullstack developer with passion to create
+            Fullstack developer with passion to create
             <span class="text-primary-darken-2"> a great experiences. </span>
           </div>
         </v-col>
@@ -26,7 +26,7 @@ import socials from '@/utils/social';
           md="8"
         >
           <div class="text-h6 font-weight-light">
-            I’m Saroj Poudel, a full-stack developer and designer based in Kathmandu, Nepal. I focus
+            Hi, I’m Saroj Poudel, a full-stack developer and designer based in Kathmandu, Nepal. I focus
             on creating digital experiences that are intuitive, enjoyable, and effective. I've been
             building things with Laravel, Vue, Strapi, HonoJs combining design sense with strong
             engineering to deliver practical solutions.

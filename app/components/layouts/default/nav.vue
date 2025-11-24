@@ -2,7 +2,6 @@
 import { useDisplay } from 'vuetify';
 
 const route = useRoute();
-console.log(route)
 const { mobile } = useDisplay();
 
 const pages = [
@@ -50,19 +49,20 @@ const pages = [
         v-for="{ icon, title, to } in pages"
         :key="title"
       >
-          <v-tab
-            :to
+      <nuxt-link :to class="text-decoration-none text-white">
+        <v-tab
             :stacked="mobile"
             :active="to === route.fullPath"
             rounded="pill"
-          >
+            >
             <v-icon
-              :start="!mobile"
+            :start="!mobile"
             >
             <Icon :name="icon"/>
           </v-icon>
-            {{ title }}
-          </v-tab>
+          {{ title }}
+        </v-tab>
+      </nuxt-link>
       </template>
     </template>
     </v-tabs>

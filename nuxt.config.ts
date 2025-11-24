@@ -13,9 +13,10 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      Ubuntu: true,
+      Ubuntu: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     },
     display: 'swap',
+    download: true,
   },
 
   ssr: true,
