@@ -89,10 +89,14 @@ const items = ref([
 </script>
 <template>
   <div>
-    <span class="text-primary-darken-2">About me,</span> my story and my experience.
-  </div>
-  <div>
-        <v-container>
+    <v-container>
+      <v-row>
+        <v-col>
+          <layouts-default-page-title>
+            <span class="text-primary-darken-2">About me,</span> my story and my experience.
+          </layouts-default-page-title>
+        </v-col>
+      </v-row>
           <v-row>
             <v-col
               cols="12"

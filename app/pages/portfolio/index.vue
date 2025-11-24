@@ -1,7 +1,5 @@
 <script setup lang="ts">
-// import GuestLayout from '@/layouts/GuestLayout.vue';
 // import type { Portfolio } from '@@/types/portfolio';
-// import { Head } from '@inertiajs/vue3';
 // import { defineAsyncComponent } from 'vue';
 
 // const card = defineAsyncComponent(() => import('@/components/guest/shared/portfolio/card.vue'));
@@ -16,10 +14,14 @@
 </script>
 <template>
   <v-container>
-    <layouts-default-page-title>
-      Look at what I've been
-      <span class="text-primary-darken-2">working on</span>.
-    </layouts-default-page-title>
+    <v-row>
+      <v-col>
+        <layouts-default-page-title>
+          Look at what I've been
+          <span class="text-primary-darken-2">working on</span>.
+        </layouts-default-page-title>
+      </v-col>
+    </v-row>
       <!-- <template v-if="portfolios.length">
         <v-row class="py-16">
           <template

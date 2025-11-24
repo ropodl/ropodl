@@ -18,8 +18,8 @@ const goTop = () => {
     border="t"
     class="blur-8 position-relative"
     :class="{ 'pb-16': mobile }"
-    color="rgba(var(--v-theme-background),0.7)"
-  >
+    >
+    <!-- color="rgba(var(--v-theme-background),0.7)" -->
     <v-container
       class="position-absolute left-0 right-0 mx-auto z-1010"
       style="top: -40px"
@@ -55,7 +55,8 @@ const goTop = () => {
             <div class="text-h5 mb-6">Liked my works? Let's Talk and work together</div>
             <div class="text-lg-h1 text-h4 font-weight-bold d-flex align-start">
               <span class="text-primary-darken-2">hello</span>@ropodl.com
-              <v-btn
+              <template v-if="!mobile">
+                <v-btn
                 border
                 icon="mdi-arrow-top-right"
                 color="primary"
@@ -63,7 +64,8 @@ const goTop = () => {
                 rounded="circle"
                 class="ms-3"
                 href="mailto:hello@ropodl.com"
-              />
+                />
+              </template>
             </div>
           </v-col>
         </v-row>
@@ -92,7 +94,6 @@ const goTop = () => {
               >
                 <li>
                   <v-btn
-                    border
                     icon
                     rounded="lg"
                     color="primary"
