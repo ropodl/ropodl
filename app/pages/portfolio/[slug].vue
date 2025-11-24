@@ -1,27 +1,57 @@
 <script setup lang="ts">
-const { params } = useRoute();
-const { slug } = params;
+// import GuestLayout from '@/layouts/GuestLayout.vue';
+// import { Head } from '@inertiajs/vue3';
+// import { defineAsyncComponent } from 'vue';
 
-console.log(slug, "this");
+// const Dynamic = defineAsyncComponent(() => import('@/components/shared/dynamic.vue'));
 
-const { data: portfolio, error } = await useFetch(
-  `/api/frontend/portfolio/${slug}`
-);
+defineProps<{
+  portfolio: {
+    id: number;
+    title: string;
+    slug: string;
+    content: string;
+    status: string;
+    type_id: number;
+    created_at: string;
+    updated_at: string;
+    featured_image: string;
+  };
+}>();
 </script>
+
 <template>
-  <NuxtLayout name="page-title">
-    <template #title>{{ portfolio.title }}</template>
     <v-container>
       <v-row>
-        <v-col cols="12" md="6">
-          <v-card flat border>
-            <v-img :src="portfolio.main_image.url"></v-img>
+        <v-col cols="12">
+          <v-card
+            border
+            rounded="xl"
+          >
+            <v-img
+              cover
+              :aspect-ratio="16 / 8"
+              :src="portfolio.featured_image"
+            />
           </v-card>
         </v-col>
-        <v-col cols="12" md="4">
-          <LazySharedDynamicContent :content="portfolio.content" />
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-card-title
+            class="text-md-h2 text-h4 font-weight-bold px-0 pt-0"
+            style="line-height: 1.2; white-space: unset !important"
+          >
+            {{ portfolio.title }}
+          </v-card-title>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12">
+          <template v-if="portfolio.content">
+            <dynamic :content="portfolio.content" />
+          </template>
         </v-col>
       </v-row>
     </v-container>
-  </NuxtLayout>
 </template>

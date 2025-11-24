@@ -1,90 +1,87 @@
-<script setup>
-import { socials } from "@/utils/socials";
-
-const { smAndDown } = useDisplay();
-
-useSeoMeta({
-  title: "Saroj Poudel",
-  description:
-    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-  ogTitle: "Saroj Poudel",
-  ogDescription:
-    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-  ogUrl: "https://ropodl.com",
-  twitterTitle: "Saroj Poudel",
-  twitterDescription:
-    "Web Developer and Graphic Designer specializing in VueJs and Express JS",
-  twitterCard: "summary_large_image",
-});
+<script setup lang="ts">
+import socials from '@/utils/social';
 </script>
 <template>
-  <section class="mb-9" :class="smAndDown ? '' : 'mt-16'">
     <v-container>
-      <v-row justify="center">
-        <v-col
-          cols="12"
-          sm="12"
-          md="8"
-          lg="6"
-          class="d-flex flex-column justify-center align-center"
-        >
-          <v-avatar size="256" class="mb-n10">
-            <v-img src="/avatar.webp">
-              <div class="w-100 h-100 gradient"></div>
-            </v-img>
-          </v-avatar>
-          <div
-            class="text-center text-h3 font-weight-black mb-6"
-            style="z-index: 1"
-          >
-            Hi, I'm <br />
-            Saroj Poudel
-          </div>
-          <div class="text-center mb-6">
-            I build web stuff in Kathmandu.<br />
-            Let me show you what I've done and how I do it.
-          </div>
-          <v-row justify="center" class="w-100 mb-6">
-            <v-col cols="12" sm="4" md="4">
-              <v-btn block color="white" variant="flat" to="/blogs">
-                Blog
-              </v-btn>
-            </v-col>
-            <v-col cols="12" sm="4" md="4">
-              <v-btn block variant="text" to="/portfolio">
-                Portfolio
-                <v-icon end>
-                  <Icon name="tabler:arrow-right" />
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-          <div>
-            <ul class="list-style-none d-flex">
-              <template v-for="({ icon, link }, i) in socials">
-                <li>
-                  <v-btn
-                    icon
-                    rounded="lg"
-                    color="primary"
-                    variant="text"
-                    :href="link"
-                  >
-                    <v-icon>
-                      <Icon :name="icon" />
-                    </v-icon>
-                  </v-btn>
-                </li>
-              </template>
-            </ul>
+      <v-row class="mb-3">
+        <v-col cols="12">
+          <div class="text-lg-h1 text-h2 font-weight-bold mb-9">
+            I’m a fullstack developer with passion to create
+            <span class="text-primary-darken-2"> a great experiences. </span>
           </div>
         </v-col>
       </v-row>
+      <v-row
+        align="center"
+        class="mb-3"
+      >
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-divider/>
+        </v-col>
+        <v-col
+          cols="12"
+          md="8"
+        >
+          <div class="text-h6 font-weight-light">
+            I’m Saroj Poudel, a full-stack developer and designer based in Kathmandu, Nepal. I focus
+            on creating digital experiences that are intuitive, enjoyable, and effective. I've been
+            building things with Laravel, Vue, Strapi, HonoJs combining design sense with strong
+            engineering to deliver practical solutions.
+          </div>
+        </v-col>
+      </v-row>
+      <v-row
+        align="center"
+        class="mb-6"
+      >
+        <v-col
+          cols="12"
+          md="9"
+          class="hidden-sm-and-down"
+        >
+          <ul class="list-none pl-0 d-flex align-center">
+            <template
+              v-for="{ name, link } in socials"
+              :key="name"
+            >
+              <li class="me-6">
+                <v-hover v-slot="{ isHovering, props }">
+                  <a
+                    v-bind="props"
+                    class="text-decoration-none text-primary text-body-1 font-weight-regular"
+                    :class="isHovering ? 'text-primary-darken-2' : 'text-primary'"
+                    :href="link"
+                    target="_blank"
+                  >
+                    {{ name }}
+                    <v-icon size="x-small">
+                      <Icon name="carbon:arrow-up-right" />
+                    </v-icon>
+                  </a>
+                </v-hover>
+              </li>
+            </template>
+          </ul>
+        </v-col>
+        <v-col
+          cols="6"
+          md="3"
+        >
+          <v-btn
+            border
+            block
+            rounded="pill"
+            size="100"
+          >
+            Let's talk
+            <template #append>
+              <v-icon end icon="mdi-arrow-right" />
+            </template>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-container>
-  </section>
 </template>
-<style scoped>
-.gradient {
-  background: linear-gradient(transparent 50%, rgba(var(--v-theme-background)));
-}
-</style>

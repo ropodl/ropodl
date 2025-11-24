@@ -1,5 +1,7 @@
 <template>
-  <div/>
+  <div>
+    blog id
+  </div>
 </template>
 
 <script lang="ts" setup>
