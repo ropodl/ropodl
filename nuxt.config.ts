@@ -2,13 +2,16 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  experimental: {
+    viewTransition: true,
+  },
 
   modules: [
     '@nuxt/eslint',
-    '@nuxt/hints',
     'vuetify-nuxt-module',
     '@nuxtjs/google-fonts',
     '@nuxt/icon',
+    '@vite-pwa/nuxt',
   ],
 
   googleFonts: {
