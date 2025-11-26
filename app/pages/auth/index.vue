@@ -3,6 +3,8 @@ const form = ref({
   username: "",
   password: ""
 })
+
+$fetch('http://localhost:3000/api/v1/auth/login')
 </script>
 <template>
   <v-container>
