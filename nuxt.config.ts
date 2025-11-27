@@ -2,6 +2,22 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+      link: [
+        {
+          rel: "icon",
+          type: "image/ico",
+          href: "/favicon.ico",
+        },
+      ],
+    },
+  },
+
   experimental: {
     viewTransition: true,
     defaults: {
@@ -18,6 +34,7 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "@nuxtjs/google-fonts",
     "@nuxt/icon",
+    "@vite-pwa/nuxt",
   ],
 
   googleFonts: {
