@@ -1,5 +1,21 @@
 <script setup lang="ts">
 import socials from "@/utils/social";
+
+useSeoMeta({
+  title: "Saroj Poudel",
+  ogTitle: "Saroj Poudel",
+  twitterTitle: "[twitter:title]",
+  description:
+    "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Laravel, Strapi, and HonoJs. Let's create something great.",
+  ogDescription:
+    "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Laravel, Strapi, and HonoJs. Let's create something great.",
+  twitterDescription:
+    "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Laravel, Strapi, and HonoJs. Let's create something great.",
+  ogImage: "https://www.ropodl.com/media/full.jpg",
+  twitterCard: "summary_large_image",
+  twitterImage: "https://www.ropodl.com/media/full.jpg",
+  ogUrl: "https://www.ropodl.com/",
+});
 </script>
 <template>
   <v-container>
