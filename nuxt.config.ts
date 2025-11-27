@@ -18,7 +18,6 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "@nuxtjs/google-fonts",
     "@nuxt/icon",
-    "@vite-pwa/nuxt",
   ],
 
   googleFonts: {
