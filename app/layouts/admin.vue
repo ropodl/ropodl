@@ -1,45 +1,44 @@
 <script setup lang="ts">
-import { left, right } from '@/composables/admin/layout/nav';
-// import type { navItem } from '@/types/layout';
-// import { 
-//     computed, 
+import { left, right } from "@/composables/admin/layout/nav";
+import type { navItem } from "@/types/layout";
+// import {
+//     computed,
 //     defineAsyncComponent
 //  } from 'vue';
 
 // const snackbar = defineAsyncComponent(() => import('@/components/shared/snackbar.vue'));
 
-
-const navItems = [
-  { icon: 'carbon:home', title: 'Home', to: '/admin' },
+const navItems: navItem[] = [
+  { icon: "carbon:home", title: "Home", to: "/admin" },
   {
-    icon: 'carbon:edit',
-    title: 'Blog',
-    subtitle: 'Content And Portfolio',
+    icon: "carbon:edit",
+    title: "Blog",
+    subtitle: "Content And Portfolio",
     subitems: [
-      { title: 'All Blogs', to: '/admin/blog' },
-      { title: 'Add New', to: '/admin/blog/create' },
-      { title: 'Categories', to: '/admin/category' },
-      { title: 'Tags', to: '/admin/tag' },
+      { title: "All Blogs", to: "/admin/blog" },
+      { title: "Add New", to: "/admin/blog/create" },
+      { title: "Categories", to: "/admin/category" },
+      { title: "Tags", to: "/admin/tag" },
       {
-        title: 'Blog Comments',
-        grand: [{ title: 'All Comments', to: '/admin/blog/comments' }],
+        title: "Blog Comments",
+        grand: [{ title: "All Comments", to: "/admin/blog/comments" }],
       },
     ],
   },
   {
-    icon: 'carbon:image',
-    title: 'Portfolio',
+    icon: "carbon:image",
+    title: "Portfolio",
     subitems: [
-      { title: 'All Portfolio', to: '/admin/portfolio' },
-      { title: 'Add New', to: '/admin/portfolio/create' },
-      { title: 'Work Type', to: '/admin/portfolio-type' }
+      { title: "All Portfolio", to: "/admin/portfolio" },
+      { title: "Add New", to: "/admin/portfolio/create" },
+      { title: "Work Type", to: "/admin/portfolio-type" },
     ],
   },
   {
-    icon: 'mdi-phone-outline',
-    title: 'Contact Request',
-    subtitle: 'Contact and Feedback',
-    to: '/admin/contact-request',
+    icon: "mdi-phone-outline",
+    title: "Contact Request",
+    subtitle: "Contact and Feedback",
+    to: "/admin/contact-request",
   },
 ];
 
@@ -85,44 +84,25 @@ const navItems = [
       color="rgba(var(--v-theme-surface), 0.7)"
       class="blur-8"
     >
-      <v-list
-        nav
-        density="compact"
-      >
-        <template
-          v-for="item in navItems"
-          :key="item.title"
-        >
+      <v-list nav density="compact">
+        <template v-for="item in navItems" :key="item.title">
           <template v-if="!item.subitems">
-            <v-list-item
-              rounded="lg"
-              link
-              :title="item.title"
-              :to="item.to"
-              >
+            <v-list-item rounded="lg" link :title="item.title" :to="item.to">
               <template #prepend>
                 <v-icon>
-                    <Icon :name="item.icon" />
+                  <Icon :name="item.icon" />
                 </v-icon>
               </template>
             </v-list-item>
           </template>
 
           <template v-else>
-            <v-menu
-              :close-on-content-click="false"
-              location="end"
-              offset="14"
-            >
+            <v-menu :close-on-content-click="false" location="end" offset="14">
               <template #activator="{ props: menuProps }">
-                <v-list-item
-                  v-bind="menuProps"
-                  link
-                  rounded="lg"
-                  >
+                <v-list-item v-bind="menuProps" link rounded="lg">
                   <template #prepend>
                     <v-icon>
-                        <Icon :name="item.icon" />
+                      <Icon :name="item.icon" />
                     </v-icon>
                   </template>
                 </v-list-item>
@@ -130,23 +110,14 @@ const navItems = [
 
               <v-card width="300">
                 <v-card-title class="d-flex align-center pb-0">
-                  <v-icon
-                    start
-                    size="small"
-                  >
-                  <Icon :name="item.icon" />
-                </v-icon>
+                  <v-icon start size="small">
+                    <Icon :name="item.icon" />
+                  </v-icon>
                   {{ item.title }}
                 </v-card-title>
 
-                <v-list
-                  density="compact"
-                  class="pa-0"
-                >
-                  <template
-                    v-for="(subItem, i) in item.subitems"
-                    :key="i"
-                  >
+                <v-list density="compact" class="pa-0">
+                  <template v-for="(subItem, i) in item.subitems" :key="i">
                     <template v-if="subItem.grand">
                       <v-list-group :value="subItem.title">
                         <template #activator="{ props: groupProps }">
@@ -162,18 +133,15 @@ const navItems = [
                           :title="grandItem.title"
                           link
                           :to="grandItem.to"
-                          />
-                          <!-- :active="isItemActive(grandItem)"
+                        />
+                        <!-- :active="isItemActive(grandItem)"
                           @click="grandItem.to && router.visit(grandItem.to)" -->
                       </v-list-group>
                     </template>
 
                     <template v-else>
-                      <v-list-item
-                        link
-                        :title="subItem.title"
-                        />
-                        <!-- :active="isItemActive(subItem)"
+                      <v-list-item link :title="subItem.title" />
+                      <!-- :active="isItemActive(subItem)"
                         @click="subItem.to && router.visit(subItem.to)" -->
                     </template>
                   </template>
@@ -222,9 +190,9 @@ const navItems = [
     <v-main>
       <slot />
     </v-main>
-    <v-layout>
+    <!-- <v-layout>
       <snackbar />
-    </v-layout>
+    </v-layout> -->
     <v-navigation-drawer
       v-model="right"
       temporary
