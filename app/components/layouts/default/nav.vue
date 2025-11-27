@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { useDisplay } from 'vuetify';
+import { useDisplay } from "vuetify";
 
 const route = useRoute();
 const { mobile } = useDisplay();
 
 const pages = [
   {
-    icon: 'carbon:home',
-    title: 'home',
-    to: '/',
+    icon: "carbon:home",
+    title: "home",
+    to: "/",
   },
   {
-    icon: 'carbon:blog',
-    title: 'blog',
-    to: '/blog',
+    icon: "carbon:blog",
+    title: "blog",
+    to: "/blog",
   },
   {
-    icon: 'carbon:workspace',
-    title: 'portfolio',
-    to: '/portfolio',
+    icon: "carbon:workspace",
+    title: "portfolio",
+    to: "/portfolio",
   },
   {
-    icon: 'carbon:information',
-    title: 'about',
-    to: '/about',
+    icon: "carbon:information",
+    title: "about",
+    to: "/about",
   },
 ];
 </script>
@@ -44,27 +44,23 @@ const pages = [
       height="50"
       rounded="pill"
     >
-    <template v-if="pages">
-      <template
-        v-for="{ icon, title, to } in pages"
-        :key="title"
-      >
-      <nuxt-link :to class="text-decoration-none text-white">
-        <v-tab
+      <template v-if="pages">
+        <template v-for="{ icon, title, to } in pages" :key="title">
+          <!-- <nuxt-link :to class="text-decoration-none text-white"> -->
+          <v-tab
             :stacked="mobile"
+            :to
             :active="to === route.fullPath"
             rounded="pill"
-            >
-            <v-icon
-            :start="!mobile"
-            >
-            <Icon :name="icon"/>
-          </v-icon>
-          {{ title }}
-        </v-tab>
-      </nuxt-link>
+          >
+            <v-icon :start="!mobile">
+              <Icon :name="icon" />
+            </v-icon>
+            {{ title }}
+          </v-tab>
+          <!-- </nuxt-link> -->
+        </template>
       </template>
-    </template>
     </v-tabs>
   </v-card>
 </template>

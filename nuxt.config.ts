@@ -1,24 +1,31 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   experimental: {
     viewTransition: true,
+    defaults: {
+      nuxtLink: {
+        prefetchOn: {
+          interaction: true,
+        },
+      },
+    },
   },
 
   modules: [
-    '@nuxt/eslint',
-    'vuetify-nuxt-module',
-    '@nuxtjs/google-fonts',
-    '@nuxt/icon',
-    '@vite-pwa/nuxt',
+    "@nuxt/eslint",
+    "vuetify-nuxt-module",
+    "@nuxtjs/google-fonts",
+    "@nuxt/icon",
+    "@vite-pwa/nuxt",
   ],
 
   googleFonts: {
     families: {
       Ubuntu: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     },
-    display: 'swap',
+    display: "swap",
     download: true,
   },
 
@@ -31,12 +38,12 @@ export default defineNuxtConfig({
   },
 
   build: {
-    transpile: ['vuetify'],
+    transpile: ["vuetify"],
   },
 
   vite: {
     ssr: {
-      noExternal: ['vuetify'],
+      noExternal: ["vuetify"],
     },
   },
 
@@ -58,7 +65,7 @@ export default defineNuxtConfig({
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: true,
       styles: {
-        configFile: 'assets/settings.scss',
+        configFile: "assets/settings.scss",
       },
     },
   },
