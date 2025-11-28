@@ -151,10 +151,18 @@ const items = ref([
         </div>
       </v-col>
       <v-col cols="12" md="6">
-        <v-list bg-color="transparent" class="py-0" density="default">
+        <v-list
+          bg-color="transparent"
+          class="py-0"
+          density="default"
+          lines="three"
+        >
           <template v-for="(item, index) in experience" :key="item.title">
             <v-list-item :class="index === 0 ? 'mb-6' : 'my-6'">
-              <v-list-item-title class="text-h5 font-weight-medium mb-3">
+              <v-list-item-title
+                class="text-h5 font-weight-medium mb-3"
+                style="white-space: normal !important"
+              >
                 {{ item.title }}
               </v-list-item-title>
               <v-list-item-subtitle

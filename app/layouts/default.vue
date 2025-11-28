@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-const { mobile } = useDisplay()
+const { mobile } = useDisplay();
 </script>
 <template>
   <v-app>
     <layouts-default-nav />
-    <v-main :class="{'mt-16':!mobile}">
+    <v-main :class="{ 'mt-16': !mobile, 'mt-12': mobile }">
       <div class="v-bg position-fixed top-0 right-0 left-0 bottom-0">
         <div
           aria-hidden="true"

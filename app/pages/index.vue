@@ -4,7 +4,7 @@ import socials from "@/utils/social";
 useSeoMeta({
   title: "Saroj Poudel",
   ogTitle: "Saroj Poudel",
-  twitterTitle: "[twitter:title]",
+  twitterTitle: "Saroj Poudel",
   description:
     "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Laravel, Strapi, and HonoJs. Let's create something great.",
   ogDescription:
