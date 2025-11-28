@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 const form = ref({
   username: "",
-  password: ""
-})
+  password: "",
+});
 
-$fetch('http://localhost:3000/api/v1/auth/login')
+$fetch("http://localhost:3000/api/v1/auth/login");
 </script>
 <template>
-  <v-container>
+  <v-container max-width="1200">
     <v-row>
       <v-col cols="12">
         <layouts-default-page-title>
@@ -17,8 +17,16 @@ $fetch('http://localhost:3000/api/v1/auth/login')
     </v-row>
     <v-row>
       <v-col cols="12" md="4">
-        <v-text-field v-model="form.username" density="comfortable" placeholder="Email Address" />
-        <v-text-field v-model="form.password" density="comfortable" placeholder="Password" />
+        <v-text-field
+          v-model="form.username"
+          density="comfortable"
+          placeholder="Email Address"
+        />
+        <v-text-field
+          v-model="form.password"
+          density="comfortable"
+          placeholder="Password"
+        />
         <div class="d-flex justify-end">
           <v-btn color="primary" loading>Submit</v-btn>
         </div>

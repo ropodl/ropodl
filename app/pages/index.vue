@@ -18,7 +18,7 @@ useSeoMeta({
 });
 </script>
 <template>
-  <v-container>
+  <v-container max-width="1200">
     <v-row class="mb-3">
       <v-col cols="12">
         <div class="text-lg-h1 text-h2 font-weight-bold mb-9">
