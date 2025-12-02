@@ -23,7 +23,7 @@ const goTop = () => {
     <v-container
       max-width="1200"
       class="position-absolute left-0 right-0 mx-auto z-1010"
-      style="top: -40px"
+      style="top: -40px; pointer-events: none;"
     >
       <v-row>
         <v-col cols="12" class="d-flex">
@@ -36,6 +36,7 @@ const goTop = () => {
             border
             rounded="circle"
             icon="mdi-arrow-up-right"
+            style="pointer-events: all;"
             @click="goTop"
           />
         </v-col>
