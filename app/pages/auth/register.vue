@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { required, maxLength, minLength } from "@/utils/rules";
 import { VForm } from "vuetify/components";
+import useApiFetch from "~/utils/shared/useApiFetch";
 
 const showPass = ref(false)
 const showConfirmPass = ref(false)
@@ -20,6 +21,14 @@ const submitForm = async () => {
    if (!registerForm.value) return;
    const { valid } = await registerForm.value.validate();
    console.log(valid);
+   if(valid){
+    await useApiFetch("auth/register",{
+      method: "POST",
+      body: form.value
+    }).then((res)=>{
+      console.log(res)
+    })
+   }
 };
 
 useHead({
