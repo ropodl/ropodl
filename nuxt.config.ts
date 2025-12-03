@@ -1,93 +1,92 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
+   compatibilityDate: "2025-07-15",
+   devtools: { enabled: true },
 
-  app: {
-    head: {
-      htmlAttrs: {
-        lang: "en",
+   app: {
+      head: {
+         htmlAttrs: {
+            lang: "en",
+         },
+         link: [
+            {
+               rel: "icon",
+               type: "image/ico",
+               href: "/favicon.ico",
+            },
+         ],
       },
-      link: [
-        {
-          rel: "icon",
-          type: "image/ico",
-          href: "/favicon.ico",
-        },
-      ],
-    },
-  },
+   },
 
-  experimental: {
-    viewTransition: true,
-    defaults: {
-      nuxtLink: {
-        prefetchOn: {
-          interaction: true,
-        },
+   experimental: {
+      viewTransition: true,
+      defaults: {
+         nuxtLink: {
+            prefetchOn: {
+               interaction: true,
+            },
+         },
       },
-    },
-  },
+   },
 
-  modules: [
-    "@nuxt/eslint",
-    "vuetify-nuxt-module",
-    "@nuxtjs/google-fonts",
-    "@nuxt/icon",
-    "@vite-pwa/nuxt",
-  ],
+   modules: [
+      "@nuxt/eslint",
+      "vuetify-nuxt-module",
+      "@nuxtjs/google-fonts",
+      "@nuxt/icon",
+      "@vite-pwa/nuxt",
+   ],
 
-  googleFonts: {
-    families: {
-      Ubuntu: [100, 200, 300, 400, 500, 600, 700, 800, 900],
-    },
-    display: "swap",
-    download: true,
-  },
-
-  ssr: true,
-
-  // when enabling ssr option you need to disable inlineStyles and maybe devLogs
-  features: {
-    inlineStyles: false,
-    devLogs: false,
-  },
-
-  build: {
-    transpile: ["vuetify"],
-  },
-
-  vite: {
-    ssr: {
-      noExternal: ["vuetify"],
-    },
-  },
-
-  vuetify: {
-    moduleOptions: {
-      // check https://nuxt.vuetifyjs.com/guide/server-side-rendering.html
-      ssrClientHints: {
-        reloadOnFirstRequest: false,
-        viewportSize: true,
-        prefersColorScheme: false,
-
-        prefersColorSchemeOptions: {
-          useBrowserThemeOnly: false,
-        },
+   googleFonts: {
+      families: {
+         Ubuntu: [100, 200, 300, 400, 500, 600, 700, 800, 900],
       },
+      display: "swap",
+      download: true,
+   },
 
-      // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
-      // disableVuetifyStyles: true,
-      styles: {
-        configFile: "assets/settings.scss",
+   ssr: true,
+
+   // when enabling ssr option you need to disable inlineStyles and maybe devLogs
+   features: {
+      inlineStyles: false,
+      devLogs: false,
+   },
+
+   build: {
+      transpile: ["vuetify"],
+   },
+
+   vite: {
+      ssr: {
+         noExternal: ["vuetify"],
       },
-    },
-  },
+   },
 
-  runtimeConfig: {
-    public: {
-      API_URL: process.env.API_URL,
-    },
-  },
+   vuetify: {
+      moduleOptions: {
+         // check https://nuxt.vuetifyjs.com/guide/server-side-rendering.html
+         ssrClientHints: {
+            reloadOnFirstRequest: false,
+            viewportSize: true,
+            prefersColorScheme: false,
+
+            prefersColorSchemeOptions: {
+               useBrowserThemeOnly: false,
+            },
+         },
+
+         // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
+         // disableVuetifyStyles: true,
+         styles: {
+            configFile: "assets/settings.scss",
+         },
+      },
+   },
+
+   runtimeConfig: {
+      public: {
+         API_URL: process.env.API_URL,
+      },
+   },
 });
-  
