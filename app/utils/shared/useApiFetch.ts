@@ -82,7 +82,7 @@ export async function useApiFetch<Res = unknown, Req = unknown>(
       timeout: opts.timeout ?? defaultTimeout,
       responseType: opts.responseType ?? "json",
       withCredentials: opts.withCredentials ?? false,
-      immediate: opts.immediate !== false,
+      immediate: true,
       onRequest: opts.onRequest ?? null,
       onResponse: opts.onResponse ?? null,
       onRequestError: opts.onRequestError ?? null,
