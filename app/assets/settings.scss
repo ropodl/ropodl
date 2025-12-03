@@ -9,36 +9,36 @@
 //   $color-pack: false
 // );
 // main.scss
-$heading-font: 'Ubuntu', sans-serif;
-$body-font: 'Ubuntu', sans-serif;
+$heading-font: "Ubuntu", sans-serif;
+$body-font: "Ubuntu", sans-serif;
 
-@use 'vuetify' with (
-  $heading-font-family: $heading-font,
-  $body-font-family: $body-font //   $layers: true
+@use "vuetify" with (
+   $heading-font-family: $heading-font,
+   $body-font-family: $body-font //   $layers: true
 );
 
 // // Global
 body {
-  background-color: rgb(var(--v-theme-background));
-  font-family: $body-font;
+   background-color: rgb(var(--v-theme-background));
+   font-family: $body-font;
 }
 
 // Vuetify overrides
 .v-skeleton-loader__image {
-  height: 100% !important;
+   height: 100% !important;
 }
 
 .v-img:not(.v-parallax) {
-  transition: all 0.3s;
+   transition: all 0.3s;
 
-  .v-img__img {
-    transform: scale(1);
-    transition: all 0.3s;
-  }
+   .v-img__img {
+      transform: scale(1);
+      transition: all 0.3s;
+   }
 
-  &.zoom-image .v-img__img {
-    transform: scale(1.1);
-  }
+   &.zoom-image .v-img__img {
+      transform: scale(1.1);
+   }
 }
 
 // -------------------------
@@ -48,57 +48,57 @@ body {
 // 1. Blur utilities
 $blur-sizes: (2, 4, 6, 8, 10, 12, 14, 16);
 @each $size in $blur-sizes {
-  .blur-#{$size} {
-    backdrop-filter: blur(#{$size}px);
-  }
+   .blur-#{$size} {
+      backdrop-filter: blur(#{$size}px);
+   }
 }
 
 // 2. Position utilities
 $positions: (top, bottom, left, right);
 $pos-values: (0, 5, 10, 15, 20, 25, 30, 35, 40, 25, 50, 100); // percent values
 @each $pos in $positions {
-  @each $val in $pos-values {
-    .#{$pos}-#{$val} {
-      #{$pos}: if(
-        $val == 0,
-        0,
-        $val * 1px !important
-      ); // multiply by 1% to convert number to %
-    }
-  }
+   @each $val in $pos-values {
+      .#{$pos}-#{$val} {
+         #{$pos}: if(
+            $val == 0,
+            0,
+            $val * 1px !important
+         ); // multiply by 1% to convert number to %
+      }
+   }
 }
 
 // Inset shorthand
 .inset-0 {
-  inset: 0;
+   inset: 0;
 }
 
 // 3. Z-index utilities
 $z-indexes: (1, 5, 10, 11, 50, 100, 1010);
 @each $z in $z-indexes {
-  .z-#{$z} {
-    z-index: $z;
-  }
+   .z-#{$z} {
+      z-index: $z;
+   }
 }
 
 // 4. List helpers
 .list-none {
-  list-style: none;
+   list-style: none;
 }
 
 // 5. Line clamp utilities (mixin + loop)
 @mixin line-clamp($lines) {
-  display: -webkit-box !important;
-  -webkit-line-clamp: $lines;
-  line-clamp: $lines;
-  -webkit-box-orient: vertical;
-  white-space: normal !important;
-  overflow: hidden !important;
+   display: -webkit-box !important;
+   -webkit-line-clamp: $lines;
+   line-clamp: $lines;
+   -webkit-box-orient: vertical;
+   white-space: normal !important;
+   overflow: hidden !important;
 }
 
 $clamp-values: (1, 2, 3, 4, 5);
 @each $n in $clamp-values {
-  .line-clamp-#{$n} {
-    @include line-clamp($n);
-  }
+   .line-clamp-#{$n} {
+      @include line-clamp($n);
+   }
 }
