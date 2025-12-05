@@ -46,19 +46,15 @@ const pages = [
     >
       <template v-if="pages">
         <template v-for="{ icon, title, to } in pages" :key="title">
-          <!-- <nuxt-link :to class="text-decoration-none text-white"> -->
           <v-tab
             :stacked="mobile"
             :to
             :active="to === route.fullPath"
             rounded="pill"
           >
-            <v-icon :start="!mobile">
-              <Icon :name="icon" />
-            </v-icon>
+            <v-icon :start="!mobile" :icon />
             {{ title }}
           </v-tab>
-          <!-- </nuxt-link> -->
         </template>
       </template>
     </v-tabs>

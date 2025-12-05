@@ -55,9 +55,7 @@ useSeoMeta({
                   target="_blank"
                 >
                   {{ name }}
-                  <v-icon size="x-small">
-                    <Icon name="carbon:arrow-up-right" />
-                  </v-icon>
+                  <v-icon size="x-small" icon="carbon:arrow-up-right" />
                 </a>
               </v-hover>
             </li>

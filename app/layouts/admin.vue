@@ -101,9 +101,7 @@ const navItems: navItem[] = [
               <template #activator="{ props: menuProps }">
                 <v-list-item v-bind="menuProps" link rounded="lg">
                   <template #prepend>
-                    <v-icon>
-                      <Icon :name="item.icon" />
-                    </v-icon>
+                    <v-icon :icon="item.icon" />
                   </template>
                 </v-list-item>
               </template>
