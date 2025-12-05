@@ -9,10 +9,10 @@
 //   $color-pack: false
 // );
 // main.scss
-$heading-font: 'Ubuntu', sans-serif;
-$body-font: 'Ubuntu', sans-serif;
+$heading-font: "Ubuntu", sans-serif;
+$body-font: "Ubuntu", sans-serif;
 
-@use 'vuetify' with (
+@use "vuetify" with (
   $heading-font-family: $heading-font,
   $body-font-family: $body-font //   $layers: true
 );
@@ -26,6 +26,10 @@ body {
 // Vuetify overrides
 .v-skeleton-loader__image {
   height: 100% !important;
+}
+
+.v-icon--start {
+  margin-inline-end: 4px !important;
 }
 
 .v-img:not(.v-parallax) {

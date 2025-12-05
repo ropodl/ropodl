@@ -1,15 +1,17 @@
 <script lang="ts" setup>
 import { required } from "@/utils/rules"
 import { useApiFetch } from "~/utils/shared/useApiFetch";
+import type { VForm } from 'vuetify/components';
 
 const form = ref({
   email: "",
   password: "",
 });
 
-const loginForm = ref<HTMLElement | null>();
+const loginForm = ref<VForm | null>(null);
 
 const submitForm = async () => {
+  if (!loginForm.value) return;
   const { valid } = await loginForm.value.validate();
   console.log(valid);
   if(valid){

@@ -83,17 +83,14 @@ const goTop = () => {
               <template v-for="{ icon, link } in socials" :key="link">
                 <li>
                   <v-btn
-                    icon
+                    :icon
+                    size="small"
                     rounded="lg"
                     color="primary"
                     variant="text"
                     class="mr-3"
                     :href="link"
-                  >
-                    <v-icon>
-                      <Icon :name="icon" />
-                    </v-icon>
-                  </v-btn>
+                  />
                 </li>
               </template>
             </ul>
