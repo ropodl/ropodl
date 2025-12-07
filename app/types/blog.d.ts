@@ -1,13 +1,13 @@
 export interface blog {
-  id: number;
-  title: string;
-  excerpt?: string;
-  slug: string;
-  content: string;
-  featured_image?: string;
-  created_at: string;
-  updated_at: string;
-  status: status;
+  id?: number;
+  title?: string|null;
+  excerpt?: string|null;
+  slug: string|null;
+  content: string|null;
+  featured_image?: string|null;
+  created_at?: string|null;
+  updated_at?: string|null;
+  status: status|null;
 }
 
 enum status {
