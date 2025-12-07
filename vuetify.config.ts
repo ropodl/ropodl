@@ -2,12 +2,12 @@ import { defineVuetifyConfiguration } from "vuetify-nuxt-module/custom-configura
 
 export default defineVuetifyConfiguration({
   icons: {
-    defaultSet: "custom",
+    defaultSet: 'custom'
   },
   defaults: {
-    VIcon: {
-      size: "default",
-    },
+    // VIcon:{
+    //   size: "small",
+    // },
     VBtn: {
       class: "text-none",
       rounded: "lg",

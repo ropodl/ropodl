@@ -1,7 +1,20 @@
 export interface Portfolio {
-  id: string;
+  id: number;
   title: string;
-  description: string;
-  image: string;
-  link: string;
+  slug: string;
+  content: string;
+  status: string;
+  featured_image?: string;
+  portfolio_type_id?: number;
+  type: {
+    id: number;
+    title: string;
+    slug: string;
+  };
+}
+
+export interface PortfolioType {
+  id: number;
+  title: string;
+  slug?: string;
 }
