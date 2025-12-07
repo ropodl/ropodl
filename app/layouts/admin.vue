@@ -19,10 +19,6 @@ const navItems: navItem[] = [
          { title: "Add New", to: "/admin/blog/create" },
          { title: "Categories", to: "/admin/category" },
          { title: "Tags", to: "/admin/tag" },
-         {
-            title: "Blog Comments",
-            grand: [{ title: "All Comments", to: "/admin/blog/comments" }],
-         },
       ],
    },
    {
@@ -54,7 +50,7 @@ const navItems: navItem[] = [
 
 /**
  * Recursively checks if a nav item or any of its children are active.
- */
+//  */
 // const isItemActive = (item: navItem): boolean => {
 //   const path = currentPath.value;
 //   // 1. Check item's own 'to'
@@ -80,7 +76,6 @@ const navItems: navItem[] = [
          v-model="left"
          rail
          permanent
-         height="100"
          color="rgba(var(--v-theme-surface), 0.7)"
          class="blur-8"
       >
@@ -88,6 +83,9 @@ const navItems: navItem[] = [
             <template v-for="item in navItems" :key="item.title">
                <template v-if="!item.subitems">
                   <v-list-item
+                     v-tooltip="{
+                        text: item.title,
+                     }"
                      rounded="lg"
                      link
                      :title="item.title"
@@ -99,15 +97,22 @@ const navItems: navItem[] = [
                   </v-list-item>
                </template>
 
-          <template v-else>
-            <v-menu :close-on-content-click="false" location="end" offset="14">
-              <template #activator="{ props: menuProps }">
-                <v-list-item v-bind="menuProps" link rounded="lg">
-                  <template #prepend>
-                    <v-icon :icon="item.icon" />
-                  </template>
-                </v-list-item>
-              </template>
+               <template v-else>
+                  <v-menu location="end" offset="14">
+                     <template #activator="{ props: menuProps }">
+                        <v-list-item
+                           v-tooltip="{
+                              text: item.title,
+                           }"
+                           v-bind="menuProps"
+                           link
+                           rounded="lg"
+                        >
+                           <template #prepend>
+                              <v-icon :icon="item.icon" />
+                           </template>
+                        </v-list-item>
+                     </template>
 
                      <v-card width="300">
                         <v-card-title class="d-flex align-center pb-0">
@@ -120,7 +125,7 @@ const navItems: navItem[] = [
                               v-for="(subItem, i) in item.subitems"
                               :key="i"
                            >
-                              <template v-if="subItem.grand">
+                              <!-- <template v-if="subItem.grand">
                                  <v-list-group :value="subItem.title">
                                     <template
                                        #activator="{ props: groupProps }"
@@ -138,17 +143,16 @@ const navItems: navItem[] = [
                                        link
                                        :to="grandItem.to"
                                     />
-                                    <!-- :active="isItemActive(grandItem)"
-                          @click="grandItem.to && router.visit(grandItem.to)" -->
                                  </v-list-group>
                               </template>
 
                               <template v-else>
-                                 <v-list-item
+                              </template> -->
+                              <v-list-item
                                  link
                                  :title="subItem.title"
-                                 :to="subItem.to" />
-                              </template>
+                                 :to="subItem.to"
+                              />
                            </template>
                         </v-list>
                      </v-card>
@@ -157,41 +161,55 @@ const navItems: navItem[] = [
             </template>
          </v-list>
          <template #append>
-            <v-divider />
-            <v-list>
-               <!-- <template v-if="props.auth?.user">
-            <v-list-item
-              class="pe-0"
-              :title="props.auth?.user.name"
-              :subtitle="props.auth?.user.email"
-            >
-              <template #prepend>
-                <v-avatar>
-                  <v-img :src="`https://ui-avatars.com/api/?name=${props.auth?.user.name}`"></v-img>
-                </v-avatar>
-              </template>
-              <template #append>
-                <v-menu>
-                  <template v-slot:activator="{ props: menuProps }">
-                    <v-btn
-                      v-bind="menuProps"
-                      icon="mdi-menu-down"
-                      size="small"
-                      variant="text"
-                    ></v-btn>
+            <div class="d-flex justify-center">
+               <v-menu
+                  :close-on-content-click="false"
+                  location="end"
+                  offset="12"
+               >
+                  <template #activator="{ props }">
+                     <v-avatar
+                        v-bind="props"
+                        class="mb-1"
+                        rounded="lg"
+                        size="42"
+                     >
+                        <v-img
+                           cover
+                           src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                        />
+                     </v-avatar>
                   </template>
-                  <v-list density="compact">
-                    <v-list-item title="Profile Settings"></v-list-item>
-                    <v-divider></v-divider>
-                    <v-list-item title="Log Out"></v-list-item>
-                  </v-list>
-                </v-menu>
-              </template>
-            </v-list-item>
-          </template> -->
-            </v-list>
+                  <v-card width="300">
+                     <v-list>
+                        <v-list-item>
+                           <v-list-item-title> Sign Out </v-list-item-title>
+                        </v-list-item>
+                     </v-list>
+                  </v-card>
+               </v-menu>
+            </div>
          </template>
       </v-navigation-drawer>
+      <v-app-bar
+         flat
+         class="blur-8"
+         color="rgba(var(--v-theme-background),0.8)"
+      >
+         <v-container>
+            <v-row>
+               <v-col cols="12">
+                  <div class="d-flex align-center">
+                     Breadcrumbs
+                     <v-spacer />
+                     <slot name="test" />
+                     <v-btn rounded="lg" icon="carbon:search" />
+                     <v-btn rounded="lg" icon="carbon:notification" />
+                  </div>
+               </v-col>
+            </v-row>
+         </v-container>
+      </v-app-bar>
       <v-main>
          <slot />
       </v-main>
