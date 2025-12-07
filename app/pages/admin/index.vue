@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'admin'
-})
+   layout: "admin",
+});
 </script>
 <template>
-  <div>hi</div>
+    <v-container>
+      <v-row>
+        <v-col cols="12"> You're logged in! </v-col>
+      </v-row>
+    </v-container>
 </template>
-
-
-<style>
-
-</style>

@@ -1,67 +1,80 @@
-import type { IconAliases, IconSet } from "vuetify";
+import type { IconAliases, IconProps, IconSet } from "vuetify";
 import { h } from "vue";
 import { Icon } from "@iconify/vue";
 
-const aliases = <IconAliases>(<unknown>{
-  // Custom icons
-  email: "mdi:email",
+const aliases: IconAliases = {
+  // System and Status Icons
+  collapse: 'carbon:chevron-up',
+  complete: 'carbon:checkmark-filled',
+  cancel: 'carbon:close-filled',
+  close: 'carbon:close',
+  delete: 'carbon:trash-can',
+  clear: 'carbon:close',
+  success: 'carbon:checkmark-filled',
+  info: 'carbon:information-filled',
+  warning: 'carbon:warning-alt-filled',
+  error: 'carbon:error-filled',
 
-  // Vuetify aliases
-  collapse: "mdi:chevron-up",
-  complete: "mdi:check",
-  cancel: "mdi:close-circle",
-  close: "mdi:close",
-  delete: "mdi:close-circle",
-  clear: "mdi:close-circle",
-  success: "mdi:check-circle",
-  info: "mdi:information",
-  warning: "mdi:alert-circle",
-  error: "mdi:close-circle",
-  prev: "mdi:chevron-left",
-  next: "mdi:chevron-right",
-  checkboxOn: "mdi:checkbox-marked",
-  checkboxOff: "mdi:checkbox-blank-outline",
-  checkboxIndeterminate: "mdi:minus-box",
-  delimiter: "mdi:circle",
+  // Navigation and Data Table
+  prev: 'carbon:chevron-left',
+  next: 'carbon:chevron-right',
+  sortAsc: 'carbon:arrow-up',
+  sortDesc: 'carbon:arrow-down',
+  expand: 'carbon:chevron-down',
+  menu: 'carbon:menu',
+  subgroup: 'carbon:caret-right',
+  dropdown: 'carbon:chevron-down',
 
-  // Carousel icons
-  sortAsc: "mdi:arrow-up",
-  sortDesc: "mdi:arrow-down",
-  expand: "mdi:chevron-down",
-  menu: "mdi:menu",
-  subgroup: "mdi:menu-down",
-  dropdown: "mdi:menu-down",
-  radioOn: "mdi:radiobox-marked",
-  radioOff: "mdi:radiobox-blank",
-  edit: "mdi:pencil",
-  ratingEmpty: "mdi:star-outline",
-  ratingFull: "mdi:star",
-  ratingHalf: "mdi:star-half-full",
-  loading: "mdi:cached",
-  first: "mdi:page-first",
-  last: "mdi:page-last",
-  unfold: "mdi:unfold-more-horizontal",
-  file: "mdi:paperclip",
-  plus: "mdi:plus",
-  minus: "mdi:minus",
-  calendar: "mdi:calendar",
-  $checkboxOn: "mdi:checkbox-marked",
-  $checkboxOff: "mdi:checkbox-blank-outline",
-});
+  // Form Controls
+  checkboxOn: 'carbon:checkbox-checked-filled',
+  checkboxOff: 'carbon:checkbox',
+  checkboxIndeterminate: 'carbon:checkbox-indeterminate-filled',
+  delimiter: 'carbon:circle-dash',
+  radioOn: 'carbon:radio-button-checked',
+  radioOff: 'carbon:radio-button',
 
-const iconify = <IconSet>{
-  component: (props) => {
-    const { icon, tag, ...rest } = props;
-    const iconKey = icon as string;
-    const resolvedIcon = (aliases[iconKey] ?? icon) as string;
+  // Actions and Loaders
+  edit: 'carbon:edit',
+  loading: 'carbon:circle-dash', // closest loader-type icon
+  first: 'carbon:skip-backward',
+  last: 'carbon:skip-forward',
+  unfold: 'carbon:unfold-more',
+  plus: 'carbon:add',
+  minus: 'carbon:subtract',
+  calendar: 'carbon:calendar',
 
-    return h(tag, rest, [
-      h(Icon, {
-        key: iconKey,
-        icon: resolvedIcon,
-        ...rest,
-      }),
-    ]);
+  // Files and other
+  file: 'carbon:document',
+  // You would need to check the Carbon Icon list for rating/treeview specific names
+  ratingEmpty: 'carbon:star',
+  ratingFull: 'carbon:star-filled',
+  ratingHalf: 'carbon:star-half-filled',
+  treeviewCollapse: 'carbon:caret-down',
+  treeviewExpand: 'carbon:caret-right',
+  upload: 'carbon:cloud-upload',
+  color: 'carbon:color-palette',
+  eyeDropper: 'carbon:eyedropper',
+
+  // Custom key/arrow icons (use the Iconify name directly if needed)
+  command: 'carbon:command',
+  ctrl: 'carbon:text-wrap',
+  space: 'carbon:space-bar',
+  shift: 'carbon:arrow-up-right',
+  alt: 'carbon:align-box-top-center',
+  enter: 'carbon:enter',
+  arrowup: 'carbon:arrow-up',
+  arrowdown: 'carbon:arrow-down',
+  arrowleft: 'carbon:arrow-left',
+  arrowright: 'carbon:arrow-right',
+  backspace: 'carbon:undo-outline',
+};
+
+const iconify: IconSet = {
+  component: (props: IconProps) => {
+    return h(Icon, {
+      icon: props.icon as string,
+      tag: props.tag,
+    });
   },
 };
 
