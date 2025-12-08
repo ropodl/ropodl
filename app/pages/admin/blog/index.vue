@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { right } from "@/composables/admin/layout/nav";
+import { itemsPerPage } from "@/utils/shared/pagination"
 
 // import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
 // import type { blog } from '~/types/blog';
@@ -35,6 +36,39 @@ const headers = [
 
 const blogs = ref([
    {
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
+      title: "ji",
+      status: "Draft",
+   },{
       title: "ji",
       status: "Draft",
    },
@@ -75,7 +109,9 @@ const getColor = (value: string) => {
 
 const resetFilters = () => {};
 
-const pagination = { total: "", current_page: "", per_page: "" };
+const pagination = { total: "", current_page: "", per_page: 10 };
+
+const rightNav = ref(false);
 </script>
 
 <template>
@@ -106,7 +142,7 @@ const pagination = { total: "", current_page: "", per_page: "" };
                   v-tooltip:top="'Filters'"
                   flat
                   class="me-3"
-                  @click="right = !right"
+                  @click="rightNav = !rightNav"
                >
                   <v-icon>
                      <Icon icon="carbon:filter" />
@@ -180,21 +216,24 @@ const pagination = { total: "", current_page: "", per_page: "" };
          <v-col cols="12" md="6">
             <div class="d-flex align-center justify-end">
                <span class="mr-3">Items Per Page:</span>
-               <!-- <v-select
-              v-model="paginate.per_page"
+               <v-select
+              v-model="pagination.per_page"
               hide-details
               density="compact"
               max-width="100"
               :items="itemsPerPage"
-              @update:model-value="
+            />
+              <!-- @update:model-value="
                 (value) => {
                   paginate.per_page = value;
                   getUpdate([]);
                 }
-              "
-            ></v-select> -->
+              " -->
             </div>
          </v-col>
       </v-row>
    </v-container>
+   <v-navigation-drawer v-model="rightNav" app temporary location="right">
+      hi
+   </v-navigation-drawer>
 </template>
