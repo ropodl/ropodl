@@ -1,23 +1,23 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { right } from '@/composables/nav';
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
+// import { right } from '@/composables/nav';
+// import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
 import type { Portfolio } from '@/types/portfolio';
-import { itemsPerPage } from '@/utils/constants/pagination';
-import { clearParamKey } from '@/utils/global';
-import { Head, router } from '@inertiajs/vue3';
+// import { itemsPerPage } from '@/utils/constants/pagination';
+// import { clearParamKey } from '@/utils/global';
+// import { Head, router } from '@inertiajs/vue3';
 import { useDateFormat, useDebounceFn } from '@vueuse/core';
 import { defineAsyncComponent, ref } from 'vue';
-import { DataTableHeader } from 'vuetify';
+// import { DataTableHeader } from 'vuetify';
 
-const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
-const Dynamic = defineAsyncComponent(() => import('@/components/shared/dynamic.vue'));
+// const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
+// const Dynamic = defineAsyncComponent(() => import('@/components/shared/dynamic.vue'));
 
-const { portfolios, search, pagination } = defineProps<{
-  portfolios: Portfolio[];
-  search?: string;
-  pagination: pagination;
-}>();
+// const { portfolios, search, pagination } = defineProps<{
+//   portfolios: Portfolio[];
+//   search?: string;
+//   pagination: pagination;
+// }>();
 
 const searchQuery = ref(search);
 const paginate = ref(pagination);
@@ -41,12 +41,12 @@ const getUpdate = (options: { key: string; order?: boolean }[]) => {
     status: filters.value.status,
   };
 
-  router.get(route('portfolio.index'), clearParamKey(params), {
-    showProgress: true,
-    async: true,
-    preserveState: true,
-    preserveScroll: true,
-  });
+  // router.get(route('portfolio.index'), clearParamKey(params), {
+  //   showProgress: true,
+  //   async: true,
+  //   preserveState: true,
+  //   preserveScroll: true,
+  // });
 };
 
 // Add debounced search handler
@@ -60,13 +60,6 @@ const getColor = (value: string) => {
   return value === 'published' ? 'green' : 'yellow';
 };
 
-const bread = ref<BreadcrumbItem[]>([
-  {
-    title: 'portfolio',
-    href: '/admin/portfolio',
-  },
-]);
-
 const resetFilters = () => {};
 
 const actions = ref([
@@ -74,9 +67,9 @@ const actions = ref([
     icon: 'carbon:edit',
     color: '',
     title: 'Edit Portfolio',
-    method: (id: number) => {
-      router.visit(`/admin/portfolio/${id}`);
-    },
+    // method: (id: number) => {
+    //   router.visit(`/admin/portfolio/${id}`);
+    // },
   },
   {
     icon: 'carbon:trash-can',
@@ -90,9 +83,7 @@ const actions = ref([
   <Head>
     <title>Portfolios</title>
   </Head>
-  <AuthenticatedLayout>
     <v-container>
-      <breadcrumbs :items="bread" />
       <v-row
         align="center"
         class="mb-1"
@@ -108,14 +99,14 @@ const actions = ref([
           md="6"
         >
           <div class="d-flex align-center">
-            <v-spacer class="hidden-sm-and-down"></v-spacer>
-            <v-btn
+            <!-- <v-spacer class="hidden-sm-and-down"></v-spacer> -->
+            <!-- <v-btn
               flat
               color="primary"
               prepend-icon="carbon:add"
               text="Add New"
               @click="router.visit('/admin/portfolio/create')"
-            ></v-btn>
+            ></v-btn> -->
           </div>
         </v-col>
       </v-row>
@@ -139,24 +130,24 @@ const actions = ref([
                 @update:model-value="handleSearch"
               >
                 <template #prepend-inner>
-                  <v-icon icon="carbon:search"></v-icon>
+                  <v-icon icon="carbon:search" />
                 </template>
               </v-text-field>
             </v-col>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-col
               cols="12"
               md="6"
             >
               <div class="d-flex">
-                <v-spacer></v-spacer>
+                <v-spacer />
                 <v-btn
                   v-tooltip:top="'Filters'"
                   flat
                   height="40"
                   variant="tonal"
-                  @click="right = !right"
-                >
+                  >
+                  <!-- @click="right = !right" -->
                   <v-icon
                     start
                     icon="carbon:filter"
@@ -173,13 +164,13 @@ const actions = ref([
           <v-card rounded="lg">
             <v-data-table-server
               :headers
-              :items="portfolios"
-              :items-length="pagination.total"
-              :page="pagination.current_page"
-              :items-per-page="pagination.per_page"
               hide-default-footer
               @update:sort-by="getUpdate"
-            >
+              >
+              <!-- :items="portfolios"
+              :items-length="pagination.total"
+              :page="pagination.current_page"
+              :items-per-page="pagination.per_page" -->
               <template #[`item.status`]="{ value }">
                 <v-chip
                   :color="getColor(value)"
@@ -198,16 +189,16 @@ const actions = ref([
                   persistent
                   scrollable
                 >
-                  <template v-slot:activator="{ props: activatorProps }">
+                  <template #activator="{ props: activatorProps }">
                     <v-btn
+                    v-tooltip="{ text: 'View Portfolio', location: 'top' }"
                       v-bind="activatorProps"
-                      v-tooltip="{ text: 'View Portfolio', location: 'top' }"
                       size="small"
                       icon="carbon:view"
-                    ></v-btn>
+                    />
                   </template>
 
-                  <template v-slot:default="{ isActive }">
+                  <template #default="{ isActive }">
                     <v-card
                       rounded="t"
                       :title="item.title"
@@ -216,11 +207,11 @@ const actions = ref([
                         <dynamic :content="item.content" />
                       </v-card-text>
                       <v-card-actions>
-                        <v-spacer></v-spacer>
+                        <v-spacer />
                         <v-btn
                           text="Close Dialog"
                           @click="isActive.value = false"
-                        ></v-btn>
+                        />
                       </v-card-actions>
                     </v-card>
                   </template>
@@ -229,18 +220,18 @@ const actions = ref([
                   v-tooltip="{ text: 'Edit Portfolio', location: 'top' }"
                   size="small"
                   icon="carbon:edit"
-                ></v-btn>
+                />
                 <v-menu>
-                  <template v-slot:activator="{ props }">
+                  <!-- <template v-slot:activator="{ props }">
                     <v-btn
                       v-bind="props"
                       v-tooltip="{ text: 'More Actions', location: 'top' }"
                       size="small"
                       icon="carbon:chevron-down"
                     ></v-btn>
-                  </template>
+                  </template> -->
                   <v-list density="compact">
-                    <template
+                    <!-- <template
                       v-for="({ icon, title, method }, index) in actions"
                       :key="index"
                     >
@@ -250,7 +241,7 @@ const actions = ref([
                         :title
                         @click="method && method(item.id)"
                       ></v-list-item>
-                    </template>
+                    </template> -->
                   </v-list>
                 </v-menu>
               </template>
@@ -264,7 +255,7 @@ const actions = ref([
           md="6"
         >
           <div class="d-flex justify-start">
-            <v-pagination
+            <!-- <v-pagination
               v-model="paginate.current_page"
               density="compact"
               :total-visible="6"
@@ -275,7 +266,7 @@ const actions = ref([
                   getUpdate([]);
                 }
               "
-            ></v-pagination>
+            ></v-pagination> -->
           </div>
         </v-col>
         <v-col
@@ -284,7 +275,7 @@ const actions = ref([
         >
           <div class="d-flex align-center justify-end">
             <span class="mr-3">Items Per Page:</span>
-            <v-select
+            <!-- <v-select
               v-model="paginate.per_page"
               hide-details
               density="compact"
@@ -296,12 +287,12 @@ const actions = ref([
                   getUpdate([]);
                 }
               "
-            ></v-select>
+            /> -->
           </div>
         </v-col>
       </v-row>
     </v-container>
-    <template #right-nav-body>
+    <!-- <template #right-nav-body>
       <v-label>Portfolio Status</v-label>
       <v-select
         v-model="filters.status"
@@ -317,14 +308,13 @@ const actions = ref([
         ]"
         @update:modelValue="getUpdate([])"
       ></v-select>
-    </template>
-    <template #right-nav-append>
+    </template> -->
+    <!-- <template #right-nav-append>
       <v-btn
         block
         @click="resetFilters"
       >
         Reset Filters
       </v-btn>
-    </template>
-  </AuthenticatedLayout>
+    </template> -->
 </template>
