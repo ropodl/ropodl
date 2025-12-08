@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { left, right } from "@/composables/admin/layout/nav";
+import { left } from "@/composables/admin/layout/nav";
 import type { navItem } from "@/types/layout";
-// import {
-//     computed,
-//     defineAsyncComponent
-//  } from 'vue';
 
-// const snackbar = defineAsyncComponent(() => import('@/components/shared/snackbar.vue'));
+const route = useRoute()
 
 const navItems: navItem[] = [
    { icon: "carbon:home", title: "Home", to: "/admin" },
@@ -17,8 +13,8 @@ const navItems: navItem[] = [
       subitems: [
          { title: "All Blogs", to: "/admin/blog" },
          { title: "Add New", to: "/admin/blog/create" },
-         { title: "Categories", to: "/admin/category" },
-         { title: "Tags", to: "/admin/tag" },
+         { title: "Category", to: "/admin/blog/category" },
+         { title: "Tag", to: "/admin/blog/tag" },
       ],
    },
    {
@@ -38,36 +34,55 @@ const navItems: navItem[] = [
    },
 ];
 
-// --- OPTIMIZATIONS AND FIXES ---
-
-// Use `const` - this value doesn't change at runtime.
-// const rootURL = import.meta.env.VITE_APP_URL;
-
-// Use `computed` - this calculates the path only when the URL changes.
-// const currentPath = computed(() => {
-//   return props.ziggy.location.replace(rootURL, '');
-// });
-
 /**
- * Recursively checks if a nav item or any of its children are active.
-//  */
-// const isItemActive = (item: navItem): boolean => {
-//   const path = currentPath.value;
-//   // 1. Check item's own 'to'
-//   if (item.to && item.to === path) {
-//     return true;
-//   }
-//   // 2. Check 'subitems' recursively
-//   if (item.subitems && item.subitems.some((sub) => isItemActive(sub))) {
-//     return true;
-//   }
-//   // 3. Check 'grand' items recursively
-//   if (item.grand && item.grand.some((grand) => isItemActive(grand))) {
-//     return true;
-//   }
-//   // Not active
-//   return false;
-// };
+ * @description Computes the breadcrumb items based on the current route path.
+ */
+const bread = computed(() => {
+  // Get and filter path segments, removing the leading empty string
+  // and the top-level 'admin' segment since it's handled as the root.
+  const pathSegments = route.fullPath
+    .split('/')
+    .filter(segment => segment && segment !== 'admin');
+
+  // Initialize the items array with the base 'Home' breadcrumb
+  const items: { title: string; to: string }[] = [{
+    title: 'Home', 
+    to: '/admin'
+  }];
+
+  let currentPath = '/admin';
+
+  pathSegments.forEach(segment => {
+    let displayTitle: string;
+    
+    // Check if the segment is numeric (likely an ID for editing)
+    const isNumericOrID = /^\d+$/.test(segment);
+    
+    if (segment === 'create') {
+      displayTitle = 'create'; 
+    } else if (isNumericOrID) {
+      displayTitle = 'edit'; // Display 'Edit' instead of the ID
+    } else {
+      // Decode and format the segment title:
+      // 1. Replace hyphens with spaces: 'all-blogs' -> 'all blogs'
+      // 2. Capitalize the first letter of each word: 'all blogs' -> 'All Blogs'
+      displayTitle = segment
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, c => c.toLowerCase());
+    }
+
+    // Update the full path for the 'to' link
+    currentPath = `${currentPath}/${segment}`;
+
+    // Add the breadcrumb item
+    items.push({
+      title: displayTitle,
+      to: currentPath,
+    });
+  });
+
+  return items;
+});
 </script>
 
 <template>
@@ -125,29 +140,6 @@ const navItems: navItem[] = [
                               v-for="(subItem, i) in item.subitems"
                               :key="i"
                            >
-                              <!-- <template v-if="subItem.grand">
-                                 <v-list-group :value="subItem.title">
-                                    <template
-                                       #activator="{ props: groupProps }"
-                                    >
-                                       <v-list-item
-                                          v-bind="groupProps"
-                                          :title="subItem.title"
-                                       />
-                                    </template>
-
-                                    <v-list-item
-                                       v-for="(grandItem, j) in subItem.grand"
-                                       :key="j"
-                                       :title="grandItem.title"
-                                       link
-                                       :to="grandItem.to"
-                                    />
-                                 </v-list-group>
-                              </template>
-
-                              <template v-else>
-                              </template> -->
                               <v-list-item
                                  link
                                  :title="subItem.title"
@@ -193,6 +185,7 @@ const navItems: navItem[] = [
       </v-navigation-drawer>
       <v-app-bar
          flat
+         density="compact"
          class="blur-8"
          color="rgba(var(--v-theme-background),0.8)"
       >
@@ -200,7 +193,25 @@ const navItems: navItem[] = [
             <v-row>
                <v-col cols="12">
                   <div class="d-flex align-center">
-                     Breadcrumbs
+                     <v-breadcrumbs class="d-flex align-center pa-0" :items="bread">
+                        <template #prepend>
+                           <nuxt-link class="me-2" to="/admin/" >
+                              <v-icon size="24" color="white" icon="carbon:home" />
+                           </nuxt-link>
+                        </template>
+                        
+                        <template #item="{ item }">
+                           <template v-if="item.title !== 'Home'">
+                              <v-breadcrumbs-item
+                                 :to="item.to"
+                                 :disabled="route.fullPath === item.to"
+                              >
+                                 {{ item.title }}
+                              </v-breadcrumbs-item>
+                           </template>
+                        </template>
+                     </v-breadcrumbs>
+                     
                      <v-spacer />
                      <slot name="test" />
                      <v-btn rounded="lg" icon="carbon:search" />
@@ -210,26 +221,9 @@ const navItems: navItem[] = [
             </v-row>
          </v-container>
       </v-app-bar>
+      
       <v-main>
          <slot />
       </v-main>
-      <!-- <v-layout>
-      <snackbar />
-    </v-layout> -->
-      <v-navigation-drawer
-         v-model="right"
-         temporary
-         order="2"
-         location="right"
-         width="400"
-         color="rgba(var(--v-theme-surface), 0.7)"
-         class="pa-3 blur-8"
-         content-class="d-flex flex-column"
-      >
-         <slot name="right-nav-body" />
-         <template #append>
-            <slot name="right-nav-append" />
-         </template>
-      </v-navigation-drawer>
    </v-app>
 </template>
