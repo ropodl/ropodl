@@ -1,75 +1,32 @@
-# Nuxt Minimal Starter
+# Hi there, I'm Ropodl 👋
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+> *Writing code and building cool things.* 🚀
 
-## Setup
+## 👨‍💻 About Me
 
-Make sure to install dependencies:
+[Your Bio Here] - I am a passionate developer who loves working with modern web technologies. I enjoy solving complex problems and creating intuitive user experiences.
 
-```bash
-# npm
-npm install
+---
 
-# pnpm
-pnpm install
+## 🛠️ Skills
 
-# yarn
-yarn install
+### Frontend
+![Nuxt](https://img.shields.io/badge/Nuxt-002E3B?style=for-the-badge&logo=nuxt.js&logoColor=white)
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
+![Vuetify](https://img.shields.io/badge/Vuetify-1867C0?style=for-the-badge&logo=vuetify&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
-# bun
-bun install
-```
+### Other Skills
+- **Tools**: [Git, VS Code, etc.]
+- **Design**: [Figma, Photoshop, etc.]
+- **Soft Skills**: [Problem Solving, Teamwork, Communication, etc.]
 
-## Development Server
+---
 
-Start the development server on `http://localhost:3000`:
+## � Connect with me
 
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=ropodl&color=blueviolet" alt="ropodl" />
+</div>
