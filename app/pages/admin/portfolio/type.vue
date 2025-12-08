@@ -1,53 +1,39 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
 import type { PortfolioType } from '@/types/portfolio';
-import { itemsPerPage } from '@/utils/constants/pagination';
-import { Head, router } from '@inertiajs/vue3';
-import { defineAsyncComponent, ref } from 'vue';
+import { itemsPerPage } from '@/utils/shared/pagination';
+import { ref } from 'vue';
 
-const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
-const addNewDialog = defineAsyncComponent(
-  () => import('@/components/admin/shared/portfolio/type/addNewDialog.vue'),
-);
+// const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
+// const addNewDialog = defineAsyncComponent(
+//   () => import('@/components/admin/shared/portfolio/type/addNewDialog.vue'),
+// );
 
-const { types, search, pagination } = defineProps<{
-  types: PortfolioType[];
-  search?: string;
-  pagination: pagination;
-}>();
+// const { types, search, pagination } = defineProps<{
+//   types: PortfolioType[];
+//   search?: string;
+//   pagination: pagination;
+// }>();
 
-const searchQuery = ref(search);
-const paginate = ref(pagination);
+// const searchQuery = ref(search);
+// const paginate = ref(pagination);
 
-const getUpdate = (options: { key: string; order?: boolean }[]) => {
-  const params = {
-    search: searchQuery.value,
-    page: paginate.value.current_page,
-    per_page: paginate.value.per_page,
-    sort_by: options[0],
-  };
+// const getUpdate = (options: { key: string; order?: boolean }[]) => {
+//   const params = {
+//     search: searchQuery.value,
+//     page: paginate.value.current_page,
+//     per_page: paginate.value.per_page,
+//     sort_by: options[0],
+//   };
 
-  router.get(route('portfolio.index'), params, {
-    showProgress: true,
-    async: true,
-    preserveState: false,
-    preserveScroll: false,
-    replace: true,
-    only: ['types', 'pagination'],
-  });
-};
-
-const bread = ref<BreadcrumbItem[]>([
-  {
-    title: 'portfolio',
-    href: '/admin/portfolio',
-  },
-  {
-    title: 'types',
-    href: '/admin/portfolio-type',
-  },
-]);
+//   router.get(route('portfolio.index'), params, {
+//     showProgress: true,
+//     async: true,
+//     preserveState: false,
+//     preserveScroll: false,
+//     replace: true,
+//     only: ['types', 'pagination'],
+//   });
+// };
 
 const headers = ref([
   {
@@ -63,7 +49,6 @@ const headers = ref([
   </Head>
   <AuthenticatedLayout title="Portfolio Type">
     <v-container>
-      <breadcrumbs :items="bread" />
       <v-row align="center">
         <v-col
           cols="12"
@@ -88,7 +73,6 @@ const headers = ref([
             <v-data-table-server
               :headers
               hide-default-footer
-              :items="types"
               :items-length="10"
               :items-per-page="10"
             >
@@ -100,7 +84,6 @@ const headers = ref([
                     size="small"
                     rounded="lg"
                     :variant="isHovering ? 'tonal' : 'text'"
-                    @click="router.visit(`/admin/portfolio/${item.id}`)"
                   >
                     <v-icon icon="carbon:edit"></v-icon>
                   </v-btn>
@@ -144,8 +127,8 @@ const headers = ref([
           md="6"
         >
           <div class="d-flex justify-start">
-            <v-pagination
-              v-model="paginate.current_page"
+            <!-- <v-pagination
+              v-model="pagination.current_page"
               density="compact"
               :total-visible="5"
               :length="paginate.last_page"
@@ -155,7 +138,7 @@ const headers = ref([
                   getUpdate([]);
                 }
               "
-            ></v-pagination>
+            ></v-pagination> -->
           </div>
         </v-col>
         <v-col
@@ -164,7 +147,7 @@ const headers = ref([
         >
           <div class="d-flex align-center justify-end">
             <span class="mr-3">Items Per Page:</span>
-            <v-select
+            <!-- <v-select
               v-model="paginate.per_page"
               hide-details
               density="compact"
@@ -176,10 +159,9 @@ const headers = ref([
                   getUpdate([]);
                 }
               "
-            ></v-select>
+            ></v-select> -->
           </div>
         </v-col>
       </v-row>
     </v-container>
-  </AuthenticatedLayout>
 </template>
