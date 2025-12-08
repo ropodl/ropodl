@@ -44,10 +44,6 @@ const headers = ref([
 ]);
 </script>
 <template>
-  <Head>
-    <title>Portfolio Type</title>
-  </Head>
-  <AuthenticatedLayout title="Portfolio Type">
     <v-container>
       <v-row align="center">
         <v-col
