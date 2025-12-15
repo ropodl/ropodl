@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-    definePageMeta({
-        layout: "admin"
-    })
+definePageMeta({
+    layout: "admin",
+    middleware: ['is-auth']
+})
 </script>
 <template>
     <v-container>

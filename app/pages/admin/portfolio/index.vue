@@ -1,26 +1,19 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-// import { right } from '@/composables/nav';
-// import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
-import type { Portfolio } from '@/types/portfolio';
-// import { itemsPerPage } from '@/utils/constants/pagination';
-// import { clearParamKey } from '@/utils/global';
-// import { Head, router } from '@inertiajs/vue3';
+import type { Portfolio } from '~/types/portfolio';
 import { useDateFormat, useDebounceFn } from '@vueuse/core';
-import { defineAsyncComponent, ref } from 'vue';
-// import { DataTableHeader } from 'vuetify';
+import type { DataTableHeader } from 'vuetify';
 
-// const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
-// const Dynamic = defineAsyncComponent(() => import('@/components/shared/dynamic.vue'));
+definePageMeta({
+  layout: "admin",
+  middleware: ['is-auth']
+})
 
-// const { portfolios, search, pagination } = defineProps<{
-//   portfolios: Portfolio[];
-//   search?: string;
-//   pagination: pagination;
-// }>();
-
-const searchQuery = ref(search);
-const paginate = ref(pagination);
+const searchQuery = ref("");
+const pagination = ref({
+  current_page: 1,
+  per_page: 10,
+  total: 1
+});
 const filters = ref({
   status: null,
 });
@@ -32,27 +25,29 @@ const headers = ref<DataTableHeader[]>([
   { title: 'Actions', key: 'actions', align: 'center', sortable: false },
 ]);
 
+const portfolios = ref<Portfolio[]>([
+  {
+  id: 123,
+  title: "Title",
+  slug: 'hi',
+  status: 'draft'
+}
+]);
+
 const getUpdate = (options: { key: string; order?: boolean }[]) => {
-  const params = {
+  const params = <any>{
     search: searchQuery.value,
-    page: paginate.value.current_page,
-    per_page: paginate.value.per_page,
+    page: pagination.value.current_page,
+    per_page: pagination.value.per_page,
     sort_by: options[0],
     status: filters.value.status,
   };
-
-  // router.get(route('portfolio.index'), clearParamKey(params), {
-  //   showProgress: true,
-  //   async: true,
-  //   preserveState: true,
-  //   preserveScroll: true,
-  // });
 };
 
 // Add debounced search handler
 const handleSearch = useDebounceFn((value: string) => {
   searchQuery.value = value;
-  paginate.value.current_page = 1; // Reset to first page when searching
+  pagination.value.current_page = 1; // Reset to first page when searching
   getUpdate([]);
 }, 300);
 
@@ -60,29 +55,12 @@ const getColor = (value: string) => {
   return value === 'published' ? 'green' : 'yellow';
 };
 
-const resetFilters = () => {};
-
-const actions = ref([
-  {
-    icon: 'carbon:edit',
-    color: '',
-    title: 'Edit Portfolio',
-    // method: (id: number) => {
-    //   router.visit(`/admin/portfolio/${id}`);
-    // },
-  },
-  {
-    icon: 'carbon:trash-can',
-    color: 'red',
-    title: 'Delete Portfolio',
-    method: () => null,
-  },
-]);
+const colorMapper = {
+  published : "green",
+  draft: "yellow"
+}
 </script>
 <template>
-  <Head>
-    <title>Portfolios</title>
-  </Head>
     <v-container>
       <v-row
         align="center"
@@ -146,14 +124,15 @@ const actions = ref([
                   flat
                   height="40"
                   variant="tonal"
+                  icon="carbon:filter"
                   >
-                  <!-- @click="right = !right" -->
-                  <v-icon
-                    start
-                    icon="carbon:filter"
-                  />
                   Filters
                 </v-btn>
+                <!-- @click="right = !right" -->
+                <!-- <v-icon
+                  start
+                  icon="carbon:filter"
+                /> -->
               </div>
             </v-col>
           </v-row>
@@ -164,13 +143,13 @@ const actions = ref([
           <v-card rounded="lg">
             <v-data-table-server
               :headers
+              :items="portfolios"
+              :items-length="pagination.total"
+              :page="pagination.current_page"
+              :items-per-page="pagination.per_page"
               hide-default-footer
               @update:sort-by="getUpdate"
               >
-              <!-- :items="portfolios"
-              :items-length="pagination.total"
-              :page="pagination.current_page"
-              :items-per-page="pagination.per_page" -->
               <template #[`item.status`]="{ value }">
                 <v-chip
                   :color="getColor(value)"
@@ -204,7 +183,7 @@ const actions = ref([
                       :title="item.title"
                     >
                       <v-card-text>
-                        <dynamic :content="item.content" />
+                        <!-- <dynamic :content="item.content" /> -->
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer />
@@ -292,29 +271,4 @@ const actions = ref([
         </v-col>
       </v-row>
     </v-container>
-    <!-- <template #right-nav-body>
-      <v-label>Portfolio Status</v-label>
-      <v-select
-        v-model="filters.status"
-        placeholder="Select Portfolio Status"
-        clearable
-        persistent-clear
-        :items="[
-          {
-            title: 'Published',
-            value: 'published',
-          },
-          { title: 'Draft', value: 'draft' },
-        ]"
-        @update:modelValue="getUpdate([])"
-      ></v-select>
-    </template> -->
-    <!-- <template #right-nav-append>
-      <v-btn
-        block
-        @click="resetFilters"
-      >
-        Reset Filters
-      </v-btn>
-    </template> -->
 </template>

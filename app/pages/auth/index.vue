@@ -3,6 +3,11 @@ import { required } from "@/utils/rules";
 import { useApiFetch } from "~/utils/shared/useApiFetch";
 import type { VForm } from 'vuetify/components';
 
+const token = useCookie('token',{
+   maxAge: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+   secure: true
+})
+
 const form = ref({
    email: "",
    password: "",
@@ -13,11 +18,19 @@ const loginForm = ref<VForm | null>(null);
 const submitForm = async () => {
   if (!loginForm.value) return;
   const { valid } = await loginForm.value.validate();
-  console.log(valid);
   if(valid){
-    useApiFetch('auth/login',{
+    await useApiFetch('auth/login',
+    {
       method: "POST",
       body: form.value
+    }).then((res:any)=>{
+      token.value = res.token;
+    }).catch((err)=>{
+      return err;
+    }).finally(async()=>{
+      await navigateTo("/admin/",{
+         replace: true
+      })
     })
   }
 };

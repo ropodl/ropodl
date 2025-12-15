@@ -11,6 +11,7 @@ import { ref } from "vue";
 
 definePageMeta({
    layout: "admin",
+  middleware: ['is-auth']
 });
 
 // const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
@@ -144,9 +145,7 @@ const rightNav = ref(false);
                   class="me-3"
                   @click="rightNav = !rightNav"
                >
-                  <v-icon>
-                     <Icon icon="carbon:filter" />
-                  </v-icon>
+                  <v-icon icon="carbon:filter" />
                </v-btn>
                <v-btn flat color="primary" to="/admin/blog/create">
                   Add New
@@ -179,7 +178,7 @@ const rightNav = ref(false);
                      {{ useDateFormat(value, "MMMM D, YYYY") }}
                   </template>
                   <template #[`item.actions`]="{ item }">
-                     <v-hover v-slot:default="{ isHovering, props }">
+                     <v-hover v-slot="{ isHovering, props }">
                         <v-btn
                            v-bind="props"
                            icon
