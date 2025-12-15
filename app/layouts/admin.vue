@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { left } from "@/composables/admin/layout/nav";
 import type { navItem } from "@/types/layout";
-import useApiFetch from "~/utils/shared/useApiFetch";
+import { useAuth } from "~/composables/admin/auth/useAuth";
 
 const route = useRoute()
-const user = useState('user')
+const { user, fetchUser, logout } = useAuth()
 
 const navItems: navItem[] = [
    { icon: "carbon:home", title: "Home", to: "/admin" },
@@ -94,28 +94,9 @@ const bread = computed(() => {
   return items;
 });
 
-onMounted(()=>{
-   getUserDetails()
+onMounted(async () => {
+   await fetchUser()
 })
-
-const getUserDetails = async() => {
-   if(localStorage.getItem('user')) return user.value = localStorage.getItem('user')
-   await useApiFetch("/auth/me").then((res)=>{
-      user.value = res
-      localStorage.setItem('user', res)
-   })
-}
-
-const logOut = () => {
-   const token = useCookie('token')
-
-   user.value = null;
-   token.value = null;
-   localStorage.removeItem("user")
-   navigateTo("/", {
-      replace: true
-   })
-}
 </script>
 
 <template>
@@ -207,7 +188,7 @@ const logOut = () => {
                   </template>
                   <v-card width="300">
                      <v-list>
-                        <v-list-item @click="logOut">
+                        <v-list-item @click="logout">
                            <v-list-item-title> Sign Out </v-list-item-title>
                         </v-list-item>
                      </v-list>

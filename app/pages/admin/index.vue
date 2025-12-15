@@ -10,7 +10,6 @@ definePageMeta({
          <v-col cols="12">
             <div class="text-h6 font-weight-bold">Overview</div>
             <div class="text-caption">Allow all</div>
-            <div style="height: 1000px">hi</div>
          </v-col>
       </v-row>
    </v-container>

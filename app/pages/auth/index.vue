@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { required } from "@/utils/rules";
-import { useApiFetch } from "~/utils/shared/useApiFetch";
 import type { VForm } from 'vuetify/components';
+import { useAuth } from "~/composables/admin/auth/useAuth";
 
-const token = useCookie('token',{
-   maxAge: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
-   secure: true
-})
+const { login, token } = useAuth();
+
+if (token.value) {
+   navigateTo("/admin/", {
+      replace: true
+   });
+}
 
 const form = ref({
    email: "",
@@ -19,19 +22,7 @@ const submitForm = async () => {
   if (!loginForm.value) return;
   const { valid } = await loginForm.value.validate();
   if(valid){
-    await useApiFetch('auth/login',
-    {
-      method: "POST",
-      body: form.value
-    }).then((res:any)=>{
-      token.value = res.token;
-    }).catch((err)=>{
-      return err;
-    }).finally(async()=>{
-      await navigateTo("/admin/",{
-         replace: true
-      })
-    })
+      await login(form.value);
   }
 };
 </script>

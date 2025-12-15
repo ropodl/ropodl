@@ -12,6 +12,7 @@ const { mobile } = useDisplay();
             />
          </div>
          <slot />
+         <v-snackbar :model-value="true" timeout="-1"></v-snackbar>
       </v-main>
       <layouts-default-foot />
    </v-app>
