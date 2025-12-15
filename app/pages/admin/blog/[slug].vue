@@ -17,7 +17,8 @@ import type { blog } from '~/types/blog';
 //   // tags: PortfolioType[];
 // }>();
 definePageMeta({
-  layout: "admin"
+  layout: "admin",
+  middleware: ['is-auth']
 })
 
 const blog = ref<blog>({

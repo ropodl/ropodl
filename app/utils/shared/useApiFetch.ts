@@ -5,13 +5,13 @@ export type SearchParam = Primitive | Primitive[] | null | undefined;
 export type ValidSearchParam = Exclude<SearchParam, null | undefined>;
 export type QueryObject = Record<string, SearchParam | Ref<SearchParam>>;
 
+
 export interface ApiFetchOptions<Req = unknown, Res = unknown> {
    key?: string;
    method?: string;
    query?: Record<string, SearchParam> | undefined;
    body?: Req;
    headers?: Record<string, string> | undefined;
-   auth?: { token?: string } | undefined;
    params?: Record<string, unknown> | undefined;
    baseURL?: string | undefined;
    timeout?: number | undefined;
@@ -43,6 +43,8 @@ export async function useApiFetch<Res = unknown, Req = unknown>(
    opts: ApiFetchOptions<Req, Res> = {},
 ): Promise<Res> {
    const config = useRuntimeConfig();
+   const token = useCookie('token');
+
    const defaultTimeout = 5000;
 
    const qCandidate = opts.query as Record<string, unknown> | undefined;
@@ -73,8 +75,8 @@ export async function useApiFetch<Res = unknown, Req = unknown>(
       headers: {
          "Content-Type": opts.headers?.["Content-Type"] ?? "application/json",
          ...(opts.headers as Record<string, string> | undefined),
-         ...(opts.auth?.token
-            ? { Authorization: `Bearer ${opts.auth.token}` }
+         ...(token.value
+            ? { Authorization: `Bearer ${token.value}` }
             : {}),
       },
       params: opts.params ?? {},

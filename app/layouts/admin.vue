@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { left } from "@/composables/admin/layout/nav";
 import type { navItem } from "@/types/layout";
+import useApiFetch from "~/utils/shared/useApiFetch";
 
 const route = useRoute()
+const user = useState('user')
 
 const navItems: navItem[] = [
    { icon: "carbon:home", title: "Home", to: "/admin" },
@@ -18,13 +20,21 @@ const navItems: navItem[] = [
       ],
    },
    {
-      icon: "carbon:image",
+      icon: "carbon:folders",
       title: "Portfolio",
       subitems: [
          { title: "All Portfolio", to: "/admin/portfolio" },
          { title: "Add New", to: "/admin/portfolio/create" },
-         { title: "Work Type", to: "/admin/portfolio-type" },
+         { title: "Work Type", to: "/admin/portfolio/type" },
       ],
+   },
+   {
+      icon: "carbon:image",
+      title: "Media",
+      subitems: [
+         { title: "Library", to: "/admin/media" },
+         { title: "Add Media File", to: "/admin/media/create" }
+   ]
    },
    {
       icon: "mdi-phone-outline",
@@ -83,6 +93,29 @@ const bread = computed(() => {
 
   return items;
 });
+
+onMounted(()=>{
+   getUserDetails()
+})
+
+const getUserDetails = async() => {
+   if(localStorage.getItem('user')) return user.value = localStorage.getItem('user')
+   await useApiFetch("/auth/me").then((res)=>{
+      user.value = res
+      localStorage.setItem('user', res)
+   })
+}
+
+const logOut = () => {
+   const token = useCookie('token')
+
+   user.value = null;
+   token.value = null;
+   localStorage.removeItem("user")
+   navigateTo("/", {
+      replace: true
+   })
+}
 </script>
 
 <template>
@@ -174,7 +207,7 @@ const bread = computed(() => {
                   </template>
                   <v-card width="300">
                      <v-list>
-                        <v-list-item>
+                        <v-list-item @click="logOut">
                            <v-list-item-title> Sign Out </v-list-item-title>
                         </v-list-item>
                      </v-list>

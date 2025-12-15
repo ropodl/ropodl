@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { PortfolioType } from '@/types/portfolio';
-import { itemsPerPage } from '@/utils/shared/pagination';
-import { ref } from 'vue';
+// import type { PortfolioType } from '@/types/portfolio';
+// import { itemsPerPage } from '@/utils/shared/pagination';
 
-// const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
-// const addNewDialog = defineAsyncComponent(
-//   () => import('@/components/admin/shared/portfolio/type/addNewDialog.vue'),
-// );
+definePageMeta({
+  layout: "admin",
+  middleware: ['is-auth']
+})
 
 // const { types, search, pagination } = defineProps<{
 //   types: PortfolioType[];
@@ -50,16 +49,16 @@ const headers = ref([
           cols="12"
           md="4"
         >
-          <v-text-field hide-details></v-text-field>
+          <v-text-field hide-details />
         </v-col>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-col
           cols="12"
           md="6"
         >
           <div class="d-flex">
-            <v-spacer></v-spacer>
-            <add-new-dialog />
+            <v-spacer />
+            <!-- <add-new-dialog /> -->
           </div>
         </v-col>
       </v-row>
@@ -72,8 +71,9 @@ const headers = ref([
               :items-length="10"
               :items-per-page="10"
             >
-              <template v-slot:[`item.actions`]="{ item }">
-                <v-hover v-slot:default="{ isHovering, props }">
+              <template #[`item.actions`]="{ item }">
+                {{ item }}
+                <v-hover v-slot="{ isHovering, props }">
                   <v-btn
                     v-bind="props"
                     icon
@@ -81,20 +81,20 @@ const headers = ref([
                     rounded="lg"
                     :variant="isHovering ? 'tonal' : 'text'"
                   >
-                    <v-icon icon="carbon:edit"></v-icon>
+                    <v-icon icon="carbon:edit" />
                   </v-btn>
                 </v-hover>
                 <v-dialog max-width="500">
-                  <template v-slot:activator="{ props: activatorProps }">
+                  <template #activator="{ props: activatorProps }">
                     <v-btn
                       v-bind="activatorProps"
                       color="surface-variant"
                       text="Open Dialog"
                       variant="flat"
-                    ></v-btn>
+                    />
                   </template>
 
-                  <template v-slot:default="{ isActive }">
+                  <template #default="{ isActive }">
                     <v-card title="Dialog">
                       <v-card-text>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -102,12 +102,12 @@ const headers = ref([
                       </v-card-text>
 
                       <v-card-actions>
-                        <v-spacer></v-spacer>
+                        <v-spacer />
 
                         <v-btn
                           text="Close Dialog"
                           @click="isActive.value = false"
-                        ></v-btn>
+                        />
                       </v-card-actions>
                     </v-card>
                   </template>

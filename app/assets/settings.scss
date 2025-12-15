@@ -8,13 +8,13 @@
 // @use 'vuetify/settings' with (
 //   $color-pack: false
 // );
-// main.scss
+
 $heading-font: "Ubuntu", sans-serif;
 $body-font: "Ubuntu", sans-serif;
 
 @use "vuetify" with (
   $heading-font-family: $heading-font,
-  $body-font-family: $body-font //   $layers: true
+  $body-font-family: $body-font
 );
 
 // // Global
