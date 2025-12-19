@@ -1,9 +1,12 @@
+import { ref } from "vue"
+
 export const useSnackbar = () => {
-    const show = useState<boolean>('snackbar_show', () => false);
-    const text = useState<string>('snackbar_text', () => '');
-    const color = useState<string>('snackbar_color', () => 'success');
+    const show = ref(false);
+    const text = ref('');
+    const color = ref('');
 
     const showSnackbar = (msg: string, type: string = 'success') => {
+        console.log(msg, type)
         text.value = msg;
         color.value = type;
         show.value = true;
