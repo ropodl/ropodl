@@ -3,9 +3,9 @@ import { ref } from "vue";
 
 const experience = [
    {
-      title: "Graphic/Web Designer",
-      year: "2018",
-      desc: "Fivonest Technology @ Solteemode, Kathmandu",
+      title: "Mid Level Frontend Developer",
+      year: "2024 - Current",
+      desc: "Aayulogic Pvt. Ltd. @ Chakupat, Lalitpur",
    },
    {
       title: "Chief Technology Officer",
@@ -13,9 +13,9 @@ const experience = [
       desc: "SoftMahal Technologies @ Mid Baneshwor, Kathmandu",
    },
    {
-      title: "Mid Level Frontend Developer",
-      year: "2024 - Current",
-      desc: "Aayulogic Pvt. Ltd. @ Chakupat, Lalitpur",
+      title: "Graphic/Web Designer",
+      year: "2018",
+      desc: "Fivonest Technology @ Solteemode, Kathmandu",
    },
 ];
 

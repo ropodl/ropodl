@@ -1,17 +1,10 @@
 <script lang="ts" setup>
-import { right } from "@/composables/admin/layout/nav";
-import { itemsPerPage } from "@/utils/shared/pagination"
-
-// import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
-// import type { blog } from '~/types/blog';
-// import { itemsPerPage } from '@/utils/constants/pagination';
-// import { clearParamKey } from '@/utils/global';
-// import { useDateFormat, useDebounceFn } from '@vueuse/core';
+import { itemsPerPage } from "@/utils/shared/pagination";
 import { ref } from "vue";
 
 definePageMeta({
    layout: "admin",
-  middleware: ['is-auth']
+   middleware: ["is-auth"],
 });
 
 // const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
@@ -24,9 +17,9 @@ definePageMeta({
 
 // const searchQuery = ref(search);
 // const paginate = ref(pagination);
-const filters = ref({
-   status: null,
-});
+// const filters = ref({
+//    status: null,
+// });
 
 const headers = [
    { title: "Title", key: "title", sortable: true },
@@ -39,37 +32,48 @@ const blogs = ref([
    {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
-   },{
+   },
+   {
       title: "ji",
       status: "Draft",
    },
@@ -108,7 +112,7 @@ const getColor = (value: string) => {
 //   },
 // ]);
 
-const resetFilters = () => {};
+// const resetFilters = () => {};
 
 const pagination = { total: "", current_page: "", per_page: 10 };
 
@@ -117,8 +121,6 @@ const rightNav = ref(false);
 
 <template>
    <v-container>
-      <!-- <breadcrumbs :items="bread" /> -->
-      <template #test>ko</template>
       <v-row align="center">
          <v-col cols="12" md="4">
             <!-- v-model="searchQuery" -->
@@ -216,13 +218,13 @@ const rightNav = ref(false);
             <div class="d-flex align-center justify-end">
                <span class="mr-3">Items Per Page:</span>
                <v-select
-              v-model="pagination.per_page"
-              hide-details
-              density="compact"
-              max-width="100"
-              :items="itemsPerPage"
-            />
-              <!-- @update:model-value="
+                  v-model="pagination.per_page"
+                  hide-details
+                  density="compact"
+                  max-width="100"
+                  :items="itemsPerPage"
+               />
+               <!-- @update:model-value="
                 (value) => {
                   paginate.per_page = value;
                   getUpdate([]);
