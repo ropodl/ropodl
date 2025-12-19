@@ -1,4 +1,5 @@
 import { useApiFetch } from "~/utils/shared/useApiFetch";
+import type { LoginResponse } from "~/types/auth";
 
 export const useAuth = () => {
     const token = useCookie('token');
@@ -6,14 +7,13 @@ export const useAuth = () => {
     const { showSnackbar } = useSnackbar();
 
     const login = async (form: any) => {
-        await useApiFetch('auth/login', {
+        await useApiFetch<LoginResponse>('auth/login', {
             method: "POST",
             body: form
-        }).then((res: any) => {
+        }).then(async (res: LoginResponse) => {
             token.value = res.token;
             showSnackbar('Logged in successfully', 'success');
-            // We use navigateTo with replace: true to prevent back button from going back to login
-            return navigateTo("/admin/", { replace: true });
+            await navigateTo("/admin/", { replace: true });
         }).catch((err) => {
             const message = err.data?.message || err.message || 'Login failed';
             showSnackbar(message, 'error');
@@ -28,8 +28,8 @@ export const useAuth = () => {
         if (import.meta.client) {
             localStorage.removeItem("user");
         }
-        showSnackbar('Logged out successfully', 'success');
         navigateTo("/", { replace: true });
+        showSnackbar('Logged out successfully', 'success');
     };
 
     const fetchUser = async () => {
@@ -47,8 +47,11 @@ export const useAuth = () => {
                 localStorage.setItem('user', res as string);
             }
         }).catch(() => {
-            // If fetching user fails (e.g. token expired), we might want to logout
-            // or just silently fail. Detailed error handling can be added later.
+            if (import.meta.client) {
+                localStorage.removeItem("user");
+            }
+            showSnackbar('Failed to fetch user', 'error');
+            navigateTo("/admin/login", { replace: true });
         });
     };
 
