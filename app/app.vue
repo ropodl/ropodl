@@ -5,8 +5,6 @@ const { show, text, showSnackbar, closeSnackbar } = useSnackbar()
    <NuxtLoadingIndicator color="white" :height="1" />
    <NuxtLayout>
       <NuxtPage />
-      {{ show }}
-      <v-btn @click="showSnackbar('hi am i test?')">Show Snackbar</v-btn>
       <v-snackbar v-model="show" dismissible color="surface" rounded="xl" variant="flat">
             {{ text }}
             <template v-slot:actions>
