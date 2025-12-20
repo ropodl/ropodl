@@ -1,9 +1,7 @@
-import { ref } from "vue"
-
 export const useSnackbar = () => {
-    const show = ref(false);
-    const text = ref('');
-    const color = ref('');
+    const show = useState('snackbar-show', () => false);
+    const text = useState('snackbar-text', () => '');
+    const color = useState('snackbar-color', () => '');
 
     const showSnackbar = (msg: string, type: string = 'success') => {
         console.log(msg, type)

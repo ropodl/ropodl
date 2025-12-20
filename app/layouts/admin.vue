@@ -4,7 +4,6 @@ import type { navItem } from "@/types/layout";
 import { useAuth } from "~/composables/admin/auth/useAuth";
 
 const route = useRoute()
-const { show, showSnackbar, closeSnackbar } = useSnackbar()
 const { user, fetchUser, logout } = useAuth()
 
 const navItems: navItem[] = [

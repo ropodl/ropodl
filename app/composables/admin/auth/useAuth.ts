@@ -11,10 +11,10 @@ export const useAuth = () => {
             method: "POST",
             body: form
         }).then(async (res: LoginResponse) => {
-            token.value = res.token;
             showSnackbar('Logged in successfully', 'success');
+            token.value = res.token;
             await navigateTo("/admin/", { replace: true });
-        }).catch((err) => {
+        }).catch(async (err) => {
             const message = err.data?.message || err.message || 'Login failed';
             showSnackbar(message, 'error');
             throw err;
@@ -28,7 +28,7 @@ export const useAuth = () => {
         if (import.meta.client) {
             localStorage.removeItem("user");
         }
-        navigateTo("/", { replace: true });
+        navigateTo("/auth/", { replace: true });
         showSnackbar('Logged out successfully', 'success');
     };
 
