@@ -4,7 +4,7 @@ import type { navItem } from "@/types/layout";
 import { useAuth } from "~/composables/admin/auth/useAuth";
 
 const route = useRoute()
-const { user, fetchUser, logout } = useAuth()
+const { user, fetchUser, logout, can } = useAuth()
 
 const navItems: navItem[] = [
    { icon: "carbon:home", title: "Home", to: "/admin" },
@@ -41,6 +41,14 @@ const navItems: navItem[] = [
       title: "Contact Request",
       subtitle: "Contact and Feedback",
       to: "/admin/contact",
+   },
+   {
+      icon: "mdi-account-shield-outline",
+      title: "Settings",
+      subtitle: "Access Control",
+      subitems: [
+         { title: "Roles & Permissions", to: "/admin/roles", permission: "rbac.manage" },
+      ],
    },
 ];
 
@@ -127,7 +135,11 @@ onMounted(async () => {
                </template>
 
                <template v-else>
-                  <v-menu location="end" offset="14">
+                  <v-menu
+                     v-if="!item.permission || can(item.permission)"
+                     location="end"
+                     offset="14"
+                  >
                      <template #activator="{ props: menuProps }">
                         <v-list-item
                            v-tooltip="{
@@ -155,6 +167,7 @@ onMounted(async () => {
                               :key="i"
                            >
                               <v-list-item
+                                 v-if="!subItem.permission || can(subItem.permission)"
                                  link
                                  :title="subItem.title"
                                  :to="subItem.to"
