@@ -19,8 +19,8 @@ export interface ApiFetchOptions<Req = unknown, Res = unknown> {
    withCredentials?: boolean | undefined;
    immediate?: boolean | undefined;
    onRequest?:
-      | ((url: string, opts: ApiFetchOptions<Req, Res>) => void | Promise<void>)
-      | null;
+   | ((url: string, opts: ApiFetchOptions<Req, Res>) => void | Promise<void>)
+   | null;
    onResponse?: ((res: Res) => Res | Promise<Res>) | null;
    onRequestError?: ((err: unknown) => void | Promise<void>) | null;
    onResponseError?: ((err: unknown) => void | Promise<void>) | null;
@@ -72,13 +72,14 @@ export async function useApiFetch<Res = unknown, Req = unknown>(
          })(),
       }),
       body: opts.body,
-      headers: {
-         "Content-Type": opts.headers?.["Content-Type"] ?? "application/json",
+      headers: removeEmptyKeys({
+         "Content-Type": opts.headers?.["Content-Type"] ??
+            ((typeof FormData !== "undefined" && opts.body instanceof FormData) ? undefined : "application/json"),
          ...(opts.headers as Record<string, string> | undefined),
          ...(token.value
             ? { Authorization: `Bearer ${token.value}` }
             : {}),
-      },
+      }),
       params: opts.params ?? {},
       baseURL: opts.baseURL ?? config.public?.API_URL ?? "",
       timeout: opts.timeout ?? defaultTimeout,
