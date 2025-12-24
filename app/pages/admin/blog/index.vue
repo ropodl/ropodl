@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { itemsPerPage } from "@/utils/shared/pagination";
 import { ref } from "vue";
+import useApiFetch from "~/utils/shared/useApiFetch";
 
 definePageMeta({
    layout: "admin",
@@ -117,6 +118,18 @@ const getColor = (value: string) => {
 const pagination = { total: "", current_page: "", per_page: 10 };
 
 const rightNav = ref(false);
+
+onMounted(()=>{
+   getBlog()
+})
+
+const getBlog = async() => {
+   await useApiFetch("blog/").then((res)=>{
+      console.log(res)
+   }).catch((err)=>{
+      console.log(err)
+   })
+}
 </script>
 
 <template>
