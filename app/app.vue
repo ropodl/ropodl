@@ -1,5 +1,5 @@
 <script setup>
-const { show, text, showSnackbar, closeSnackbar } = useSnackbar()
+const { show, text, color, closeSnackbar } = useSnackbar()
 </script>
 <template>
    <NuxtLoadingIndicator color="white" :height="1" />
@@ -7,12 +7,13 @@ const { show, text, showSnackbar, closeSnackbar } = useSnackbar()
       <NuxtPage />
       <v-snackbar v-model="show" dismissible color="surface" rounded="xl" variant="flat">
             {{ text }}
-            <template v-slot:actions>
+            <template #actions>
                <v-btn
                   size="small"
                   rounded="xl"
                   icon="carbon:close"
                   variant="text"
+                  :color
                   @click="closeSnackbar"
                />
             </template>

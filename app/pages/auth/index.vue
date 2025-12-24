@@ -25,6 +25,8 @@ const submitForm = async () => {
       await login(form.value);
   }
 };
+
+const showPassword = ref(false)
 </script>
 <template>
    <v-container max-width="1200">
@@ -48,7 +50,10 @@ const submitForm = async () => {
                   v-model="form.password"
                   density="comfortable"
                   placeholder="Password"
+                  :append-inner-icon="showPassword ? 'carbon:view-off':'carbon:view'"
+                  :type="showPassword ? 'text':'password'"
                   :rules="[required(form.password, 'Password')]"
+                  @click:append-inner="showPassword = !showPassword"
                />
                <div class="d-flex justify-end">
                   <v-btn color="primary" type="submit">Submit</v-btn>

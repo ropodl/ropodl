@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { VFileUpload } from "vuetify/labs/VFileUpload";
+import { useAuth } from "~/composables/admin/auth/useAuth";
 import useApiFetch from "~/utils/shared/useApiFetch";
 
 definePageMeta({
    layout: "admin",
    middleware: ["is-auth"],
 });
+
+const { can } = useAuth()
+const { showSnackbar } = useSnackbar()
 
 onMounted(() => {
    getMedia();
@@ -57,6 +61,7 @@ const uploadMedia = async () => {
    if (!file) return;
 
    if (!allowedMimeTypes.includes(file.type)) {
+        showSnackbar("File type not allowed", "error")
       console.error('File type not allowed');
       files.value = [];
       return;
@@ -139,13 +144,13 @@ const formatBytes = (bytes: number, decimals = 2) => {
 </script>
 
 <template>
-   <v-container fluid>
+   <v-container>
       <v-row align="center" class="mb-4">
          <v-col cols="12" md="4">
             <v-text-field
                 v-model="search"
-                label="Search media..."
-                prepend-inner-icon="mdi-magnify"
+                placeholder="Search media..."
+                prepend-inner-icon="carbon:search"
                 hide-details
                 variant="outlined"
                 density="compact"
@@ -176,10 +181,10 @@ const formatBytes = (bytes: number, decimals = 2) => {
       <v-row v-else-if="media.length > 0">
          <v-col v-for="item in media" :key="item.id" cols="6" sm="4" md="2">
             <v-card
-                @click="openDetails(item)"
                 hover
                 class="rounded-lg overflow-hidden"
                 height="150"
+                @click="openDetails(item)"
             >
                <v-img
                   :src="item.fileUrl"
@@ -187,7 +192,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                   cover
                   class="bg-grey-lighten-2"
                >
-                  <template v-slot:placeholder>
+                  <template #placeholder>
                       <v-row align="center" class="fill-height ma-0" justify="center">
                           <v-icon color="grey-lighten-1" size="48">mdi-file-outline</v-icon>
                       </v-row>
@@ -261,8 +266,8 @@ const formatBytes = (bytes: number, decimals = 2) => {
                   <v-btn
                       color="primary"
                       prepend-icon="mdi-content-save"
-                      @click="updateMedia"
                       :loading="saving"
+                      @click="updateMedia"
                   >
                       Save Changes
                   </v-btn>

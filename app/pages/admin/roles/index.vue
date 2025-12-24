@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { useApiFetch } from "~/utils/shared/useApiFetch";
+import type { roles, permissions } from "../../../../types/rolePermission"
 
 definePageMeta({
     layout: "admin",
     middleware: ["is-auth"]
 });
 
-const { can } = useAuth();
+// const { can } = useAuth();
 const { showSnackbar } = useSnackbar();
 
-const roles = ref<any[]>([]);
-const permissions = ref<any[]>([]);
-const selectedRole = ref<any | null>(null);
+const roles = ref<roles[]>([]);
+const permissions = ref<permissions[]>([]);
+const selectedRole = ref<roles | null>(null);
 const rolePermissions = ref<number[]>([]);
-const loading = ref(false);
+// const loading = ref(false);
 const saving = ref(false);
 
 const roleDialog = ref(false);
@@ -31,6 +32,7 @@ const fetchPermissions = async () => {
 
 const selectRole = async (role: any) => {
     selectedRole.value = role;
+    console.log(typeof selectRole)
     const perms = await useApiFetch<any[]>(`rbac/roles/${role.id}/permissions`);
     rolePermissions.value = perms.map(p => p.id);
 };
@@ -89,35 +91,37 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-container fluid>
+    <v-container>
         <v-row>
             <v-col cols="12" class="d-flex align-center">
                 <div class="text-h4">Roles & Permissions</div>
                 <v-spacer />
-                <v-btn color="primary" @click="roleDialog = true" prepend-icon="mdi-plus">New Role</v-btn>
-                <v-btn color="secondary" class="ml-2" @click="permissionDialog = true" prepend-icon="mdi-shield-lock">New Permission</v-btn>
+                <v-btn color="primary" prepend-icon="mdi-plus" @click="roleDialog = true">New Role</v-btn>
+                <v-btn color="secondary" class="ml-2" prepend-icon="mdi-shield-lock" @click="permissionDialog = true">New Permission</v-btn>
             </v-col>
         </v-row>
 
-        <v-row class="mt-4">
+        <v-row>
             <!-- Roles List -->
             <v-col cols="12" md="4">
-                <v-card variant="outlined" class="rounded-lg">
+                <label class="mb-3">Available Roles</label>
+                <v-card border class="rounded-lg">
                     <v-list lines="two">
-                        <v-list-subheader>AVAILABLE ROLES</v-list-subheader>
-                        <v-list-item
-                            v-for="role in roles"
-                            :key="role.id"
-                            :active="selectedRole?.id === role.id"
-                            @click="selectRole(role)"
-                            class="rounded-lg mb-1 mx-2"
+                        <template
+                        v-for="role in roles"
+                        :key="role.id"
                         >
-                            <template v-slot:prepend>
+                        <v-list-item
+                            :active="selectedRole?.id === role.id"
+                            class="rounded-lg mb-1 mx-2"
+                            @click="selectRole(role)"
+                        >
+                            <template #prepend>
                                 <v-icon icon="mdi-account-group-outline" />
                             </template>
                             <v-list-item-title>{{ role.name }}</v-list-item-title>
                             <v-list-item-subtitle>{{ role.description || 'No description' }}</v-list-item-subtitle>
-                            <template v-slot:append>
+                            <template #append>
                                 <v-btn
                                     icon="mdi-delete-outline"
                                     color="error"
@@ -127,6 +131,7 @@ onMounted(() => {
                                 />
                             </template>
                         </v-list-item>
+                        </template>
                     </v-list>
                 </v-card>
             </v-col>
@@ -140,7 +145,7 @@ onMounted(() => {
                             <div class="text-body-2 text-grey">{{ selectedRole.description }}</div>
                         </div>
                         <v-spacer />
-                        <v-btn color="primary" @click="saveRolePermissions" :loading="saving">Save Changes</v-btn>
+                        <v-btn color="primary" :loading="saving" @click="saveRolePermissions" >Save Changes</v-btn>
                     </div>
 
                     <v-divider class="mb-6" />
