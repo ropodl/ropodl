@@ -1,5 +1,5 @@
 <script setup>
-const { show, text, color, closeSnackbar } = useSnackbar()
+const { show, text, closeSnackbar } = useSnackbar()
 </script>
 <template>
    <NuxtLoadingIndicator color="white" :height="1" />
@@ -13,7 +13,6 @@ const { show, text, color, closeSnackbar } = useSnackbar()
                   rounded="xl"
                   icon="carbon:close"
                   variant="text"
-                  :color
                   @click="closeSnackbar"
                />
             </template>
