@@ -8,20 +8,6 @@ definePageMeta({
    middleware: ["is-auth"],
 });
 
-// const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
-
-// const { blogs, search, pagination } = defineProps<{
-//   blogs: blog[];
-//   search?: string;
-//   pagination: pagination;
-// }>();
-
-// const searchQuery = ref(search);
-// const paginate = ref(pagination);
-// const filters = ref({
-//    status: null,
-// });
-
 const headers = [
    { title: "Title", key: "title", sortable: true },
    { title: "Status", key: "status", sortable: true },
@@ -29,58 +15,14 @@ const headers = [
    { title: "Actions", key: "actions", sortable: false },
 ];
 
-const blogs = ref([
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-   {
-      title: "ji",
-      status: "Draft",
-   },
-]);
+const blogs = ref([]);
 
-const getUpdate = (options: { key: string; order?: boolean }[]) => {
+const getUpdate = async(options: { key: string; order?: boolean }[]) => {
+   console.log(options);
+
+   await useApiFetch("blog").then((res)=>{
+      blogs.value = res.data;
+   })
    // const params = {
    //   search: searchQuery.value,
    //   page: paginate.value.current_page,
@@ -106,30 +48,23 @@ const getColor = (value: string) => {
    return value === "published" ? "green" : "yellow";
 };
 
-// const bread = ref<BreadcrumbItem[]>([
-//   {
-//     title: 'blog',
-//     href: '/admin/blog',
-//   },
-// ]);
-
 // const resetFilters = () => {};
 
 const pagination = { total: "", current_page: "", per_page: 10 };
 
 const rightNav = ref(false);
 
-onMounted(()=>{
-   getBlog()
-})
+// onMounted(()=>{
+//    getBlog()
+// })
 
-const getBlog = async() => {
-   await useApiFetch("blog/").then((res)=>{
-      console.log(res)
-   }).catch((err)=>{
-      console.log(err)
-   })
-}
+// const getBlog = async() => {
+//    await useApiFetch("blog/").then((res)=>{
+//       console.log(res)
+//    }).catch((err)=>{
+//       console.log(err)
+//    })
+// }
 </script>
 
 <template>
@@ -178,7 +113,7 @@ const getBlog = async() => {
                   :page="pagination.current_page"
                   :items-per-page="pagination.per_page"
                   hide-default-footer
-                  @update:sort-by="getUpdate"
+                  @update:options="getUpdate"
                >
                   <template #[`item.status`]="{ value }">
                      <v-chip

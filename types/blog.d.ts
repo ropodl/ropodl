@@ -13,6 +13,7 @@ export interface blog {
 enum status {
    draft = "draft",
    published = "published",
+   archieved = "archieved"
 }
 
 export interface category {
