@@ -1,329 +1,238 @@
 <script setup lang="ts">
-// import { snackbar } from '@/composables/snack';
-// import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
-import type { blog } from '~/types/blog';
-// import slugify from '@/utils/slugify';
-// import { Head, router, useForm } from '@inertiajs/vue3';
-// import { useObjectUrl } from '@vueuse/core';
-// import { computed, defineAsyncComponent, ref, watch } from 'vue';
+import { ref, onMounted, computed } from "vue";
+import type { blog } from "~/types/blog";
+import Editor from "~/components/admin/shared/Editor.vue";
+import MediaSelector from "~/components/admin/shared/MediaSelector.vue";
+import useApiFetch from "~/utils/shared/useApiFetch";
 
-// const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
-// const editor = defineAsyncComponent(() => import('@/components/admin/shared/Editor.vue'));
-
-// const { setSnackbar } = snackbar();
-
-// const { blog } = defineProps<{
-//   blog?: blog;
-//   // tags: PortfolioType[];
-// }>();
 definePageMeta({
-  layout: "admin",
-  middleware: ['is-auth']
-})
-
-const blog = ref<blog>({
-  title: null,
-  slug: null,
-  content: null,
-  featured_image: null,
-  status: null
-})
-
-const form = ref({
-  title: blog.value?.title ?? '',
-  slug: blog.value?.slug ?? '',
-  content: blog.value?.content ?? '',
-  featured_image: blog.value?.featured_image ?? (null as File | string | null),
-  status: blog.value?.status ?? 'draft',
+   layout: "admin",
+   middleware: ["is-auth"],
 });
 
-// Auto-generate slug from title only for new portfolios
-// watch(
-//   () => form.title,
-//   (title) => {
-//     if (!blog?.slug) {
-//       form.slug = slugify(title, {
-//         maxLength: 70,
-//       });
-//     }
-//   },
-// );
+const route = useRoute();
+const router = useRouter();
+const slug = route.params.slug as string;
+const isEditing = computed(() => slug !== "create");
+
+const loading = ref(false);
+const saving = ref(false);
+const showMediaSelector = ref(false);
+
+const form = ref({
+   title: "",
+   slug: "",
+   content: "",
+   excerpt: "",
+   featured_image_id: null as number | null,
+   featured_image_url: null as string | null,
+   status: "draft" as "draft" | "published",
+});
+
+const fetchBlog = async () => {
+   if (!isEditing.value) return;
+   
+   loading.value = true;
+   try {
+      const res = await useApiFetch<any>(`blog/${slug}`);
+      if (res.success && res.data) {
+         const data = res.data;
+         form.value = {
+            title: data.title,
+            slug: data.slug,
+            content: data.content,
+            excerpt: data.excerpt || "",
+            featured_image_id: data.featured,
+            featured_image_url: data.featured_image_url || null, // Assuming backend provides this now or we need to fetch it
+            status: data.status,
+         };
+      }
+   } catch (error) {
+      console.error("Failed to fetch blog:", error);
+   } finally {
+      loading.value = false;
+   }
+};
+
+onMounted(fetchBlog);
 
 const rules = {
-  title: [
-    (v: string) => !!v || 'Blog Title is required',
-    (v: string) => v.length <= 100 || 'Blog Title must be 100 characters or less',
-  ],
-  slug: [(v: string) => !v || v.length <= 70 || 'Blog Slug must be 70 characters or less'],
-  featured_image: [
-    (v?: File[]) => {
-      if (!v || v.length === 0) return true;
-      const file = v[0];
-      if (file?.size > 5120 * 1024) {
-        return 'File size must be less than 5MB';
-      }
-      return true;
-    },
-  ],
+   title: [
+      (v: string) => !!v || "Blog Title is required",
+      (v: string) =>
+         v.length <= 100 || "Blog Title must be 100 characters or less",
+   ],
+   slug: [
+      (v: string) => !!v || "Slug is required",
+      (v: string) =>
+         !v || v.length <= 120 || "Blog Slug must be 120 characters or less",
+   ],
 };
 
 const blogForm = ref();
-const fileBrowser = ref<HTMLInputElement | null>(null);
-const fileSelected = ref<File | null>(null);
 
-// Compute image preview URL
-// const imagePreviewUrl = computed(() => {
-//   if (fileSelected.value) {
-//     return useObjectUrl(fileSelected.value).value;
-//   }
-//   return null;
-// });
+const handleImageSelected = (url: string, id: number) => {
+   form.value.featured_image_url = url;
+   form.value.featured_image_id = id;
+};
 
-// Determine which image to show
-// const displayImageUrl = computed(() => {
-//   if (imagePreviewUrl.value) {
-//     return imagePreviewUrl.value;
-//   }
-//   if (blog?.id && typeof form.featured_image === 'string') {
-//     return form.featured_image;
-//   }
-//   return null;
-// });
-
-// const uploadFile = (event: Event) => {
-//   const target = event.target as HTMLInputElement;
-//   if (target.files?.[0]) {
-//     fileSelected.value = target.files[0];
-//     form.featured_image = fileSelected.value;
-//   }
-// };
-
-// const removeImage = () => {
-//   fileSelected.value = null;
-//   form.featured_image = null;
-//   if (fileBrowser.value) {
-//     fileBrowser.value.value = '';
-//   }
-// };
-
-const fileSelector = () => {
-  fileBrowser.value?.click();
+const removeImage = () => {
+   form.value.featured_image_url = null;
+   form.value.featured_image_id = null;
 };
 
 const submit = async () => {
-  // const { valid } = await blogForm.value.validate();
+   const { valid } = await blogForm.value.validate();
+   if (!valid) return;
 
-  // if (!valid) return;
+   saving.value = true;
+   const endpoint = isEditing.value ? `blog/${slug}` : "blog";
+   const method = isEditing.value ? "PATCH" : "POST";
 
-  // const routeName = blog?.id ? 'blog.update' : 'blog.store';
-  // const routeParams = blog?.id ? [blog.id] : [];
+   try {
+      const res = await useApiFetch<any>(endpoint, {
+         method,
+         body: form.value,
+      });
 
-  // form.post(route(routeName, routeParams), {
-  //   forceFormData: true,
-  //   preserveScroll: false,
-  //   onSuccess: () => {
-  //     console.log('Form submitted successfully');
-  //   },
-  //   onError: () => {
-  //     setSnackbar('Form Submission error', 'error');
-  //   },
-  // });
+      if (res.success) {
+         // Redirect back to list
+         router.push("/admin/blog");
+      }
+   } catch (error) {
+      console.error("Form Submission error", error);
+   } finally {
+      saving.value = false;
+   }
 };
 
-// const breadcrumbItems = computed(() => [
-//   {
-//     title: 'blog',
-//     href: '/admin/blog',
-//   },
-//   {
-//     title: blog ? 'edit' : 'create',
-//     href: blog ? `/admin/blog/${blog.id}` : '/admin/blog/create',
-//   },
-// ]);
-
 const statusOptions = [
-  { title: 'Draft', value: 'draft' },
-  { title: 'Published', value: 'published' },
+   { title: "Draft", value: "draft" },
+   { title: "Published", value: "published" },
 ] as const;
 </script>
 
 <template>
-    <!-- <v-btn @click="setSnackbar('hello', 'success')">test</v-btn> -->
-    <v-container>
-      <!-- <v-row>
-        <v-col cols="12">
-          <breadcrumbs :items="breadcrumbItems" />
-        </v-col>
-      </v-row> -->
-      <v-form
-        ref="blogForm"
-        @submit.prevent="submit"
-        >
-        <v-row>
-          <v-col
-            cols="12"
-            md="8"
-          >
-            <v-label>Blog Title</v-label>
-            <v-text-field
-              v-model="form.title"
-              placeholder="eg. Lorem ipsum dolor."
-              :rules="rules.title"
-              />
-              <!-- :error-messages="form.errors.title"
-              @update:model-value="form.errors.title = ''" -->
+   <v-container v-if="!loading">
+      <v-form ref="blogForm" @submit.prevent="submit">
+         <v-row>
+            <v-col cols="12" md="8">
+               <v-label>Blog Title</v-label>
+               <v-text-field
+                  v-model="form.title"
+                  placeholder="eg. Lorem ipsum dolor."
+                  :rules="rules.title"
+               />
 
-            <v-label>Blog Slug</v-label>
-            <v-text-field
-              v-model="form.slug"
-              placeholder="eg. lorem-ipsum-dolor"
-              :rules="rules.slug"
-              />
-              <!-- :error-messages="form.errors.slug"
-              @update:model-value="form.errors.slug = ''" -->
+               <v-label>Blog Slug</v-label>
+               <v-text-field
+                  v-model="form.slug"
+                  placeholder="eg. lorem-ipsum-dolor"
+                  :rules="rules.slug"
+               />
 
-            <v-label>Blog Content</v-label>
-            <v-card color="transparent">
-              <!-- <editor v-model:content="form.content" /> -->
-            </v-card>
-          </v-col>
+               <v-label>Blog Content</v-label>
+               <v-card color="transparent" class="mt-1">
+                  <client-only>
+                     <Editor v-model:content="form.content" />
+                     <template #fallback>
+                        <div class="text-center pa-4">Loading Editor...</div>
+                     </template>
+                  </client-only>
+               </v-card>
 
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Category</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-select
-                placeholder="Select one work type"
-                item-title="title"
-                item-value="id"
-                hide-details
-                />
-                <!-- v-model="form.portfolio_type_id"
-                  :items="types"
-                  :error-messages="form.errors.portfolio_type_id" -->
-              </v-card-text>
-            </v-card>
+               <v-label class="mt-4">Excerpt</v-label>
+               <v-textarea
+                  v-model="form.excerpt"
+                  placeholder="Provide a brief summary..."
+                  rows="3"
+               />
+            </v-col>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Status</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-select
-                  v-model="form.status"
-                  hide-details
-                  :items="statusOptions"
-                  placeholder="Blog Status"
-                />
-              </v-card-text>
-            </v-card>
+            <v-col cols="12" md="4">
+               <v-card class="mb-3">
+                  <v-card-text class="pb-0">
+                     <v-label>Status</v-label>
+                  </v-card-text>
+                  <v-card-text class="pt-0">
+                     <v-select
+                        v-model="form.status"
+                        hide-details
+                        :items="statusOptions"
+                        placeholder="Blog Status"
+                     />
+                  </v-card-text>
+               </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Featured Image</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-card
-                  border
-                  height="200"
-                >
-                  <!-- <template v-if="displayImageUrl">
-                    <v-card-text class="pa-0">
-                      <v-hover v-slot="{ isHovering, props }">
+               <v-card class="mb-3">
+                  <v-card-text class="pb-0">
+                     <v-label>Featured Image</v-label>
+                  </v-card-text>
+                  <v-card-text class="pt-0">
+                     <v-card border height="200" class="d-flex align-center justify-center cursor-pointer" @click="showMediaSelector = true">
                         <v-img
-                          v-bind="props"
-                          cover
-                          height="200"
-                          :src="displayImageUrl"
+                           v-if="form.featured_image_url"
+                           :src="form.featured_image_url"
+                           cover
+                           class="fill-height w-100"
                         >
-                          <v-fade-transition>
-                            <div
-                              v-if="isHovering"
-                              class="w-100 h-100 d-flex align-center justify-center"
-                              style="background-color: rgba(0, 0, 0, 0.5)"
-                            >
-                              <v-btn
-                                v-tooltip="'Remove Featured Image'"
-                                rounded="circle"
-                                icon="carbon:close"
-                                @click="removeImage"
-                                />
-                            </div>
-                          </v-fade-transition>
+                           <v-btn
+                              icon="mdi-close"
+                              color="error"
+                              variant="flat"
+                              density="compact"
+                              class="ma-2"
+                              @click.stop="removeImage"
+                           />
                         </v-img>
-                      </v-hover>
-                    </v-card-text>
-                  </template>
-
-                  <template v-else>
-                    <v-card-text
-                      class="pt-0 w-100 h-100 d-flex align-center justify-center flex-column"
-                    >
-                      <div class="d-flex align-center justify-center flex-column mb-3">
-                        <v-icon
-                          size="32"
-                          class="mb-2"
-                          icon="carbon:cloud-upload"
-                        />
-                        <div class="text-h6 font-weight-medium">Select Featured image</div>
-                      </div>
-                      <input
-                        ref="fileBrowser"
-                        id="file-browser"
-                        class="d-none"
-                        type="file"
-                        accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
-                        @change="uploadFile"
-                        />
-                      <v-btn
-                        border
-                        @click="fileSelector"
-                      >
-                        Browse
-                      </v-btn>
-                      <div
-                        v-if="form.errors.featured_image"
-                        class="mt-2"
-                      >
-                        <div style="color: #c62828; font-size: 0.875rem">
-                          {{ form.errors.featured_image }}
+                        <div v-else class="text-center">
+                           <v-icon size="32" icon="mdi-cloud-upload" />
+                           <div class="text-h6 font-weight-medium">Select Featured image</div>
+                           <v-btn border class="mt-2">Browse</v-btn>
                         </div>
-                      </div>
-                    </v-card-text>
-                  </template> -->
-                </v-card>
-              </v-card-text>
-            </v-card>
+                     </v-card>
+                  </v-card-text>
+               </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Actions</v-label>
-              </v-card-text>
-              <v-card-actions>
-                <!-- <v-btn
-                  type="submit"
-                  color="primary"
-                  :loading="form.processing"
-                  :disabled="form.processing"
-                >
-                  {{ blog ? 'Update' : 'Create' }}
-                  Portfolio
-                </v-btn> -->
-                <!-- <v-btn
-                  variant="outlined"
-                  @click="router.visit('/admin/blog')"
-                >
-                  Cancel
-                </v-btn> -->
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
+               <v-card class="mb-3">
+                  <v-card-text class="pb-0">
+                     <v-label>Actions</v-label>
+                  </v-card-text>
+                  <v-card-actions>
+                     <v-btn
+                        type="submit"
+                        color="primary"
+                        :loading="saving"
+                        block
+                     >
+                        {{ isEditing ? 'Update' : 'Create' }}
+                        Blog
+                     </v-btn>
+                     <v-btn
+                        variant="outlined"
+                        class="mt-2"
+                        to="/admin/blog"
+                        block
+                     >
+                        Cancel
+                     </v-btn>
+                  </v-card-actions>
+               </v-card>
+            </v-col>
+         </v-row>
       </v-form>
-    </v-container>
+
+      <MediaSelector 
+         v-model="showMediaSelector" 
+         @select="(url, id) => handleImageSelected(url, id)" 
+      />
+   </v-container>
+   
+   <v-container v-else class="fill-height d-flex align-center justify-center">
+      <v-progress-circular indeterminate color="primary" size="64" />
+   </v-container>
 </template>
+
+<style scoped>
+/* Reverted to simpler styling */
+</style>

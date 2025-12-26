@@ -29,7 +29,7 @@ export default defineNuxtConfig({
       },
    },
 
-  modules: ["@nuxt/eslint", "vuetify-nuxt-module", "@nuxtjs/google-fonts", "@vite-pwa/nuxt", "@vueuse/nuxt"],
+   modules: ["@nuxt/eslint", "vuetify-nuxt-module", "@nuxtjs/google-fonts", "@vite-pwa/nuxt", "@vueuse/nuxt"],
 
    googleFonts: {
       families: {
@@ -48,12 +48,15 @@ export default defineNuxtConfig({
    },
 
    build: {
-      transpile: ["vuetify"],
+      transpile: ["vuetify", "@tiptap/vue-3", "@tiptap/starter-kit", "@tiptap/extension-image", "@tiptap/extension-link", "@tiptap/extension-underline", "@tiptap/extension-placeholder", "@tiptap/extension-text-align"],
    },
 
    vite: {
       ssr: {
          noExternal: ["vuetify"],
+      },
+      optimizeDeps: {
+         include: [],
       },
    },
 
