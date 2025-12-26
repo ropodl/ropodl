@@ -124,8 +124,7 @@ const items = ref([
                </p>
                <br />
                <p>
-                  On the backend, I work with Laravel for PHP applications,
-                  Express.js for Node.js projects, and Hono for fast,
+                  On the backend, I work with Express.js for Node.js projects, and Hono for fast,
                   lightweight APIs. On the frontend, I use Vue.js and Nuxt to
                   build responsive, interactive interfaces, with Vuetify for
                   implementing Material Design components and polished UI
@@ -144,9 +143,7 @@ const items = ref([
                <v-btn border rounded="pill" width="230" height="80">
                   Let's talk
                   <template #append>
-                     <v-icon end>
-                        <Icon name="mdi-arrow-right" />
-                     </v-icon>
+                     <v-icon end icon="carbon:arrow-up-right" />
                   </template>
                </v-btn>
             </Link>

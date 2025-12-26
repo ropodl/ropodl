@@ -6,11 +6,11 @@ useSeoMeta({
    ogTitle: "Saroj Poudel",
    twitterTitle: "Saroj Poudel",
    description:
-      "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Laravel, Strapi, and HonoJs. Let's create something great.",
+      "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Strapi, and HonoJs. Let's create something great.",
    ogDescription:
-      "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Laravel, Strapi, and HonoJs. Let's create something great.",
+      "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Strapi, and HonoJs. Let's create something great.",
    twitterDescription:
-      "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Laravel, Strapi, and HonoJs. Let's create something great.",
+      "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Strapi, and HonoJs. Let's create something great.",
    ogImage: "https://www.ropodl.com/media/full.jpg",
    twitterCard: "summary_large_image",
    twitterImage: "https://www.ropodl.com/media/full.jpg",
@@ -35,9 +35,9 @@ useSeoMeta({
         <div class="text-h6 font-weight-light">
           Hi, I’m Saroj Poudel, a full-stack developer and designer based in
           Kathmandu, Nepal. I focus on creating digital experiences that are
-          intuitive, enjoyable, and effective. I've been building things with
-          Laravel, Vue, Strapi, HonoJs combining design sense with strong
-          engineering to deliver practical solutions.
+          intuitive, enjoyable, and effective. I've been building things with 
+          Vue, Strapi, HonoJs combining design sense with strong engineering to
+          deliver practical solutions.
         </div>
       </v-col>
     </v-row>
