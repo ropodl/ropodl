@@ -132,14 +132,12 @@ const statusOptions = [
                />
 
                <v-label>Blog Content</v-label>
-               <v-card color="transparent" class="mt-1">
                   <client-only>
                      <Editor v-model:content="form.content" />
                      <template #fallback>
                         <div class="text-center pa-4">Loading Editor...</div>
                      </template>
                   </client-only>
-               </v-card>
 
                <v-label class="mt-4">Excerpt</v-label>
                <v-textarea
