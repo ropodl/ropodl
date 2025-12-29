@@ -148,6 +148,26 @@ const formatBytes = (bytes: number, decimals = 2) => {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
+
+const dialogState = ref<Record<number, boolean>>({})
+const dialogTransition = ref(true);
+const next = (currentIndex: number) => {
+  dialogState.value[currentIndex] = false
+  setTimeout(() => {
+    if (currentIndex < media.value.length - 1) {
+      dialogState.value[currentIndex + 1] = true
+    }
+  }, 200)
+}
+
+const prev = (currentIndex: number) => {
+  dialogState.value[currentIndex] = false
+  setTimeout(() => {
+    if (currentIndex > 0) {
+      dialogState.value[currentIndex - 1] = true
+    }
+  }, 200)
+}
 </script>
 
 <template>
@@ -190,9 +210,9 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
     <template v-else-if="media.length > 0">
       <v-row>
-        <template v-for="item in media" :key="item.id">
+        <template v-for="item,i in media" :key="item.id">
           <v-col cols="6" sm="4" md="3">
-            <v-dialog width="1000">
+            <v-dialog v-model="dialogState[i]" width="1000">
               <template #activator="{ props: activatorProps }">
                 <v-card
                   v-bind="activatorProps"
@@ -221,10 +241,12 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 </v-card>
               </template>
               <template #default="{isActive}">
-                  <v-card>
-                    <v-card-title class="d-flex align-center">
+                  <v-card color="background">
+                    <v-card-title class="d-flex align-center bg-surface">
                         Attachment Details
                         <v-spacer />
+                        <v-btn size="small" icon="mdi-arrow-left" :disabled="i <= 0" @click="prev(i)" />
+                        <v-btn size="small" icon="mdi-arrow-right" :disabled="i >= media.length - 1" @click="next(i)" />
                         <v-btn
                           icon="mdi-close"
                           variant="text"
@@ -232,6 +254,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                           @click="isActive.value = false"
                         />
                     </v-card-title>
+                    <v-divider />
                     <v-card-text>
                       <v-row>
                         <v-col cols="7">
@@ -241,9 +264,10 @@ const formatBytes = (bytes: number, decimals = 2) => {
                             class="bg-grey-lighten-3 rounded-lg mb-4"
                           />
                         </v-col>
+                        <v-divider :vertical="true" />
                         <v-col cols="5">
-                          <div class="text-grey-darken-1 mb-2">
-                            <div>
+                          <div class="text-grey-darken-1 mb-2" style="word-break: break-all;">
+                            <div >
                               <strong>Filename:</strong> {{ item.filename }}
                             </div>
                             <div>
@@ -263,6 +287,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                               {{ new Date(item.createdAt).toLocaleDateString() }}
                             </div>
                           </div>
+                          
                           <v-text-field
                             v-model="item.altText"
                             persistent-hint
@@ -298,7 +323,8 @@ const formatBytes = (bytes: number, decimals = 2) => {
                             >
                               Delete
                             </v-btn>
-                        </div></v-col>
+                        </div>
+                      </v-col>
                       </v-row>
                     </v-card-text>
                   </v-card>
