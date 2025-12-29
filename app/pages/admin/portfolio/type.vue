@@ -3,9 +3,9 @@
 // import { itemsPerPage } from '@/utils/shared/pagination';
 
 definePageMeta({
-  layout: "admin",
-  middleware: ['is-auth']
-})
+  layout: 'admin',
+  middleware: ['is-auth'],
+});
 
 // const { types, search, pagination } = defineProps<{
 //   types: PortfolioType[];
@@ -43,87 +43,79 @@ const headers = ref([
 ]);
 </script>
 <template>
-    <v-container>
-      <v-row align="center">
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field hide-details />
-        </v-col>
-        <v-spacer />
-        <v-col
-          cols="12"
-          md="6"
-        >
-          <div class="d-flex">
-            <v-spacer />
-            <!-- <add-new-dialog /> -->
-          </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-card rounded="lg">
-            <v-data-table-server
-              :headers
-              hide-default-footer
-              :items-length="10"
-              :items-per-page="10"
-            >
-              <template #[`item.actions`]="{ item }">
-                {{ item }}
-                <v-hover v-slot="{ isHovering, props }">
+  <v-container>
+    <v-row align="center">
+      <v-col cols="12" md="4">
+        <v-text-field hide-details />
+      </v-col>
+      <v-spacer />
+      <v-col cols="12" md="6">
+        <div class="d-flex">
+          <v-spacer />
+          <!-- <add-new-dialog /> -->
+        </div>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-card rounded="lg">
+          <v-data-table-server
+            :headers
+            hide-default-footer
+            :items-length="10"
+            :items-per-page="10"
+          >
+            <template #[`item.actions`]="{ item }">
+              {{ item }}
+              <v-hover v-slot="{ isHovering, props }">
+                <v-btn
+                  v-bind="props"
+                  icon
+                  size="small"
+                  rounded="lg"
+                  :variant="isHovering ? 'tonal' : 'text'"
+                >
+                  <v-icon icon="carbon:edit" />
+                </v-btn>
+              </v-hover>
+              <v-dialog max-width="500">
+                <template #activator="{ props: activatorProps }">
                   <v-btn
-                    v-bind="props"
-                    icon
-                    size="small"
-                    rounded="lg"
-                    :variant="isHovering ? 'tonal' : 'text'"
-                  >
-                    <v-icon icon="carbon:edit" />
-                  </v-btn>
-                </v-hover>
-                <v-dialog max-width="500">
-                  <template #activator="{ props: activatorProps }">
-                    <v-btn
-                      v-bind="activatorProps"
-                      color="surface-variant"
-                      text="Open Dialog"
-                      variant="flat"
-                    />
-                  </template>
+                    v-bind="activatorProps"
+                    color="surface-variant"
+                    text="Open Dialog"
+                    variant="flat"
+                  />
+                </template>
 
-                  <template #default="{ isActive }">
-                    <v-card title="Dialog">
-                      <v-card-text>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                      </v-card-text>
+                <template #default="{ isActive }">
+                  <v-card title="Dialog">
+                    <v-card-text>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </v-card-text>
 
-                      <v-card-actions>
-                        <v-spacer />
+                    <v-card-actions>
+                      <v-spacer />
 
-                        <v-btn
-                          text="Close Dialog"
-                          @click="isActive.value = false"
-                        />
-                      </v-card-actions>
-                    </v-card>
-                  </template>
-                </v-dialog>
-              </template>
-            </v-data-table-server>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row align="center">
-        <v-col
-          cols="12"
-          md="6"
-        >
-          <div class="d-flex justify-start">
-            <!-- <v-pagination
+                      <v-btn
+                        text="Close Dialog"
+                        @click="isActive.value = false"
+                      />
+                    </v-card-actions>
+                  </v-card>
+                </template>
+              </v-dialog>
+            </template>
+          </v-data-table-server>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row align="center">
+      <v-col cols="12" md="6">
+        <div class="d-flex justify-start">
+          <!-- <v-pagination
               v-model="pagination.current_page"
               density="compact"
               :total-visible="5"
@@ -135,15 +127,12 @@ const headers = ref([
                 }
               "
             ></v-pagination> -->
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-        >
-          <div class="d-flex align-center justify-end">
-            <span class="mr-3">Items Per Page:</span>
-            <!-- <v-select
+        </div>
+      </v-col>
+      <v-col cols="12" md="6">
+        <div class="d-flex align-center justify-end">
+          <span class="mr-3">Items Per Page:</span>
+          <!-- <v-select
               v-model="paginate.per_page"
               hide-details
               density="compact"
@@ -156,8 +145,8 @@ const headers = ref([
                 }
               "
             ></v-select> -->
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>

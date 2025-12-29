@@ -43,9 +43,13 @@ import { computed, ref, watch } from 'vue';
 const rules = {
   title: [
     (v: string) => !!v || 'Portfolio Title is required',
-    (v: string) => v.length <= 100 || 'Portfolio Title must be 100 characters or less',
+    (v: string) =>
+      v.length <= 100 || 'Portfolio Title must be 100 characters or less',
   ],
-  slug: [(v: string) => !v || v.length <= 70 || 'Portfolio Slug must be 70 characters or less'],
+  slug: [
+    (v: string) =>
+      !v || v.length <= 70 || 'Portfolio Slug must be 70 characters or less',
+  ],
   // featured_image: [
   //   (v?: File[]) => {
   //     if (!v || v.length === 0) return true;
@@ -142,91 +146,80 @@ const statusOptions = [
 </script>
 
 <template>
-    <!-- <v-btn @click="setSnackbar('hello', 'success')">test</v-btn> -->
-    <v-container>
+  <!-- <v-btn @click="setSnackbar('hello', 'success')">test</v-btn> -->
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <!-- <breadcrumbs :items="breadcrumbItems" /> -->
+      </v-col>
+    </v-row>
+    <v-form ref="portfolioForm">
+      <!-- @submit.prevent="submit" -->
       <v-row>
-        <v-col cols="12">
-          <!-- <breadcrumbs :items="breadcrumbItems" /> -->
-        </v-col>
-      </v-row>
-      <v-form
-        ref="portfolioForm"
-        >
-        <!-- @submit.prevent="submit" -->
-        <v-row>
-          <v-col
-            cols="12"
-            md="8"
-          >
-            <v-label>Portfolio Title</v-label>
-            <v-text-field
+        <v-col cols="12" md="8">
+          <v-label>Portfolio Title</v-label>
+          <v-text-field
             placeholder="eg. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             :rules="rules.title"
-            />
-            <!-- v-model="form.title"
+          />
+          <!-- v-model="form.title"
               :error-messages="form.errors.title"
               @update:model-value="form.errors.title = ''" -->
 
-            <v-label>Portfolio Slug</v-label>
-            <v-text-field
+          <v-label>Portfolio Slug</v-label>
+          <v-text-field
             placeholder="eg. lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit"
             :rules="rules.slug"
-            />
-            <!-- v-model="form.slug"
+          />
+          <!-- v-model="form.slug"
             :error-messages="form.errors.slug"
               @update:model-value="form.errors.slug = ''" -->
 
-            <v-label>Portfolio Content</v-label>
-            <v-card color="transparent">
-              <!-- <editor v-model:content="form.content" /> -->
-            </v-card>
-          </v-col>
+          <v-label>Portfolio Content</v-label>
+          <v-card color="transparent">
+            <!-- <editor v-model:content="form.content" /> -->
+          </v-card>
+        </v-col>
 
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Work Type</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-select
+        <v-col cols="12" md="4">
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Work Type</v-label>
+            </v-card-text>
+            <v-card-text class="pt-0">
+              <v-select
                 placeholder="Select one work type"
                 item-title="title"
                 item-value="id"
                 hide-details
-                />
-                <!-- :items="types" -->
-                <!-- v-model="form.portfolio_type_id"
+              />
+              <!-- :items="types" -->
+              <!-- v-model="form.portfolio_type_id"
                   :error-messages="form.errors.portfolio_type_id" -->
-              </v-card-text>
-            </v-card>
+            </v-card-text>
+          </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Status</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <!-- v-model="form.status" -->
-                <v-select
-                  hide-details
-                  :items="statusOptions"
-                  placeholder="Portfolio Status"
-                />
-              </v-card-text>
-            </v-card>
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Status</v-label>
+            </v-card-text>
+            <v-card-text class="pt-0">
+              <!-- v-model="form.status" -->
+              <v-select
+                hide-details
+                :items="statusOptions"
+                placeholder="Portfolio Status"
+              />
+            </v-card-text>
+          </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Featured Image</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-card
-                  border
-                  height="200"
-                >
-                  <!-- <template v-if="displayImageUrl">
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Featured Image</v-label>
+            </v-card-text>
+            <v-card-text class="pt-0">
+              <v-card border height="200">
+                <!-- <template v-if="displayImageUrl">
                     <v-card-text class="pa-0">
                       <v-hover v-slot="{ isHovering, props }">
                         <v-img
@@ -290,16 +283,16 @@ const statusOptions = [
                       </div>
                     </v-card-text>
                   </template> -->
-                </v-card>
-              </v-card-text>
-            </v-card>
+              </v-card>
+            </v-card-text>
+          </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Actions</v-label>
-              </v-card-text>
-              <v-card-actions>
-                <!-- <v-btn
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Actions</v-label>
+            </v-card-text>
+            <v-card-actions>
+              <!-- <v-btn
                   type="submit"
                   color="primary"
                   :loading="form.processing"
@@ -314,10 +307,10 @@ const statusOptions = [
                 >
                   Cancel
                 </v-btn> -->
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-form>
-    </v-container>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-container>
 </template>

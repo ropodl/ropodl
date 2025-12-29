@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-    definePageMeta({
-        layout: "admin",
-        middleware: ['is-auth']
-    })
+definePageMeta({
+  layout: 'admin',
+  middleware: ['is-auth'],
+});
 </script>
 <template>
-    <div>
-        Media create
-    </div>
+  <div>Media create</div>
 </template>

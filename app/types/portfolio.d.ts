@@ -8,7 +8,7 @@ export interface Portfolio {
   portfolio_type_id?: number;
   created_at?: Date;
   updated_at?: Date;
-  type?: PortfolioType
+  type?: PortfolioType;
 }
 
 export interface PortfolioType {
