@@ -3,9 +3,15 @@ import { ref, onMounted, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import useApiFetch from '~/utils/shared/useApiFetch';
 
-const props = defineProps<{
-  modelValue: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    modelValue: boolean;
+    multiple?: boolean;
+  }>(),
+  {
+    multiple: false,
+  }
+);
 
 const emit = defineEmits(['update:modelValue', 'select']);
 
@@ -14,16 +20,43 @@ const tab = ref('library');
 const media = ref<any[]>([]);
 const loading = ref(false);
 const search = ref('');
-const selectedItem = ref<any | null>(null);
+const selectedItems = ref<any[]>([]);
 const uploading = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
 
-watch(() => props.modelValue, (val) => {
-  dialog.value = val;
-  if (val && media.value.length === 0) {
-    fetchMedia();
+// Helper to check if an item is selected
+const isSelected = (item: any) => {
+  return selectedItems.value.some((i) => i.id === item.id);
+};
+
+// Toggle selection logic
+const toggleSelection = (item: any) => {
+  if (props.multiple) {
+    const index = selectedItems.value.findIndex((i) => i.id === item.id);
+    if (index > -1) {
+      selectedItems.value.splice(index, 1);
+    } else {
+      selectedItems.value.push(item);
+    }
+  } else {
+    selectedItems.value = [item];
   }
-});
+};
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    dialog.value = val;
+    if (val) {
+      if (media.value.length === 0) {
+        fetchMedia();
+      }
+      // Reset selection when opening for single mode, or keep for multi?
+      // Usually cleaner to reset unless specified otherwise.
+      if (!props.multiple) selectedItems.value = [];
+    }
+  }
+);
 
 watch(dialog, (val) => {
   emit('update:modelValue', val);
@@ -33,7 +66,7 @@ const fetchMedia = async () => {
   loading.value = true;
   try {
     const res = await useApiFetch<any[]>('media/', {
-      query: { search: search.value }
+      query: { search: search.value },
     });
     media.value = res;
   } catch (err) {
@@ -68,8 +101,9 @@ const handleFileUpload = async (event: Event) => {
     });
     await fetchMedia();
     tab.value = 'library';
-    selectedItem.value = res.data || res; // Assuming res.data contains the item
-    emit('select', selectedItem.value.fileUrl, selectedItem.value.id);
+    const newItem = res.data || res;
+    toggleSelection(newItem);
+    if (!props.multiple) selectImage();
   } catch (err) {
     console.error('Upload failed:', err);
   } finally {
@@ -79,8 +113,20 @@ const handleFileUpload = async (event: Event) => {
 };
 
 const selectImage = () => {
-  if (selectedItem.value) {
-    emit('select', selectedItem.value.fileUrl, selectedItem.value.id);
+  if (selectedItems.value.length > 0) {
+    if (props.multiple) {
+      emit(
+        'select',
+        selectedItems.value.map((item) => ({
+          src: item.fileUrl,
+          id: item.id,
+          alt: item.altText,
+        }))
+      );
+    } else {
+      const item = selectedItems.value[0];
+      emit('select', item.fileUrl, item.id);
+    }
     dialog.value = false;
   }
 };
@@ -112,18 +158,33 @@ const formatBytes = (bytes: number, decimals = 2) => {
         </v-tabs>
       </v-card-title>
 
-      <v-card-text class="pa-0" style="height: 600px;">
+      <v-card-text class="pa-0" style="height: 600px">
         <v-window v-model="tab" class="fill-height">
           <!-- Upload Tab -->
           <v-window-item value="upload" class="fill-height">
-            <div class="upload-container d-flex flex-column align-center justify-center fill-height pa-8">
-              <v-icon size="64" color="grey-lighten-1" class="mb-4">mdi-cloud-upload</v-icon>
+            <div
+              class="upload-container d-flex flex-column align-center justify-center fill-height pa-8"
+            >
+              <v-icon size="64" color="grey-lighten-1" class="mb-4"
+                >mdi-cloud-upload</v-icon
+              >
               <div class="text-h6 mb-2">Drop files to upload</div>
               <div class="text-body-2 text-grey mb-6">or</div>
-              <v-btn color="primary" variant="flat" :loading="uploading" @click="fileInput?.click()">
+              <v-btn
+                color="primary"
+                variant="flat"
+                :loading="uploading"
+                @click="fileInput?.click()"
+              >
                 Select Files
               </v-btn>
-              <input type="file" ref="fileInput" class="d-none" accept="image/*" @change="handleFileUpload" />
+              <input
+                type="file"
+                ref="fileInput"
+                class="d-none"
+                accept="image/*"
+                @change="handleFileUpload"
+              />
             </div>
           </v-window-item>
 
@@ -144,16 +205,28 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 </div>
                 <div class="media-grid pa-4 overflow-y-auto">
                   <v-row dense>
-                    <v-col v-for="item in media" :key="item.id" cols="4" sm="3" md="2">
+                    <v-col
+                      v-for="item in media"
+                      :key="item.id"
+                      cols="4"
+                      sm="3"
+                      md="2"
+                    >
                       <v-card
-                        :class="['media-card', { 'is-selected': selectedItem?.id === item.id }]"
+                        :class="[
+                          'media-card',
+                          { 'is-selected': isSelected(item) },
+                        ]"
                         hover
                         flat
                         border
-                        @click="selectedItem = item"
+                        @click="toggleSelection(item)"
                       >
                         <v-img :src="item.fileUrl" aspect-ratio="1" cover>
-                          <div v-if="selectedItem?.id === item.id" class="selection-overlay">
+                          <div
+                            v-if="isSelected(item)"
+                            class="selection-overlay"
+                          >
                             <v-icon color="white">mdi-check-circle</v-icon>
                           </div>
                         </v-img>
@@ -163,25 +236,75 @@ const formatBytes = (bytes: number, decimals = 2) => {
                   <div v-if="loading" class="text-center pa-8">
                     <v-progress-circular indeterminate color="primary" />
                   </div>
-                  <div v-else-if="media.length === 0" class="text-center pa-8 text-grey">
+                  <div
+                    v-else-if="media.length === 0"
+                    class="text-center pa-8 text-grey"
+                  >
                     No media files found.
                   </div>
                 </div>
               </div>
 
               <!-- Sidebar -->
-              <div class="details-sidebar border-left bg-surface overflow-y-auto pa-4" v-if="selectedItem">
-                <div class="text-subtitle-1 font-weight-bold mb-4">Attachment Details</div>
-                <v-img :src="selectedItem.fileUrl" class="rounded mb-4 bg-grey-lighten-3" max-height="200" contain />
-                <div class="text-caption">
-                  <div class="mb-1"><strong>File name:</strong> {{ selectedItem.filename }}</div>
-                  <div class="mb-1"><strong>File type:</strong> {{ selectedItem.mimeType }}</div>
-                  <div class="mb-1"><strong>File size:</strong> {{ formatBytes(selectedItem.sizeBytes) }}</div>
-                  <div><strong>Uploaded on:</strong> {{ new Date(selectedItem.createdAt).toLocaleDateString() }}</div>
+              <div
+                class="details-sidebar border-left bg-surface overflow-y-auto pa-4"
+                v-if="selectedItems.length > 0"
+              >
+                <div class="text-subtitle-1 font-weight-bold mb-4">
+                  Attachment Details
                 </div>
-                <v-divider class="my-4" />
-                <v-text-field v-model="selectedItem.altText" label="Alt Text" variant="underlined" density="compact" hide-details class="mb-2" />
-                <v-textarea v-model="selectedItem.description" label="Description" variant="underlined" rows="3" density="compact" hide-details />
+                <!-- Show details for the last selected item -->
+                <div v-if="selectedItems[selectedItems.length - 1] as any">
+                  <v-img
+                    :src="selectedItems[selectedItems.length - 1].fileUrl"
+                    class="rounded mb-4 bg-grey-lighten-3"
+                    max-height="200"
+                    contain
+                  />
+                  <div class="text-caption">
+                    <div class="mb-1">
+                      <strong>File name:</strong>
+                      {{ selectedItems[selectedItems.length - 1].filename }}
+                    </div>
+                    <div class="mb-1">
+                      <strong>File type:</strong>
+                      {{ selectedItems[selectedItems.length - 1].mimeType }}
+                    </div>
+                    <div class="mb-1">
+                      <strong>File size:</strong>
+                      {{
+                        formatBytes(
+                          selectedItems[selectedItems.length - 1].sizeBytes
+                        )
+                      }}
+                    </div>
+                    <div>
+                      <strong>Uploaded on:</strong>
+                      {{
+                        new Date(
+                          selectedItems[selectedItems.length - 1].createdAt
+                        ).toLocaleDateString()
+                      }}
+                    </div>
+                  </div>
+                  <v-divider class="my-4" />
+                  <v-text-field
+                    v-model="selectedItems[selectedItems.length - 1].altText"
+                    label="Alt Text"
+                    variant="underlined"
+                    density="compact"
+                    hide-details
+                    class="mb-2"
+                  />
+                  <v-textarea
+                    v-model="selectedItems[selectedItems.length - 1].description"
+                    label="Description"
+                    variant="underlined"
+                    rows="3"
+                    density="compact"
+                    hide-details
+                  />
+                </div>
               </div>
             </div>
           </v-window-item>
@@ -192,15 +315,21 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
       <v-card-actions class="pa-4">
         <v-spacer />
-        <v-btn variant="text" @click="dialog = false" class="mr-2">Cancel</v-btn>
+        <v-btn variant="text" @click="dialog = false" class="mr-2"
+          >Cancel</v-btn
+        >
         <v-btn
           color="primary"
           variant="flat"
-          :disabled="!selectedItem"
+          :disabled="selectedItems.length === 0"
           @click="selectImage"
           min-width="120"
         >
-          Select Image
+          {{
+            multiple && selectedItems.length > 1
+              ? `Select ${selectedItems.length} Images`
+              : 'Select Image'
+          }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -228,7 +357,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
 .media-card {
   position: relative;
   transition: all 0.2s;
-  
+
   &.is-selected {
     border: 3px solid rgb(var(--v-theme-primary));
   }
