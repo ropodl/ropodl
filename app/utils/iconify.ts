@@ -1,6 +1,6 @@
-import type { IconAliases, IconProps, IconSet } from "vuetify";
-import { h } from "vue";
-import { Icon } from "@iconify/vue";
+import type { IconAliases, IconProps, IconSet } from 'vuetify';
+import { h } from 'vue';
+import { Icon } from '@iconify/vue';
 
 const aliases: IconAliases = {
   // System and Status Icons

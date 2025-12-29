@@ -17,17 +17,17 @@ import type { blog } from '~/types/blog';
 //   // tags: PortfolioType[];
 // }>();
 definePageMeta({
-  layout: "admin",
-  middleware: ['is-auth']
-})
+  layout: 'admin',
+  middleware: ['is-auth'],
+});
 
 const blog = ref<blog>({
   title: null,
   slug: null,
   content: null,
   featured_image: null,
-  status: null
-})
+  status: null,
+});
 
 const form = ref({
   title: blog.value?.title ?? '',
@@ -52,9 +52,13 @@ const form = ref({
 const rules = {
   title: [
     (v: string) => !!v || 'Blog Title is required',
-    (v: string) => v.length <= 100 || 'Blog Title must be 100 characters or less',
+    (v: string) =>
+      v.length <= 100 || 'Blog Title must be 100 characters or less',
   ],
-  slug: [(v: string) => !v || v.length <= 70 || 'Blog Slug must be 70 characters or less'],
+  slug: [
+    (v: string) =>
+      !v || v.length <= 70 || 'Blog Slug must be 70 characters or less',
+  ],
   featured_image: [
     (v?: File[]) => {
       if (!v || v.length === 0) return true;
@@ -112,12 +116,9 @@ const fileSelector = () => {
 
 const submit = async () => {
   // const { valid } = await blogForm.value.validate();
-
   // if (!valid) return;
-
   // const routeName = blog?.id ? 'blog.update' : 'blog.store';
   // const routeParams = blog?.id ? [blog.id] : [];
-
   // form.post(route(routeName, routeParams), {
   //   forceFormData: true,
   //   preserveScroll: false,
@@ -148,91 +149,79 @@ const statusOptions = [
 </script>
 
 <template>
-    <!-- <v-btn @click="setSnackbar('hello', 'success')">test</v-btn> -->
-    <v-container>
-      <!-- <v-row>
+  <!-- <v-btn @click="setSnackbar('hello', 'success')">test</v-btn> -->
+  <v-container>
+    <!-- <v-row>
         <v-col cols="12">
           <breadcrumbs :items="breadcrumbItems" />
         </v-col>
       </v-row> -->
-      <v-form
-        ref="blogForm"
-        @submit.prevent="submit"
-        >
-        <v-row>
-          <v-col
-            cols="12"
-            md="8"
-          >
-            <v-label>Blog Title</v-label>
-            <v-text-field
-              v-model="form.title"
-              placeholder="eg. Lorem ipsum dolor."
-              :rules="rules.title"
-              />
-              <!-- :error-messages="form.errors.title"
+    <v-form ref="blogForm" @submit.prevent="submit">
+      <v-row>
+        <v-col cols="12" md="8">
+          <v-label>Blog Title</v-label>
+          <v-text-field
+            v-model="form.title"
+            placeholder="eg. Lorem ipsum dolor."
+            :rules="rules.title"
+          />
+          <!-- :error-messages="form.errors.title"
               @update:model-value="form.errors.title = ''" -->
 
-            <v-label>Blog Slug</v-label>
-            <v-text-field
-              v-model="form.slug"
-              placeholder="eg. lorem-ipsum-dolor"
-              :rules="rules.slug"
-              />
-              <!-- :error-messages="form.errors.slug"
+          <v-label>Blog Slug</v-label>
+          <v-text-field
+            v-model="form.slug"
+            placeholder="eg. lorem-ipsum-dolor"
+            :rules="rules.slug"
+          />
+          <!-- :error-messages="form.errors.slug"
               @update:model-value="form.errors.slug = ''" -->
 
-            <v-label>Blog Content</v-label>
-            <v-card color="transparent">
-              <!-- <editor v-model:content="form.content" /> -->
-            </v-card>
-          </v-col>
+          <v-label>Blog Content</v-label>
+          <v-card color="transparent">
+            <!-- <editor v-model:content="form.content" /> -->
+          </v-card>
+        </v-col>
 
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Category</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-select
+        <v-col cols="12" md="4">
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Category</v-label>
+            </v-card-text>
+            <v-card-text class="pt-0">
+              <v-select
                 placeholder="Select one work type"
                 item-title="title"
                 item-value="id"
                 hide-details
-                />
-                <!-- v-model="form.portfolio_type_id"
+              />
+              <!-- v-model="form.portfolio_type_id"
                   :items="types"
                   :error-messages="form.errors.portfolio_type_id" -->
-              </v-card-text>
-            </v-card>
+            </v-card-text>
+          </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Status</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-select
-                  v-model="form.status"
-                  hide-details
-                  :items="statusOptions"
-                  placeholder="Blog Status"
-                />
-              </v-card-text>
-            </v-card>
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Status</v-label>
+            </v-card-text>
+            <v-card-text class="pt-0">
+              <v-select
+                v-model="form.status"
+                hide-details
+                :items="statusOptions"
+                placeholder="Blog Status"
+              />
+            </v-card-text>
+          </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Featured Image</v-label>
-              </v-card-text>
-              <v-card-text class="pt-0">
-                <v-card
-                  border
-                  height="200"
-                >
-                  <!-- <template v-if="displayImageUrl">
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Featured Image</v-label>
+            </v-card-text>
+            <v-card-text class="pt-0">
+              <v-card border height="200">
+                <!-- <template v-if="displayImageUrl">
                     <v-card-text class="pa-0">
                       <v-hover v-slot="{ isHovering, props }">
                         <v-img
@@ -296,16 +285,16 @@ const statusOptions = [
                       </div>
                     </v-card-text>
                   </template> -->
-                </v-card>
-              </v-card-text>
-            </v-card>
+              </v-card>
+            </v-card-text>
+          </v-card>
 
-            <v-card class="mb-3">
-              <v-card-text class="pb-0">
-                <v-label>Actions</v-label>
-              </v-card-text>
-              <v-card-actions>
-                <!-- <v-btn
+          <v-card class="mb-3">
+            <v-card-text class="pb-0">
+              <v-label>Actions</v-label>
+            </v-card-text>
+            <v-card-actions>
+              <!-- <v-btn
                   type="submit"
                   color="primary"
                   :loading="form.processing"
@@ -314,16 +303,16 @@ const statusOptions = [
                   {{ blog ? 'Update' : 'Create' }}
                   Portfolio
                 </v-btn> -->
-                <!-- <v-btn
+              <!-- <v-btn
                   variant="outlined"
                   @click="router.visit('/admin/blog')"
                 >
                   Cancel
                 </v-btn> -->
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-form>
-    </v-container>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-container>
 </template>
