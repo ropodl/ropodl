@@ -53,15 +53,18 @@ export default defineNuxtConfig({
     devLogs: false,
   },
 
-  build: {
-    transpile: ['vuetify'],
-  },
+   build: {
+      transpile: ["vuetify", "@tiptap/vue-3", "@tiptap/starter-kit", "@tiptap/extension-image", "@tiptap/extension-link", "@tiptap/extension-underline", "@tiptap/extension-placeholder", "@tiptap/extension-text-align"],
+   },
 
-  vite: {
-    ssr: {
-      noExternal: ['vuetify'],
-    },
-  },
+   vite: {
+      ssr: {
+         noExternal: ["vuetify"],
+      },
+      optimizeDeps: {
+         include: [],
+      },
+   },
 
   vuetify: {
     moduleOptions: {
