@@ -53,18 +53,39 @@ export default defineNuxtConfig({
     devLogs: false,
   },
 
-   build: {
-      transpile: ["vuetify", "@tiptap/vue-3", "@tiptap/starter-kit", "@tiptap/extension-image", "@tiptap/extension-link", "@tiptap/extension-underline", "@tiptap/extension-placeholder", "@tiptap/extension-text-align"],
-   },
+  build: {
+    transpile: [
+      'vuetify',
+      '@tiptap/vue-3',
+      '@tiptap/pm',
+      '@tiptap/starter-kit',
+      '@tiptap/extension-image',
+      '@tiptap/extension-link',
+      '@tiptap/extension-underline',
+      '@tiptap/extension-placeholder',
+      '@tiptap/extension-text-align',
+    ],
+  },
 
-   vite: {
-      ssr: {
-         noExternal: ["vuetify"],
-      },
-      optimizeDeps: {
-         include: [],
-      },
-   },
+  vite: {
+    ssr: {
+      noExternal: [
+        'vuetify',
+        'prosemirror-state',
+        'prosemirror-model',
+        'prosemirror-transform',
+        'prosemirror-view',
+      ],
+    },
+    optimizeDeps: {
+      include: [
+        'prosemirror-state',
+        'prosemirror-model',
+        'prosemirror-transform',
+        'prosemirror-view',
+      ],
+    },
+  },
 
   vuetify: {
     moduleOptions: {

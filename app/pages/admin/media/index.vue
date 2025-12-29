@@ -149,24 +149,24 @@ const formatBytes = (bytes: number, decimals = 2) => {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
 
-const dialogState = ref<Record<number, boolean>>({})
+const dialogState = ref<Record<number, boolean>>({});
 const next = (currentIndex: number) => {
-  dialogState.value[currentIndex] = false
+  dialogState.value[currentIndex] = false;
   setTimeout(() => {
     if (currentIndex < media.value.length - 1) {
-      dialogState.value[currentIndex + 1] = true
+      dialogState.value[currentIndex + 1] = true;
     }
-  }, 200)
-}
+  }, 200);
+};
 
 const prev = (currentIndex: number) => {
-  dialogState.value[currentIndex] = false
+  dialogState.value[currentIndex] = false;
   setTimeout(() => {
     if (currentIndex > 0) {
-      dialogState.value[currentIndex - 1] = true
+      dialogState.value[currentIndex - 1] = true;
     }
-  }, 200)
-}
+  }, 200);
+};
 </script>
 
 <template>
@@ -209,7 +209,7 @@ const prev = (currentIndex: number) => {
 
     <template v-else-if="media.length > 0">
       <v-row>
-        <template v-for="item,i in media" :key="item.id">
+        <template v-for="(item, i) in media" :key="item.id">
           <v-col cols="6" sm="4" md="3">
             <v-dialog v-model="dialogState[i]" width="1000">
               <template #activator="{ props: activatorProps }">
@@ -218,7 +218,7 @@ const prev = (currentIndex: number) => {
                   hover
                   class="rounded-lg overflow-hidden"
                   height="200"
-                  >
+                >
                   <v-img
                     :src="item.fileUrl"
                     aspect-ratio="1"
@@ -239,94 +239,107 @@ const prev = (currentIndex: number) => {
                   </v-img>
                 </v-card>
               </template>
-              <template #default="{isActive}">
-                  <v-card color="background">
-                    <v-card-title class="d-flex align-center bg-surface">
-                        Attachment Details
-                        <v-spacer />
-                        <v-btn size="small" icon="mdi-arrow-left" :disabled="i <= 0" @click="prev(i)" />
-                        <v-btn size="small" icon="mdi-arrow-right" :disabled="i >= media.length - 1" @click="next(i)" />
-                        <v-btn
-                          icon="mdi-close"
-                          variant="text"
-                          size="small"
-                          @click="isActive.value = false"
+              <template #default="{ isActive }">
+                <v-card color="background">
+                  <v-card-title class="d-flex align-center bg-surface">
+                    Attachment Details
+                    <v-spacer />
+                    <v-btn
+                      size="small"
+                      icon="mdi-arrow-left"
+                      :disabled="i <= 0"
+                      @click="prev(i)"
+                    />
+                    <v-btn
+                      size="small"
+                      icon="mdi-arrow-right"
+                      :disabled="i >= media.length - 1"
+                      @click="next(i)"
+                    />
+                    <v-btn
+                      icon="mdi-close"
+                      variant="text"
+                      size="small"
+                      @click="isActive.value = false"
+                    />
+                  </v-card-title>
+                  <v-divider />
+                  <v-card-text>
+                    <v-row>
+                      <v-col cols="7">
+                        <v-img
+                          contain
+                          :src="item.fileUrl"
+                          class="bg-grey-lighten-3 rounded-lg mb-4"
                         />
-                    </v-card-title>
-                    <v-divider />
-                    <v-card-text>
-                      <v-row>
-                        <v-col cols="7">
-                          <v-img
-                            contain
-                            :src="item.fileUrl"
-                            class="bg-grey-lighten-3 rounded-lg mb-4"
-                          />
-                        </v-col>
-                        <v-divider :vertical="true" />
-                        <v-col cols="5">
-                          <div class="text-grey-darken-1 mb-2" style="word-break: break-all;">
-                            <div >
-                              <strong>Filename:</strong> {{ item.filename }}
-                            </div>
-                            <div>
-                              <strong>File type:</strong> {{ item.mimeType }}
-                            </div>
-                            <div>
-                              <strong>File size:</strong>
-                              {{ formatBytes(item.sizeBytes) }}
-                            </div>
-                            <div v-if="item.metadata?.dimensions">
-                              <strong>Dimensions:</strong>
-                              {{ item.metadata.dimensions.width }} &times;
-                              {{ item.metadata.dimensions.height }} pixels
-                            </div>
-                            <div>
-                              <strong>Uploaded on:</strong>
-                              {{ new Date(item.createdAt).toLocaleDateString() }}
-                            </div>
+                      </v-col>
+                      <v-divider :vertical="true" />
+                      <v-col cols="5">
+                        <div
+                          class="text-grey-darken-1 mb-2"
+                          style="word-break: break-all"
+                        >
+                          <div>
+                            <strong>Filename:</strong> {{ item.filename }}
                           </div>
-                          
-                          <v-text-field
-                            v-model="item.altText"
-                            persistent-hint
-                            placeholder="Alt Text"
-                            hint="Describes the appearance and function of the image."
-                            class="mb-4"
-                          />
-            
-                          <v-textarea
-                            v-model="item.description"
-                            placeholder="Description"
-                            rows="3"
-                            class="mb-4"
-                          />
-            
-                          <v-spacer />
-            
-                          <div class="d-flex ga-2">
-                            <v-btn
-                              color="primary"
-                              prepend-icon="mdi-content-save"
-                              :loading="saving"
-                              @click="updateMedia"
-                            >
-                              Save Changes
-                            </v-btn>
-                            <v-btn
-                              v-if="can('media.delete')"
-                              color="error"
-                              variant="tonal"
-                              prepend-icon="mdi-trash-can-outline"
-                              @click="deleteMedia"
-                            >
-                              Delete
-                            </v-btn>
+                          <div>
+                            <strong>File type:</strong> {{ item.mimeType }}
+                          </div>
+                          <div>
+                            <strong>File size:</strong>
+                            {{ formatBytes(item.sizeBytes) }}
+                          </div>
+                          <div v-if="item.metadata?.dimensions">
+                            <strong>Dimensions:</strong>
+                            {{ item.metadata.dimensions.width }} &times;
+                            {{ item.metadata.dimensions.height }} pixels
+                          </div>
+                          <div>
+                            <strong>Uploaded on:</strong>
+                            {{ new Date(item.createdAt).toLocaleDateString() }}
+                          </div>
+                        </div>
+
+                        <v-text-field
+                          v-model="item.altText"
+                          persistent-hint
+                          placeholder="Alt Text"
+                          hint="Describes the appearance and function of the image."
+                          class="mb-4"
+                        />
+
+                        <v-textarea
+                          v-model="item.description"
+                          placeholder="Description"
+                          rows="3"
+                          class="mb-4"
+                        />
+
+                        <v-spacer />
+
+                        <div class="d-flex ga-2">
+                          <v-btn
+                            color="primary"
+                            prepend-icon="mdi-content-save"
+                            :loading="saving"
+                            @click="updateMedia"
+                          >
+                            Save Changes
+                          </v-btn>
+                          <v-btn
+                            v-if="can('media.delete')"
+                            color="error"
+                            variant="tonal"
+                            prepend-icon="mdi-trash-can-outline"
+                            @click="deleteMedia"
+                          >
+                            Delete
+                          </v-btn>
                         </div>
                       </v-col>
-                      </v-row>
-                    </v-card-text>
-                  </v-card>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
               </template>
             </v-dialog>
           </v-col>
