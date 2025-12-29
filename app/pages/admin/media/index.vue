@@ -150,7 +150,6 @@ const formatBytes = (bytes: number, decimals = 2) => {
 };
 
 const dialogState = ref<Record<number, boolean>>({})
-const dialogTransition = ref(true);
 const next = (currentIndex: number) => {
   dialogState.value[currentIndex] = false
   setTimeout(() => {
