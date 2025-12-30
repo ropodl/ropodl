@@ -156,6 +156,7 @@ const statusOptions = [
         </v-col>
 
         <v-col cols="12" md="4">
+          <v-btn block type="submit" color="primary" class="mb-3">Submit</v-btn>
           <v-card class="mb-3">
             <v-card-text class="pb-0">
               <v-label>Status</v-label>
@@ -205,21 +206,6 @@ const statusOptions = [
                 </div>
               </v-card>
             </v-card-text>
-          </v-card>
-
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Actions</v-label>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn type="submit" color="primary" :loading="saving" block>
-                {{ isEditing ? 'Update' : 'Create' }}
-                Blog
-              </v-btn>
-              <v-btn variant="outlined" class="mt-2" to="/admin/blog" block>
-                Cancel
-              </v-btn>
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>

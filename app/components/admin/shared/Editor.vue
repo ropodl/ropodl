@@ -237,7 +237,7 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="tiptap-editor-container">
-    <v-sheet border class="sticky-toolbar pa-0 mb-1 rounded-lg overflow-hidden">
+    <v-card border class="sticky-toolbar pa-0rounded-lg rounded-b-0 overflow-hidden">
       <div class="toolbar-row d-flex flex-wrap">
         <v-btn
           v-for="(item, index) in row1Items"
@@ -282,13 +282,13 @@ onUnmounted(() => {
           @click="item.action"
         />
       </div>
-    </v-sheet>
-    <v-card class="tiptap-content-card" border>
+    </v-card>
+    <v-card border class="tiptap-content-card rounded-t-0 border-t-0" >
       <v-card-text class="pa-0 relative">
         <editor-content :editor class="tiptap-content" />
       </v-card-text>
       <v-divider />
-      <v-footer class="pa-2 px-4 caption grey--text d-flex justify-end bg-surface">
+      <v-footer class="pa-2 px-4 text-caption text-grey d-flex justify-end bg-surface">
         <span class="mr-4">
           {{ editor?.storage.characterCount.characters() }} characters
         </span>
@@ -360,7 +360,7 @@ $max-width: 850px; // Slightly wider for better editor flow
 
   .sticky-toolbar {
     position: sticky;
-    top: 50px;
+    top: 48px;
     z-index: 10;
     background-color: rgb(var(--v-theme-surface));
 

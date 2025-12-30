@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import useApiFetch from '~/utils/shared/useApiFetch';
 
@@ -179,12 +179,12 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 Select Files
               </v-btn>
               <input
-                type="file"
                 ref="fileInput"
+                type="file"
                 class="d-none"
                 accept="image/*"
                 @change="handleFileUpload"
-              />
+              >
             </div>
           </v-window-item>
 
@@ -247,8 +247,8 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
               <!-- Sidebar -->
               <div
-                class="details-sidebar border-left bg-surface overflow-y-auto pa-4"
                 v-if="selectedItems.length > 0"
+                class="details-sidebar border-left bg-surface overflow-y-auto pa-4"
               >
                 <div class="text-subtitle-1 font-weight-bold mb-4">
                   Attachment Details
@@ -315,15 +315,15 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
       <v-card-actions class="pa-4">
         <v-spacer />
-        <v-btn variant="text" @click="dialog = false" class="mr-2"
+        <v-btn variant="text" class="mr-2" @click="dialog = false"
           >Cancel</v-btn
         >
         <v-btn
           color="primary"
           variant="flat"
           :disabled="selectedItems.length === 0"
-          @click="selectImage"
           min-width="120"
+          @click="selectImage"
         >
           {{
             multiple && selectedItems.length > 1
