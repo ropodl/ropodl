@@ -43,7 +43,11 @@ const currentHeading = computed({
     if (level === 0) {
       editor.value?.chain().focus().setParagraph().run();
     } else {
-      editor.value?.chain().focus().toggleHeading({ level: level as Level }).run();
+      editor.value
+        ?.chain()
+        .focus()
+        .toggleHeading({ level: level as Level })
+        .run();
     }
   },
 });
@@ -106,7 +110,12 @@ const toolbarItems = computed<ToolbarItem[]>(() => [
         editor.value?.chain().focus().extendMarkRange('link').unsetLink().run();
         return;
       }
-      editor.value?.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+      editor.value
+        ?.chain()
+        .focus()
+        .extendMarkRange('link')
+        .setLink({ href: url })
+        .run();
     },
     isActive: () => editor.value?.isActive('link') ?? false,
   },
@@ -208,13 +217,19 @@ const toolbarItems = computed<ToolbarItem[]>(() => [
     tooltip: 'Youtube',
     action: () => {
       const url = window.prompt('URL');
-      if (url) editor.value?.chain().focus().setYoutubeVideo({ src: url }).run();
+      if (url)
+        editor.value?.chain().focus().setYoutubeVideo({ src: url }).run();
     },
   },
   {
     icon: 'carbon:table',
     tooltip: 'Table',
-    action: () => editor.value?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(),
+    action: () =>
+      editor.value
+        ?.chain()
+        .focus()
+        .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+        .run(),
   },
   {
     icon: 'carbon:page-break',
@@ -237,7 +252,10 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="tiptap-editor-container">
-    <v-card border class="sticky-toolbar pa-0rounded-lg rounded-b-0 overflow-hidden">
+    <v-card
+      border
+      class="sticky-toolbar pa-0rounded-lg rounded-b-0 overflow-hidden"
+    >
       <div class="toolbar-row d-flex flex-wrap">
         <v-btn
           v-for="(item, index) in row1Items"
@@ -257,11 +275,12 @@ onUnmounted(() => {
       </div>
       <v-divider />
       <div class="toolbar-row d-flex flex-wrap align-center">
-        <select
-          v-model="currentHeading"
-          class="heading-select ml-2"
-        >
-          <option v-for="option in headingOptions" :key="option.value" :value="option.value">
+        <select v-model="currentHeading" class="heading-select ml-2">
+          <option
+            v-for="option in headingOptions"
+            :key="option.value"
+            :value="option.value"
+          >
             {{ option.title }}
           </option>
         </select>
@@ -283,12 +302,14 @@ onUnmounted(() => {
         />
       </div>
     </v-card>
-    <v-card border class="tiptap-content-card rounded-t-0 border-t-0" >
+    <v-card border class="tiptap-content-card rounded-t-0 border-t-0">
       <v-card-text class="pa-0 relative">
         <editor-content :editor class="tiptap-content" />
       </v-card-text>
       <v-divider />
-      <v-footer class="pa-2 px-4 text-caption text-grey d-flex justify-end bg-surface">
+      <v-footer
+        class="pa-2 px-4 text-caption text-grey d-flex justify-end bg-surface"
+      >
         <span class="mr-4">
           {{ editor?.storage.characterCount.characters() }} characters
         </span>
@@ -316,7 +337,8 @@ onUnmounted(() => {
 @use 'sass:map';
 
 // Fonts
-$font-base: 'Ubuntu', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-base:
+  'Ubuntu', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-code: 'JetBrainsMono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
 
 // Dark Theme Colors (Optimized for Tiptap integration)
@@ -341,7 +363,13 @@ $colors: (
 
 $max-width: 850px; // Slightly wider for better editor flow
 
-@mixin heading($tag, $size, $lightness: 0%, $border-bottom: none, $padding-bottom: 0) {
+@mixin heading(
+  $tag,
+  $size,
+  $lightness: 0%,
+  $border-bottom: none,
+  $padding-bottom: 0
+) {
   #{$tag} {
     margin: 1em auto 1em;
     font-weight: 700;
@@ -442,19 +470,29 @@ $max-width: 850px; // Slightly wider for better editor flow
       }
 
       // Lists
-      ul, ol {
+      ul,
+      ol {
         margin-bottom: 1.2em;
         padding-left: 2.2em;
 
         li {
           margin-bottom: 0.5em;
-          p { margin-bottom: 0.2em; }
+          p {
+            margin-bottom: 0.2em;
+          }
         }
-        ul, ol { margin: 0.6em 0; }
+        ul,
+        ol {
+          margin: 0.6em 0;
+        }
       }
 
-      ul li { list-style-type: disc; }
-      ol li { list-style-type: decimal; }
+      ul li {
+        list-style-type: disc;
+      }
+      ol li {
+        list-style-type: decimal;
+      }
 
       // Blockquote
       blockquote {
@@ -467,8 +505,10 @@ $max-width: 850px; // Slightly wider for better editor flow
         font-style: italic;
         line-height: 1.7;
         border-radius: 4px;
-        
-        p:last-child { margin-bottom: 0; }
+
+        p:last-child {
+          margin-bottom: 0;
+        }
       }
 
       // Tables
@@ -479,7 +519,8 @@ $max-width: 850px; // Slightly wider for better editor flow
         margin: 2em auto;
         overflow: hidden;
 
-        td, th {
+        td,
+        th {
           min-width: 1em;
           border: 1px solid map.get($colors, border-medium);
           padding: 10px 12px;
@@ -487,7 +528,9 @@ $max-width: 850px; // Slightly wider for better editor flow
           box-sizing: border-box;
           position: relative;
 
-          > * { margin-bottom: 0; }
+          > * {
+            margin-bottom: 0;
+          }
         }
 
         th {
@@ -501,7 +544,10 @@ $max-width: 850px; // Slightly wider for better editor flow
           z-index: 2;
           position: absolute;
           content: '';
-          left: 0; right: 0; top: 0; bottom: 0;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
           background: rgba(var(--v-theme-primary), 0.1);
           pointer-events: none;
         }
@@ -518,7 +564,7 @@ $max-width: 850px; // Slightly wider for better editor flow
         font-size: 0.9em;
         line-height: 1.5;
         overflow-x: auto;
-        
+
         code {
           background: transparent;
           color: inherit;
@@ -536,7 +582,9 @@ $max-width: 850px; // Slightly wider for better editor flow
       }
 
       // Media
-      img, video, div[data-youtube-video] {
+      img,
+      video,
+      div[data-youtube-video] {
         max-width: 100%;
         height: auto;
         display: block;
@@ -611,8 +659,12 @@ $max-width: 850px; // Slightly wider for better editor flow
           outline: none;
           cursor: text;
           display: block;
-          &::-webkit-details-marker { display: none; }
-          &::marker { display: none; }
+          &::-webkit-details-marker {
+            display: none;
+          }
+          &::marker {
+            display: none;
+          }
         }
 
         > button {
@@ -652,8 +704,12 @@ $max-width: 850px; // Slightly wider for better editor flow
 
           > [data-type='detailsContent'] {
             padding-top: 0.5rem;
-            > :first-child { margin-top: 0; }
-            > :last-child { margin-bottom: 0; }
+            > :first-child {
+              margin-top: 0;
+            }
+            > :last-child {
+              margin-bottom: 0;
+            }
           }
         }
       }
