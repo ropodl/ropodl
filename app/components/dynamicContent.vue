@@ -82,12 +82,7 @@ const onHide = () => {
     ref="contentContainer"
     class="dynamic-content mb-3"
   ></div>
-  <vue-easy-lightbox
-    :visible
-    :imgs
-    :index
-    @hide="onHide"
-  ></vue-easy-lightbox>
+  <vue-easy-lightbox :visible :imgs :index @hide="onHide"></vue-easy-lightbox>
 </template>
 
 <style lang="scss">
@@ -133,7 +128,13 @@ $box-shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.4);
   overflow: hidden !important;
 }
 
-@mixin heading($tag, $size, $lightness: 0%, $border-bottom: none, $padding-bottom: 0) {
+@mixin heading(
+  $tag,
+  $size,
+  $lightness: 0%,
+  $border-bottom: none,
+  $padding-bottom: 0
+) {
   #{$tag} {
     margin: 1em auto 1em;
     max-width: $max-width;

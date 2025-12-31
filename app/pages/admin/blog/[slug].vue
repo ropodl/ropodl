@@ -42,7 +42,7 @@ const fetchBlog = async () => {
 
   loading.value = true;
   try {
-    const res = await useApiFetch<any>(`blog/${slug}`);
+    const res = await useApiFetch<any>(`admin/blog/${slug}`);
     if (res.success && res.data) {
       const data = res.data;
       form.value = {
@@ -94,7 +94,7 @@ const submit = async () => {
   if (!valid) return;
 
   saving.value = true;
-  const endpoint = isEditing.value ? `blog/${slug}` : 'blog';
+  const endpoint = isEditing.value ? `admin/blog/${slug}` : 'admin/blog';
   const method = isEditing.value ? 'PATCH' : 'POST';
 
   try {

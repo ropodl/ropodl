@@ -184,7 +184,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 class="d-none"
                 accept="image/*"
                 @change="handleFileUpload"
-              >
+              />
             </div>
           </v-window-item>
 
@@ -297,7 +297,9 @@ const formatBytes = (bytes: number, decimals = 2) => {
                     class="mb-2"
                   />
                   <v-textarea
-                    v-model="selectedItems[selectedItems.length - 1].description"
+                    v-model="
+                      selectedItems[selectedItems.length - 1].description
+                    "
                     label="Description"
                     variant="underlined"
                     rows="3"

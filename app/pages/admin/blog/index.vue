@@ -20,7 +20,7 @@ const blogs = ref([]);
 const getUpdate = async (options: { key: string; order?: boolean }[]) => {
   console.log(options);
 
-  await useApiFetch('blog').then((res) => {
+  await useApiFetch('admin/blog').then((res) => {
     blogs.value = res.data;
   });
   // const params = {
