@@ -10,18 +10,10 @@ definePageMeta({
   middleware: ['is-auth'],
 });
 
-const blog = ref<blog>({
-  title: null,
-  slug: null,
-  content: null,
-  featured_image: null,
-  status: null,
-});
-
 const route = useRoute();
 const router = useRouter();
-const slug = route.params.slug as string;
-const isEditing = computed(() => slug !== 'create');
+const id = route.params.id as string;
+const isEditing = computed(() => id !== 'create');
 
 const loading = ref(false);
 const saving = ref(false);
@@ -42,7 +34,7 @@ const fetchBlog = async () => {
 
   loading.value = true;
   try {
-    const res = await useApiFetch<any>(`admin/blog/${slug}`);
+    const res = await useApiFetch<any>(`admin/blog/${id}`);
     if (res.success && res.data) {
       const data = res.data;
       form.value = {
@@ -51,7 +43,7 @@ const fetchBlog = async () => {
         content: data.content,
         excerpt: data.excerpt || '',
         featured_image_id: data.featured,
-        featured_image_url: data.featured_image_url || null, // Assuming backend provides this now or we need to fetch it
+        featured_image_url: data.featured_image_url || null, 
         status: data.status,
       };
     }
@@ -94,24 +86,24 @@ const submit = async () => {
   if (!valid) return;
 
   saving.value = true;
-  const endpoint = isEditing.value ? `admin/blog/${slug}` : 'admin/blog';
+  const endpoint = isEditing.value ? `admin/blog/${id}` : 'admin/blog';
   const method = isEditing.value ? 'PATCH' : 'POST';
 
-  try {
-    const res = await useApiFetch<any>(endpoint, {
-      method,
-      body: form.value,
+  await useApiFetch<any>(endpoint, {
+    method,
+    body: form.value,
+  })
+    .then((res) => {
+      if (res.success) {
+        router.push(`/admin/blog/${res.data.id}`);
+      }
+    })
+    .catch((err) => {
+      console.error('Form Submission error', err);
+    })
+    .finally(() => {
+      saving.value = false;
     });
-
-    if (res.success) {
-      // Redirect back to list
-      router.push('/admin/blog');
-    }
-  } catch (error) {
-    console.error('Form Submission error', error);
-  } finally {
-    saving.value = false;
-  }
 };
 
 const statusOptions = [
@@ -186,7 +178,7 @@ const statusOptions = [
                   v-if="form.featured_image_url"
                   :src="form.featured_image_url"
                   cover
-                  class="fill-height w-100"
+                  class="fill-height w-100 d-flex align-center justify-center"
                 >
                   <v-btn
                     icon="mdi-close"
@@ -202,7 +194,8 @@ const statusOptions = [
                   <div class="text-h6 font-weight-medium">
                     Select Featured image
                   </div>
-                  <v-btn border class="mt-2">Browse</v-btn>
+                  <div class="text-caption">Select an image to set as featured image</div>
+                  <!-- <v-btn border class="mt-2">Browse</v-btn> -->
                 </div>
               </v-card>
             </v-card-text>

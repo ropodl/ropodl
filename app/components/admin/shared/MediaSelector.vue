@@ -65,7 +65,7 @@ watch(dialog, (val) => {
 const fetchMedia = async () => {
   loading.value = true;
   try {
-    const res = await useApiFetch<any[]>('media/', {
+    const res = await useApiFetch<any[]>('admin/media/', {
       query: { search: search.value },
     });
     media.value = res;
@@ -95,7 +95,7 @@ const handleFileUpload = async (event: Event) => {
   formData.append('file', file);
 
   try {
-    const res = await useApiFetch<any>('media/create', {
+    const res = await useApiFetch<any>('admin/media/create', {
       method: 'POST',
       body: formData,
     });
@@ -184,7 +184,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 class="d-none"
                 accept="image/*"
                 @change="handleFileUpload"
-              />
+              >
             </div>
           </v-window-item>
 
@@ -227,7 +227,9 @@ const formatBytes = (bytes: number, decimals = 2) => {
                             v-if="isSelected(item)"
                             class="selection-overlay"
                           >
+                          <v-btn icon="carbon:check-circle">
                             <v-icon color="white">mdi-check-circle</v-icon>
+                          </v-btn>
                           </div>
                         </v-img>
                       </v-card>
