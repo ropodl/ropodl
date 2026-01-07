@@ -7,7 +7,18 @@ const content = defineModel('content', {
   type: String,
 });
 
-const { editor, EditorContent } = useTiptap(content.value);
+
+const { editor, EditorContent } = useTiptap(content.value, {
+  onUpdate: (val) => {
+    content.value = val;
+  },
+});
+
+watch(content, (val) => {
+  if (editor.value && val !== editor.value.getHTML()) {
+    editor.value.commands.setContent(val || '');
+  }
+});
 const showMediaSelector = ref(false);
 const galleryMode = ref(false);
 

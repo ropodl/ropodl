@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { blog } from '~/types/blog';
 import useApiFetch from '~/utils/shared/useApiFetch';
 
-const blogs = ref([]);
+const blogs = ref<blog[]>([]);
 
 onMounted(() => {
   getAllBlogs();
@@ -36,36 +37,38 @@ const getAllBlogs = async () => {
             <v-col cols="12">
               <v-row class="mb-3">
                 <v-col cols="12" md="6">
-                  <v-hover v-slot="{ isHovering, props }">
-                    <v-card
-                      v-bind="props"
-                      border
-                      color="white"
-                      :height="400"
-                      rounded="xl"
-                      :variant="isHovering ? 'tonal' : 'text'"
-                      :to="`/blog/${slug}`"
-                    >
-                      <v-img
-                        cover
-                        class="h-100"
-                        :class="{ 'zoom-image': isHovering }"
-                        :src="featured_image.fileUrl"
-                        :alt="featured_image.altText"
+                  <template v-if="featured_image">
+                    <v-hover v-slot="{ isHovering, props }">
+                      <v-card
+                        v-bind="props"
+                        border
+                        color="white"
+                        :height="400"
+                        rounded="xl"
+                        :variant="isHovering ? 'tonal' : 'text'"
+                        :to="`/blog/${slug}`"
                       >
-                        <template #placeholder>
-                          <div
-                            class="d-flex align-center justify-center fill-height"
-                          >
-                            <v-skeleton-loader
-                              class="w-100 h-100"
-                              type="image"
-                            />
-                          </div>
-                        </template>
-                      </v-img>
-                    </v-card>
-                  </v-hover>
+                        <v-img
+                          cover
+                          class="h-100"
+                          :class="{ 'zoom-image': isHovering }"
+                          :src="featured_image.fileUrl"
+                          :alt="featured_image.altText"
+                        >
+                          <template #placeholder>
+                            <div
+                              class="d-flex align-center justify-center fill-height"
+                            >
+                              <v-skeleton-loader
+                                class="w-100 h-100"
+                                type="image"
+                              />
+                            </div>
+                          </template>
+                        </v-img>
+                      </v-card>
+                    </v-hover>
+                  </template>
                 </v-col>
                 <v-col cols="12" md="6">
                   <div class="d-flex flex-column">
@@ -106,7 +109,8 @@ const getAllBlogs = async () => {
           <template v-else>
             <v-col cols="12" sm="6" md="6" lg="4">
               <v-hover v-slot="{ isHovering, props }">
-                <v-card
+                <template v-if="featured_image">
+                  <v-card
                   border
                   v-bind="props"
                   flat
@@ -133,6 +137,7 @@ const getAllBlogs = async () => {
                     </template>
                   </v-img>
                 </v-card>
+                </template>
                 <v-card border="0" rounded="0" color="transparent">
                   <v-card-text
                     class="pt-2 text-h6 text-white px-0 pb-0 line-clamp-3"

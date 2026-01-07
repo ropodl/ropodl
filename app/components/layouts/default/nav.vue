@@ -26,6 +26,11 @@ const pages = [
     to: '/about',
   },
 ];
+
+const isActive = (path: string) => {
+  if (path === '/') return route.path === '/';
+  return route.path === path || route.path.startsWith(`${path}/`);
+};
 </script>
 <template>
   <v-card
@@ -46,12 +51,7 @@ const pages = [
     >
       <template v-if="pages">
         <template v-for="{ icon, title, to } in pages" :key="title">
-          <v-tab
-            :stacked="mobile"
-            :to
-            :active="to === route.fullPath"
-            rounded="pill"
-          >
+          <v-tab :stacked="mobile" :to :active="isActive(to)" rounded="pill">
             <v-icon :start="!mobile" :icon />
             {{ title }}
           </v-tab>

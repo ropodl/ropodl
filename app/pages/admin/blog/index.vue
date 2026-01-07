@@ -1,7 +1,9 @@
-<script lang="ts" setup>
+<script setup lang="ts" >
 import { itemsPerPage } from '@/utils/shared/pagination';
 import { ref } from 'vue';
+import { useDebounceFn } from '@vueuse/core';
 import useApiFetch from '~/utils/shared/useApiFetch';
+import type { blog } from '~/types/blog';
 
 definePageMeta({
   layout: 'admin',
@@ -15,56 +17,43 @@ const headers = [
   { title: 'Actions', key: 'actions', sortable: false },
 ];
 
-const blogs = ref([]);
+const blogs = ref<blog[]>([]);
+const loading = ref(false);
+const searchQuery = ref('');
 
-const getUpdate = async (options: { key: string; order?: boolean }[]) => {
-  console.log(options);
+// Add debounced search handler
+const handleSearch = useDebounceFn((value: string) => {
+  searchQuery.value = value;
+  pagination.value.current_page = 1; // Reset to first page when searching
+  getUpdate([]);
+}, 300);
 
-  await useApiFetch('admin/blog').then((res) => {
-    blogs.value = res.data;
-  });
-  // const params = {
-  //   search: searchQuery.value,
-  //   page: paginate.value.current_page,
-  //   per_page: paginate.value.per_page,
-  //   sort_by: options[0],
-  //   status: filters.value.status,
-  // };
-  // router.get(route('blog.index'), clearParamKey(params), {
-  //   showProgress: true,
-  //   async: true,
-  //   preserveState: true,
-  //   preserveScroll: true,
-  // });
+const getUpdate = async (options: any) => {
+  loading.value = true;
+
+  await useApiFetch('admin/blog', {
+    query: {
+      limit: pagination.value.per_page,
+      page: pagination.value.current_page,
+      search: searchQuery.value,
+    },
+  })
+    .then((res: any) => {
+      blogs.value = res.data;
+      pagination.value = res.meta;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
-
-// const handleSearch = useDebounceFn((value: string) => {
-//   searchQuery.value = value;
-//   paginate.value.current_page = 1; // Reset to first page when searching
-//   getUpdate([]);
-// }, 300);
 
 const getColor = (value: string) => {
   return value === 'published' ? 'green' : 'yellow';
 };
 
-// const resetFilters = () => {};
-
-const pagination = { total: '', current_page: '', per_page: 10 };
+const pagination = ref({ total: 0, current_page: 1, per_page: 10, last_page: 1 });
 
 const rightNav = ref(false);
-
-// onMounted(()=>{
-//    getBlog()
-// })
-
-// const getBlog = async() => {
-//    await useApiFetch("blog/").then((res)=>{
-//       console.log(res)
-//    }).catch((err)=>{
-//       console.log(err)
-//    })
-// }
 </script>
 
 <template>
@@ -73,13 +62,14 @@ const rightNav = ref(false);
       <v-col cols="12" md="4">
         <!-- v-model="searchQuery" -->
         <v-text-field
+          v-model="searchQuery"
           hide-details
           clearable
           persistent-clear
           rounded="lg"
           placeholder="Search blogs"
+          @update:model-value="handleSearch"
         >
-          <!-- @update:model-value="handleSearch" -->
           <template #prepend-inner>
             <v-icon icon="carbon:search" />
           </template>
@@ -105,6 +95,7 @@ const rightNav = ref(false);
       <v-col cols="12">
         <v-card rounded="lg">
           <v-data-table-server
+          :loading
             :headers="headers"
             :items="blogs"
             :items-length="pagination.total"
@@ -133,7 +124,7 @@ const rightNav = ref(false);
                   size="small"
                   rounded="lg"
                   :variant="isHovering ? 'tonal' : 'text'"
-                  @click="router.visit(`/admin/portfolio/${item.id}`)"
+                  :to="`/admin/blog/${item.id}`"
                 >
                   <v-icon icon="carbon:edit" />
                 </v-btn>
@@ -146,18 +137,18 @@ const rightNav = ref(false);
     <v-row align="center">
       <v-col cols="12" md="6">
         <div class="d-flex justify-start">
-          <!-- <v-pagination
-              v-model="paginate.current_page"
-              density="compact"
-              :total-visible="5"
-              :length="pagination.last_page"
-              @update:model-value="
-                (value) => {
-                  paginate.current_page = value;
-                  getUpdate([]);
-                }
-              "
-            ></v-pagination> -->
+          <v-pagination
+            v-model="pagination.current_page"
+            density="compact"
+            :total-visible="5"
+            :length="pagination.last_page"
+            @update:model-value="
+              (value) => {
+                pagination.current_page = value;
+                getUpdate([]);
+              }
+            "
+          />
         </div>
       </v-col>
       <v-col cols="12" md="6">
@@ -169,13 +160,13 @@ const rightNav = ref(false);
             density="compact"
             max-width="100"
             :items="itemsPerPage"
+            @update:model-value="
+              (value) => {
+                pagination.per_page = value;
+                getUpdate([]);
+              }
+            "
           />
-          <!-- @update:model-value="
-                (value) => {
-                  paginate.per_page = value;
-                  getUpdate([]);
-                }
-              " -->
         </div>
       </v-col>
     </v-row>

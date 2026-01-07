@@ -65,9 +65,20 @@ lowlight.register('css', css);
 lowlight.register('js', js);
 lowlight.register('ts', ts);
 
-export const useTiptap = (content: string | undefined) => {
+export const useTiptap = (
+  content: string | undefined,
+  options: {
+    placeholder?: string;
+    onUpdate?: (content: string) => void;
+  } = {}
+) => {
   const editor = useEditor({
     content: content,
+    onUpdate: ({ editor }) => {
+      if (options.onUpdate) {
+        options.onUpdate(editor.getHTML());
+      }
+    },
     extensions: [
       Document,
       Paragraph,
@@ -147,7 +158,7 @@ export const useTiptap = (content: string | undefined) => {
         types: ['heading', 'paragraph'],
       }),
       Placeholder.configure({
-        placeholder: 'Start typing...',
+        placeholder: options.placeholder || 'Start typing...',
       }),
       Focus.configure({
         className: 'has-focus',
