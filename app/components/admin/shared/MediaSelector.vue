@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import useApiFetch from '~/utils/shared/useApiFetch';
 
@@ -142,7 +141,62 @@ const formatBytes = (bytes: number, decimals = 2) => {
 </script>
 
 <template>
-  <v-dialog v-model="dialog" max-width="1000" scrollable>
+  <v-dialog v-model="dialog" max-width="1000" scrollable persistent>
+    <v-card>
+      <v-card-title class="d-flex align-center justify-space-between pa-0 pe-2">
+        <!-- Media Selector -->
+        <v-tabs v-model="tab">
+          <v-tab rounded="0" value="upload">Upload</v-tab>
+          <v-tab rounded="0" value="library">Media Library</v-tab>
+        </v-tabs>
+        <v-btn size="small" icon="carbon:close" />
+      </v-card-title>
+      <v-divider />
+      <v-card-text>
+        <v-tabs-window v-model="tab">
+          <v-tabs-window-item value="upload">
+            <v-file-upload density="comfortable" @change="handleFileUpload">
+              <template #item />
+            </v-file-upload>
+          </v-tabs-window-item>
+          <v-tabs-window-item value="library">
+            <v-text-field
+              v-model="search"
+              placeholder="Search media..."
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+              density="compact"
+              variant="outlined"
+              bg-color="surface"
+            />
+            <template v-if="media.length">
+              <v-row>
+                <template v-for="item in media" :key="item.id">
+                  <v-col cols="12" md="4">
+                    {{ item }}
+                    <v-card height="250">
+                      <v-img
+                        cover
+                        class="h-100"
+                        :src="item.fileUrl"
+                        :alt="item.altText"
+                      />
+                    </v-card>
+                  </v-col>
+                </template>
+              </v-row>
+            </template>
+          </v-tabs-window-item>
+        </v-tabs-window>
+      </v-card-text>
+      <v-divider />
+      <v-card-actions>
+        <v-btn class="px-10" color="primary" @click="dialog = false"
+          >Cancel</v-btn
+        >
+        <v-btn class="px-10" color="primary" variant="flat">Submit</v-btn>
+      </v-card-actions>
+    </v-card>
     <v-card class="media-selector-dialog">
       <v-card-title class="pa-0">
         <v-toolbar color="surface" density="compact">
@@ -152,15 +206,15 @@ const formatBytes = (bytes: number, decimals = 2) => {
             <Icon icon="tabler:x" />
           </v-btn>
         </v-toolbar>
-        <v-tabs v-model="tab" color="primary" class="px-4 border-bottom">
+        <v-tabs v-model="tab" class="px-4 border-bottom">
           <v-tab value="upload">Upload Files</v-tab>
           <v-tab value="library">Media Library</v-tab>
         </v-tabs>
       </v-card-title>
 
       <v-card-text class="pa-0" style="height: 600px">
-        <v-window v-model="tab" class="fill-height">
-          <!-- Upload Tab -->
+        <v-window v-model="tab" class="bg-surface fill-height">
+          Upload Tab
           <v-window-item value="upload" class="fill-height">
             <div
               class="upload-container d-flex flex-column align-center justify-center fill-height pa-8"
@@ -184,11 +238,11 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 class="d-none"
                 accept="image/*"
                 @change="handleFileUpload"
-              >
+              />
             </div>
           </v-window-item>
 
-          <!-- Library Tab -->
+          Library Tab
           <v-window-item value="library" class="fill-height">
             <div class="d-flex fill-height overflow-hidden">
               <div class="flex-grow-1 d-flex flex-column bg-grey-lighten-4">
@@ -227,9 +281,9 @@ const formatBytes = (bytes: number, decimals = 2) => {
                             v-if="isSelected(item)"
                             class="selection-overlay"
                           >
-                          <v-btn icon="carbon:check-circle">
-                            <v-icon color="white">mdi-check-circle</v-icon>
-                          </v-btn>
+                            <v-btn icon="carbon:check-circle">
+                              <v-icon color="white">mdi-check-circle</v-icon>
+                            </v-btn>
                           </div>
                         </v-img>
                       </v-card>
@@ -247,7 +301,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 </div>
               </div>
 
-              <!-- Sidebar -->
+              Sidebar
               <div
                 v-if="selectedItems.length > 0"
                 class="details-sidebar border-left bg-surface overflow-y-auto pa-4"
@@ -255,7 +309,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 <div class="text-subtitle-1 font-weight-bold mb-4">
                   Attachment Details
                 </div>
-                <!-- Show details for the last selected item -->
+                Show details for the last selected item
                 <div v-if="selectedItems[selectedItems.length - 1] as any">
                   <v-img
                     :src="selectedItems[selectedItems.length - 1].fileUrl"
@@ -339,55 +393,3 @@ const formatBytes = (bytes: number, decimals = 2) => {
     </v-card>
   </v-dialog>
 </template>
-
-<style lang="scss" scoped>
-.media-selector-dialog {
-  display: flex;
-  flex-direction: column;
-}
-
-.border-bottom {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.border-left {
-  border-left: 1px solid #e0e0e0;
-}
-
-.media-grid {
-  flex: 1;
-}
-
-.media-card {
-  position: relative;
-  transition: all 0.2s;
-
-  &.is-selected {
-    border: 3px solid rgb(var(--v-theme-primary));
-  }
-
-  .selection-overlay {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.details-sidebar {
-  width: 300px;
-  flex-shrink: 0;
-}
-
-.upload-container {
-  border: 2px dashed #e0e0e0;
-  margin: 20px;
-  border-radius: 12px;
-}
-</style>

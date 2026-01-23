@@ -87,7 +87,7 @@ const getAllBlogs = async () => {
                       {{ excerpt }}
                     </v-card-text>
                     <v-card-text class="text-white text-caption">
-                      {{ useDateFormat(created_at, 'MMM D, YYYY') }}
+                      {{ created_at ? useDateFormat(created_at, 'MMM D, YYYY') : '' }}
                     </v-card-text>
                     <v-card-actions>
                       <v-btn
@@ -111,32 +111,32 @@ const getAllBlogs = async () => {
               <v-hover v-slot="{ isHovering, props }">
                 <template v-if="featured_image">
                   <v-card
-                  border
-                  v-bind="props"
-                  flat
-                  height="400"
-                  class="mb-3"
-                  color="white"
-                  :variant="isHovering ? 'tonal' : 'text'"
-                  rounded="xl"
-                  :to="`/blog/${slug}`"
-                >
-                  <v-img
-                    cover
+                    border
+                    v-bind="props"
+                    flat
                     height="400"
-                    :class="{ 'zoom-image': isHovering }"
-                    :src="featured_image.fileUrl"
-                    :alt="featured_image.altText"
+                    class="mb-3"
+                    color="white"
+                    :variant="isHovering ? 'tonal' : 'text'"
+                    rounded="xl"
+                    :to="`/blog/${slug}`"
                   >
-                    <template #placeholder>
-                      <div
-                        class="d-flex align-center justify-center fill-height"
-                      >
-                        <v-skeleton-loader class="w-100 h-100" type="image" />
-                      </div>
-                    </template>
-                  </v-img>
-                </v-card>
+                    <v-img
+                      cover
+                      height="400"
+                      :class="{ 'zoom-image': isHovering }"
+                      :src="featured_image.fileUrl"
+                      :alt="featured_image.altText"
+                    >
+                      <template #placeholder>
+                        <div
+                          class="d-flex align-center justify-center fill-height"
+                        >
+                          <v-skeleton-loader class="w-100 h-100" type="image" />
+                        </div>
+                      </template>
+                    </v-img>
+                  </v-card>
                 </template>
                 <v-card border="0" rounded="0" color="transparent">
                   <v-card-text
@@ -146,7 +146,7 @@ const getAllBlogs = async () => {
                     {{ title }}
                   </v-card-text>
                   <v-card-text class="text-white text-caption pl-0">
-                    {{ useDateFormat(created_at, 'MMM D, YYYY') }}
+                    {{ created_at ? useDateFormat(created_at, 'MMM D, YYYY') : '' }}
                   </v-card-text>
                 </v-card>
               </v-hover>

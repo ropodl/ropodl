@@ -37,20 +37,20 @@ const navItems: navItem[] = [
     ],
   },
   {
-    icon: 'mdi-phone-outline',
+    icon: 'carbon:phone',
     title: 'Contact Request',
     subtitle: 'Contact and Feedback',
     to: '/admin/contact',
   },
   {
-    icon: 'mdi-account-shield-outline',
+    icon: 'carbon:settings',
     title: 'Settings',
     subtitle: 'Access Control',
     subitems: [
       {
         title: 'Roles & Permissions',
         to: '/admin/roles',
-        permission: 'rbac.manage',
+        permission: 'read.roles',
       },
     ],
   },
@@ -109,7 +109,7 @@ const bread = computed(() => {
 });
 
 onMounted(async () => {
-  await fetchUser();
+  fetchUser();
 });
 </script>
 

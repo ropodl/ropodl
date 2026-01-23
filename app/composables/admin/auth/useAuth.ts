@@ -2,13 +2,16 @@ import { useApiFetch } from '~/utils/shared/useApiFetch';
 import type { LoginResponse, User } from '~/types/auth';
 
 export const useAuth = () => {
-  const token = useCookie('token');
+  const token = useCookie('token', {
+    maxAge: 60 * 60 * 24, // 1 day
+  });
   const user = useState<User | null>('user', () => null);
   const { showSnackbar } = useSnackbar();
 
   const decodeToken = (t: string): User | null => {
     try {
       const base64Url = t.split('.')[1];
+      if (!base64Url) return null;
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
         atob(base64)
@@ -34,6 +37,7 @@ export const useAuth = () => {
         showSnackbar('Logged in successfully', 'success');
         token.value = res.token;
         user.value = decodeToken(res.token);
+        console.log(user.value);
         await navigateTo('/admin/', { replace: true });
       })
       .catch(async (err) => {

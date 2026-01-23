@@ -1,4 +1,4 @@
-<script setup lang="ts" >
+<script setup lang="ts">
 import { itemsPerPage } from '@/utils/shared/pagination';
 import { ref } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
@@ -51,7 +51,12 @@ const getColor = (value: string) => {
   return value === 'published' ? 'green' : 'yellow';
 };
 
-const pagination = ref({ total: 0, current_page: 1, per_page: 10, last_page: 1 });
+const pagination = ref({
+  total: 0,
+  current_page: 1,
+  per_page: 10,
+  last_page: 1,
+});
 
 const rightNav = ref(false);
 </script>
@@ -95,7 +100,7 @@ const rightNav = ref(false);
       <v-col cols="12">
         <v-card rounded="lg">
           <v-data-table-server
-          :loading
+            :loading
             :headers="headers"
             :items="blogs"
             :items-length="pagination.total"
