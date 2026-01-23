@@ -43,7 +43,7 @@ const fetchBlog = async () => {
         content: data.content,
         excerpt: data.excerpt || '',
         featured_image_id: data.featured,
-        featured_image_url: data.featured_image_url || null, 
+        featured_image_url: data.featured_image_url || null,
         status: data.status,
       };
     }
@@ -168,36 +168,53 @@ const statusOptions = [
               <v-label>Featured Image</v-label>
             </v-card-text>
             <v-card-text class="pt-0">
-              <v-card
-                border
-                height="200"
-                class="d-flex align-center justify-center cursor-pointer"
-                @click="showMediaSelector = true"
-              >
-                <v-img
-                  v-if="form.featured_image_url"
-                  :src="form.featured_image_url"
-                  cover
-                  class="fill-height w-100 d-flex align-center justify-center"
+              <v-hover v-slot="{ isHovering, props }">
+                <v-card
+                  v-bind="props"
+                  border
+                  height="200"
+                  class="d-flex align-center justify-center cursor-pointer w-100"
+                  @click="showMediaSelector = true"
                 >
-                  <v-btn
-                    icon="mdi-close"
-                    color="error"
-                    variant="flat"
-                    density="compact"
-                    class="ma-2"
-                    @click.stop="removeImage"
-                  />
-                </v-img>
-                <div v-else class="text-center">
-                  <v-icon size="32" icon="mdi-cloud-upload" />
-                  <div class="text-h6 font-weight-medium">
-                    Select Featured image
-                  </div>
-                  <div class="text-caption">Select an image to set as featured image</div>
-                  <!-- <v-btn border class="mt-2">Browse</v-btn> -->
-                </div>
-              </v-card>
+                  <template v-if="form.featured_image_url">
+                    <v-img
+                      :src="form.featured_image_url"
+                      cover
+                      class="h-100"
+                      content-class="w-100 h-100 d-flex align-center justify-center"
+                    >
+                      <template v-if="isHovering">
+                        <div
+                          class="w-100 h-100 d-flex align-center justify-center"
+                          style="
+                            background-color: rgba(var(--v-theme-surface), 0.4);
+                          "
+                        >
+                          <v-btn
+                            icon="carbon:close"
+                            rounded="circle"
+                            color="primary"
+                            variant="flat"
+                            @click.stop="removeImage"
+                          />
+                        </div>
+                      </template>
+                    </v-img>
+                  </template>
+                  <template v-else>
+                    <div class="text-center">
+                      <v-icon size="32" icon="mdi-cloud-upload" />
+                      <div class="text-h6 font-weight-medium">
+                        Select Featured image
+                      </div>
+                      <div class="text-caption">
+                        Select an image to set as featured image
+                      </div>
+                      <!-- <v-btn border class="mt-2">Browse</v-btn> -->
+                    </div>
+                  </template>
+                </v-card>
+              </v-hover>
             </v-card-text>
           </v-card>
         </v-col>

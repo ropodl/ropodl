@@ -7,7 +7,6 @@ const content = defineModel('content', {
   type: String,
 });
 
-
 const { editor, EditorContent } = useTiptap(content.value, {
   onUpdate: (val) => {
     content.value = val;
@@ -313,7 +312,7 @@ onUnmounted(() => {
         />
       </div>
     </v-card>
-    <v-card border class="tiptap-content-card rounded-t-0 border-t-0">
+    <v-card border rounded="t-0" class="border-t-0">
       <v-card-text class="pa-0 relative">
         <editor-content :editor class="tiptap-content" />
       </v-card-text>
