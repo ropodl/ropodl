@@ -54,12 +54,6 @@ export const useAuth = () => {
     showSnackbar('Logged out successfully', 'success');
   };
 
-  const can = (permission: string) => {
-    if (!user.value) return false;
-    if (user.value.role === 'admin') return true;
-    return user.value.permissions?.includes(permission);
-  };
-
   const fetchUser = () => {
     if (token.value && !user.value) {
       user.value = decodeToken(token.value as string);
@@ -75,6 +69,5 @@ export const useAuth = () => {
     fetchUser,
     user,
     token,
-    can,
   };
 };

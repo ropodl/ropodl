@@ -1,313 +1,236 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-// import { snackbar } from '@/composables/snack';
-// import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
-// import type { Portfolio, PortfolioType } from '@/types/portfolio';
-// import slugify from '@/utils/slugify';
-// import { Head, router, useForm } from '@inertiajs/vue3';
-import { useObjectUrl } from '@vueuse/core';
-import { computed, ref, watch } from 'vue';
+import { useApiFetch } from '~/utils/shared/useApiFetch';
+import type { Portfolio, PortfolioType } from '~/types/portfolio';
+import { useRoute, useRouter } from 'vue-router';
+import Editor from '~/components/admin/shared/Editor.vue';
+import MediaSelector from '~/components/admin/shared/MediaSelector.vue';
 
-// const breadcrumbs = defineAsyncComponent(() => import('@/components/admin/layout/breadcrumbs.vue'));
-// const editor = defineAsyncComponent(() => import('@/components/admin/shared/Editor.vue'));
+definePageMeta({
+  layout: 'admin',
+  middleware: ['is-auth'],
+});
 
-// const { setSnackbar } = snackbar();
+const route = useRoute();
+const router = useRouter();
+const isEditing = computed(() => route.params.id !== 'create');
 
-// const { portfolio, types } = defineProps<{
-//   // portfolio?: Portfolio;
-//   types: PortfolioType[];
-// }>();
+const form = ref<Partial<Portfolio>>({
+  title: '',
+  slug: '',
+  content: '',
+  featuredImageId: 0,
+  workTypeId: null,
+  status: 'draft',
+});
 
-// const form = useForm({
-//   _method: portfolio?.id ? 'PATCH' : 'POST',
-//   title: portfolio?.title ?? '',
-//   slug: portfolio?.slug ?? '',
-//   content: portfolio?.content ?? '',
-//   featured_image: portfolio?.featured_image ?? (null as File | string | null),
-//   status: portfolio?.status ?? 'draft',
-//   portfolio_type_id: portfolio?.portfolio_type_id ?? null,
-// });
+const types = ref<PortfolioType[]>([]);
+const loading = ref(false);
+const saving = ref(false);
+const portfolioForm = ref();
 
-// Auto-generate slug from title only for new portfolios
-// watch(
-//   () => form.title,
-//   (title) => {
-//     if (!portfolio?.slug) {
-//       form.slug = slugify(title, {
-//         maxLength: 70,
-//       });
-//     }
-//   },
-// );
-
-const rules = {
-  title: [
-    (v: string) => !!v || 'Portfolio Title is required',
-    (v: string) =>
-      v.length <= 100 || 'Portfolio Title must be 100 characters or less',
-  ],
-  slug: [
-    (v: string) =>
-      !v || v.length <= 70 || 'Portfolio Slug must be 70 characters or less',
-  ],
-  // featured_image: [
-  //   (v?: File[]) => {
-  //     if (!v || v.length === 0) return true;
-  //     const file = v[0];
-  //     if (file?.size > 5120 * 1024) {
-  //       return 'File size must be less than 5MB';
-  //     }
-  //     return true;
-  //   },
-  // ],
+const fetchTypes = async () => {
+  try {
+    types.value = await useApiFetch<PortfolioType[]>('admin/work-type');
+  } catch (err) {
+    console.error('Failed to fetch types', err);
+  }
 };
 
-const portfolioForm = ref();
-const fileBrowser = ref<HTMLInputElement | null>(null);
-// const fileSelected = ref<File | null>(null);
+const mediaDialog = ref(false);
+const previewImage = ref('');
 
-// Compute image preview URL
-// const imagePreviewUrl = computed(() => {
-//   if (fileSelected.value) {
-//     return useObjectUrl(fileSelected.value).value;
-//   }
-//   return null;
-// });
+const onMediaSelect = (url: string, id: number) => {
+  form.value.featuredImageId = id;
+  previewImage.value = url;
+  mediaDialog.value = false;
+};
 
-// Determine which image to show
-// const displayImageUrl = computed(() => {
-//   if (imagePreviewUrl.value) {
-//     return imagePreviewUrl.value;
-//   }
-//   if (portfolio?.id && typeof form.featured_image === 'string') {
-//     return form.featured_image;
-//   }
-//   return null;
-// });
+const fetchPortfolio = async () => {
+  if (!isEditing.value) return;
+  loading.value = true;
+  try {
+    const data = await useApiFetch<Portfolio>(`admin/portfolio/${route.params.id}`);
+    form.value = { ...data };
+    
+    // Fetch featured image URL for preview if ID exists
+    if (form.value.featuredImageId) {
+       const media = await useApiFetch<any>(`admin/media/${form.value.featuredImageId}`);
+       previewImage.value = media.fileUrl;
+    }
+  } catch (err) {
+    console.error('Failed to fetch portfolio', err);
+  } finally {
+    loading.value = false;
+  }
+};
 
-// const uploadFile = (event: Event) => {
-//   const target = event.target as HTMLInputElement;
-//   if (target.files?.[0]) {
-//     fileSelected.value = target.files[0];
-//     form.featured_image = fileSelected.value;
-//   }
-// };
+const save = async () => {
+  const { valid } = await portfolioForm.value.validate();
+  if (!valid) return;
 
-// const removeImage = () => {
-//   fileSelected.value = null;
-//   form.featured_image = null;
-//   if (fileBrowser.value) {
-//     fileBrowser.value.value = '';
-//   }
-// };
+  saving.value = true;
+  try {
+    const url = isEditing.value ? `admin/portfolio/${route.params.id}` : 'admin/portfolio';
+    const method = isEditing.value ? 'PATCH' : 'POST';
+    
+    await useApiFetch(url, {
+      method,
+      body: form.value,
+    });
+    
+    router.push('/admin/portfolio');
+  } catch (err) {
+    console.error('Failed to save portfolio', err);
+  } finally {
+    saving.value = false;
+  }
+};
 
-// const fileSelector = () => {
-//   fileBrowser.value?.click();
-// };
+// Auto-slugify
+watch(() => form.value.title, (newTitle) => {
+  if (!isEditing.value && newTitle) {
+    form.value.slug = newTitle
+      .toLowerCase()
+      .replace(/[^\w ]+/g, '')
+      .replace(/ +/g, '-');
+  }
+});
 
-// const test = ref<any>();
-
-// const submit = async () => {
-//   const { valid } = await portfolioForm.value.validate();
-
-//   if (!valid) return;
-
-//   const routeName = portfolio?.id ? 'portfolio.update' : 'portfolio.store';
-//   const routeParams = portfolio?.id ? [portfolio.id] : [];
-
-//   form.post(route(routeName, routeParams), {
-//     forceFormData: true,
-//     preserveScroll: false,
-//     onSuccess: () => {
-//       console.log('Form submitted successfully');
-//     },
-//     onError: (errors) => {
-//       test.value = errors;
-//       setSnackbar('Form Sumission error', 'error');
-//     },
-//   });
-// };
-
-// const breadcrumbItems = computed(() => [
-//   {
-//     title: 'portfolio',
-//     href: '/admin/portfolio',
-//   },
-//   {
-//     title: portfolio ? 'edit' : 'create',
-//     href: portfolio ? `/admin/portfolio/${portfolio.id}` : '/admin/portfolio/create',
-//   },
-// ]);
+onMounted(() => {
+  fetchTypes();
+  fetchPortfolio();
+});
 
 const statusOptions = [
   { title: 'Draft', value: 'draft' },
   { title: 'Published', value: 'published' },
-] as const;
+  { title: 'Archived', value: 'archived' },
+];
+
+const rules = {
+  required: (v: any) => !!v || 'Required',
+};
 </script>
 
 <template>
-  <!-- <v-btn @click="setSnackbar('hello', 'success')">test</v-btn> -->
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <!-- <breadcrumbs :items="breadcrumbItems" /> -->
-      </v-col>
-    </v-row>
-    <v-form ref="portfolioForm">
-      <!-- @submit.prevent="submit" -->
-      <v-row>
+    <v-form ref="portfolioForm" @submit.prevent="save">
+      <v-row align="center" class="mb-4">
+        <v-col cols="12" md="6">
+          <v-btn
+            variant="text"
+            prepend-icon="carbon:arrow-left"
+            class="mb-2"
+            to="/admin/portfolio"
+          >
+            Back to Portfolios
+          </v-btn>
+          <div class="text-h4 font-weight-bold">
+            {{ isEditing ? 'Edit Portfolio' : 'Create New Portfolio' }}
+          </div>
+        </v-col>
+        <v-col cols="12" md="6" class="text-right">
+          <v-btn
+            color="primary"
+            size="large"
+            rounded="lg"
+            :loading="saving"
+            type="submit"
+          >
+            {{ isEditing ? 'Update' : 'Publish' }} Portfolio
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <v-row v-if="loading">
+        <v-col cols="12">
+          <v-progress-linear indeterminate color="primary" />
+        </v-col>
+      </v-row>
+
+      <v-row v-else>
+        <!-- Main Content -->
         <v-col cols="12" md="8">
-          <v-label>Portfolio Title</v-label>
-          <v-text-field
-            placeholder="eg. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            :rules="rules.title"
-          />
-          <!-- v-model="form.title"
-              :error-messages="form.errors.title"
-              @update:model-value="form.errors.title = ''" -->
-
-          <v-label>Portfolio Slug</v-label>
-          <v-text-field
-            placeholder="eg. lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit"
-            :rules="rules.slug"
-          />
-          <!-- v-model="form.slug"
-            :error-messages="form.errors.slug"
-              @update:model-value="form.errors.slug = ''" -->
-
-          <v-label>Portfolio Content</v-label>
-          <v-card color="transparent">
-            <!-- <editor v-model:content="form.content" /> -->
+          <v-card rounded="lg" elevation="0" border class="mb-6">
+            <v-card-text>
+              <v-text-field
+                v-model="form.title"
+                label="Portfolio Title"
+                placeholder="Name of your project"
+                variant="outlined"
+                rounded="lg"
+                :rules="[rules.required]"
+                class="mb-2"
+              />
+              <v-text-field
+                v-model="form.slug"
+                label="Slug"
+                placeholder="project-slug"
+                variant="outlined"
+                rounded="lg"
+                :rules="[rules.required]"
+                class="mb-4"
+              />
+              <div class="text-subtitle-1 font-weight-bold mb-2">Project Content</div>
+              <Editor v-model:content="form.content" />
+            </v-card-text>
           </v-card>
         </v-col>
 
+        <!-- Sidebar -->
         <v-col cols="12" md="4">
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Work Type</v-label>
+          <!-- Featured Image -->
+          <v-card rounded="lg" elevation="0" border class="mb-6">
+            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold">Featured Image</v-card-title>
+            <v-divider />
+            <v-card-text class="pa-4 text-center">
+              <v-img
+                v-if="previewImage"
+                :src="previewImage"
+                height="200"
+                cover
+                rounded="lg"
+                class="mb-4 bg-grey-lighten-4"
+              />
+              <v-btn
+                variant="tonal"
+                prepend-icon="carbon:image"
+                block
+                rounded="lg"
+                @click="mediaDialog = true"
+              >
+                {{ previewImage ? 'Change' : 'Select' }} Image
+              </v-btn>
+              <MediaSelector v-model="mediaDialog" @select="onMediaSelect" />
+              <v-input :rules="[rules.required]" v-model="form.featuredImageId" hide-details="auto" density="compact" />
             </v-card-text>
-            <v-card-text class="pt-0">
+          </v-card>
+
+          <!-- Settings -->
+          <v-card rounded="lg" elevation="0" border class="mb-6">
+            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold">Settings</v-card-title>
+            <v-divider />
+            <v-card-text class="pa-4">
               <v-select
-                placeholder="Select one work type"
+                v-model="form.workTypeId"
+                label="Work Type"
+                :items="types"
                 item-title="title"
                 item-value="id"
-                hide-details
+                variant="outlined"
+                rounded="lg"
+                placeholder="Category"
+                class="mb-4"
               />
-              <!-- :items="types" -->
-              <!-- v-model="form.portfolio_type_id"
-                  :error-messages="form.errors.portfolio_type_id" -->
-            </v-card-text>
-          </v-card>
-
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Status</v-label>
-            </v-card-text>
-            <v-card-text class="pt-0">
-              <!-- v-model="form.status" -->
               <v-select
-                hide-details
+                v-model="form.status"
+                label="Status"
                 :items="statusOptions"
-                placeholder="Portfolio Status"
+                variant="outlined"
+                rounded="lg"
+                class="mb-2"
               />
             </v-card-text>
-          </v-card>
-
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Featured Image</v-label>
-            </v-card-text>
-            <v-card-text class="pt-0">
-              <v-card border height="200">
-                <!-- <template v-if="displayImageUrl">
-                    <v-card-text class="pa-0">
-                      <v-hover v-slot="{ isHovering, props }">
-                        <v-img
-                          v-bind="props"
-                          cover
-                          height="200"
-                          :src="displayImageUrl"
-                        >
-                          <v-fade-transition>
-                            <div
-                              v-if="isHovering"
-                              class="w-100 h-100 d-flex align-center justify-center"
-                              style="background-color: rgba(0, 0, 0, 0.5)"
-                            >
-                              <v-btn
-                                v-tooltip="'Remove Featured Image'"
-                                rounded="circle"
-                                icon="carbon:close"
-                                @click="removeImage"
-                              />
-                            </div>
-                          </v-fade-transition>
-                        </v-img>
-                      </v-hover>
-                    </v-card-text>
-                  </template>
-
-                  <template v-else>
-                    <v-card-text
-                      class="pt-0 w-100 h-100 d-flex align-center justify-center flex-column"
-                    >
-                      <div class="d-flex align-center justify-center flex-column mb-3">
-                        <v-icon
-                          size="32"
-                          class="mb-2"
-                          icon="carbon:cloud-upload"
-                        />
-                        <div class="text-h6 font-weight-medium">Select Featured image</div>
-                      </div>
-                      <input
-                        ref="fileBrowser"
-                        id="file-browser"
-                        class="d-none"
-                        type="file"
-                        accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
-                        @change="uploadFile"
-                      />
-                      <v-btn
-                        border
-                        @click="fileSelector"
-                      >
-                        Browse
-                      </v-btn>
-                      <div
-                        v-if="form.errors.featured_image"
-                        class="mt-2"
-                      >
-                        <div style="color: #c62828; font-size: 0.875rem">
-                          {{ form.errors.featured_image }}
-                        </div>
-                      </div>
-                    </v-card-text>
-                  </template> -->
-              </v-card>
-            </v-card-text>
-          </v-card>
-
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Actions</v-label>
-            </v-card-text>
-            <v-card-actions>
-              <!-- <v-btn
-                  type="submit"
-                  color="primary"
-                  :loading="form.processing"
-                  :disabled="form.processing"
-                >
-                  {{ portfolio ? 'Update' : 'Create' }}
-                  Portfolio
-                </v-btn>
-                <v-btn
-                  variant="outlined"
-                  @click="router.visit('/admin/portfolio')"
-                >
-                  Cancel
-                </v-btn> -->
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>

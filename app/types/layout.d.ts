@@ -5,5 +5,4 @@ export type navItem = {
   subtitle?: string;
   subitems?: navItem[];
   grand?: navItem[];
-  permission?: string;
 };
