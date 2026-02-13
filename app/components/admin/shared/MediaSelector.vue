@@ -142,61 +142,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
 <template>
   <v-dialog v-model="dialog" max-width="1000" scrollable persistent>
-    <v-card>
-      <v-card-title class="d-flex align-center justify-space-between pa-0 pe-2">
-        <!-- Media Selector -->
-        <v-tabs v-model="tab">
-          <v-tab rounded="0" value="upload">Upload</v-tab>
-          <v-tab rounded="0" value="library">Media Library</v-tab>
-        </v-tabs>
-        <v-btn size="small" icon="carbon:close" />
-      </v-card-title>
-      <v-divider />
-      <v-card-text>
-        <v-tabs-window v-model="tab">
-          <v-tabs-window-item value="upload">
-            <v-file-upload density="comfortable" @change="handleFileUpload">
-              <template #item />
-            </v-file-upload>
-          </v-tabs-window-item>
-          <v-tabs-window-item value="library">
-            <v-text-field
-              v-model="search"
-              placeholder="Search media..."
-              prepend-inner-icon="mdi-magnify"
-              hide-details
-              density="compact"
-              variant="outlined"
-              bg-color="surface"
-            />
-            <template v-if="media.length">
-              <v-row>
-                <template v-for="item in media" :key="item.id">
-                  <v-col cols="12" md="4">
-                    {{ item }}
-                    <v-card height="250">
-                      <v-img
-                        cover
-                        class="h-100"
-                        :src="item.fileUrl"
-                        :alt="item.altText"
-                      />
-                    </v-card>
-                  </v-col>
-                </template>
-              </v-row>
-            </template>
-          </v-tabs-window-item>
-        </v-tabs-window>
-      </v-card-text>
-      <v-divider />
-      <v-card-actions>
-        <v-btn class="px-10" color="primary" @click="dialog = false"
-          >Cancel</v-btn
-        >
-        <v-btn class="px-10" color="primary" variant="flat">Submit</v-btn>
-      </v-card-actions>
-    </v-card>
+
     <v-card class="media-selector-dialog">
       <v-card-title class="pa-0">
         <v-toolbar color="surface" density="compact">

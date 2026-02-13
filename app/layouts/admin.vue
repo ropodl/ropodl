@@ -4,7 +4,7 @@ import type { navItem } from '@/types/layout';
 import { useAuth } from '~/composables/admin/auth/useAuth';
 
 const route = useRoute();
-const { user, fetchUser, logout, can } = useAuth();
+const { user, fetchUser, logout } = useAuth();
 
 const navItems: navItem[] = [
   { icon: 'carbon:home', title: 'Home', to: '/admin' },
@@ -46,13 +46,7 @@ const navItems: navItem[] = [
     icon: 'carbon:settings',
     title: 'Settings',
     subtitle: 'Access Control',
-    subitems: [
-      {
-        title: 'Roles & Permissions',
-        to: '/admin/roles',
-        permission: 'read.roles',
-      },
-    ],
+    subitems: [],
   },
 ];
 
@@ -142,7 +136,7 @@ onMounted(async () => {
 
           <template v-else>
             <v-menu
-              v-if="!item.permission || can(item.permission)"
+              v-if="true"
               location="end"
               offset="14"
             >
@@ -170,7 +164,6 @@ onMounted(async () => {
                 <v-list density="compact" class="pa-0">
                   <template v-for="(subItem, i) in item.subitems" :key="i">
                     <v-list-item
-                      v-if="!subItem.permission || can(subItem.permission)"
                       link
                       :title="subItem.title"
                       :to="subItem.to"

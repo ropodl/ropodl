@@ -2,17 +2,20 @@ export interface Portfolio {
   id: number;
   title: string;
   slug: string;
-  content?: string;
-  status?: string;
-  featured_image?: string;
-  portfolio_type_id?: number;
-  created_at?: Date;
-  updated_at?: Date;
-  type?: PortfolioType;
+  content: string;
+  featuredImageId: number;
+  workTypeId: number | null;
+  status: 'draft' | 'published' | 'archived';
+  createdAt: string;
+  updatedAt: string;
+  workType?: string; // For listing
 }
 
 export interface PortfolioType {
   id: number;
   title: string;
   slug: string;
+  description?: string;
+  createdAt: string;
+  updatedAt: string;
 }
