@@ -1,204 +1,94 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import socials from '@/utils/social';
 
-const experience = [
-  {
-    title: 'Mid Level Frontend Developer',
-    year: '2024 - Current',
-    desc: 'Aayulogic Pvt. Ltd. @ Chakupat, Lalitpur',
-  },
-  {
-    title: 'Chief Technology Officer',
-    year: '2019 - 2023',
-    desc: 'SoftMahal Technologies @ Mid Baneshwor, Kathmandu',
-  },
-  {
-    title: 'Graphic/Web Designer',
-    year: '2018',
-    desc: 'Fivonest Technology @ Solteemode, Kathmandu',
-  },
-];
-
-// const software = [
-//     {
-//         text: 'Adobe Illustrator',
-//         icon: 'iconoir:adobe-illustrator',
-//     },
-//     {
-//         text: 'Adobe Photoshop',
-//         icon: 'iconoir:adobe-photoshop',
-//     },
-//     {
-//         text: 'Adobe XD',
-//         icon: 'iconoir:adobe-xd',
-//     },
-//     {
-//         text: 'Adobe Premiere Pro',
-//         icon: 'basil:adobe-premiere-outline',
-//     },
-//     {
-//         text: 'MS Office',
-//         icon: 'simple-icons:microsoftoffice',
-//     },
-//     {
-//         text: 'VS Code',
-//         icon: 'tabler:brand-vscode',
-//     },
-//     {
-//         text: 'Linux',
-//         icon: 'carbon:linux',
-//     },
-// ];
-
-// const frontend = [
-//     {
-//         text: 'VueJS',
-//         icon: 'fa6-brands:vuejs',
-//     },
-//     {
-//         text: 'Vuetify',
-//         icon: 'mdi:vuetify',
-//     },
-//     {
-//         text: 'NuxtJS',
-//         icon: 'tabler:brand-nuxt',
-//     },
-// ];
-// const backend = [
-//     {
-//         text: 'ExpressJs',
-//         icon: 'simple-icons:express',
-//     },
-//     {
-//         text: 'MongoDB',
-//         icon: 'tabler:brand-mongodb',
-//     },
-//     {
-//         text: 'SupaBase',
-//         icon: 'tabler:brand-supabase',
-//     },
-// ];
-
-const items = ref([
-  {
-    src: '/media/clients/api.svg',
-    company: 'API Technology',
-    position: 'Web Designer',
-  },
-]);
+useSeoMeta({
+  title: 'About Saroj Poudel | Fullstack Developer',
+  description: 'Passionate full-stack developer and designer dedicated to building high-performance web applications.',
+});
 </script>
+
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <layouts-default-page-title>
-          <span class="text-primary-darken-2">About me,</span> my story and my
-          experience.
-        </layouts-default-page-title>
+  <v-container class="py-16 px-md-16">
+    <!-- Hero Section -->
+    <v-row class="mb-16" align="center">
+      <v-col cols="12" lg="6">
+         <div class="text-overline text-primary mb-4 glow-text">THE JOURNEY</div>
+         <h1 class="text-h2 text-md-h1 font-weight-black mb-8">BUILDING THE <span class="text-gradient">FUTURE</span></h1>
+         <p class="text-h5 text-medium-emphasis font-weight-light mb-8">
+            I am a full-stack engineer with a deep passion for digital craftsmanship. My work lives at the intersection of robust engineering and avant-garde design.
+         </p>
+         <div class="d-flex gap-4">
+            <v-btn color="primary" rounded="pill" size="large" class="px-8 shadow-primary" to="/contact">Let's Collaborate</v-btn>
+         </div>
+      </v-col>
+      <v-col cols="12" lg="6" class="text-center">
+         <div class="position-relative d-inline-block">
+            <v-avatar size="300" class="glass border-primary animate-float elevation-20">
+               <v-img src="https://www.ropodl.com/media/full.jpg" cover />
+            </v-avatar>
+            <div class="glass position-absolute" style="top: 0; right: 0; padding: 15px; border-radius: 15px">
+               <v-icon icon="carbon:chemistry" color="primary" size="x-large" />
+            </div>
+         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="12" md="5">
-        <v-card border rounded="xl">
-          <v-parallax cover height="613" scale="0.8" src="/media/full.jpg" />
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="7" class="d-flex flex-column justify-space-between">
-        <div class="text-h6 font-weight-light mb-6">
-          <p>
-            As a Senior Fullstack Developer with over 6 years of experience, I
-            specialize in creating intuitive and user-centered interfaces for a
-            wide range of digital products and experiences. I work across the
-            entire development stack, building backend systems and frontend
-            interfaces with clean, maintainable code.
-          </p>
-          <br />
-          <p>
-            On the backend, I work with Express.js for Node.js projects, and
-            Hono for fast, lightweight APIs. On the frontend, I use Vue.js and
-            Nuxt to build responsive, interactive interfaces, with Vuetify for
-            implementing Material Design components and polished UI systems.
-          </p>
-          <br />
-          <p>
-            I've collaborated with designers, product managers, and developers
-            to ship products that meet business goals. Whether starting new
-            projects or improving existing ones, I approach problems
-            methodically and deliver software that works reliably and serves the
-            people who use it.
-          </p>
-        </div>
-        <Link href="/" as="span">
-          <v-btn border rounded="pill" width="230" height="80">
-            Let's talk
-            <template #append>
-              <v-icon end icon="carbon:arrow-up-right" />
-            </template>
-          </v-btn>
-        </Link>
-      </v-col>
+
+    <!-- Philoshophy & Skills Section -->
+    <v-row class="mb-16">
+       <v-col cols="12">
+          <v-card class="glass pa-8 pa-md-16 rounded-xl" elevation="0">
+             <v-row>
+                <v-col cols="12" md="4">
+                   <h2 class="text-h4 font-weight-bold mb-6">Philosophy</h2>
+                   <p class="text-body-1 text-medium-emphasis font-weight-light">
+                      I believe in decentralization, user empowerment, and the beauty of clean, efficient code. Every pixel and every line of code serves a purpose.
+                   </p>
+                </v-col>
+                <v-col cols="12" md="8">
+                   <h2 class="text-h4 font-weight-bold mb-8">Core <span class="text-gradient">Stack</span></h2>
+                   <v-row>
+                      <v-col v-for="skill in ['Nuxt 3', 'Vue 3', 'TypeScript', 'Node.js', 'Hono', 'Strapi', 'Vuetify', 'Modern CSS']" :key="skill" cols="6" sm="3">
+                         <div class="glass pa-4 rounded-lg text-center font-weight-bold hover-bg-primary transition-all">
+                            {{ skill }}
+                         </div>
+                      </v-col>
+                   </v-row>
+                </v-col>
+             </v-row>
+          </v-card>
+       </v-col>
     </v-row>
-    <v-row class="py-16">
-      <v-col cols="12" md="6">
-        <div
-          class="text-h3 font-weight-medium position-sticky"
-          style="top: 50px"
-        >
-          My past work<br />experience
-        </div>
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-list
-          bg-color="transparent"
-          class="py-0"
-          density="default"
-          lines="three"
-        >
-          <template v-for="(item, index) in experience" :key="item.title">
-            <v-list-item :class="index === 0 ? 'mb-6' : 'my-6'">
-              <v-list-item-title
-                class="text-h5 font-weight-medium mb-3"
-                style="white-space: normal !important"
-              >
-                {{ item.title }}
-              </v-list-item-title>
-              <v-list-item-subtitle
-                class="text-body-1"
-                style="line-height: unset"
-              >
-                {{ item.desc }}
-              </v-list-item-subtitle>
-              <template #append>
-                {{ item.year }}
-              </template>
-            </v-list-item>
-            <v-divider />
-          </template>
-        </v-list>
-      </v-col>
-    </v-row>
-    <v-row class="pb-16">
-      <v-col cols="12">
-        <div class="text-h2 font-weight-medium">
-          A visual partner for brands, companies, and agencies.
-        </div>
-      </v-col>
-      <v-col cols="12" class="mt-10">
-        <v-row>
-          <template
-            v-for="({ src, company, position }, index) in items"
-            :key="index"
-          >
-            <v-col cols="12" md="3">
-              <v-img class="w-100" :src />
-              <v-card-title class="px-0"> {{ company }} </v-card-title>
-              <v-card-subtitle class="px-0">
-                {{ position }}
-              </v-card-subtitle>
-            </v-col>
-          </template>
-        </v-row>
-      </v-col>
+
+    <!-- Socials Section -->
+    <v-row class="mt-16">
+       <v-col cols="12" class="text-center">
+          <div class="text-overline text-primary mb-4 glow-text">CONTACT</div>
+          <h2 class="text-h3 font-weight-black mb-12">GET IN <span class="text-gradient">TOUCH</span></h2>
+          <div class="d-flex justify-center gap-8 flex-wrap">
+             <template v-for="{ name, link } in socials" :key="name">
+                <a :href="link" target="_blank" class="text-decoration-none text-h5 text-medium-emphasis hover-text-white transition-all">
+                   {{ name }}
+                </a>
+             </template>
+          </div>
+       </v-col>
     </v-row>
   </v-container>
 </template>
+
+<style scoped>
+.hover-bg-primary:hover {
+   background: rgba(0, 240, 255, 0.1) !important;
+   border-color: var(--v-theme-primary) !important;
+   color: white !important;
+}
+.shadow-primary {
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2) !important;
+}
+.hover-text-white:hover {
+  color: white !important;
+}
+.transition-all {
+  transition: all 0.3s ease;
+}
+</style>

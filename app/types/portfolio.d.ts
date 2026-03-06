@@ -8,7 +8,9 @@ export interface Portfolio {
   status: 'draft' | 'published' | 'archived';
   createdAt: string;
   updatedAt: string;
-  workType?: string; // For listing
+  description?: string;
+  featured?: string;
+  type?: PortfolioType; // Nested type for mock/rich data
 }
 
 export interface PortfolioType {

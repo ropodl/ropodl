@@ -33,30 +33,53 @@ const isActive = (path: string) => {
 };
 </script>
 <template>
-  <v-card
+  <v-app-bar
     flat
-    color="rgba(var(--v-theme-surface), 0.7)"
-    :location="mobile ? 'bottom' : 'top'"
-    rounded="pill"
-    class="position-fixed pa-1 blur-8 z-1010"
-    :class="[mobile ? 'bottom-10' : 'top-10']"
+    height="74"
+    class="glass-nav px-md-16 px-4"
+    scroll-behavior="hide"
   >
-    <v-tabs
-      color="primary"
-      density="compact"
-      hide-slider
-      show-arrows
-      height="50"
-      rounded="pill"
-    >
-      <template v-if="pages">
-        <template v-for="{ icon, title, to } in pages" :key="title">
-          <v-tab :stacked="mobile" :to :active="isActive(to)" rounded="pill">
-            <v-icon :start="!mobile" :icon />
+    <div class="d-flex align-center w-100">
+      <nuxt-link to="/" class="text-decoration-none d-flex align-center">
+        <div class="text-h5 font-weight-black text-white mr-2">RO<span class="text-primary">PODL</span></div>
+      </nuxt-link>
+
+      <v-spacer />
+
+      <div v-if="!mobile" class="d-flex gap-2">
+        <template v-for="{ title, to } in pages" :key="title">
+          <v-btn
+            :to="to"
+            variant="text"
+            rounded="pill"
+            class="text-capitalize px-6"
+            :active="isActive(to)"
+            :color="isActive(to) ? 'primary' : 'white'"
+          >
             {{ title }}
-          </v-tab>
+          </v-btn>
         </template>
-      </template>
-    </v-tabs>
-  </v-card>
+      </div>
+
+      <v-spacer v-if="!mobile" />
+
+      <div class="d-flex align-center gap-4">
+        <v-btn
+          v-if="!mobile"
+          variant="tonal"
+          color="primary"
+          rounded="pill"
+          class="text-capitalize px-6"
+          to="/admin"
+        >
+          Console
+        </v-btn>
+        <v-btn
+          icon="carbon:menu"
+          variant="text"
+          class="hidden-md-and-up"
+        />
+      </div>
+    </div>
+  </v-app-bar>
 </template>

@@ -1,75 +1,101 @@
 <script setup lang="ts">
 import socials from '@/utils/social';
+import { useMockData } from '~/composables/useMockData';
+
+const { portfolios } = useMockData();
 
 useSeoMeta({
-  title: 'Saroj Poudel',
-  ogTitle: 'Saroj Poudel',
-  twitterTitle: 'Saroj Poudel',
-  description:
-    "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Strapi, and HonoJs. Let's create something great.",
-  ogDescription:
-    "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Strapi, and HonoJs. Let's create something great.",
-  twitterDescription:
-    "Full-Stack Developer & Designer based in Kathmandu. I build modern, intuitive web experiences using Vue, Strapi, and HonoJs. Let's create something great.",
-  ogImage: 'https://www.ropodl.com/media/full.jpg',
-  twitterCard: 'summary_large_image',
-  twitterImage: 'https://www.ropodl.com/media/full.jpg',
-  ogUrl: 'https://www.ropodl.com/',
+  title: 'Saroj Poudel | Web3 Designer & Developer',
+  description: 'Full-Stack Developer & Designer creating immersive digital experiences.',
 });
 </script>
+
 <template>
-  <v-container max-width="1200">
-    <v-row class="mb-3">
+  <v-container class="py-16 px-md-16">
+    <!-- Hero Section -->
+    <v-row class="min-vh-80 d-flex align-center">
+      <v-col cols="12" lg="8">
+        <div class="text-overline text-primary mb-4 font-weight-bold glow-text animate-pulse">
+          AVAILABLE FOR PROJECTS
+        </div>
+        <h1 class="text-h2 text-md-h1 font-weight-black mb-6" style="line-height:1">
+          CREATING DIGITAL <br />
+          <span class="text-gradient">INTERACTIONS</span>
+        </h1>
+        <p class="text-h5 text-medium-emphasis mb-10 font-weight-light" style="max-width: 600px">
+          Bridging the gap between engineering and design to build immersive, scalable, and decentralized experiences.
+        </p>
+        
+        <div class="d-flex flex-wrap gap-4 pt-4">
+          <v-btn
+            color="primary"
+            size="x-large"
+            rounded="pill"
+            class="px-10 magnetic-btn shadow-primary"
+            elevation="10"
+            to="/portfolio"
+          >
+            Explore Work
+          </v-btn>
+          <v-btn
+            variant="outlined"
+            size="x-large"
+            rounded="pill"
+            class="px-10 opacity-80"
+            to="/contact"
+          >
+            Get in touch
+          </v-btn>
+        </div>
+      </v-col>
+      <v-col cols="12" lg="4" class="hidden-md-and-down">
+        <div class="position-relative">
+          <div class="animate-float">
+             <v-img
+                src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800"
+                class="rounded-xl glass border-primary"
+                max-width="400"
+                aspect-ratio="1"
+                cover
+             />
+          </div>
+          <div class="glass position-absolute" style="bottom: -20px; right: -20px; width: 200px; height: 100px; border-radius: 20px; padding: 20px; z-index: 2">
+             <div class="text-h6 font-weight-bold">6+ Years</div>
+             <div class="text-caption">Experience</div>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+
+    <!-- Socials Section -->
+    <v-row class="mt-16 pt-16 border-top">
       <v-col cols="12">
-        <div class="text-lg-h1 text-h2 font-weight-bold mb-9">
-          Fullstack developer with passion to create
-          <span class="text-primary-darken-2"> a great experiences. </span>
-        </div>
-      </v-col>
-    </v-row>
-    <v-row align="center" class="mb-3">
-      <v-col cols="12" md="4">
-        <v-divider />
-      </v-col>
-      <v-col cols="12" md="8">
-        <div class="text-h6 font-weight-light">
-          Hi, I’m Saroj Poudel, a full-stack developer and designer based in
-          Kathmandu, Nepal. I focus on creating digital experiences that are
-          intuitive, enjoyable, and effective. I've been building things with
-          Vue, Strapi, HonoJs combining design sense with strong engineering to
-          deliver practical solutions.
-        </div>
-      </v-col>
-    </v-row>
-    <v-row align="center" class="mb-6">
-      <v-col cols="12" md="9" class="hidden-sm-and-down">
-        <ul class="list-none pl-0 d-flex align-center">
+        <div class="d-flex align-center gap-8 flex-wrap">
           <template v-for="{ name, link } in socials" :key="name">
-            <li class="me-6">
-              <v-hover v-slot="{ isHovering, props }">
-                <a
-                  v-bind="props"
-                  class="text-decoration-none text-primary text-h6 font-weight-regular"
-                  :class="isHovering ? 'text-primary-darken-2' : 'text-primary'"
-                  :href="link"
-                  target="_blank"
-                >
-                  {{ name }}
-                  <v-icon size="x-small" icon="carbon:arrow-up-right" />
-                </a>
-              </v-hover>
-            </li>
+             <a :href="link" target="_blank" class="text-decoration-none text-h6 text-medium-emphasis hover-text-white transition-all">
+                {{ name }}
+             </a>
           </template>
-        </ul>
-      </v-col>
-      <v-col cols="6" md="3">
-        <v-btn border block rounded="pill" size="100">
-          Let's talk
-          <template #append>
-            <v-icon end icon="mdi-arrow-right" />
-          </template>
-        </v-btn>
+        </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
+
+<style scoped>
+.min-vh-80 {
+  min-height: 80vh;
+}
+.border-top {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.hover-text-white:hover {
+  color: white !important;
+}
+.transition-all {
+  transition: all 0.3s ease;
+}
+.shadow-primary {
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2) !important;
+}
+</style>

@@ -57,13 +57,27 @@ export default defineVuetifyConfiguration({
       dark: {
         dark: true,
         colors: {
-          primary: '#FFFFFF',
+          primary: '#00F0FF', // Neon Cyan
+          secondary: '#7000FF', // Vivid Purple
+          accent: '#FF00E5', // Hot Pink
+          background: '#050505', // Deep Space Black
+          surface: '#121212',
+          'surface-variant': '#1e1e1e',
+          error: '#FF3D71',
+          info: '#0095FF',
+          success: '#00E096',
+          warning: '#FFAA00',
         },
       },
       light: {
         dark: false,
         colors: {
-          primary: '#000000',
+          primary: '#0066FF',
+          secondary: '#6200EA',
+          accent: '#00B8D9',
+          background: '#F8FAFC',
+          surface: '#FFFFFF',
+          'surface-variant': '#F1F5F9',
         },
       },
     },

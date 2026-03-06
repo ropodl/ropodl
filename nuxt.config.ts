@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  css: ['~/assets/overhaul.css'],
 
   app: {
     head: {
@@ -19,7 +20,7 @@ export default defineNuxtConfig({
   },
 
   experimental: {
-    viewTransition: false,
+    viewTransition: true,
     defaults: {
       nuxtLink: {
         prefetchOn: {
@@ -103,7 +104,7 @@ export default defineNuxtConfig({
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: true,
       styles: {
-        configFile: 'assets/settings.scss',
+        configFile: './app/assets/settings.scss',
       },
     },
   },

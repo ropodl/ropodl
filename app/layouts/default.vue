@@ -2,20 +2,24 @@
 const { mobile } = useDisplay();
 </script>
 <template>
-  <v-app>
+  <v-app class="app-wrapper">
     <layouts-default-nav />
-    <v-main :class="{ 'mt-16': !mobile, 'mt-12': mobile }">
-      <div class="v-bg position-fixed top-0 right-0 left-0 bottom-0">
-        <div
-          aria-hidden="true"
-          class="overflow-hidden opacity-20 w-100 h-100"
-        />
-      </div>
-      <slot />
+    <v-main class="pt-16">
+       <slot />
     </v-main>
     <layouts-default-foot />
   </v-app>
 </template>
+
+<style>
+.app-wrapper {
+  background-color: #050505 !important;
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(112, 0, 255, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+</style>
 <style scoped>
 @keyframes morph {
   0%,
