@@ -33,12 +33,16 @@ onMounted(() => {
         <div class="text-subtitle-1 text-medium-emphasis mb-6">Overview of your content and activity</div>
       </v-col>
     </v-row>
-
-    <v-row v-if="loading">
-      <v-col cols="12" md="4" v-for="i in 3" :key="i">
+<template v-if="loading">
+  <v-row>
+    <template v-for="i in 3" :key="i">
+      
+      <v-col cols="12" md="4" >
         <v-skeleton-loader type="card" class="rounded-lg" />
       </v-col>
-    </v-row>
+    </template>
+  </v-row>
+</template>
 
     <template v-else-if="stats">
       <!-- Stat Cards -->
@@ -51,11 +55,11 @@ onMounted(() => {
                   <v-icon icon="carbon:edit" />
                 </v-avatar>
                 <v-btn
+                  v-tooltip="'Create New Post'"
                   icon="carbon:add"
                   variant="text"
                   density="comfortable"
                   to="/admin/blog/create"
-                  v-tooltip="'Create New Post'"
                 />
               </div>
               <div class="text-h4 font-weight-bold mb-1">{{ stats.counts.blogs }}</div>
@@ -72,11 +76,11 @@ onMounted(() => {
                   <v-icon icon="carbon:image" />
                 </v-avatar>
                 <v-btn
+                  v-tooltip="'Upload Media'"
                   icon="carbon:upload"
                   variant="text"
                   density="comfortable"
-                  to="/admin/media/create"
-                   v-tooltip="'Upload Media'"
+                   to="/admin/media/create"
                 />
               </div>
               <div class="text-h4 font-weight-bold mb-1">{{ stats.counts.media }}</div>

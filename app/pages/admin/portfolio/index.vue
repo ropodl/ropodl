@@ -2,6 +2,7 @@
 import type { Portfolio } from '~/types/portfolio';
 import { useDateFormat, useDebounceFn } from '@vueuse/core';
 import { useApiFetch } from '~/utils/shared/useApiFetch';
+import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -11,6 +12,7 @@ definePageMeta({
 const portfolios = ref<Portfolio[]>([]);
 const loading = ref(true);
 const search = ref('');
+const { can } = useAuth();
 
 const pagination = ref({
   current_page: 1,
@@ -25,7 +27,7 @@ const headers = [
   { title: 'Status', key: 'status', sortable: true },
   { title: 'Created At', key: 'createdAt', sortable: true },
   { title: 'Actions', key: 'actions', align: 'end', sortable: false },
-];
+] as const;
 
 const fetchPortfolios = async () => {
   loading.value = true;
@@ -79,7 +81,7 @@ const getStatusColor = (status: string) => {
         <div class="text-h4 font-weight-bold">Portfolios</div>
         <div class="text-subtitle-1 text-medium-emphasis">Showcase your best work</div>
       </v-col>
-      <v-col cols="12" md="6" class="text-right">
+      <v-col v-if="can('portfolio.create')" cols="12" md="6" class="text-right">
         <v-btn
           color="primary"
           prepend-icon="carbon:add"
@@ -146,6 +148,7 @@ const getStatusColor = (status: string) => {
           
           <template #[`item.actions`]="{ item }">
             <v-btn
+              v-if="can('portfolio.update')"
               icon="carbon:edit"
               variant="text"
               size="small"
@@ -155,6 +158,7 @@ const getStatusColor = (status: string) => {
               :to="`/admin/portfolio/${item.id}`"
             />
             <v-btn
+              v-if="can('portfolio.delete')"
               icon="carbon:trash-can"
               variant="text"
               size="small"

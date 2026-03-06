@@ -53,10 +53,10 @@ const goTop = () => {
       <v-container max-width="1200">
         <v-row>
           <v-col cols="12">
-            <div class="text-h5 mb-6">
+            <div class="text-h4 mb-6">
               Liked my works? Let's Talk and work together
             </div>
-            <div class="text-lg-h1 text-h4 font-weight-bold d-flex align-start">
+            <div class="text-h2 font-weight-bold d-flex align-start">
               <span class="text-primary-darken-2">hello</span>@ropodl.com
               <template v-if="!mobile">
                 <v-btn

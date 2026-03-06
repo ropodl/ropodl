@@ -25,6 +25,11 @@ const pages = [
     title: 'about',
     to: '/about',
   },
+  {
+    icon: 'carbon:phone',
+    title: 'contact',
+    to: '/contact',
+  },
 ];
 
 const isActive = (path: string) => {
@@ -46,6 +51,8 @@ const isActive = (path: string) => {
       density="compact"
       hide-slider
       show-arrows
+      align-tabs="center"
+      width="100"
       height="50"
       rounded="pill"
     >

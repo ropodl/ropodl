@@ -129,7 +129,7 @@ const items = ref([
           </p>
         </div>
         <Link href="/" as="span">
-          <v-btn border rounded="pill" width="230" height="80">
+          <v-btn color="primary" rounded="pill" width="230" height="80">
             Let's talk
             <template #append>
               <v-icon end icon="carbon:arrow-up-right" />
