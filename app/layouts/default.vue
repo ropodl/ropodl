@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { useAppearance } from '~/composables/useAppearance';
+
 const { mobile } = useDisplay();
+const { density } = useAppearance();
 </script>
 <template>
   <v-app>
@@ -11,7 +14,18 @@ const { mobile } = useDisplay();
           class="overflow-hidden opacity-20 w-100 h-100"
         />
       </div>
-      <slot />
+      <v-defaults-provider :defaults="{
+        VBtn: { density },
+        VTextField: { density },
+        VTextarea: { density },
+        VSelect: { density },
+        VAutocomplete: { density },
+        VDataTableServer: { density },
+        VList: { density },
+        VListItem: { density },
+      }">
+        <slot />
+      </v-defaults-provider>
     </v-main>
     <layouts-default-foot />
   </v-app>

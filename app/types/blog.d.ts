@@ -5,9 +5,14 @@ export interface blog {
   slug?: string | null;
   content: string | null;
   featured_image?: featured_image | null;
+  categoryId?: number | null;
+  category?: category | null;
+  tags?: tag[] | null;
   created_at?: string | null;
   updated_at?: string | null;
   status?: status | null;
+  previous?: blog | null;
+  next?: blog | null;
 }
 
 enum status {
@@ -46,9 +51,11 @@ export interface image_variants {
 export interface category {
   id: number;
   title: string;
+  slug: string;
 }
 
 export interface tag {
   id: number;
-  title: number;
+  title: string;
+  slug: string;
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PortfolioType } from '~/types/portfolio';
 import { useApiFetch } from '~/utils/shared/useApiFetch';
+import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -10,6 +11,7 @@ definePageMeta({
 const types = ref<PortfolioType[]>([]);
 const loading = ref(true);
 const search = ref('');
+const { can } = useAuth();
 const dialog = ref(false);
 const dialogLoading = ref(false);
 const editingItem = ref<Partial<PortfolioType> | null>(null);
@@ -19,7 +21,7 @@ const headers = [
   { title: 'Slug', key: 'slug' },
   { title: 'Description', key: 'description' },
   { title: 'Actions', key: 'actions', align: 'end', sortable: false },
-];
+] as const;
 
 const fetchTypes = async () => {
   loading.value = true;
@@ -100,7 +102,7 @@ const filteredTypes = computed(() => {
         <div class="text-h4 font-weight-bold">Work Types</div>
         <div class="text-subtitle-1 text-medium-emphasis">Manage categories for your portfolio items</div>
       </v-col>
-      <v-col cols="12" md="6" class="text-right">
+      <v-col v-if="can('worktype.create')" cols="12" md="6" class="text-right">
         <v-btn
           color="primary"
           prepend-icon="carbon:add"
@@ -139,6 +141,7 @@ const filteredTypes = computed(() => {
           
           <template #[`item.actions`]="{ item }">
             <v-btn
+              v-if="can('worktype.update')"
               icon="carbon:edit"
               variant="text"
               size="small"
@@ -148,6 +151,7 @@ const filteredTypes = computed(() => {
               @click="openDialog(item)"
             />
             <v-btn
+              v-if="can('worktype.delete')"
               icon="carbon:trash-can"
               variant="text"
               size="small"
