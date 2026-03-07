@@ -2,6 +2,9 @@
 import { left } from '@/composables/admin/layout/nav';
 import type { navItem } from '@/types/layout';
 import { useAuth } from '~/composables/admin/auth/useAuth';
+import { useAppearance } from '~/composables/useAppearance';
+
+const { density } = useAppearance();
 
 const route = useRoute();
 const { user, fetchUser, logout } = useAuth();
@@ -46,7 +49,7 @@ const navItems: navItem[] = [
     icon: 'carbon:settings',
     title: 'Settings',
     subtitle: 'Access Control',
-    subitems: [],
+    subitems: [{ title: 'Audit Logs', to: '/admin/settings/logs' }],
   },
 ];
 
@@ -116,7 +119,7 @@ onMounted(async () => {
       color="rgba(var(--v-theme-surface), 0.7)"
       class="blur-8"
     >
-      <v-list nav density="compact">
+      <v-list nav density="compact" active-color="primary">
         <template v-for="item in navItems" :key="item.title">
           <template v-if="!item.subitems">
             <v-list-item
@@ -135,11 +138,7 @@ onMounted(async () => {
           </template>
 
           <template v-else>
-            <v-menu
-              v-if="true"
-              location="end"
-              offset="14"
-            >
+            <v-menu v-if="true" location="end" offset="14">
               <template #activator="{ props: menuProps }">
                 <v-list-item
                   v-tooltip="{
@@ -163,11 +162,7 @@ onMounted(async () => {
 
                 <v-list density="compact" class="pa-0">
                   <template v-for="(subItem, i) in item.subitems" :key="i">
-                    <v-list-item
-                      link
-                      :title="subItem.title"
-                      :to="subItem.to"
-                    />
+                    <v-list-item link :title="subItem.title" :to="subItem.to" />
                   </template>
                 </v-list>
               </v-card>
@@ -188,7 +183,21 @@ onMounted(async () => {
             </template>
             <v-card width="300">
               <v-list>
-                <v-list-item @click="logout">
+                <v-list-item to="/settings/profile" prepend-icon="carbon:user">
+                  <v-list-item-title> My Profile </v-list-item-title>
+                </v-list-item>
+                <v-list-item
+                  to="/settings/appearance"
+                  prepend-icon="carbon:settings"
+                >
+                  <v-list-item-title> Appearance </v-list-item-title>
+                </v-list-item>
+                <v-divider class="my-1" />
+                <v-list-item
+                  @click="logout"
+                  prepend-icon="carbon:logout"
+                  color="error"
+                >
                   <v-list-item-title> Sign Out </v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -210,7 +219,7 @@ onMounted(async () => {
               <v-breadcrumbs class="d-flex align-center pa-0" :items="bread">
                 <template #prepend>
                   <nuxt-link class="me-2" to="/admin/">
-                    <v-icon size="24" color="white" icon="carbon:home" />
+                    <v-icon size="24" color="primary" icon="carbon:home" />
                   </nuxt-link>
                 </template>
 
@@ -230,13 +239,32 @@ onMounted(async () => {
               <slot name="test" />
               <v-btn rounded="lg" icon="carbon:search" />
               <v-btn rounded="lg" icon="carbon:notification" />
+              <v-btn
+                rounded="lg"
+                icon="carbon:settings"
+                to="/settings/appearance"
+              />
             </div>
           </v-col>
         </v-row>
       </v-container>
     </v-app-bar>
     <v-main>
-      <slot />
+      <v-defaults-provider
+        :defaults="{
+          VBtn: { density },
+          VTextField: { density },
+          VTextarea: { density },
+          VSelect: { density },
+          VAutocomplete: { density },
+          VDataTableServer: { density },
+          VList: { density },
+          VListItem: { density },
+          VChip: { density },
+        }"
+      >
+        <slot />
+      </v-defaults-provider>
     </v-main>
   </v-app>
 </template>

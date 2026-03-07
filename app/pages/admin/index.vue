@@ -30,15 +30,20 @@ onMounted(() => {
     <v-row>
       <v-col cols="12">
         <div class="text-h4 font-weight-bold mb-1">Dashboard</div>
-        <div class="text-subtitle-1 text-medium-emphasis mb-6">Overview of your content and activity</div>
+        <div class="text-subtitle-1 text-medium-emphasis mb-6">
+          Overview of your content and activity
+        </div>
       </v-col>
     </v-row>
-
-    <v-row v-if="loading">
-      <v-col cols="12" md="4" v-for="i in 3" :key="i">
-        <v-skeleton-loader type="card" class="rounded-lg" />
-      </v-col>
-    </v-row>
+    <template v-if="loading">
+      <v-row>
+        <template v-for="i in 3" :key="i">
+          <v-col cols="12" md="4">
+            <v-skeleton-loader type="card" class="rounded-lg" />
+          </v-col>
+        </template>
+      </v-row>
+    </template>
 
     <template v-else-if="stats">
       <!-- Stat Cards -->
@@ -51,15 +56,19 @@ onMounted(() => {
                   <v-icon icon="carbon:edit" />
                 </v-avatar>
                 <v-btn
+                  v-tooltip="'Create New Post'"
                   icon="carbon:add"
                   variant="text"
                   density="comfortable"
                   to="/admin/blog/create"
-                  v-tooltip="'Create New Post'"
                 />
               </div>
-              <div class="text-h4 font-weight-bold mb-1">{{ stats.counts.blogs }}</div>
-              <div class="text-subtitle-2 text-medium-emphasis">Total Blog Posts</div>
+              <div class="text-h4 font-weight-bold mb-1">
+                {{ stats.counts.blogs }}
+              </div>
+              <div class="text-subtitle-2 text-medium-emphasis">
+                Total Blog Posts
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -72,20 +81,24 @@ onMounted(() => {
                   <v-icon icon="carbon:image" />
                 </v-avatar>
                 <v-btn
+                  v-tooltip="'Upload Media'"
                   icon="carbon:upload"
                   variant="text"
                   density="comfortable"
                   to="/admin/media/create"
-                   v-tooltip="'Upload Media'"
                 />
               </div>
-              <div class="text-h4 font-weight-bold mb-1">{{ stats.counts.media }}</div>
-              <div class="text-subtitle-2 text-medium-emphasis">Media Files</div>
+              <div class="text-h4 font-weight-bold mb-1">
+                {{ stats.counts.media }}
+              </div>
+              <div class="text-subtitle-2 text-medium-emphasis">
+                Media Files
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
 
-         <v-col cols="12" md="4">
+        <v-col cols="12" md="4">
           <v-card class="rounded-lg" elevation="0" border>
             <v-card-text>
               <div class="d-flex align-center justify-space-between mb-4">
@@ -93,8 +106,12 @@ onMounted(() => {
                   <v-icon icon="carbon:user" />
                 </v-avatar>
               </div>
-              <div class="text-h4 font-weight-bold mb-1">{{ stats.counts.users }}</div>
-              <div class="text-subtitle-2 text-medium-emphasis">Registered Users</div>
+              <div class="text-h4 font-weight-bold mb-1">
+                {{ stats.counts.users }}
+              </div>
+              <div class="text-subtitle-2 text-medium-emphasis">
+                Registered Users
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -120,7 +137,13 @@ onMounted(() => {
                   <td>
                     <v-chip
                       size="x-small"
-                      :color="blog.status === 'published' ? 'success' : blog.status === 'archieved' ? 'error' : 'warning'"
+                      :color="
+                        blog.status === 'published'
+                          ? 'success'
+                          : blog.status === 'archieved'
+                            ? 'error'
+                            : 'warning'
+                      "
                       variant="flat"
                       class="text-capitalize"
                     >

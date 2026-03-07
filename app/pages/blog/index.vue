@@ -3,20 +3,41 @@ import type { blog } from '~/types/blog';
 import useApiFetch from '~/utils/shared/useApiFetch';
 
 const blogs = ref<blog[]>([]);
+const categories = ref<any[]>([]);
+const currentCategory = ref<string | null>(null);
+const currentTag = ref<string | null>(null);
+
+const route = useRoute();
+const router = useRouter();
+
+const fetchCategories = async () => {
+  const res = await useApiFetch<{ data: any[] }>('/admin/blog/category');
+  categories.value = res.data;
+};
+
+const getAllBlogs = async () => {
+  const params: any = {};
+  if (currentCategory.value) params.category = currentCategory.value;
+  if (currentTag.value) params.tag = currentTag.value;
+
+  await useApiFetch<{ data: blog[] }>('/blog', { params }).then((res) => {
+    blogs.value = res.data;
+  });
+};
+
+const filterByCategory = (slug: string | null) => {
+  currentCategory.value = slug;
+  currentTag.value = null;
+  getAllBlogs();
+};
 
 onMounted(() => {
   getAllBlogs();
+  fetchCategories();
 });
-
-const getAllBlogs = async () => {
-  await useApiFetch('/blog').then((res) => {
-    blogs.value = res.data;
-    console.log(res);
-  });
-};
 </script>
 <template>
-  <v-container max-width="1200">
+  <v-container>
     <v-row>
       <v-col>
         <layouts-default-page-title>
@@ -25,13 +46,52 @@ const getAllBlogs = async () => {
         </layouts-default-page-title>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-chip-group
+          v-model="currentCategory"
+          selected-class="text-primary"
+          mandatory
+          class="mb-6"
+        >
+          <v-chip
+            :value="null"
+            variant="tonal"
+            rounded="lg"
+            @click="filterByCategory(null)"
+          >
+            All Posts
+          </v-chip>
+          <v-chip
+            v-for="cat in categories"
+            :key="cat.id"
+            :value="cat.slug"
+            variant="tonal"
+            rounded="lg"
+            @click="filterByCategory(cat.slug)"
+          >
+            {{ cat.title }}
+          </v-chip>
+        </v-chip-group>
+      </v-col>
+    </v-row>
+
     <template v-if="blogs.length">
       <v-row class="mb-16">
         <template
           v-for="(
-            { slug, title, excerpt, featured_image, created_at }, i
+            {
+              slug,
+              title,
+              excerpt,
+              featured_image,
+              created_at,
+              category,
+              tags,
+            },
+            i
           ) in blogs"
-          :key="title"
+          :key="slug"
         >
           <template v-if="i === 0">
             <v-col cols="12">
@@ -72,13 +132,23 @@ const getAllBlogs = async () => {
                 </v-col>
                 <v-col cols="12" md="6">
                   <div class="d-flex flex-column">
+                    <div v-if="category" class="mb-2">
+                      <v-chip
+                        size="x-small"
+                        color="primary"
+                        variant="flat"
+                        rounded="lg"
+                      >
+                        {{ category.title }}
+                      </v-chip>
+                    </div>
                     <nuxt-link
                       class="text-decoration-none"
                       :to="`/blog/${slug}`"
                     >
                       <v-card-text
-                        class="pt-0 text-h3 font-weight-medium text-white pb-0 line-clamp-3"
-                        style="line-height: normal; white-space: normal"
+                        class="pt-0 text-h3 font-weight-medium text-white pb-0 line-clamp-2"
+                        style="line-height: 1.2; white-space: normal"
                       >
                         {{ title }}
                       </v-card-text>
@@ -87,7 +157,11 @@ const getAllBlogs = async () => {
                       {{ excerpt }}
                     </v-card-text>
                     <v-card-text class="text-white text-caption">
-                      {{ created_at ? useDateFormat(created_at, 'MMM D, YYYY') : '' }}
+                      {{
+                        created_at
+                          ? useDateFormat(created_at, 'MMM D, YYYY')
+                          : ''
+                      }}
                     </v-card-text>
                     <v-card-actions>
                       <v-btn
@@ -98,7 +172,7 @@ const getAllBlogs = async () => {
                         rounded="pill"
                         :to="`/blog/${slug}`"
                       >
-                        <v-icon icon="carbon:arrow-right" />
+                        <v-icon color="primary" icon="carbon:arrow-right" />
                       </v-btn>
                     </v-card-actions>
                   </div>
@@ -139,14 +213,22 @@ const getAllBlogs = async () => {
                   </v-card>
                 </template>
                 <v-card border="0" rounded="0" color="transparent">
+                  <div v-if="category" class="px-0 pt-2 pb-0">
+                    <span
+                      class="text-caption text-primary font-weight-bold uppercase"
+                      >{{ category.title }}</span
+                    >
+                  </div>
                   <v-card-text
-                    class="pt-2 text-h6 text-white px-0 pb-0 line-clamp-3"
-                    style="line-height: normal; white-space: normal"
+                    class="pt-1 text-h6 text-white px-0 pb-0 line-clamp-2"
+                    style="line-height: 1.2; white-space: normal"
                   >
                     {{ title }}
                   </v-card-text>
                   <v-card-text class="text-white text-caption pl-0">
-                    {{ created_at ? useDateFormat(created_at, 'MMM D, YYYY') : '' }}
+                    {{
+                      created_at ? useDateFormat(created_at, 'MMM D, YYYY') : ''
+                    }}
                   </v-card-text>
                 </v-card>
               </v-hover>

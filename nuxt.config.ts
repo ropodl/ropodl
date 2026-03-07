@@ -35,6 +35,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
+    'v-gsap-nuxt'
   ],
 
   googleFonts: {
@@ -103,7 +104,7 @@ export default defineNuxtConfig({
       // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
       // disableVuetifyStyles: true,
       styles: {
-        configFile: 'assets/settings.scss',
+        configFile: './app/assets/settings.scss',
       },
     },
   },
@@ -112,5 +113,5 @@ export default defineNuxtConfig({
     public: {
       API_URL: process.env.API_URL,
     },
-  }
+  },
 });

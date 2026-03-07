@@ -17,12 +17,10 @@ export default defineVuetifyConfiguration({
     },
     VAutocomplete: {
       rounded: 'lg',
-      density: 'comfortable',
       variant: 'outlined',
     },
     VTextField: {
       rounded: 'lg',
-      density: 'compact',
       variant: 'outlined',
     },
     VTextarea: {
@@ -33,11 +31,9 @@ export default defineVuetifyConfiguration({
       hover: true,
       rounded: 'lg',
       class: 'bg-transparent',
-      density: 'comfortable',
     },
     VSelect: {
       rounded: 'lg',
-      density: 'comfortable',
       variant: 'outlined',
     },
     VTooltip: {
@@ -57,13 +53,19 @@ export default defineVuetifyConfiguration({
       dark: {
         dark: true,
         colors: {
-          primary: '#FFFFFF',
+          primary: '#d64937',
+          secondary: '#B0B0B0',
+          background: '#0F0F0F',
+          surface: '#1A1A1A',
         },
       },
       light: {
         dark: false,
         colors: {
-          primary: '#000000',
+          primary: '#d64937',
+          secondary: '#4A4A4A',
+          background: '#FFFFFF',
+          surface: '#F5F5F5',
         },
       },
     },
