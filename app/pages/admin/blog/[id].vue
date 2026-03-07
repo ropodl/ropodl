@@ -47,14 +47,17 @@ const resetQuickForm = () => {
   quickForm.value = { title: '', slug: '', excerpt: '' };
 };
 
-const watchTitle = watch(() => quickForm.value.title, (newVal) => {
-  if (newVal) {
-    quickForm.value.slug = newVal
-      .toLowerCase()
-      .replace(/[^\w ]+/g, '')
-      .replace(/ +/g, '-');
+const watchTitle = watch(
+  () => quickForm.value.title,
+  (newVal) => {
+    if (newVal) {
+      quickForm.value.slug = newVal
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-');
+    }
   }
-});
+);
 
 const saveQuickCategory = async () => {
   const { valid } = await qFormRef.value.validate();
@@ -278,12 +281,15 @@ const statusOptions = [
                   hide-details
                   clearable
                 />
-                <v-btn 
-                  icon="carbon:add" 
-                  variant="tonal" 
-                  rounded="lg" 
-                  color="primary" 
-                  @click="resetQuickForm(); catDialog = true" 
+                <v-btn
+                  icon="carbon:add"
+                  variant="tonal"
+                  rounded="lg"
+                  color="primary"
+                  @click="
+                    resetQuickForm();
+                    catDialog = true;
+                  "
                 />
               </div>
               <div class="d-flex align-center gap-2">
@@ -300,12 +306,15 @@ const statusOptions = [
                   closable-chips
                   hide-details
                 />
-                <v-btn 
-                  icon="carbon:add" 
-                  variant="tonal" 
-                  rounded="lg" 
-                  color="primary" 
-                  @click="resetQuickForm(); tagDialog = true" 
+                <v-btn
+                  icon="carbon:add"
+                  variant="tonal"
+                  rounded="lg"
+                  color="primary"
+                  @click="
+                    resetQuickForm();
+                    tagDialog = true;
+                  "
                 />
               </div>
             </v-card-text>
@@ -377,7 +386,9 @@ const statusOptions = [
     <!-- Quick Create Dialog -->
     <v-dialog v-model="catDialog" max-width="450">
       <v-card rounded="xl">
-        <v-card-title class="pa-4 font-weight-bold">Quick New Category</v-card-title>
+        <v-card-title class="pa-4 font-weight-bold"
+          >Quick New Category</v-card-title
+        >
         <v-divider />
         <v-card-text class="pa-4">
           <v-form ref="qFormRef">
@@ -388,7 +399,10 @@ const statusOptions = [
               variant="outlined"
               rounded="lg"
               class="mb-2"
-              :rules="[v => !!v || 'Required', v => v.length <= 60 || 'Too long']"
+              :rules="[
+                (v) => !!v || 'Required',
+                (v) => v.length <= 60 || 'Too long',
+              ]"
             />
             <v-text-field
               v-model="quickForm.slug"
@@ -396,15 +410,24 @@ const statusOptions = [
               variant="outlined"
               rounded="lg"
               class="mb-2"
-              :rules="[v => !!v || 'Required']"
+              :rules="[(v) => !!v || 'Required']"
             />
           </v-form>
         </v-card-text>
         <v-divider />
         <v-card-actions class="pa-4">
           <v-spacer />
-          <v-btn variant="text" rounded="lg" @click="catDialog = false">Cancel</v-btn>
-          <v-btn color="primary" variant="flat" rounded="lg" :loading="quickLoading" @click="saveQuickCategory">Create</v-btn>
+          <v-btn variant="text" rounded="lg" @click="catDialog = false"
+            >Cancel</v-btn
+          >
+          <v-btn
+            color="primary"
+            variant="flat"
+            rounded="lg"
+            :loading="quickLoading"
+            @click="saveQuickCategory"
+            >Create</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -422,7 +445,10 @@ const statusOptions = [
               variant="outlined"
               rounded="lg"
               class="mb-2"
-              :rules="[v => !!v || 'Required', v => v.length <= 60 || 'Too long']"
+              :rules="[
+                (v) => !!v || 'Required',
+                (v) => v.length <= 60 || 'Too long',
+              ]"
             />
             <v-text-field
               v-model="quickForm.slug"
@@ -430,15 +456,24 @@ const statusOptions = [
               variant="outlined"
               rounded="lg"
               class="mb-2"
-              :rules="[v => !!v || 'Required']"
+              :rules="[(v) => !!v || 'Required']"
             />
           </v-form>
         </v-card-text>
         <v-divider />
         <v-card-actions class="pa-4">
           <v-spacer />
-          <v-btn variant="text" rounded="lg" @click="tagDialog = false">Cancel</v-btn>
-          <v-btn color="primary" variant="flat" rounded="lg" :loading="quickLoading" @click="saveQuickTag">Create</v-btn>
+          <v-btn variant="text" rounded="lg" @click="tagDialog = false"
+            >Cancel</v-btn
+          >
+          <v-btn
+            color="primary"
+            variant="flat"
+            rounded="lg"
+            :loading="quickLoading"
+            @click="saveQuickTag"
+            >Create</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>

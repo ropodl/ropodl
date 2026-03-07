@@ -67,7 +67,7 @@ export const useAuth = () => {
     if (!user.value) return false;
     // For now assuming any user has all permissions if not explicitly restricted
     // or if the backend provides them in the JWT.
-    if (!user.value.permissions) return true; 
+    if (!user.value.permissions) return true;
     return user.value.permissions.includes(permission);
   };
 

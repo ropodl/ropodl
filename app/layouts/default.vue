@@ -14,16 +14,21 @@ const { density } = useAppearance();
           class="overflow-hidden opacity-20 w-100 h-100"
         />
       </div>
-      <v-defaults-provider :defaults="{
-        VBtn: { density },
-        VTextField: { density },
-        VTextarea: { density },
-        VSelect: { density },
-        VAutocomplete: { density },
-        VDataTableServer: { density },
-        VList: { density },
-        VListItem: { density },
-      }">
+      <v-defaults-provider
+        :defaults="{
+          VContainer: {
+            maxWidth: 1200
+          },
+          VBtn: { density },
+          VTextField: { density },
+          VTextarea: { density },
+          VSelect: { density },
+          VAutocomplete: { density },
+          VDataTableServer: { density },
+          VList: { density },
+          VListItem: { density },
+        }"
+      >
         <slot />
       </v-defaults-provider>
     </v-main>

@@ -18,13 +18,15 @@ onMounted(() => {
 });
 
 const getBlogBySlug = async () => {
-  await useApiFetch<{ data: blog }>(`/blog/${route.params.slug}`).then((res) => {
-    blog.value = res.data;
-  });
+  await useApiFetch<{ data: blog }>(`/blog/${route.params.slug}`).then(
+    (res) => {
+      blog.value = res.data;
+    }
+  );
 };
 </script>
 <template>
-  <v-container max-width="1200">
+  <v-container>
     <v-row v-if="blog.excerpt">
       <v-col cols="12" md="12">
         <v-card-title
@@ -45,7 +47,11 @@ const getBlogBySlug = async () => {
             {{ blog.category.title }}
           </v-chip>
           <div class="text-caption text-medium-emphasis">
-            {{ blog.created_at ? useDateFormat(blog.created_at, 'MMMM D, YYYY') : '' }}
+            {{
+              blog.created_at
+                ? useDateFormat(blog.created_at, 'MMMM D, YYYY')
+                : ''
+            }}
           </div>
         </div>
         <div class="text-h6 text-sm-h4 font-weight-light mb-6">

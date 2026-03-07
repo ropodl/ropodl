@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useAppearance, type Density } from '~/composables/useAppearance';
 
-const { isDark, density, primaryColor, setDensity, setPrimaryColor } = useAppearance();
+const { isDark, density, primaryColor, setDensity, setPrimaryColor } =
+  useAppearance();
 
 const densities: { title: string; value: Density }[] = [
   { title: 'Default', value: 'default' },
@@ -62,10 +63,18 @@ definePageMeta({
             class="w-100"
             rounded="lg"
           >
-            <v-btn :value="false" class="flex-grow-1 py-6" prepend-icon="carbon:sun">
+            <v-btn
+              :value="false"
+              class="flex-grow-1 py-6"
+              prepend-icon="carbon:sun"
+            >
               Light
             </v-btn>
-            <v-btn :value="true" class="flex-grow-1 py-6" prepend-icon="carbon:moon">
+            <v-btn
+              :value="true"
+              class="flex-grow-1 py-6"
+              prepend-icon="carbon:moon"
+            >
               Dark
             </v-btn>
           </v-btn-toggle>
@@ -103,7 +112,7 @@ definePageMeta({
           <p class="text-body-2 text-medium-emphasis mb-6">
             Choose a color that will be used for primary actions and accents.
           </p>
-          
+
           <div class="d-flex flex-wrap gap-4 mb-8">
             <v-avatar
               v-for="color in colors"
@@ -111,9 +120,11 @@ definePageMeta({
               :color="color"
               size="48"
               class="cursor-pointer border-md transition-swing elevation-4"
-              :class="{ 
-                'border-primary border-opacity-100 scale-110': primaryColor === color, 
-                'border-white border-opacity-25 hover-scale': primaryColor !== color 
+              :class="{
+                'border-primary border-opacity-100 scale-110':
+                  primaryColor === color,
+                'border-white border-opacity-25 hover-scale':
+                  primaryColor !== color,
               }"
               @click="setPrimaryColor(color)"
             >
@@ -129,7 +140,9 @@ definePageMeta({
 
           <v-row>
             <v-col cols="12" md="6">
-              <div class="text-subtitle-2 font-weight-bold mb-4">Custom Color Selection</div>
+              <div class="text-subtitle-2 font-weight-bold mb-4">
+                Custom Color Selection
+              </div>
               <v-color-picker
                 v-model="primaryColor"
                 hide-inputs
@@ -141,9 +154,17 @@ definePageMeta({
             </v-col>
             <v-col cols="12" md="6">
               <div class="text-subtitle-2 font-weight-bold mb-4">Preview</div>
-              <v-card border rounded="lg" class="pa-8 d-flex flex-column align-center justify-center h-100 bg-surface">
-                <v-btn color="primary" class="mb-4" rounded="pill">Example Button</v-btn>
-                <div class="text-primary font-weight-bold">Primary Text Example</div>
+              <v-card
+                border
+                rounded="lg"
+                class="pa-8 d-flex flex-column align-center justify-center h-100 bg-surface"
+              >
+                <v-btn color="primary" class="mb-4" rounded="pill"
+                  >Example Button</v-btn
+                >
+                <div class="text-primary font-weight-bold">
+                  Primary Text Example
+                </div>
                 <v-checkbox label="Checkbox" color="primary" model-value />
               </v-card>
             </v-col>
@@ -153,7 +174,8 @@ definePageMeta({
     </v-row>
 
     <div class="mt-12 text-center text-caption text-medium-emphasis">
-      Your preferences are stored locally in your browser and will persist across sessions.
+      Your preferences are stored locally in your browser and will persist
+      across sessions.
     </div>
   </v-container>
 </template>

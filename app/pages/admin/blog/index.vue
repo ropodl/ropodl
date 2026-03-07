@@ -94,7 +94,14 @@ const rightNav = ref(false);
           >
             <v-icon icon="carbon:filter" />
           </v-btn>
-          <v-btn v-if="can('blog.create')" flat color="primary" to="/admin/blog/create"> Add New </v-btn>
+          <v-btn
+            v-if="can('blog.create')"
+            flat
+            color="primary"
+            to="/admin/blog/create"
+          >
+            Add New
+          </v-btn>
         </div>
       </v-col>
     </v-row>

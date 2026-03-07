@@ -21,7 +21,7 @@ defineProps<{
 </script>
 
 <template>
-  <v-container max-width="1200">
+  <v-container>
     <v-row>
       <v-col cols="12">
         <v-card border rounded="xl">

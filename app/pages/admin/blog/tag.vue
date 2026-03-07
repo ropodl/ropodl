@@ -49,18 +49,20 @@ const openDialog = (item: BlogTag | null = null) => {
 
 const saveTag = async () => {
   if (!editingItem.value?.title || !editingItem.value?.slug) return;
-  
+
   dialogLoading.value = true;
   try {
     const isEditing = !!editingItem.value.id;
-    const url = isEditing ? `admin/blog/tag/${editingItem.value.id}` : 'admin/blog/tag';
+    const url = isEditing
+      ? `admin/blog/tag/${editingItem.value.id}`
+      : 'admin/blog/tag';
     const method = isEditing ? 'PATCH' : 'POST';
-    
+
     await useApiFetch(url, {
       method,
       body: editingItem.value,
     });
-    
+
     dialog.value = false;
     await fetchTags();
   } catch (error) {
@@ -72,7 +74,7 @@ const saveTag = async () => {
 
 const deleteTag = async (id: number) => {
   if (!confirm('Are you sure you want to delete this tag?')) return;
-  
+
   try {
     await useApiFetch(`admin/blog/tag/${id}`, { method: 'DELETE' });
     await fetchTags();
@@ -82,22 +84,26 @@ const deleteTag = async (id: number) => {
 };
 
 // Auto-slugify
-watch(() => editingItem.value?.title, (newTitle) => {
-  if (editingItem.value && !editingItem.value.id && newTitle) {
-    editingItem.value.slug = newTitle
-      .toLowerCase()
-      .replace(/[^\w ]+/g, '')
-      .replace(/ +/g, '-');
+watch(
+  () => editingItem.value?.title,
+  (newTitle) => {
+    if (editingItem.value && !editingItem.value.id && newTitle) {
+      editingItem.value.slug = newTitle
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-');
+    }
   }
-});
+);
 
 onMounted(fetchTags);
 
 const filteredTags = computed(() => {
   if (!search.value) return tags.value;
-  return tags.value.filter(t => 
-    t.title.toLowerCase().includes(search.value.toLowerCase()) ||
-    t.slug.toLowerCase().includes(search.value.toLowerCase())
+  return tags.value.filter(
+    (t) =>
+      t.title.toLowerCase().includes(search.value.toLowerCase()) ||
+      t.slug.toLowerCase().includes(search.value.toLowerCase())
   );
 });
 </script>
@@ -107,7 +113,9 @@ const filteredTags = computed(() => {
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
         <div class="text-h4 font-weight-bold">Blog Tags</div>
-        <div class="text-subtitle-1 text-medium-emphasis">Keywords to help readers find content</div>
+        <div class="text-subtitle-1 text-medium-emphasis">
+          Keywords to help readers find content
+        </div>
       </v-col>
       <v-col v-if="can('blog.tag.create')" cols="12" md="6" class="text-right">
         <v-btn
@@ -141,11 +149,11 @@ const filteredTags = computed(() => {
           hover
         >
           <template #[`item.excerpt`]="{ value }">
-            <span class="text-truncate d-inline-block" style="max-width: 300px;">
+            <span class="text-truncate d-inline-block" style="max-width: 300px">
               {{ value || '-' }}
             </span>
           </template>
-          
+
           <template #[`item.actions`]="{ item }">
             <v-btn
               v-if="can('blog.tag.update')"
@@ -206,11 +214,7 @@ const filteredTags = computed(() => {
         <v-divider />
         <v-card-actions class="pa-4">
           <v-spacer />
-          <v-btn
-            variant="text"
-            rounded="lg"
-            @click="dialog = false"
-          >
+          <v-btn variant="text" rounded="lg" @click="dialog = false">
             Cancel
           </v-btn>
           <v-btn

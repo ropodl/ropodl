@@ -25,11 +25,11 @@ const pages = [
     title: 'about',
     to: '/about',
   },
-  {
-    icon: 'carbon:phone',
-    title: 'contact',
-    to: '/contact',
-  },
+  // {
+  //   icon: 'carbon:phone',
+  //   title: 'contact',
+  //   to: '/contact',
+  // },
 ];
 
 const isActive = (path: string) => {

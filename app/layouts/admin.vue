@@ -49,9 +49,7 @@ const navItems: navItem[] = [
     icon: 'carbon:settings',
     title: 'Settings',
     subtitle: 'Access Control',
-    subitems: [
-      { title: 'Audit Logs', to: '/admin/settings/logs' },
-    ],
+    subitems: [{ title: 'Audit Logs', to: '/admin/settings/logs' }],
   },
 ];
 
@@ -140,11 +138,7 @@ onMounted(async () => {
           </template>
 
           <template v-else>
-            <v-menu
-              v-if="true"
-              location="end"
-              offset="14"
-            >
+            <v-menu v-if="true" location="end" offset="14">
               <template #activator="{ props: menuProps }">
                 <v-list-item
                   v-tooltip="{
@@ -168,11 +162,7 @@ onMounted(async () => {
 
                 <v-list density="compact" class="pa-0">
                   <template v-for="(subItem, i) in item.subitems" :key="i">
-                    <v-list-item
-                      link
-                      :title="subItem.title"
-                      :to="subItem.to"
-                    />
+                    <v-list-item link :title="subItem.title" :to="subItem.to" />
                   </template>
                 </v-list>
               </v-card>
@@ -196,11 +186,18 @@ onMounted(async () => {
                 <v-list-item to="/settings/profile" prepend-icon="carbon:user">
                   <v-list-item-title> My Profile </v-list-item-title>
                 </v-list-item>
-                <v-list-item to="/settings/appearance" prepend-icon="carbon:settings">
+                <v-list-item
+                  to="/settings/appearance"
+                  prepend-icon="carbon:settings"
+                >
                   <v-list-item-title> Appearance </v-list-item-title>
                 </v-list-item>
                 <v-divider class="my-1" />
-                <v-list-item @click="logout" prepend-icon="carbon:logout" color="error">
+                <v-list-item
+                  @click="logout"
+                  prepend-icon="carbon:logout"
+                  color="error"
+                >
                   <v-list-item-title> Sign Out </v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -242,24 +239,30 @@ onMounted(async () => {
               <slot name="test" />
               <v-btn rounded="lg" icon="carbon:search" />
               <v-btn rounded="lg" icon="carbon:notification" />
-              <v-btn rounded="lg" icon="carbon:settings" to="/settings/appearance" />
+              <v-btn
+                rounded="lg"
+                icon="carbon:settings"
+                to="/settings/appearance"
+              />
             </div>
           </v-col>
         </v-row>
       </v-container>
     </v-app-bar>
     <v-main>
-      <v-defaults-provider :defaults="{
-        VBtn: { density },
-        VTextField: { density },
-        VTextarea: { density },
-        VSelect: { density },
-        VAutocomplete: { density },
-        VDataTableServer: { density },
-        VList: { density },
-        VListItem: { density },
-        VChip: { density },
-      }">
+      <v-defaults-provider
+        :defaults="{
+          VBtn: { density },
+          VTextField: { density },
+          VTextarea: { density },
+          VSelect: { density },
+          VAutocomplete: { density },
+          VDataTableServer: { density },
+          VList: { density },
+          VListItem: { density },
+          VChip: { density },
+        }"
+      >
         <slot />
       </v-defaults-provider>
     </v-main>

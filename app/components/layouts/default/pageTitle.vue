@@ -1,5 +1,5 @@
 <template>
-  <div class="text-lg-h1 text-h3 font-weight-bold">
+  <div class="font-weight-bold" style="font-size: 6rem;line-height: 1em;">
     <slot />
   </div>
 </template>

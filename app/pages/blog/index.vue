@@ -37,7 +37,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <v-container max-width="1200">
+  <v-container>
     <v-row>
       <v-col>
         <layouts-default-page-title>
@@ -80,7 +80,16 @@ onMounted(() => {
       <v-row class="mb-16">
         <template
           v-for="(
-            { slug, title, excerpt, featured_image, created_at, category, tags }, i
+            {
+              slug,
+              title,
+              excerpt,
+              featured_image,
+              created_at,
+              category,
+              tags,
+            },
+            i
           ) in blogs"
           :key="slug"
         >
@@ -124,9 +133,14 @@ onMounted(() => {
                 <v-col cols="12" md="6">
                   <div class="d-flex flex-column">
                     <div v-if="category" class="mb-2">
-                       <v-chip size="x-small" color="primary" variant="flat" rounded="lg">
-                         {{ category.title }}
-                       </v-chip>
+                      <v-chip
+                        size="x-small"
+                        color="primary"
+                        variant="flat"
+                        rounded="lg"
+                      >
+                        {{ category.title }}
+                      </v-chip>
                     </div>
                     <nuxt-link
                       class="text-decoration-none"
@@ -143,7 +157,11 @@ onMounted(() => {
                       {{ excerpt }}
                     </v-card-text>
                     <v-card-text class="text-white text-caption">
-                      {{ created_at ? useDateFormat(created_at, 'MMM D, YYYY') : '' }}
+                      {{
+                        created_at
+                          ? useDateFormat(created_at, 'MMM D, YYYY')
+                          : ''
+                      }}
                     </v-card-text>
                     <v-card-actions>
                       <v-btn
@@ -196,7 +214,10 @@ onMounted(() => {
                 </template>
                 <v-card border="0" rounded="0" color="transparent">
                   <div v-if="category" class="px-0 pt-2 pb-0">
-                    <span class="text-caption text-primary font-weight-bold uppercase">{{ category.title }}</span>
+                    <span
+                      class="text-caption text-primary font-weight-bold uppercase"
+                      >{{ category.title }}</span
+                    >
                   </div>
                   <v-card-text
                     class="pt-1 text-h6 text-white px-0 pb-0 line-clamp-2"
@@ -205,7 +226,9 @@ onMounted(() => {
                     {{ title }}
                   </v-card-text>
                   <v-card-text class="text-white text-caption pl-0">
-                    {{ created_at ? useDateFormat(created_at, 'MMM D, YYYY') : '' }}
+                    {{
+                      created_at ? useDateFormat(created_at, 'MMM D, YYYY') : ''
+                    }}
                   </v-card-text>
                 </v-card>
               </v-hover>
