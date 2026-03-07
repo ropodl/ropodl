@@ -4,6 +4,7 @@ import type { Portfolio, PortfolioType } from '~/types/portfolio';
 import { useRoute, useRouter } from 'vue-router';
 import Editor from '~/components/admin/shared/Editor.vue';
 import MediaSelector from '~/components/admin/shared/MediaSelector.vue';
+import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -27,6 +28,7 @@ const types = ref<PortfolioType[]>([]);
 const loading = ref(false);
 const saving = ref(false);
 const portfolioForm = ref();
+const { can } = useAuth();
 
 const fetchTypes = async () => {
   try {
@@ -49,13 +51,17 @@ const fetchPortfolio = async () => {
   if (!isEditing.value) return;
   loading.value = true;
   try {
-    const data = await useApiFetch<Portfolio>(`admin/portfolio/${route.params.id}`);
+    const data = await useApiFetch<Portfolio>(
+      `admin/portfolio/${route.params.id}`
+    );
     form.value = { ...data };
-    
+
     // Fetch featured image URL for preview if ID exists
     if (form.value.featuredImageId) {
-       const media = await useApiFetch<any>(`admin/media/${form.value.featuredImageId}`);
-       previewImage.value = media.fileUrl;
+      const media = await useApiFetch<any>(
+        `admin/media/${form.value.featuredImageId}`
+      );
+      previewImage.value = media.fileUrl;
     }
   } catch (err) {
     console.error('Failed to fetch portfolio', err);
@@ -70,14 +76,16 @@ const save = async () => {
 
   saving.value = true;
   try {
-    const url = isEditing.value ? `admin/portfolio/${route.params.id}` : 'admin/portfolio';
+    const url = isEditing.value
+      ? `admin/portfolio/${route.params.id}`
+      : 'admin/portfolio';
     const method = isEditing.value ? 'PATCH' : 'POST';
-    
+
     await useApiFetch(url, {
       method,
       body: form.value,
     });
-    
+
     router.push('/admin/portfolio');
   } catch (err) {
     console.error('Failed to save portfolio', err);
@@ -87,14 +95,17 @@ const save = async () => {
 };
 
 // Auto-slugify
-watch(() => form.value.title, (newTitle) => {
-  if (!isEditing.value && newTitle) {
-    form.value.slug = newTitle
-      .toLowerCase()
-      .replace(/[^\w ]+/g, '')
-      .replace(/ +/g, '-');
+watch(
+  () => form.value.title,
+  (newTitle) => {
+    if (!isEditing.value && newTitle) {
+      form.value.slug = newTitle
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-');
+    }
   }
-});
+);
 
 onMounted(() => {
   fetchTypes();
@@ -131,6 +142,7 @@ const rules = {
         </v-col>
         <v-col cols="12" md="6" class="text-right">
           <v-btn
+            v-if="isEditing ? can('portfolio.update') : can('portfolio.create')"
             color="primary"
             size="large"
             rounded="lg"
@@ -171,7 +183,9 @@ const rules = {
                 :rules="[rules.required]"
                 class="mb-4"
               />
-              <div class="text-subtitle-1 font-weight-bold mb-2">Project Content</div>
+              <div class="text-subtitle-1 font-weight-bold mb-2">
+                Project Content
+              </div>
               <Editor v-model:content="form.content" />
             </v-card-text>
           </v-card>
@@ -181,7 +195,9 @@ const rules = {
         <v-col cols="12" md="4">
           <!-- Featured Image -->
           <v-card rounded="lg" elevation="0" border class="mb-6">
-            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold">Featured Image</v-card-title>
+            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold"
+              >Featured Image</v-card-title
+            >
             <v-divider />
             <v-card-text class="pa-4 text-center">
               <v-img
@@ -202,13 +218,20 @@ const rules = {
                 {{ previewImage ? 'Change' : 'Select' }} Image
               </v-btn>
               <MediaSelector v-model="mediaDialog" @select="onMediaSelect" />
-              <v-input :rules="[rules.required]" v-model="form.featuredImageId" hide-details="auto" density="compact" />
+              <v-input
+                :rules="[rules.required]"
+                v-model="form.featuredImageId"
+                hide-details="auto"
+                density="compact"
+              />
             </v-card-text>
           </v-card>
 
           <!-- Settings -->
           <v-card rounded="lg" elevation="0" border class="mb-6">
-            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold">Settings</v-card-title>
+            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold"
+              >Settings</v-card-title
+            >
             <v-divider />
             <v-card-text class="pa-4">
               <v-select

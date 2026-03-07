@@ -104,7 +104,9 @@ const items = ref([
         </v-card>
       </v-col>
       <v-col cols="12" md="7" class="d-flex flex-column justify-space-between">
-        <div class="text-h6 font-weight-light mb-6">
+        <div 
+          class="text-title-large font-weight-light mb-6"
+        >
           <p>
             As a Senior Fullstack Developer with over 6 years of experience, I
             specialize in creating intuitive and user-centered interfaces for a
@@ -112,14 +114,14 @@ const items = ref([
             entire development stack, building backend systems and frontend
             interfaces with clean, maintainable code.
           </p>
-          <br />
+          <!-- <br /> -->
           <p>
             On the backend, I work with Express.js for Node.js projects, and
             Hono for fast, lightweight APIs. On the frontend, I use Vue.js and
             Nuxt to build responsive, interactive interfaces, with Vuetify for
             implementing Material Design components and polished UI systems.
           </p>
-          <br />
+          <!-- <br /> -->
           <p>
             I've collaborated with designers, product managers, and developers
             to ship products that meet business goals. Whether starting new
@@ -129,7 +131,7 @@ const items = ref([
           </p>
         </div>
         <Link href="/" as="span">
-          <v-btn border rounded="pill" width="230" height="80">
+          <v-btn color="primary" rounded="pill" width="230" height="80">
             Let's talk
             <template #append>
               <v-icon end icon="carbon:arrow-up-right" />
@@ -141,7 +143,7 @@ const items = ref([
     <v-row class="py-16">
       <v-col cols="12" md="6">
         <div
-          class="text-h3 font-weight-medium position-sticky"
+          class="text-display-large font-weight-medium position-sticky"
           style="top: 50px"
         >
           My past work<br />experience
@@ -155,7 +157,9 @@ const items = ref([
           lines="three"
         >
           <template v-for="(item, index) in experience" :key="item.title">
-            <v-list-item :class="index === 0 ? 'mb-6' : 'my-6'">
+            <v-list-item 
+              :class="index === 0 ? 'mb-6' : 'my-6'"
+            >
               <v-list-item-title
                 class="text-h5 font-weight-medium mb-3"
                 style="white-space: normal !important"
@@ -179,7 +183,7 @@ const items = ref([
     </v-row>
     <v-row class="pb-16">
       <v-col cols="12">
-        <div class="text-h2 font-weight-medium">
+        <div class="text-display-large font-weight-medium">
           A visual partner for brands, companies, and agencies.
         </div>
       </v-col>

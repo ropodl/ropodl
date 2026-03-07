@@ -1,9 +1,22 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import socials from '@/utils/social';
 import { useDisplay, useGoTo } from 'vuetify';
+import { useWindowScroll } from '@vueuse/core';
 
 const goTo = useGoTo();
 const { mobile } = useDisplay();
+const { y } = useWindowScroll();
+
+const scrollPercentage = computed(() => {
+  if (import.meta.server) return 0;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  return height > 0 ? (y.value / height) * 100 : 0;
+});
+
+const isVisible = computed(() => {
+  return y.value > 10;
+});
 
 const goTop = () => {
   goTo(0, {
@@ -13,37 +26,38 @@ const goTop = () => {
 };
 </script>
 <template>
+  <v-container
+    max-width="1200"
+    class="position-sticky left-0 right-0 mx-auto mb-n12 z-1010"
+    style="bottom: 10px; pointer-events: none"
+  >
+    <v-row>
+      <v-col cols="12" class="d-flex px-6">
+        <v-spacer />
+        <v-btn
+          :class="isVisible ? 'opacity-100' : 'opacity-0'"
+          v-tooltip="{
+            location: 'top',
+            text: 'Go To Top',
+          }"
+          :border="false"
+          icon
+          rounded="circle"
+          :style="`pointer-events: ${isVisible ? 'all' : 'none'}; transition: opacity 0.3s ease-in-out;`"
+          @click="goTop"
+        >
+          <v-progress-circular size="50" width="1" :model-value="scrollPercentage">
+            <v-icon size="small" icon="carbon:up-to-top" />
+          </v-progress-circular>
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
   <v-footer
-    absolute
     border="t"
-    class="blur-8 position-relative"
+    class="blur-8"
     :class="{ 'pb-16': mobile }"
   >
-    <!-- color="rgba(var(--v-theme-background),0.7)" -->
-    <v-container
-      max-width="1200"
-      class="position-absolute left-0 right-0 mx-auto z-1010"
-      style="top: -40px; pointer-events: none"
-    >
-      <v-row>
-        <v-col cols="12" class="d-flex">
-          <v-spacer />
-          <v-btn
-            v-tooltip="{
-              location: 'top',
-              text: 'Go To Top',
-            }"
-            border
-            icon
-            rounded="circle"
-            style="pointer-events: all"
-            @click="goTop"
-          >
-            <v-icon size="small" icon="carbon:up-to-top" />
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
     <v-card
       color="transparent"
       border="0"
@@ -53,10 +67,10 @@ const goTop = () => {
       <v-container max-width="1200">
         <v-row>
           <v-col cols="12">
-            <div class="text-h5 mb-6">
+            <div class="text-title-large mb-6">
               Liked my works? Let's Talk and work together
             </div>
-            <div class="text-lg-h1 text-h4 font-weight-bold d-flex align-start">
+            <div class="text-display-large font-weight-bold d-flex align-start">
               <span class="text-primary-darken-2">hello</span>@ropodl.com
               <template v-if="!mobile">
                 <v-btn

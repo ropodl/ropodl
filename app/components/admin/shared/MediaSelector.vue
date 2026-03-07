@@ -142,7 +142,6 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
 <template>
   <v-dialog v-model="dialog" max-width="1000" scrollable persistent>
-
     <v-card class="media-selector-dialog">
       <v-card-title class="pa-0">
         <v-toolbar color="surface" density="compact">

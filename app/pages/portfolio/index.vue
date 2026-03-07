@@ -13,7 +13,7 @@
 // };
 </script>
 <template>
-  <v-container max-width="1200">
+  <v-container>
     <v-row>
       <v-col>
         <layouts-default-page-title>

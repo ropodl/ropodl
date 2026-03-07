@@ -2,6 +2,7 @@
 import type { Portfolio } from '~/types/portfolio';
 import { useDateFormat, useDebounceFn } from '@vueuse/core';
 import { useApiFetch } from '~/utils/shared/useApiFetch';
+import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -11,6 +12,7 @@ definePageMeta({
 const portfolios = ref<Portfolio[]>([]);
 const loading = ref(true);
 const search = ref('');
+const { can } = useAuth();
 
 const pagination = ref({
   current_page: 1,
@@ -25,7 +27,7 @@ const headers = [
   { title: 'Status', key: 'status', sortable: true },
   { title: 'Created At', key: 'createdAt', sortable: true },
   { title: 'Actions', key: 'actions', align: 'end', sortable: false },
-];
+] as const;
 
 const fetchPortfolios = async () => {
   loading.value = true;
@@ -35,8 +37,10 @@ const fetchPortfolios = async () => {
       per_page: pagination.value.per_page.toString(),
       search: search.value,
     });
-    
-    const response = await useApiFetch<{ data: Portfolio[], pagination: any }>(`admin/portfolio?${params}`);
+
+    const response = await useApiFetch<{ data: Portfolio[]; pagination: any }>(
+      `admin/portfolio?${params}`
+    );
     portfolios.value = response.data;
     pagination.value = response.pagination;
   } catch (error) {
@@ -65,9 +69,12 @@ onMounted(fetchPortfolios);
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'published': return 'success';
-    case 'archived': return 'error';
-    default: return 'warning';
+    case 'published':
+      return 'success';
+    case 'archived':
+      return 'error';
+    default:
+      return 'warning';
   }
 };
 </script>
@@ -77,9 +84,11 @@ const getStatusColor = (status: string) => {
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
         <div class="text-h4 font-weight-bold">Portfolios</div>
-        <div class="text-subtitle-1 text-medium-emphasis">Showcase your best work</div>
+        <div class="text-subtitle-1 text-medium-emphasis">
+          Showcase your best work
+        </div>
       </v-col>
-      <v-col cols="12" md="6" class="text-right">
+      <v-col v-if="can('portfolio.create')" cols="12" md="6" class="text-right">
         <v-btn
           color="primary"
           prepend-icon="carbon:add"
@@ -116,7 +125,10 @@ const getStatusColor = (status: string) => {
           @update:options="fetchPortfolios"
         >
           <template #[`item.title`]="{ item }">
-            <div class="font-weight-medium text-primary cursor-pointer" @click="$router.push(`/admin/portfolio/${item.id}`)">
+            <div
+              class="font-weight-medium text-primary cursor-pointer"
+              @click="$router.push(`/admin/portfolio/${item.id}`)"
+            >
               {{ item.title }}
             </div>
           </template>
@@ -143,9 +155,10 @@ const getStatusColor = (status: string) => {
               {{ useDateFormat(value, 'MMM DD, YYYY').value }}
             </span>
           </template>
-          
+
           <template #[`item.actions`]="{ item }">
             <v-btn
+              v-if="can('portfolio.update')"
               icon="carbon:edit"
               variant="text"
               size="small"
@@ -155,6 +168,7 @@ const getStatusColor = (status: string) => {
               :to="`/admin/portfolio/${item.id}`"
             />
             <v-btn
+              v-if="can('portfolio.delete')"
               icon="carbon:trash-can"
               variant="text"
               size="small"
