@@ -35,6 +35,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
+    'v-gsap-nuxt'
   ],
 
   googleFonts: {
@@ -112,5 +113,5 @@ export default defineNuxtConfig({
     public: {
       API_URL: process.env.API_URL,
     },
-  }
+  },
 });

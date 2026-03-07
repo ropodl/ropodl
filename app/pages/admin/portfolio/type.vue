@@ -36,24 +36,28 @@ const fetchTypes = async () => {
 };
 
 const openDialog = (item: PortfolioType | null = null) => {
-  editingItem.value = item ? { ...item } : { title: '', slug: '', description: '' };
+  editingItem.value = item
+    ? { ...item }
+    : { title: '', slug: '', description: '' };
   dialog.value = true;
 };
 
 const saveType = async () => {
   if (!editingItem.value?.title || !editingItem.value?.slug) return;
-  
+
   dialogLoading.value = true;
   try {
     const isEditing = !!editingItem.value.id;
-    const url = isEditing ? `admin/work-type/${editingItem.value.id}` : 'admin/work-type';
+    const url = isEditing
+      ? `admin/work-type/${editingItem.value.id}`
+      : 'admin/work-type';
     const method = isEditing ? 'PATCH' : 'POST';
-    
+
     await useApiFetch(url, {
       method,
       body: editingItem.value,
     });
-    
+
     dialog.value = false;
     await fetchTypes();
   } catch (error) {
@@ -65,7 +69,7 @@ const saveType = async () => {
 
 const deleteType = async (id: number) => {
   if (!confirm('Are you sure you want to delete this work type?')) return;
-  
+
   try {
     await useApiFetch(`admin/work-type/${id}`, { method: 'DELETE' });
     await fetchTypes();
@@ -75,22 +79,26 @@ const deleteType = async (id: number) => {
 };
 
 // Auto-slugify
-watch(() => editingItem.value?.title, (newTitle) => {
-  if (editingItem.value && !editingItem.value.id && newTitle) {
-    editingItem.value.slug = newTitle
-      .toLowerCase()
-      .replace(/[^\w ]+/g, '')
-      .replace(/ +/g, '-');
+watch(
+  () => editingItem.value?.title,
+  (newTitle) => {
+    if (editingItem.value && !editingItem.value.id && newTitle) {
+      editingItem.value.slug = newTitle
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-');
+    }
   }
-});
+);
 
 onMounted(fetchTypes);
 
 const filteredTypes = computed(() => {
   if (!search.value) return types.value;
-  return types.value.filter(t => 
-    t.title.toLowerCase().includes(search.value.toLowerCase()) ||
-    t.slug.toLowerCase().includes(search.value.toLowerCase())
+  return types.value.filter(
+    (t) =>
+      t.title.toLowerCase().includes(search.value.toLowerCase()) ||
+      t.slug.toLowerCase().includes(search.value.toLowerCase())
   );
 });
 </script>
@@ -100,7 +108,9 @@ const filteredTypes = computed(() => {
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
         <div class="text-h4 font-weight-bold">Work Types</div>
-        <div class="text-subtitle-1 text-medium-emphasis">Manage categories for your portfolio items</div>
+        <div class="text-subtitle-1 text-medium-emphasis">
+          Manage categories for your portfolio items
+        </div>
       </v-col>
       <v-col v-if="can('worktype.create')" cols="12" md="6" class="text-right">
         <v-btn
@@ -134,11 +144,11 @@ const filteredTypes = computed(() => {
           hover
         >
           <template #[`item.description`]="{ value }">
-            <span class="text-truncate d-inline-block" style="max-width: 300px;">
+            <span class="text-truncate d-inline-block" style="max-width: 300px">
               {{ value || '-' }}
             </span>
           </template>
-          
+
           <template #[`item.actions`]="{ item }">
             <v-btn
               v-if="can('worktype.update')"
@@ -199,11 +209,7 @@ const filteredTypes = computed(() => {
         <v-divider />
         <v-card-actions class="pa-4">
           <v-spacer />
-          <v-btn
-            variant="text"
-            rounded="lg"
-            @click="dialog = false"
-          >
+          <v-btn variant="text" rounded="lg" @click="dialog = false">
             Cancel
           </v-btn>
           <v-btn

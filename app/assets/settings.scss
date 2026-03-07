@@ -19,31 +19,6 @@ body {
   font-family: $body-font;
 }
 
-// 3.1 Vuetify 4 Compatibility
-// Restore legacy grid behavior if needed (optional, but good for stability)
-// .v-row { margin: -12px !important; }
-// .v-col { padding: 12px !important; }
-
-// Restore legacy elevation if needed (MD3 uses 0-5)
-/* @use 'vuetify/styles' with (
-  $elevation-levels: 24
-); */
-
-/* 3.2 Legacy MD2 Typography (Consistency with Vuetify 3) */
-.text-h1 { font-size: 6rem !important; font-weight: 300 !important; letter-spacing: -0.015625em !important; line-height: 6rem !important; }
-.text-h2 { font-size: 3.75rem !important; font-weight: 300 !important; letter-spacing: -0.0083333333em !important; line-height: 3.75rem !important; }
-.text-h3 { font-size: 3rem !important; font-weight: 400 !important; letter-spacing: normal !important; line-height: 3.125rem !important; }
-.text-h4 { font-size: 2.125rem !important; font-weight: 400 !important; letter-spacing: 0.0073529412em !important; line-height: 2.5rem !important; }
-.text-h5 { font-size: 1.5rem !important; font-weight: 400 !important; letter-spacing: normal !important; line-height: 2rem !important; }
-.text-h6 { font-size: 1.25rem !important; font-weight: 500 !important; letter-spacing: 0.0125em !important; line-height: 2rem !important; }
-.text-subtitle-1 { font-size: 1rem !important; font-weight: 400 !important; letter-spacing: 0.009375em !important; line-height: 1.75rem !important; }
-.text-subtitle-2 { font-size: 0.875rem !important; font-weight: 500 !important; letter-spacing: 0.0071428571em !important; line-height: 1.375rem !important; }
-.text-body-1 { font-size: 1rem !important; font-weight: 400 !important; letter-spacing: 0.03125em !important; line-height: 1.5rem !important; }
-.text-body-2 { font-size: 0.875rem !important; font-weight: 400 !important; letter-spacing: 0.0178571429em !important; line-height: 1.25rem !important; }
-.text-button { font-size: 0.875rem !important; font-weight: 500 !important; letter-spacing: 0.0892857143em !important; line-height: 2.25rem !important; text-transform: uppercase !important; }
-.text-caption { font-size: 0.75rem !important; font-weight: 400 !important; letter-spacing: 0.0333333333em !important; line-height: 1.25rem !important; }
-.text-overline { font-size: 0.625rem !important; font-weight: 400 !important; letter-spacing: 0.1666666667em !important; line-height: 1rem !important; text-transform: uppercase !important; }
-
 // 4. Component Overrides
 .v-skeleton-loader__image {
   height: 100% !important;
@@ -71,13 +46,13 @@ $blur-sizes: (2, 4, 6, 8, 10, 12, 14, 16);
 @each $size in $blur-sizes {
   .blur-#{$size} {
     // Perform math directly on the variable, then it's used as a value
-    backdrop-filter: blur($size * 1px); 
+    backdrop-filter: blur($size * 1px);
   }
 }
 
 // 2. Position utilities - FIXED
 $positions: (top, bottom, left, right);
-$pos-values: (0, 5, 10, 15, 20, 25, 30, 35, 40, 50, 100); 
+$pos-values: (0, 5, 10, 15, 20, 25, 30, 35, 40, 50, 100);
 
 @each $pos in $positions {
   @each $val in $pos-values {

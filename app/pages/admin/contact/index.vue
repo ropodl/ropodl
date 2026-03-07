@@ -68,20 +68,26 @@ const deleteRequest = async (id: number) => {
 const filteredRequests = computed(() => {
   if (!search.value) return requests.value;
   const s = search.value.toLowerCase();
-  return requests.value.filter(r => 
-    r.name.toLowerCase().includes(s) || 
-    r.email.toLowerCase().includes(s) || 
-    r.subject.toLowerCase().includes(s)
+  return requests.value.filter(
+    (r) =>
+      r.name.toLowerCase().includes(s) ||
+      r.email.toLowerCase().includes(s) ||
+      r.subject.toLowerCase().includes(s)
   );
 });
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'unread': return 'warning';
-    case 'read': return 'info';
-    case 'replied': return 'success';
-    case 'archived': return 'grey';
-    default: return 'primary';
+    case 'unread':
+      return 'warning';
+    case 'read':
+      return 'info';
+    case 'replied':
+      return 'success';
+    case 'archived':
+      return 'grey';
+    default:
+      return 'primary';
   }
 };
 
@@ -93,7 +99,9 @@ onMounted(fetchRequests);
     <v-row align="center" class="mb-4">
       <v-col cols="12">
         <div class="text-h4 font-weight-bold">Contact Requests</div>
-        <div class="text-subtitle-1 text-medium-emphasis">Manage inquiries from your website visitors</div>
+        <div class="text-subtitle-1 text-medium-emphasis">
+          Manage inquiries from your website visitors
+        </div>
       </v-col>
     </v-row>
 
@@ -170,7 +178,9 @@ onMounted(fetchRequests);
           <template #expanded-row="{ columns, item }">
             <tr>
               <td :colspan="columns.length" class="pa-4 bg-grey-lighten-4">
-                <div class="text-subtitle-2 font-weight-bold mb-1">Message from {{ item.email }}:</div>
+                <div class="text-subtitle-2 font-weight-bold mb-1">
+                  Message from {{ item.email }}:
+                </div>
                 <div class="text-body-2">{{ item.message }}</div>
               </td>
             </tr>

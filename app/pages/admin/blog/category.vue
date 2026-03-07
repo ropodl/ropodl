@@ -49,18 +49,20 @@ const openDialog = (item: BlogCategory | null = null) => {
 
 const saveCategory = async () => {
   if (!editingItem.value?.title || !editingItem.value?.slug) return;
-  
+
   dialogLoading.value = true;
   try {
     const isEditing = !!editingItem.value.id;
-    const url = isEditing ? `admin/blog/category/${editingItem.value.id}` : 'admin/blog/category';
+    const url = isEditing
+      ? `admin/blog/category/${editingItem.value.id}`
+      : 'admin/blog/category';
     const method = isEditing ? 'PATCH' : 'POST';
-    
+
     await useApiFetch(url, {
       method,
       body: editingItem.value,
     });
-    
+
     dialog.value = false;
     await fetchCategories();
   } catch (error) {
@@ -72,7 +74,7 @@ const saveCategory = async () => {
 
 const deleteCategory = async (id: number) => {
   if (!confirm('Are you sure you want to delete this category?')) return;
-  
+
   try {
     await useApiFetch(`admin/blog/category/${id}`, { method: 'DELETE' });
     await fetchCategories();
@@ -82,22 +84,26 @@ const deleteCategory = async (id: number) => {
 };
 
 // Auto-slugify
-watch(() => editingItem.value?.title, (newTitle) => {
-  if (editingItem.value && !editingItem.value.id && newTitle) {
-    editingItem.value.slug = newTitle
-      .toLowerCase()
-      .replace(/[^\w ]+/g, '')
-      .replace(/ +/g, '-');
+watch(
+  () => editingItem.value?.title,
+  (newTitle) => {
+    if (editingItem.value && !editingItem.value.id && newTitle) {
+      editingItem.value.slug = newTitle
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-');
+    }
   }
-});
+);
 
 onMounted(fetchCategories);
 
 const filteredCategories = computed(() => {
   if (!search.value) return categories.value;
-  return categories.value.filter(t => 
-    t.title.toLowerCase().includes(search.value.toLowerCase()) ||
-    t.slug.toLowerCase().includes(search.value.toLowerCase())
+  return categories.value.filter(
+    (t) =>
+      t.title.toLowerCase().includes(search.value.toLowerCase()) ||
+      t.slug.toLowerCase().includes(search.value.toLowerCase())
   );
 });
 </script>
@@ -107,9 +113,16 @@ const filteredCategories = computed(() => {
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
         <div class="text-h4 font-weight-bold">Blog Categories</div>
-        <div class="text-subtitle-1 text-medium-emphasis">Organize your stories by topic</div>
+        <div class="text-subtitle-1 text-medium-emphasis">
+          Organize your stories by topic
+        </div>
       </v-col>
-      <v-col v-if="can('blog.category.create')" cols="12" md="6" class="text-right">
+      <v-col
+        v-if="can('blog.category.create')"
+        cols="12"
+        md="6"
+        class="text-right"
+      >
         <v-btn
           color="primary"
           prepend-icon="carbon:add"
@@ -141,11 +154,11 @@ const filteredCategories = computed(() => {
           hover
         >
           <template #[`item.excerpt`]="{ value }">
-            <span class="text-truncate d-inline-block" style="max-width: 300px;">
+            <span class="text-truncate d-inline-block" style="max-width: 300px">
               {{ value || '-' }}
             </span>
           </template>
-          
+
           <template #[`item.actions`]="{ item }">
             <v-btn
               v-if="can('blog.category.update')"
@@ -206,11 +219,7 @@ const filteredCategories = computed(() => {
         <v-divider />
         <v-card-actions class="pa-4">
           <v-spacer />
-          <v-btn
-            variant="text"
-            rounded="lg"
-            @click="dialog = false"
-          >
+          <v-btn variant="text" rounded="lg" @click="dialog = false">
             Cancel
           </v-btn>
           <v-btn

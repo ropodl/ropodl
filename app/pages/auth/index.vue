@@ -29,7 +29,7 @@ const submitForm = async () => {
 const showPassword = ref(false);
 </script>
 <template>
-  <v-container max-width="1200">
+  <v-container>
     <v-row>
       <v-col cols="12">
         <layouts-default-page-title>

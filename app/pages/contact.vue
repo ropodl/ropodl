@@ -54,20 +54,77 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <v-container class="py-16" max-width="800">
+  <v-container class="py-16">
     <v-row>
       <v-col cols="12">
         <layouts-default-page-title>
           Get in <span class="text-primary-darken-2">touch</span>.
         </layouts-default-page-title>
-        <p class="text-h6 font-weight-light text-medium-emphasis mb-10">
-          Have a question or just want to say hi? Drop me a message below and I'll get back to you as soon as possible.
-        </p>
       </v-col>
     </v-row>
 
     <v-row>
-      <v-col cols="12">
+      <v-col cols="12" md="6">
+        <v-list :lines="false">
+          <v-list-item>
+            <template #prepend>
+              <v-icon icon="carbon:email" color="primary" class="mr-3" />
+            </template>
+            <template #title>
+              <span class="text-subtitle-1 font-weight-bold">Email</span>
+            </template>
+            <template #subtitle>
+              <span class="text-body-1 text-medium-emphasis">hello@ropodl.com</span>
+            </template>
+          </v-list-item>
+          <v-list-item>
+            <template #prepend>
+              <v-icon icon="carbon:location" color="primary" class="mr-3" />
+            </template>
+            <template #title>
+              <span class="text-subtitle-1 font-weight-bold">Office</span>
+            </template>
+            <template #subtitle>
+              <span class="text-body-1 text-medium-emphasis">Kathmandu, Nepal</span>
+            </template>
+          </v-list-item>
+          <v-list-item>
+            <template #prepend>
+            <v-icon icon="carbon:share-knowledge" color="primary" class="mr-3" />
+          </template>
+          <template #title>
+            <span class="text-subtitle-1 font-weight-bold">Social</span>
+          </template>
+          <template #subtitle>
+            <span class="text-body-1 text-medium-emphasis">Kathmandu, Nepal</span>
+          </template>
+        </v-list-item>
+        </v-list>
+        <!-- <div class="d-flex align-center mb-4">
+          <v-icon icon="carbon:email" color="primary" class="mr-3" />
+          <span class="text-subtitle-1 font-weight-bold">Email</span>
+        </div>
+        <div class="text-body-1 text-medium-emphasis">hello@ropodl.com</div> -->
+      </v-col>
+      <!-- <v-col cols="12" md="4">
+        <div class="d-flex align-center mb-4">
+          <v-icon icon="carbon:location" color="primary" class="mr-3" />
+          <span class="text-subtitle-1 font-weight-bold">Office</span>
+        </div>
+        <div class="text-body-1 text-medium-emphasis">Kathmandu, Nepal</div>
+      </v-col>
+      <v-col cols="12" md="4">
+        <div class="d-flex align-center mb-4">
+          <v-icon icon="carbon:share-knowledge" color="primary" class="mr-3" />
+          <span class="text-subtitle-1 font-weight-bold">Social</span>
+        </div>
+        <div class="d-flex gap-4">
+          <v-btn icon="carbon:logo-github" variant="text" size="small" />
+          <v-btn icon="carbon:logo-linkedin" variant="text" size="small" />
+          <v-btn icon="carbon:logo-twitter" variant="text" size="small" />
+        </div>
+      </v-col> -->
+      <v-col cols="12" md="6">
         <v-card rounded="xl" border elevation="0" class="pa-6 pa-md-10">
           <v-form @submit.prevent="submitForm" v-if="!success">
             <v-row>
@@ -159,45 +216,12 @@ const submitForm = async () => {
               <p class="text-h6 font-weight-light text-medium-emphasis mb-8">
                 Thank you for reaching out. I'll get back to you shortly.
               </p>
-              <v-btn
-                variant="outlined"
-                rounded="pill"
-                to="/"
-                color="primary"
-              >
+              <v-btn variant="outlined" rounded="pill" to="/" color="primary">
                 Back to Home
               </v-btn>
             </div>
           </v-scale-transition>
         </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row class="mt-16 pt-8">
-      <v-col cols="12" md="4">
-        <div class="d-flex align-center mb-4">
-          <v-icon icon="carbon:email" color="primary" class="mr-3" />
-          <span class="text-subtitle-1 font-weight-bold">Email</span>
-        </div>
-        <div class="text-body-1 text-medium-emphasis">hello@ropodl.com</div>
-      </v-col>
-      <v-col cols="12" md="4">
-        <div class="d-flex align-center mb-4">
-          <v-icon icon="carbon:location" color="primary" class="mr-3" />
-          <span class="text-subtitle-1 font-weight-bold">Office</span>
-        </div>
-        <div class="text-body-1 text-medium-emphasis">Kathmandu, Nepal</div>
-      </v-col>
-      <v-col cols="12" md="4">
-        <div class="d-flex align-center mb-4">
-          <v-icon icon="carbon:share-knowledge" color="primary" class="mr-3" />
-          <span class="text-subtitle-1 font-weight-bold">Social</span>
-        </div>
-        <div class="d-flex gap-4">
-          <v-btn icon="carbon:logo-github" variant="text" size="small" />
-          <v-btn icon="carbon:logo-linkedin" variant="text" size="small" />
-          <v-btn icon="carbon:logo-twitter" variant="text" size="small" />
-        </div>
       </v-col>
     </v-row>
   </v-container>
