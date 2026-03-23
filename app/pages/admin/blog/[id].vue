@@ -4,7 +4,6 @@ import type { blog } from '~/types/blog';
 import Editor from '~/components/admin/shared/Editor.vue';
 import MediaSelector from '~/components/admin/shared/MediaSelector.vue';
 import useApiFetch from '~/utils/shared/useApiFetch';
-import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -19,7 +18,6 @@ const isEditing = computed(() => id !== 'create');
 const loading = ref(false);
 const saving = ref(false);
 const showMediaSelector = ref(false);
-const { can } = useAuth();
 
 const form = ref({
   title: '',
@@ -241,7 +239,6 @@ const statusOptions = [
 
         <v-col cols="12" md="4">
           <v-btn
-            v-if="isEditing ? can('blog.update') : can('blog.create')"
             block
             type="submit"
             color="primary"

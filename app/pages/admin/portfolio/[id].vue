@@ -4,7 +4,6 @@ import type { Portfolio, PortfolioType } from '~/types/portfolio';
 import { useRoute, useRouter } from 'vue-router';
 import Editor from '~/components/admin/shared/Editor.vue';
 import MediaSelector from '~/components/admin/shared/MediaSelector.vue';
-import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -28,7 +27,6 @@ const types = ref<PortfolioType[]>([]);
 const loading = ref(false);
 const saving = ref(false);
 const portfolioForm = ref();
-const { can } = useAuth();
 
 const fetchTypes = async () => {
   try {
@@ -142,7 +140,6 @@ const rules = {
         </v-col>
         <v-col cols="12" md="6" class="text-right">
           <v-btn
-            v-if="isEditing ? can('portfolio.update') : can('portfolio.create')"
             color="primary"
             size="large"
             rounded="lg"

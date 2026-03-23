@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { useApiFetch } from '~/utils/shared/useApiFetch';
-import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -21,7 +20,6 @@ const search = ref('');
 const dialog = ref(false);
 const dialogLoading = ref(false);
 const editingItem = ref<Partial<BlogTag> | null>(null);
-const { can } = useAuth();
 
 const headers = [
   { title: 'Tag Name', key: 'title' },
@@ -117,7 +115,7 @@ const filteredTags = computed(() => {
           Keywords to help readers find content
         </div>
       </v-col>
-      <v-col v-if="can('blog.tag.create')" cols="12" md="6" class="text-right">
+      <v-col cols="12" md="6" class="text-right">
         <v-btn
           color="primary"
           prepend-icon="carbon:tag"
@@ -156,7 +154,6 @@ const filteredTags = computed(() => {
 
           <template #[`item.actions`]="{ item }">
             <v-btn
-              v-if="can('blog.tag.update')"
               icon="carbon:edit"
               variant="text"
               size="small"
@@ -166,7 +163,6 @@ const filteredTags = computed(() => {
               @click="openDialog(item)"
             />
             <v-btn
-              v-if="can('blog.tag.delete')"
               icon="carbon:trash-can"
               variant="text"
               size="small"

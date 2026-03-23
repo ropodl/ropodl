@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { VFileUpload } from 'vuetify/labs/VFileUpload';
-import { useAuth } from '~/composables/admin/auth/useAuth';
 import useApiFetch from '~/utils/shared/useApiFetch';
 
 definePageMeta({
@@ -8,7 +7,6 @@ definePageMeta({
   middleware: ['is-auth'],
 });
 
-const { can } = useAuth();
 const { showSnackbar } = useSnackbar();
 
 onMounted(() => {
@@ -327,7 +325,6 @@ const prev = (currentIndex: number) => {
                             Save Changes
                           </v-btn>
                           <v-btn
-                            v-if="can('media.delete')"
                             color="error"
                             variant="tonal"
                             prepend-icon="mdi-trash-can-outline"

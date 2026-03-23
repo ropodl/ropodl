@@ -4,7 +4,6 @@ import { ref } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 import useApiFetch from '~/utils/shared/useApiFetch';
 import type { blog } from '~/types/blog';
-import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -21,7 +20,6 @@ const headers = [
 const blogs = ref<blog[]>([]);
 const loading = ref(false);
 const searchQuery = ref('');
-const { can } = useAuth();
 
 // Add debounced search handler
 const handleSearch = useDebounceFn((value: string) => {
@@ -94,12 +92,7 @@ const rightNav = ref(false);
           >
             <v-icon icon="carbon:filter" />
           </v-btn>
-          <v-btn
-            v-if="can('blog.create')"
-            flat
-            color="primary"
-            to="/admin/blog/create"
-          >
+          <v-btn flat color="primary" to="/admin/blog/create">
             Add New
           </v-btn>
         </div>
@@ -133,7 +126,6 @@ const rightNav = ref(false);
             <template #[`item.actions`]="{ item }">
               <v-hover v-slot="{ isHovering, props }">
                 <v-btn
-                  v-if="can('blog.update')"
                   v-bind="props"
                   icon
                   size="small"

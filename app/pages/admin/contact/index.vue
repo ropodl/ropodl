@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue';
 import { useApiFetch } from '~/utils/shared/useApiFetch';
-import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -21,7 +20,6 @@ interface ContactRequest {
 const requests = ref<ContactRequest[]>([]);
 const loading = ref(true);
 const search = ref('');
-const { can } = useAuth();
 
 const headers = [
   { title: 'Date', key: 'createdAt' },
@@ -165,7 +163,6 @@ onMounted(fetchRequests);
                 />
                 <v-divider class="my-1" />
                 <v-list-item
-                  v-if="can('contact.delete')"
                   title="Delete"
                   prepend-icon="carbon:trash-can"
                   color="error"
