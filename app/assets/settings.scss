@@ -17,6 +17,13 @@ $body-font: 'Ubuntu', sans-serif;
 body {
   background-color: rgb(var(--v-theme-background));
   font-family: $body-font;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(var(--v-theme-primary), 0.22);
 }
 
 // 4. Component Overrides
@@ -83,6 +90,7 @@ $z-indexes: (1, 5, 10, 11, 50, 100, 1010);
 // 4. List helpers
 .list-none {
   list-style: none !important;
+  padding-left: 0 !important;
 }
 
 // 5. Line clamp utilities

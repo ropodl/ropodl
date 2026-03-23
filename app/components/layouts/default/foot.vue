@@ -35,11 +35,11 @@ const goTop = () => {
       <v-col cols="12" class="d-flex px-6">
         <v-spacer />
         <v-btn
-          :class="isVisible ? 'opacity-100' : 'opacity-0'"
           v-tooltip="{
             location: 'top',
             text: 'Go To Top',
           }"
+          :class="isVisible ? 'opacity-100' : 'opacity-0'"
           :border="false"
           icon
           rounded="circle"
@@ -55,7 +55,7 @@ const goTop = () => {
   </v-container>
   <v-footer
     border="t"
-    class="blur-8"
+    class="site-footer blur-8"
     :class="{ 'pb-16': mobile }"
   >
     <v-card
@@ -65,48 +65,60 @@ const goTop = () => {
       class="pt-16 w-100 overflow-visible"
     >
       <v-container max-width="1200">
-        <v-row>
-          <v-col cols="12">
-            <div class="text-title-large mb-6">
-              Liked my works? Let's Talk and work together
+        <v-row class="align-end">
+          <v-col cols="12" md="8">
+            <div class="text-overline text-medium-emphasis mb-4 footer-label">
+              Available for product design, frontend systems, and full-stack builds
             </div>
-            <div class="text-display-large font-weight-bold d-flex align-start">
-              <span class="text-primary-darken-2">hello</span>@ropodl.com
-              <template v-if="!mobile">
-                <v-btn
-                  border
-                  icon="carbon:arrow-up-right"
-                  color="primary"
-                  variant="tonal"
-                  rounded="circle"
-                  class="ms-3"
-                  href="mailto:hello@ropodl.com"
-                />
+            <div class="footer-title font-weight-bold">
+              Build something that feels
+              <span class="text-primary">sharp, fast, and hard to ignore.</span>
+            </div>
+            <div class="text-body-large text-medium-emphasis mt-5 footer-copy">
+              If you need a frontend that carries its own weight, I design and ship it end-to-end.
+            </div>
+          </v-col>
+          <v-col cols="12" md="4" class="d-flex justify-md-end">
+            <v-btn
+              color="primary"
+              variant="flat"
+              rounded="pill"
+              size="x-large"
+              class="px-8"
+              href="mailto:hello@ropodl.com"
+            >
+              hello@ropodl.com
+              <template #append>
+                <v-icon icon="carbon:arrow-up-right" />
               </template>
-            </div>
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
-      <v-container max-width="1200">
+      <v-container max-width="1200" class="pt-10">
         <v-row align="center" justify="center">
-          <v-col cols="12" md="6">
-            <div class="d-flex align-center text-body-1">
-              Copyright © {{ new Date().getFullYear() }}.
+          <v-col cols="12" md="4">
+            <div class="d-flex align-center text-body-2 text-medium-emphasis">
+              Copyright © {{ new Date().getFullYear() }}. Saroj Poudel.
             </div>
           </v-col>
-          <v-col cols="12" md="6">
-            <ul class="list-none d-flex justify-sm-center justify-md-end">
-              <template v-for="{ icon, link } in socials" :key="link">
+          <v-col cols="12" md="8">
+            <ul class="list-none d-flex flex-wrap justify-sm-center justify-md-end pl-0">
+              <template v-for="{ icon, link, name } in socials" :key="link">
                 <li>
                   <v-btn
                     rounded="lg"
                     color="primary"
                     variant="text"
-                    class="mr-3"
+                    class="mr-1 mr-sm-3"
                     size="small"
                     :href="link"
-                    :icon
-                  />
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <v-icon start :icon />
+                    {{ name }}
+                  </v-btn>
                 </li>
               </template>
             </ul>
@@ -116,3 +128,24 @@ const goTop = () => {
     </v-card>
   </v-footer>
 </template>
+<style scoped>
+.site-footer {
+  background:
+    linear-gradient(180deg, rgba(var(--v-theme-surface), 0.08), rgba(var(--v-theme-surface), 0.4)),
+    rgba(var(--v-theme-background), 0.7);
+}
+
+.footer-label {
+  letter-spacing: 0.18em;
+}
+
+.footer-title {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 0.95;
+  max-width: 14ch;
+}
+
+.footer-copy {
+  max-width: 42ch;
+}
+</style>

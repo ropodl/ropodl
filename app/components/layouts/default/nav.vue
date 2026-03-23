@@ -40,10 +40,10 @@ const isActive = (path: string) => {
 <template>
   <v-card
     flat
-    color="rgba(var(--v-theme-surface), 0.7)"
+    color="rgba(var(--v-theme-surface), 0.72)"
     :location="mobile ? 'bottom' : 'top'"
     rounded="pill"
-    class="position-fixed pa-1 blur-8 z-1010"
+    class="site-nav position-fixed pa-1 blur-8 z-1010"
     :class="[mobile ? 'bottom-10' : 'top-10']"
   >
     <v-tabs
@@ -58,7 +58,13 @@ const isActive = (path: string) => {
     >
       <template v-if="pages">
         <template v-for="{ icon, title, to } in pages" :key="title">
-          <v-tab :stacked="mobile" :to :active="isActive(to)" rounded="pill">
+          <v-tab
+            :stacked="mobile"
+            :to
+            :active="isActive(to)"
+            rounded="pill"
+            class="px-4"
+          >
             <v-icon :start="!mobile" :icon />
             {{ title }}
           </v-tab>
@@ -67,3 +73,9 @@ const isActive = (path: string) => {
     </v-tabs>
   </v-card>
 </template>
+<style scoped>
+.site-nav {
+  border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+}
+</style>

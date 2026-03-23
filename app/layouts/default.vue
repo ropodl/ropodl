@@ -8,11 +8,10 @@ const { density } = useAppearance();
   <v-app>
     <layouts-default-nav />
     <v-main :class="{ 'mt-16': !mobile, 'mt-12': mobile }">
-      <div class="v-bg position-fixed top-0 right-0 left-0 bottom-0">
-        <div
-          aria-hidden="true"
-          class="overflow-hidden opacity-20 w-100 h-100"
-        />
+      <div class="shell-bg position-fixed inset-0" aria-hidden="true">
+        <div class="shell-bg__mesh" />
+        <div class="shell-bg__orb shell-bg__orb--one" />
+        <div class="shell-bg__orb shell-bg__orb--two" />
       </div>
       <v-defaults-provider
         :defaults="{
@@ -29,116 +28,57 @@ const { density } = useAppearance();
           VListItem: { density },
         }"
       >
-        <slot />
+        <div class="shell-frame">
+          <slot />
+        </div>
       </v-defaults-provider>
     </v-main>
     <layouts-default-foot />
   </v-app>
 </template>
 <style scoped>
-@keyframes morph {
-  0%,
-  100% {
-    clip-path: polygon(
-      20% 50%,
-      27% 66%,
-      41% 66%,
-      50% 50%,
-      41% 34%,
-      27% 34%,
-      20% 50%,
-      55% 50%,
-      62% 66%,
-      76% 66%,
-      85% 50%,
-      76% 34%,
-      62% 34%,
-      55% 50%,
-      30% 50%,
-      37% 66%,
-      51% 66%,
-      60% 50%,
-      51% 34%,
-      37% 34%,
-      30% 50%
-    );
-  }
-  50% {
-    clip-path: polygon(
-      22% 48%,
-      30% 68%,
-      43% 64%,
-      52% 52%,
-      43% 36%,
-      28% 32%,
-      22% 48%,
-      57% 48%,
-      64% 64%,
-      78% 68%,
-      87% 52%,
-      78% 36%,
-      64% 32%,
-      57% 48%,
-      32% 48%,
-      39% 68%,
-      53% 64%,
-      62% 52%,
-      53% 36%,
-      39% 32%,
-      32% 48%
-    );
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    transform: scale(1.03) rotate(2deg);
-  }
-  50% {
-    transform: scale(1.06) rotate(4deg);
-  }
-  75% {
-    transform: scale(1.03) rotate(2deg);
-  }
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.v-bg {
-  filter: blur(56px);
+.shell-bg {
   pointer-events: none;
+  overflow: hidden;
+  z-index: -2;
 }
 
-.v-bg > div {
-  background: linear-gradient(
-    270deg,
-    rgba(var(--v-theme-primary), 0.8),
-    rgba(var(--v-theme-primary), 0.4),
-    rgba(var(--v-theme-primary), 0.6)
-  );
-  background-size: 600% 600%;
-  background-position: 0% 50%;
-  z-index: -10;
+.shell-bg__mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(var(--v-theme-primary), 0.12), transparent 26%),
+    radial-gradient(circle at 85% 18%, rgba(var(--v-theme-primary), 0.1), transparent 24%),
+    linear-gradient(180deg, rgba(var(--v-theme-surface), 0.38), rgba(var(--v-theme-background), 0.06)),
+    rgb(var(--v-theme-background));
+}
 
-  animation:
-    morph 8s ease-in-out infinite,
-    pulse 6s ease-in-out infinite,
-    gradientShift 12s ease-in-out infinite;
+.shell-bg__orb {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(var(--v-theme-primary), 0.14);
+  filter: blur(72px);
+  opacity: 0.9;
+}
 
-  will-change: clip-path, transform, background-position;
+.shell-bg__orb--one {
+  top: 8%;
+  right: min(12vw, 180px);
+  width: min(28vw, 360px);
+  height: min(28vw, 360px);
+}
+
+.shell-bg__orb--two {
+  left: min(8vw, 120px);
+  bottom: 12%;
+  width: min(24vw, 280px);
+  height: min(24vw, 280px);
+  background: rgba(var(--v-theme-primary), 0.08);
+}
+
+.shell-frame {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
 }
 </style>

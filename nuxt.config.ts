@@ -35,7 +35,6 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    'v-gsap-nuxt'
   ],
 
   googleFonts: {
