@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { useApiFetch } from '~/utils/shared/useApiFetch';
-import { useAuth } from '~/composables/admin/auth/useAuth';
 
 definePageMeta({
   layout: 'admin',
@@ -21,7 +20,6 @@ const search = ref('');
 const dialog = ref(false);
 const dialogLoading = ref(false);
 const editingItem = ref<Partial<BlogCategory> | null>(null);
-const { can } = useAuth();
 
 const headers = [
   { title: 'Title', key: 'title' },
@@ -117,12 +115,7 @@ const filteredCategories = computed(() => {
           Organize your stories by topic
         </div>
       </v-col>
-      <v-col
-        v-if="can('blog.category.create')"
-        cols="12"
-        md="6"
-        class="text-right"
-      >
+      <v-col cols="12" md="6" class="text-right">
         <v-btn
           color="primary"
           prepend-icon="carbon:add"
@@ -161,7 +154,6 @@ const filteredCategories = computed(() => {
 
           <template #[`item.actions`]="{ item }">
             <v-btn
-              v-if="can('blog.category.update')"
               icon="carbon:edit"
               variant="text"
               size="small"
@@ -171,7 +163,6 @@ const filteredCategories = computed(() => {
               @click="openDialog(item)"
             />
             <v-btn
-              v-if="can('blog.category.delete')"
               icon="carbon:trash-can"
               variant="text"
               size="small"

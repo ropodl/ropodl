@@ -63,15 +63,9 @@ export const useAuth = () => {
     }
   };
 
-  const can = (permission: string): boolean => {
-    if (!user.value) return false;
-    return Array.isArray(user.value.permissions) && user.value.permissions.includes(permission);
-  };
-
   return {
     login,
     logout,
-    can,
     fetchUser,
     user,
     token,
