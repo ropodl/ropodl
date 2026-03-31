@@ -78,7 +78,7 @@ export async function useApiFetch<Res = unknown, Req = unknown>(
       ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
     }),
     params: opts.params ?? {},
-    baseURL: opts.baseURL ?? config.public?.API_URL ?? '',
+    baseURL: opts.baseURL ?? '/api',
     timeout: opts.timeout ?? defaultTimeout,
     responseType: opts.responseType ?? 'json',
     withCredentials: opts.withCredentials ?? false,
