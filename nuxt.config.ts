@@ -35,8 +35,17 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    'v-gsap-nuxt'
+    'v-gsap-nuxt',
+    '@nuxtjs/supabase'
   ],
+
+  supabase: {
+    redirectOptions: {
+      login: '/auth/login',
+      callback: '/auth/confirm',
+      exclude: ['/', '/about', '/contact', '/blog/**', '/portfolio/**'],
+    },
+  },
 
   googleFonts: {
     families: {
@@ -111,7 +120,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      API_URL: process.env.API_URL,
+      // API_URL: process.env.API_URL,
     },
   },
 });
