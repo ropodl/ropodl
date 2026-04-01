@@ -1,66 +1,64 @@
-import { useApiFetch } from '~/utils/shared/useApiFetch';
-import type { LoginResponse, User } from '~/types/auth';
+import type { User } from '~/types/auth';
 
 export const useAuth = () => {
+  const supabase = useSupabaseClient();
+  const supabaseUser = useSupabaseUser();
   const token = useCookie('token', {
     maxAge: 60 * 60 * 24, // 1 day
   });
+  
   const user = useState<User | null>('user', () => null);
   const { showSnackbar } = useSnackbar();
 
-  const decodeToken = (t: string): User | null => {
-    try {
-      const base64Url = t.split('.')[1];
-      if (!base64Url) return null;
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join('')
-      );
+  // Sync supabase user to our user state
+  watch(supabaseUser, (newUser) => {
+    if (newUser) {
+      user.value = {
+        id: newUser.id as unknown as number,
+        email: newUser.email!,
+        username: newUser.user_metadata?.username || newUser.email?.split('@')[0],
+        fullname: newUser.user_metadata?.fullname || newUser.email?.split('@')[0],
+      };
+    } else {
+      user.value = null;
+    }
+  }, { immediate: true });
 
-      return JSON.parse(jsonPayload);
-    } catch (e) {
-      return null;
+  const login = async (form: any) => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        token.value = data.session.access_token;
+        showSnackbar('Logged in successfully', 'success');
+        await navigateTo('/admin/', { replace: true });
+      }
+    } catch (err: any) {
+      const message = err.message || 'Login failed';
+      showSnackbar(message, 'error');
+      throw err;
     }
   };
 
-  const login = async (form: any) => {
-    await useApiFetch<LoginResponse>('auth/login', {
-      method: 'POST',
-      body: form,
-    })
-      .then(async (res: LoginResponse) => {
-        showSnackbar('Logged in successfully', 'success');
-        token.value = res.token;
-        user.value = decodeToken(res.token);
-        console.log(user.value);
-        await navigateTo('/admin/', { replace: true });
-      })
-      .catch(async (err) => {
-        const message = err.data?.message || err.message || 'Login failed';
-        showSnackbar(message, 'error');
-        throw err;
-      });
-  };
-
-  const logout = () => {
-    user.value = null;
-    token.value = null;
-    navigateTo('/auth/', { replace: true });
-    showSnackbar('Logged out successfully', 'success');
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      showSnackbar(error.message, 'error');
+    } else {
+      user.value = null;
+      token.value = null;
+      await navigateTo('/auth/', { replace: true });
+      showSnackbar('Logged out successfully', 'success');
+    }
   };
 
   const fetchUser = () => {
-    if (token.value && !user.value) {
-      user.value = decodeToken(token.value as string);
-      if (!user.value) {
-        token.value = null; // Clear invalid token
-      }
-    }
+    // Supabase handles this automatically via useSupabaseUser
   };
 
   return {
