@@ -1,0 +1,76 @@
+$body-font: 'Ubuntu', sans-serif;
+
+body {
+  background-color: rgb(var(--v-theme-background));
+  font-family: $body-font;
+}
+
+.v-skeleton-loader__image {
+  height: 100% !important;
+}
+
+.v-img:not(.v-parallax) {
+  transition: all 0.3s ease;
+
+  .v-img__img {
+    transform: scale(1);
+    transition: all 0.3s ease;
+  }
+
+  &.zoom-image .v-img__img {
+    transform: scale(1.1);
+  }
+}
+
+$blur-sizes: (2, 4, 6, 8, 10, 12, 14, 16);
+@each $size in $blur-sizes {
+  .blur-#{$size} {
+    backdrop-filter: blur($size * 1px);
+  }
+}
+
+$positions: (top, bottom, left, right);
+$pos-values: (0, 5, 10, 15, 20, 25, 30, 35, 40, 50, 100);
+
+@each $pos in $positions {
+  @each $val in $pos-values {
+    .#{$pos}-#{$val} {
+      @if $val == 0 {
+        #{$pos}: 0 !important;
+      } @else {
+        #{$pos}: ($val * 1px) !important;
+      }
+    }
+  }
+}
+
+.inset-0 {
+  inset: 0 !important;
+}
+
+$z-indexes: (1, 5, 10, 11, 50, 100, 1010);
+@each $z in $z-indexes {
+  .z-#{$z} {
+    z-index: $z !important;
+  }
+}
+
+.list-none {
+  list-style: none !important;
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box !important;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  white-space: normal !important;
+  overflow: hidden !important;
+}
+
+$clamp-values: (1, 2, 3, 4, 5);
+@each $n in $clamp-values {
+  .line-clamp-#{$n} {
+    @include line-clamp($n);
+  }
+}
