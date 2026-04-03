@@ -57,6 +57,8 @@ export default defineNuxtConfig({
 
   ssr: true,
 
+  css: ['./app/assets/main.scss'],
+
   // when enabling ssr option you need to disable inlineStyles and maybe devLogs
   features: {
     inlineStyles: false,
@@ -93,6 +95,9 @@ export default defineNuxtConfig({
         'prosemirror-model',
         'prosemirror-transform',
         'prosemirror-view',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        '@iconify/vue',
       ],
     },
   },

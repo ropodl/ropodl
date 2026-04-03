@@ -31,7 +31,7 @@ export const useAppearance = () => {
   watch(
     isDark,
     (val) => {
-      theme.global.name.value = val ? 'dark' : 'light';
+      theme.change(val ? 'dark' : 'light');
     },
     { immediate: true }
   );
