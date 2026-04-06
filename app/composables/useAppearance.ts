@@ -2,6 +2,25 @@ import { useTheme } from 'vuetify';
 
 export type Density = 'default' | 'comfortable' | 'compact';
 export type AdminNavVariant = 'classic' | 'compact' | 'rail' | 'floating';
+const defaultPrimaryColor = '#00BCD4';
+const defaultPrimaryDarkenColor = '#0097A7';
+
+const normalizePrimaryColor = (value?: string | null) => {
+  const normalized = value?.trim().toLowerCase();
+
+  if (!normalized) return defaultPrimaryColor;
+  if (
+    normalized === '#ffffff' ||
+    normalized === '#fff' ||
+    normalized === 'white' ||
+    normalized === 'rgb(255,255,255)' ||
+    normalized === 'rgb(255, 255, 255)'
+  ) {
+    return defaultPrimaryColor;
+  }
+
+  return value as string;
+};
 
 export const useAppearance = () => {
   const theme = useTheme();
@@ -13,7 +32,7 @@ export const useAppearance = () => {
     default: () => 'default',
   });
   const primaryColor = useCookie<string>('appearance_primary_color', {
-    default: () => '#FFFFFF',
+    default: () => defaultPrimaryColor,
   });
   const adminNavVariant = useCookie<AdminNavVariant>('appearance_admin_nav_variant', {
     default: () => 'classic',
@@ -49,10 +68,20 @@ export const useAppearance = () => {
     (val) => {
       if (!theme.themes.value.dark || !theme.themes.value.light) return;
 
+      const resolvedPrimary = normalizePrimaryColor(val);
+
+      if (primaryColor.value !== resolvedPrimary) {
+        primaryColor.value = resolvedPrimary;
+        return;
+      }
+
       // Update both themes' primary colors
-      theme.themes.value.dark.colors.primary = val;
-      theme.themes.value.light.colors.primary =
-        val === '#FFFFFF' ? '#000000' : val;
+      theme.themes.value.dark.colors.primary = resolvedPrimary;
+      theme.themes.value.dark.colors['primary-darken-1'] = defaultPrimaryDarkenColor;
+      theme.themes.value.dark.colors['primary-darken-2'] = defaultPrimaryDarkenColor;
+      theme.themes.value.light.colors.primary = resolvedPrimary;
+      theme.themes.value.light.colors['primary-darken-1'] = defaultPrimaryDarkenColor;
+      theme.themes.value.light.colors['primary-darken-2'] = defaultPrimaryDarkenColor;
     },
     { immediate: true }
   );

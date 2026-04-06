@@ -7,4 +7,6 @@ definePageMeta({
 await navigateTo('/admin/contact', { replace: true });
 </script>
 
-<template />
+<template>
+  <div />
+</template>

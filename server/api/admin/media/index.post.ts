@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
     data: { publicUrl },
   } = client.storage.from('media').getPublicUrl(filePath)
 
-  let metadata: any = {}
+  const metadata: any = {}
   const variants: any = {}
 
   // 2. Process Image Variants if it's an image
@@ -105,7 +105,7 @@ export default defineEventHandler(async (event) => {
             upsert: false,
           })
 
-          const { data: { publicUrl: variantUrl } } = client.storage.from('media').getPublicUrl(variantPath)
+          client.storage.from('media').getPublicUrl(variantPath)
           variants[spec.name] = variantFileName // Store filename or URL based on your preference. Original stored filename.
         })
       )

@@ -36,6 +36,11 @@ const isActive = (path: string) => {
   if (path === '/') return route.path === '/';
   return route.path === path || route.path.startsWith(`${path}/`);
 };
+
+const tabColor = (path: string) =>
+  isActive(path)
+    ? 'rgba(var(--v-theme-surface),0.9)'
+    : 'rgba(var(--v-theme-on-surface), 0.8)';
 </script>
 <template>
   <v-card
@@ -47,7 +52,6 @@ const isActive = (path: string) => {
     :class="[mobile ? 'bottom-10' : 'top-10']"
   >
     <v-tabs
-      color="primary"
       density="compact"
       hide-slider
       show-arrows
@@ -55,11 +59,25 @@ const isActive = (path: string) => {
       width="100"
       height="50"
       rounded="pill"
-    >
+      >
       <template v-if="pages">
         <template v-for="{ icon, title, to } in pages" :key="title">
-          <v-tab :stacked="mobile" :to :active="isActive(to)" rounded="pill">
-            <v-icon :start="!mobile" :icon />
+          <v-tab
+          :variant="isActive(to) ? 'tonal':'text'"
+            :stacked="mobile"
+            color="primary"
+            :to
+            :active="isActive(to)"
+            rounded="pill"
+            class="nav-tab"
+            :class="{ 'nav-tab--active': isActive(to) }"
+            >
+            <!-- :style="{ color: tabColor(to) }" -->
+            <v-icon
+              :start="!mobile"
+              :icon
+              
+            />
             {{ title }}
           </v-tab>
         </template>
@@ -67,3 +85,10 @@ const isActive = (path: string) => {
     </v-tabs>
   </v-card>
 </template>
+<!-- <style scoped>
+.nav-tab--active {
+  color: inherit !important;
+  background-color: rgba(var(--v-theme-primary), 0.2);
+  backdrop-filter: blur(8px);
+}
+</style> -->

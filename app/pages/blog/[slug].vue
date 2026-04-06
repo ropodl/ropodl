@@ -8,22 +8,21 @@ const DynamicContent = defineAsyncComponent(
   () => import('~/components/dynamicContent.vue')
 );
 
-const blog = ref<blog>({
-  title: '',
-  content: '',
-});
+const { data: blogResponse } = await useAsyncData(
+  () => `guest-blog:${String(route.params.slug)}`,
+  () => useApiFetch<{ data: blog }>(`/blog/${route.params.slug}`),
+  {
+    default: () => ({
+      data: {
+        title: '',
+        content: '',
+      } as blog,
+    }),
+    watch: [() => route.params.slug],
+  }
+);
 
-onMounted(() => {
-  getBlogBySlug();
-});
-
-const getBlogBySlug = async () => {
-  await useApiFetch<{ data: blog }>(`/blog/${route.params.slug}`).then(
-    (res) => {
-      blog.value = res.data;
-    }
-  );
-};
+const blog = computed(() => blogResponse.value.data);
 </script>
 <template>
   <v-container>

@@ -78,11 +78,11 @@ const onHide = () => {
 
 <template>
   <div
-    v-html="content"
     ref="contentContainer"
     class="dynamic-content mb-3"
-  ></div>
-  <vue-easy-lightbox :visible :imgs :index @hide="onHide"></vue-easy-lightbox>
+    v-html="content"
+  />
+  <vue-easy-lightbox :visible :imgs :index @hide="onHide"/>
 </template>
 
 <style lang="scss">

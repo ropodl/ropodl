@@ -1,5 +1,5 @@
 declare module 'vue-easy-lightbox' {
-  import { DefineComponent } from 'vue';
+  import type { DefineComponent } from 'vue';
   const VueEasyLightbox: DefineComponent<{
     visible?: boolean;
     imgs?: string | string[] | { src: string; title?: string }[];

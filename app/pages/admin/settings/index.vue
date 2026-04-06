@@ -7,4 +7,6 @@ definePageMeta({
 await navigateTo('/admin/settings/appearance', { replace: true });
 </script>
 
-<template />
+<template>
+  <div />
+</template>

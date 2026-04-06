@@ -21,23 +21,18 @@ useSeoMeta({
   <v-container>
     <v-row class="mb-3">
       <v-col cols="12">
-        <div
-          class="text-display-large font-weight-bold mb-9"
-          style="font-size: 6rem;line-height: 1em;"
-        >
+          <div class="text-hero font-weight-bold mb-6 mb-md-9">
           Fullstack developer with passion to create
           <span class="text-primary-darken-2"> a great experiences. </span>
         </div>
       </v-col>
     </v-row>
     <v-row :align="'center'" class="mb-3">
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="4" class="hidden-sm-and-down">
         <v-divider />
       </v-col>
       <v-col cols="12" md="8">
-        <div
-          class="text-title-large font-weight-light"
-        >
+        <div class="text-h6 text-md-title-large font-weight-light">
           Hi, I’m Saroj Poudel, a full-stack developer and designer based in
           Kathmandu, Nepal. I focus on creating digital experiences that are
           intuitive, enjoyable, and effective. I've been building things with
@@ -47,9 +42,9 @@ useSeoMeta({
       </v-col>
     </v-row>
     <v-row align="center" class="mb-6">
-      <v-col cols="12" md="9" class="hidden-sm-and-down">
-        <ul class="list-none pl-0 d-flex align-center">
-          <template v-for="({ name, link }, index) in socials" :key="name">
+      <v-col cols="12" md="9">
+        <ul class="list-none pl-0 d-flex align-center flex-wrap justify-center justify-md-start mb-6 mb-md-0">
+          <template v-for="{ name, link } in socials" :key="name">
             <li class="me-6">
               <v-hover v-slot="{ isHovering, props }">
                 <a
@@ -67,7 +62,7 @@ useSeoMeta({
           </template>
         </ul>
       </v-col>
-      <v-col cols="6" md="3">
+      <v-col cols="12" md="3">
         <v-btn
           color="primary"
           block
@@ -85,3 +80,11 @@ useSeoMeta({
     </v-row>
   </v-container>
 </template>
+
+<style scoped>
+.text-hero {
+  /* Fluidly scales from 2.5rem to 6rem */
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  line-height: 1.1;
+}
+</style>

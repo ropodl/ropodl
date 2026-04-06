@@ -4,9 +4,16 @@ export default defineEventHandler(async (event) => {
   const client: any = await serverSupabaseClient(event)
 
   const { data, error } = await client
-    .from('blog_categories')
-    .select('id, category_name, category_slug')
-    .order('category_name', { ascending: true })
+    .from('blogs')
+    .select(`
+      category:blog_categories!category_id(
+        id,
+        category_name,
+        category_slug
+      )
+    `)
+    .eq('blog_status', 'published')
+    .not('category_id', 'is', null)
 
   if (error) {
     throw createError({
@@ -17,10 +24,20 @@ export default defineEventHandler(async (event) => {
 
   return {
     success: true,
-    data: (data ?? []).map((category: any) => ({
-      id: category.id,
-      title: category.category_name,
-      slug: category.category_slug,
-    })),
+    data: Array.from(
+      new Map(
+        (data ?? [])
+          .map((item: any) => item.category)
+          .filter(Boolean)
+          .map((category: any) => [
+            category.id,
+            {
+              id: category.id,
+              title: category.category_name,
+              slug: category.category_slug,
+            },
+          ]),
+      ).values(),
+    ).sort((a, b) => a.title.localeCompare(b.title)),
   }
 })

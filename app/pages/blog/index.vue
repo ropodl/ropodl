@@ -2,39 +2,56 @@
 import type { blog } from '~/types/blog';
 import useApiFetch from '~/utils/shared/useApiFetch';
 
-const blogs = ref<blog[]>([]);
-const categories = ref<any[]>([]);
-const currentCategory = ref<string | null>(null);
-const currentTag = ref<string | null>(null);
+type BlogCategory = {
+  id: number;
+  slug: string;
+  title: string;
+};
 
 const route = useRoute();
 const router = useRouter();
+const currentCategory = computed(() =>
+  typeof route.query.category === 'string' ? route.query.category : null
+);
+const currentTag = computed(() =>
+  typeof route.query.tag === 'string' ? route.query.tag : null
+);
 
-const fetchCategories = async () => {
-  const res = await useApiFetch<{ data: any[] }>('/blog/category');
-  categories.value = res.data;
-};
+const { data: categoriesResponse } = await useAsyncData(
+  'guest-blog-categories',
+  () => useApiFetch<{ data: BlogCategory[] }>('/blog/category'),
+  {
+    default: () => ({ data: [] }),
+  }
+);
 
-const getAllBlogs = async () => {
-  const params: any = {};
-  if (currentCategory.value) params.category = currentCategory.value;
-  if (currentTag.value) params.tag = currentTag.value;
+const { data: blogsResponse } = await useAsyncData(
+  () => `guest-blogs:${currentCategory.value ?? 'all'}:${currentTag.value ?? 'all'}`,
+  () =>
+    useApiFetch<{ data: blog[] }>('/blog', {
+      query: {
+        category: currentCategory.value,
+        tag: currentTag.value,
+      },
+    }),
+  {
+    default: () => ({ data: [] }),
+    watch: [currentCategory, currentTag],
+  }
+);
 
-  await useApiFetch<{ data: blog[] }>('/blog', { params }).then((res) => {
-    blogs.value = res.data;
-  });
-};
+const blogs = computed(() => blogsResponse.value?.data ?? []);
+const categories = computed(() => categoriesResponse.value?.data ?? []);
 
 const filterByCategory = (slug: string | null) => {
-  currentCategory.value = slug;
-  currentTag.value = null;
-  getAllBlogs();
+  router.push({
+    query: {
+      ...route.query,
+      category: slug || undefined,
+      tag: undefined,
+    },
+  });
 };
-
-onMounted(() => {
-  getAllBlogs();
-  fetchCategories();
-});
 </script>
 <template>
   <v-container>
@@ -52,7 +69,6 @@ onMounted(() => {
           v-model="currentCategory"
           selected-class="text-primary"
           mandatory
-          class="mb-6"
         >
           <v-chip
             :value="null"
@@ -70,13 +86,13 @@ onMounted(() => {
             rounded="lg"
             @click="filterByCategory(cat.slug)"
           >
-            {{ cat.title }}
+          {{ cat.title }}
           </v-chip>
         </v-chip-group>
       </v-col>
     </v-row>
 
-    <template v-if="blogs.length">
+          <template v-if="blogs.length">
       <v-row class="mb-16">
         <template
           v-for="(
@@ -87,7 +103,6 @@ onMounted(() => {
               featured_image,
               created_at,
               category,
-              tags,
             },
             i
           ) in blogs"
@@ -238,9 +253,9 @@ onMounted(() => {
       </v-row>
     </template>
     <template v-else>
-      <v-row class="py-16">
+      <v-row class="pb-16">
         <v-col cols="12" class="mb-6">
-          <v-alert border rounded="lg" border-color="white">
+          <v-alert border rounded="lg" variant="tonal" color="primary" border-color="primary">
             Sorry, no content available.
           </v-alert>
         </v-col>

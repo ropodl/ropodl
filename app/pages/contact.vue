@@ -126,7 +126,7 @@ const submitForm = async () => {
       </v-col> -->
       <v-col cols="12" md="6">
         <v-card rounded="xl" border elevation="0" class="pa-6 pa-md-10">
-          <v-form @submit.prevent="submitForm" v-if="!success">
+          <v-form v-if="!success" @submit.prevent="submitForm">
             <v-row>
               <v-col cols="12" md="6">
                 <v-text-field
