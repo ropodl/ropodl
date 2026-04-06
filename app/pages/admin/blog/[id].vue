@@ -203,70 +203,110 @@ const statusOptions = [
 </script>
 
 <template>
-  <v-container v-if="!loading">
+  <v-container v-if="!loading" class="admin-page">
     <v-form ref="blogForm" @submit.prevent="submit">
-      <v-row>
-        <v-col cols="12" md="8">
-          <v-label>Blog Title</v-label>
-          <v-text-field
-            v-model="form.title"
-            placeholder="eg. Lorem ipsum dolor."
-            :rules="rules.title"
-          />
+      <section class="admin-hero">
+        <div class="admin-hero__kicker">Editorial builder</div>
+        <div class="admin-hero__title">
+          {{ isEditing ? 'Refine the article before release.' : 'Build a new piece with sharper intent.' }}
+        </div>
+        <div class="admin-hero__copy">
+          Control narrative, taxonomy, and featured media from a single publishing canvas.
+        </div>
+      </section>
 
-          <v-label>Blog Slug</v-label>
-          <v-text-field
-            v-model="form.slug"
-            placeholder="eg. lorem-ipsum-dolor"
-            :rules="rules.slug"
-          />
+      <div class="admin-form-grid">
+        <div class="admin-stack">
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Story framing</div>
+              <div class="admin-panel__copy">
+                Define the headline, URL, and short summary that shape how the article lands.
+              </div>
 
-          <v-label>Blog Content</v-label>
-          <client-only>
-            <Editor v-model:content="form.content" />
-            <template #fallback>
-              <div class="text-center pa-4">Loading Editor...</div>
-            </template>
-          </client-only>
+              <v-label class="mt-6">Blog Title</v-label>
+              <v-text-field
+                v-model="form.title"
+                placeholder="eg. Lorem ipsum dolor."
+                :rules="rules.title"
+                rounded="xl"
+                variant="outlined"
+              />
 
-          <v-label class="mt-4">Excerpt</v-label>
-          <v-textarea
-            v-model="form.excerpt"
-            placeholder="Provide a brief summary..."
-            rows="3"
-          />
-        </v-col>
+              <v-label>Blog Slug</v-label>
+              <v-text-field
+                v-model="form.slug"
+                placeholder="eg. lorem-ipsum-dolor"
+                :rules="rules.slug"
+                rounded="xl"
+                variant="outlined"
+              />
 
-        <v-col cols="12" md="4">
-          <v-btn
-            block
-            type="submit"
-            color="primary"
-            class="mb-3"
-            :loading="saving"
-          >
-            Submit
-          </v-btn>
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Status</v-label>
+              <v-label class="mt-4">Excerpt</v-label>
+              <v-textarea
+                v-model="form.excerpt"
+                placeholder="Provide a brief summary..."
+                rows="3"
+                rounded="xl"
+                variant="outlined"
+              />
             </v-card-text>
-            <v-card-text class="pt-0">
+          </v-card>
+
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Content canvas</div>
+              <div class="admin-panel__copy">
+                Compose the full article with media blocks, formatting, and embedded elements.
+              </div>
+
+              <v-label class="mt-6">Blog Content</v-label>
+              <client-only>
+                <Editor v-model:content="form.content" />
+                <template #fallback>
+                  <div class="text-center pa-4">Loading Editor...</div>
+                </template>
+              </client-only>
+            </v-card-text>
+          </v-card>
+        </div>
+
+        <div class="admin-stack">
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Publishing state</div>
+              <div class="admin-panel__copy">
+                Decide whether this story stays in draft or moves live.
+              </div>
+              <v-btn
+                block
+                type="submit"
+                color="primary"
+                rounded="xl"
+                class="mt-6 mb-4"
+                size="large"
+                :loading="saving"
+              >
+                {{ isEditing ? 'Update Article' : 'Create Article' }}
+              </v-btn>
               <v-select
                 v-model="form.status"
                 hide-details
                 :items="statusOptions"
                 placeholder="Blog Status"
+                rounded="xl"
+                variant="outlined"
               />
             </v-card-text>
           </v-card>
 
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Category & Tags</v-label>
-            </v-card-text>
-            <v-card-text class="pt-0">
-              <div class="d-flex align-center gap-2 mb-3">
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Category & tags</div>
+              <div class="admin-panel__copy">
+                Position the story inside your editorial taxonomy.
+              </div>
+              <div class="d-flex align-center gap-2 mt-6 mb-3">
                 <v-select
                   v-model="form.categoryId"
                   label="Category"
@@ -274,14 +314,14 @@ const statusOptions = [
                   item-title="title"
                   item-value="id"
                   variant="outlined"
-                  rounded="lg"
+                  rounded="xl"
                   hide-details
                   clearable
                 />
                 <v-btn
                   icon="carbon:add"
                   variant="tonal"
-                  rounded="lg"
+                  rounded="xl"
                   color="primary"
                   @click="
                     resetQuickForm();
@@ -297,7 +337,7 @@ const statusOptions = [
                   item-title="title"
                   item-value="id"
                   variant="outlined"
-                  rounded="lg"
+                  rounded="xl"
                   multiple
                   chips
                   closable-chips
@@ -306,7 +346,7 @@ const statusOptions = [
                 <v-btn
                   icon="carbon:add"
                   variant="tonal"
-                  rounded="lg"
+                  rounded="xl"
                   color="primary"
                   @click="
                     resetQuickForm();
@@ -317,62 +357,54 @@ const statusOptions = [
             </v-card-text>
           </v-card>
 
-          <v-card class="mb-3">
-            <v-card-text class="pb-0">
-              <v-label>Featured Image</v-label>
-            </v-card-text>
-            <v-card-text class="pt-0">
-              <v-hover v-slot="{ isHovering, props }">
-                <v-card
-                  v-bind="props"
-                  border
-                  height="200"
-                  class="d-flex align-center justify-center cursor-pointer w-100"
-                  @click="showMediaSelector = true"
-                >
-                  <template v-if="form.featured_image_url">
-                    <v-img
-                      :src="form.featured_image_url"
-                      cover
-                      class="h-100"
-                      content-class="w-100 h-100 d-flex align-center justify-center"
-                    >
-                      <template v-if="isHovering">
-                        <div
-                          class="w-100 h-100 d-flex align-center justify-center"
-                          style="
-                            background-color: rgba(var(--v-theme-surface), 0.4);
-                          "
-                        >
-                          <v-btn
-                            icon="carbon:close"
-                            rounded="circle"
-                            color="primary"
-                            variant="flat"
-                            @click.stop="removeImage"
-                          />
-                        </div>
-                      </template>
-                    </v-img>
-                  </template>
-                  <template v-else>
-                    <div class="text-center">
-                      <v-icon size="32" icon="mdi-cloud-upload" />
-                      <div class="text-h6 font-weight-medium">
-                        Select Featured image
-                      </div>
-                      <div class="text-caption">
-                        Select an image to set as featured image
-                      </div>
-                      <!-- <v-btn border class="mt-2">Browse</v-btn> -->
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Featured image</div>
+              <div class="admin-panel__copy">
+                Choose the cover visual that carries this article across cards and previews.
+              </div>
+              <div
+                class="admin-feature-frame mt-6"
+                :class="{ 'admin-feature-frame--empty': !form.featured_image_url }"
+                @click="showMediaSelector = true"
+              >
+                <template v-if="form.featured_image_url">
+                  <v-img
+                    :src="form.featured_image_url"
+                    cover
+                    min-height="260"
+                    class="cursor-pointer"
+                  />
+                  <div class="admin-feature-frame__overlay">
+                    <div class="d-flex ga-3">
+                      <v-btn rounded="xl" color="primary" variant="flat">
+                        Swap image
+                      </v-btn>
+                      <v-btn
+                        rounded="xl"
+                        color="error"
+                        variant="tonal"
+                        @click.stop="removeImage"
+                      >
+                        Remove
+                      </v-btn>
                     </div>
-                  </template>
-                </v-card>
-              </v-hover>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="text-center">
+                    <v-icon size="44" icon="carbon:image" />
+                    <div class="text-h6 font-weight-bold mt-3">Select a featured image</div>
+                    <div class="text-body-2 text-medium-emphasis mt-1">
+                      Choose a strong visual anchor for this article.
+                    </div>
+                  </div>
+                </template>
+              </div>
             </v-card-text>
           </v-card>
-        </v-col>
-      </v-row>
+        </div>
+      </div>
     </v-form>
 
     <MediaSelector
@@ -382,7 +414,7 @@ const statusOptions = [
 
     <!-- Quick Create Dialog -->
     <v-dialog v-model="catDialog" max-width="450">
-      <v-card rounded="xl">
+      <v-card class="admin-panel">
         <v-card-title class="pa-4 font-weight-bold"
           >Quick New Category</v-card-title
         >
@@ -430,7 +462,7 @@ const statusOptions = [
     </v-dialog>
 
     <v-dialog v-model="tagDialog" max-width="450">
-      <v-card rounded="xl">
+      <v-card class="admin-panel">
         <v-card-title class="pa-4 font-weight-bold">Quick New Tag</v-card-title>
         <v-divider />
         <v-card-text class="pa-4">

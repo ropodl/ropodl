@@ -1,6 +1,7 @@
 import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
 import { randomUUID } from 'node:crypto'
 import sharp from 'sharp'
+import { serializeMedia } from '../../../utils/serializers'
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
@@ -27,7 +28,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const client = await serverSupabaseClient(event)
+  const client: any = await serverSupabaseClient(event)
 
   const now = new Date()
   const year = now.getFullYear()
@@ -139,5 +140,5 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  return mediaData
+  return serializeMedia(mediaData)
 })

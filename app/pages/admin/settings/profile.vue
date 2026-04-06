@@ -58,36 +58,43 @@ const updateProfile = async () => {
 </script>
 
 <template>
-  <v-container>
+  <v-container class="admin-page">
+    <section class="admin-hero">
+      <div class="admin-hero__kicker">Operator profile</div>
+      <div class="admin-hero__title">Tune the identity behind the studio.</div>
+      <div class="admin-hero__copy">
+        Update your account details and access credentials from a calmer account panel.
+      </div>
+    </section>
+
     <v-row>
       <v-col cols="12" md="8" offset-md="2">
-        <div class="text-h4 font-weight-bold mb-1">Your Profile</div>
-        <div class="text-subtitle-1 text-medium-emphasis mb-6">
-          Update your account information
-        </div>
-
-        <v-card rounded="lg" elevation="0" border>
+        <v-card class="admin-panel">
           <v-card-text class="pa-6">
             <v-form @submit.prevent="updateProfile">
+              <div class="admin-panel__title">Identity</div>
+              <div class="admin-panel__copy">
+                Keep your public admin identity current and consistent.
+              </div>
               <v-text-field
                 v-model="form.fullname"
                 label="Full Name"
                 variant="outlined"
-                rounded="lg"
+                rounded="xl"
                 :rules="rules.fullname"
-                class="mb-3"
+                class="mt-6 mb-3"
               />
               <v-text-field
                 v-model="form.email"
                 label="Email Address"
                 variant="outlined"
-                rounded="lg"
+                rounded="xl"
                 :rules="rules.email"
                 class="mb-3"
               />
 
               <v-divider class="my-6" />
-              <div class="text-subtitle-1 font-weight-bold mb-4">
+              <div class="admin-panel__title mb-4">
                 Change Password
               </div>
               <div class="text-caption text-medium-emphasis mb-4">
@@ -101,7 +108,7 @@ const updateProfile = async () => {
                     label="New Password"
                     type="password"
                     variant="outlined"
-                    rounded="lg"
+                    rounded="xl"
                     :rules="rules.password"
                   />
                 </v-col>
@@ -111,7 +118,7 @@ const updateProfile = async () => {
                     label="Confirm New Password"
                     type="password"
                     variant="outlined"
-                    rounded="lg"
+                    rounded="xl"
                     :rules="rules.confirmPassword"
                   />
                 </v-col>
@@ -122,7 +129,7 @@ const updateProfile = async () => {
                 <v-btn
                   color="primary"
                   variant="flat"
-                  rounded="lg"
+                  rounded="xl"
                   size="large"
                   type="submit"
                   :loading="loading"
