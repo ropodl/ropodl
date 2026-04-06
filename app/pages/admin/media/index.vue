@@ -23,7 +23,7 @@ const saving = ref(false);
 
 const getMedia = async () => {
   loading.value = true;
-  await useApiFetch<any[]>('media/', {
+  await useApiFetch<any[]>('admin/media/', {
     query: { search: search.value },
   })
     .then((res) => {
@@ -74,7 +74,7 @@ const uploadMedia = async () => {
   const formData = new FormData();
   formData.append('file', file);
 
-  await useApiFetch<unknown>('media/create', {
+  await useApiFetch<unknown>('admin/media/create', {
     method: 'POST',
     body: formData,
   })
@@ -93,7 +93,7 @@ const uploadMedia = async () => {
 const updateMedia = async () => {
   if (!selectedItem.value) return;
   saving.value = true;
-  await useApiFetch(`media/${selectedItem.value.id}`, {
+  await useApiFetch(`admin/media/${selectedItem.value.id}`, {
     method: 'PATCH',
     body: {
       altText: selectedItem.value.altText,
@@ -119,7 +119,7 @@ const deleteMedia = async () => {
   if (!selectedItem.value) return;
   if (!confirm('Are you sure you want to delete this media?')) return;
 
-  await useApiFetch(`media/${selectedItem.value.id}`, {
+  await useApiFetch(`admin/media/${selectedItem.value.id}`, {
     method: 'DELETE',
   })
     .then(() => {
@@ -168,24 +168,40 @@ const prev = (currentIndex: number) => {
 </script>
 
 <template>
-  <v-container>
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="4">
+  <v-container class="admin-page">
+    <section class="admin-hero">
+      <div class="admin-hero__kicker">Media atelier</div>
+      <div class="admin-hero__title">Turn the library into a visual workroom.</div>
+      <div class="admin-hero__copy">
+        Upload assets, review metadata, and keep the image catalog sharp enough for every page.
+      </div>
+    </section>
+
+    <div class="admin-toolbar">
+      <div class="admin-toolbar__search">
         <v-text-field
           v-model="search"
           placeholder="Search media..."
           prepend-inner-icon="carbon:search"
           hide-details
           variant="outlined"
-          density="compact"
+          density="comfortable"
+          rounded="xl"
           clearable
         />
-      </v-col>
-      <v-spacer />
-    </v-row>
+      </div>
+    </div>
 
-    <v-row>
-      <v-col cols="12">
+    <section class="admin-upload-stage mb-6">
+      <div class="admin-split-header mb-4">
+        <div>
+          <div class="admin-split-header__title">Upload stage</div>
+          <div class="admin-upload-stage__caption">
+            Drag in images or documents and they will move straight into the library below.
+          </div>
+        </div>
+      </div>
+      <div>
         <v-file-upload
           v-model="files"
           multiple
@@ -194,106 +210,92 @@ const prev = (currentIndex: number) => {
           :loading="loading"
           title="Drag and drop or click to upload media"
         />
-      </v-col>
-    </v-row>
+      </div>
+    </section>
 
     <template v-if="loading && media.length === 0">
-      <v-row>
-        <v-col v-for="i in 8" :key="i" cols="6" sm="4" md="2">
+      <div class="admin-media-grid">
+        <div v-for="i in 8" :key="i">
           <v-skeleton-loader type="image" height="150" />
-        </v-col>
-      </v-row>
+        </div>
+      </div>
     </template>
 
     <template v-else-if="media.length > 0">
-      <v-row>
+      <div class="admin-media-grid">
         <template v-for="(item, i) in media" :key="item.id">
-          <v-col cols="6" sm="4" md="3">
-            <v-dialog v-model="dialogState[i]" width="1000">
-              <template #activator="{ props: activatorProps }">
-                <v-card
-                  v-bind="activatorProps"
-                  hover
-                  class="rounded-lg overflow-hidden"
-                  height="200"
-                >
-                  <v-img
-                    :src="item.fileUrl"
-                    aspect-ratio="1"
-                    cover
-                    class="bg-grey-lighten-2"
-                  >
-                    <template #placeholder>
-                      <v-row
-                        align="center"
-                        class="fill-height ma-0"
-                        justify="center"
-                      >
-                        <v-icon color="grey-lighten-1" size="48">
-                          mdi-file-outline
-                        </v-icon>
-                      </v-row>
-                    </template>
-                  </v-img>
-                </v-card>
-              </template>
-              <template #default="{ isActive }">
-                <v-card color="background">
-                  <v-card-title class="d-flex align-center bg-surface">
-                    Attachment Details
-                    <v-spacer />
-                    <v-btn
-                      size="small"
-                      icon="mdi-arrow-left"
-                      :disabled="i <= 0"
-                      @click="prev(i)"
-                    />
-                    <v-btn
-                      size="small"
-                      icon="mdi-arrow-right"
-                      :disabled="i >= media.length - 1"
-                      @click="next(i)"
-                    />
-                    <v-btn
-                      icon="mdi-close"
-                      variant="text"
-                      size="small"
-                      @click="isActive.value = false"
-                    />
-                  </v-card-title>
-                  <v-divider />
-                  <v-card-text>
-                    <v-row>
-                      <v-col cols="7">
-                        <v-img
-                          contain
-                          :src="item.fileUrl"
-                          class="bg-grey-lighten-3 rounded-lg mb-4"
-                        />
-                      </v-col>
-                      <v-divider :vertical="true" />
-                      <v-col cols="5">
-                        <div
-                          class="text-grey-darken-1 mb-2"
-                          style="word-break: break-all"
-                        >
-                          <div>
-                            <strong>Filename:</strong> {{ item.filename }}
-                          </div>
-                          <div>
-                            <strong>File type:</strong> {{ item.mimeType }}
-                          </div>
-                          <div>
-                            <strong>File size:</strong>
-                            {{ formatBytes(item.sizeBytes) }}
-                          </div>
+          <v-dialog v-model="dialogState[i]" width="1000">
+            <template #activator="{ props: activatorProps }">
+              <v-card
+                v-bind="activatorProps"
+                hover
+                class="admin-media-card"
+              >
+                <v-img
+                  :src="item.fileUrl"
+                  aspect-ratio="1"
+                  cover
+                  class="bg-grey-lighten-2"
+                />
+                <div class="admin-media-card__meta">
+                  <div class="admin-media-card__title line-clamp-1">{{ item.filename }}</div>
+                  <div class="admin-media-card__sub">
+                    {{ formatBytes(item.sizeBytes) }} • {{ item.mimeType }}
+                  </div>
+                </div>
+              </v-card>
+            </template>
+            <template #default="{ isActive }">
+              <v-card class="admin-panel">
+                <v-card-title class="d-flex align-center">
+                  Asset inspector
+                  <v-spacer />
+                  <v-btn
+                    size="small"
+                    icon="mdi-arrow-left"
+                    :disabled="i <= 0"
+                    @click="prev(i)"
+                  />
+                  <v-btn
+                    size="small"
+                    icon="mdi-arrow-right"
+                    :disabled="i >= media.length - 1"
+                    @click="next(i)"
+                  />
+                  <v-btn
+                    icon="mdi-close"
+                    variant="text"
+                    size="small"
+                    @click="isActive.value = false"
+                  />
+                </v-card-title>
+                <v-divider />
+                <v-card-text>
+                  <v-row>
+                    <v-col cols="12" md="7">
+                      <v-img
+                        contain
+                        :src="item.fileUrl"
+                        class="bg-grey-lighten-3 rounded-xl mb-4"
+                      />
+                    </v-col>
+                    <v-col cols="12" md="5">
+                      <div class="admin-inspector">
+                        <div class="admin-panel__title">Metadata</div>
+                        <div class="admin-panel__copy" style="word-break: break-all">
+                          {{ item.filename }}
+                        </div>
+
+                        <div class="mt-4 text-medium-emphasis">
+                          <div><strong>Type:</strong> {{ item.mimeType }}</div>
+                          <div><strong>Size:</strong> {{ formatBytes(item.sizeBytes) }}</div>
                           <div v-if="item.metadata?.dimensions">
                             <strong>Dimensions:</strong>
-                            {{ item.metadata.dimensions.width }} &times;
-                            {{ item.metadata.dimensions.height }} pixels
+                            {{ item.metadata.dimensions.width }} ×
+                            {{ item.metadata.dimensions.height }}
                           </div>
                           <div>
-                            <strong>Uploaded on:</strong>
+                            <strong>Uploaded:</strong>
                             {{ new Date(item.createdAt).toLocaleDateString() }}
                           </div>
                         </div>
@@ -303,7 +305,9 @@ const prev = (currentIndex: number) => {
                           persistent-hint
                           placeholder="Alt Text"
                           hint="Describes the appearance and function of the image."
-                          class="mb-4"
+                          class="mt-5 mb-4"
+                          rounded="xl"
+                          variant="outlined"
                         />
 
                         <v-textarea
@@ -311,37 +315,45 @@ const prev = (currentIndex: number) => {
                           placeholder="Description"
                           rows="3"
                           class="mb-4"
+                          rounded="xl"
+                          variant="outlined"
                         />
-
-                        <v-spacer />
 
                         <div class="d-flex ga-2">
                           <v-btn
                             color="primary"
                             prepend-icon="mdi-content-save"
+                            rounded="xl"
                             :loading="saving"
-                            @click="updateMedia"
+                            @click="
+                              selectedItem = item;
+                              updateMedia();
+                            "
                           >
-                            Save Changes
+                            Save
                           </v-btn>
                           <v-btn
                             color="error"
                             variant="tonal"
+                            rounded="xl"
                             prepend-icon="mdi-trash-can-outline"
-                            @click="deleteMedia"
+                            @click="
+                              selectedItem = item;
+                              deleteMedia();
+                            "
                           >
                             Delete
                           </v-btn>
                         </div>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
-              </template>
-            </v-dialog>
-          </v-col>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </template>
+          </v-dialog>
         </template>
-      </v-row>
+      </div>
     </template>
 
     <template v-else>

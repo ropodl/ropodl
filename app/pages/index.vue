@@ -71,6 +71,7 @@ useSeoMeta({
         <v-btn
           color="primary"
           block
+          variant="tonal"
           rounded="pill"
           size="x-large"
           height="80"

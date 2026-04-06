@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { left } from '@/composables/admin/layout/nav';
 import type { navItem } from '@/types/layout';
+import { useDisplay } from 'vuetify';
 import { useAuth } from '~/composables/admin/auth/useAuth';
 import { useAppearance } from '~/composables/useAppearance';
 
-const { density } = useAppearance();
+const { density, isDark, toggleTheme, adminNavVariant } = useAppearance();
+const { mdAndDown } = useDisplay();
+const adminDensity = computed(() => density.value || 'compact');
+const railExpanded = ref(false);
+const openedGroups = ref<string[]>([]);
 
 const route = useRoute();
 const { user, fetchUser, logout } = useAuth();
@@ -14,7 +19,7 @@ const navItems: navItem[] = [
   {
     icon: 'carbon:edit',
     title: 'Blog',
-    subtitle: 'Content And Portfolio',
+    subtitle: 'Content and publishing',
     subitems: [
       { title: 'All Blogs', to: '/admin/blog' },
       { title: 'Add New', to: '/admin/blog/create' },
@@ -42,28 +47,25 @@ const navItems: navItem[] = [
   {
     icon: 'carbon:phone',
     title: 'Contact Request',
-    subtitle: 'Contact and Feedback',
+    subtitle: 'Messages and feedback',
     to: '/admin/contact',
   },
   {
     icon: 'carbon:settings',
     title: 'Settings',
-    subtitle: 'Access Control',
-    subitems: [{ title: 'Audit Logs', to: '/admin/settings/logs' }],
+    subitems: [
+      { title: 'Profile', to: '/admin/settings/profile' },
+      { title: 'Appearance', to: '/admin/settings/appearance' },
+      { title: 'Audit Logs', to: '/admin/settings/logs' },
+    ],
   },
 ];
 
-/**
- * @description Computes the breadcrumb items based on the current route path.
- */
 const bread = computed(() => {
-  // Get and filter path segments, removing the leading empty string
-  // and the top-level 'admin' segment since it's handled as the root.
   const pathSegments = route.fullPath
     .split('/')
     .filter((segment) => segment && segment !== 'admin');
 
-  // Initialize the items array with the base 'Home' breadcrumb
   const items: { title: string; to: string }[] = [
     {
       title: 'Home',
@@ -74,28 +76,19 @@ const bread = computed(() => {
   let currentPath = '/admin';
 
   pathSegments.forEach((segment) => {
-    let displayTitle: string;
-
-    // Check if the segment is numeric (likely an ID for editing)
-    const isNumericOrID = /^\d+$/.test(segment);
+    let displayTitle = segment;
 
     if (segment === 'create') {
-      displayTitle = 'create';
-    } else if (isNumericOrID) {
-      displayTitle = 'edit'; // Display 'Edit' instead of the ID
+      displayTitle = 'Create';
+    } else if (/^\d+$/.test(segment)) {
+      displayTitle = 'Edit';
     } else {
-      // Decode and format the segment title:
-      // 1. Replace hyphens with spaces: 'all-blogs' -> 'all blogs'
-      // 2. Capitalize the first letter of each word: 'all blogs' -> 'All Blogs'
       displayTitle = segment
         .replace(/-/g, ' ')
-        .replace(/\b\w/g, (c) => c.toLowerCase());
+        .replace(/\b\w/g, (char) => char.toUpperCase());
     }
 
-    // Update the full path for the 'to' link
     currentPath = `${currentPath}/${segment}`;
-
-    // Add the breadcrumb item
     items.push({
       title: displayTitle,
       to: currentPath,
@@ -105,165 +98,209 @@ const bread = computed(() => {
   return items;
 });
 
-onMounted(async () => {
+onMounted(() => {
   fetchUser();
 });
+
+const isRailVariant = computed(() => adminNavVariant.value === 'rail');
+const isDesktopRail = computed(() => !mdAndDown.value && isRailVariant.value);
+
+const drawerWidth = computed(() => {
+  switch (adminNavVariant.value) {
+    case 'compact':
+      return 208;
+    case 'rail':
+      return isDesktopRail.value && !railExpanded.value ? 88 : 240;
+    case 'floating':
+      return 248;
+    default:
+      return 240;
+  }
+});
+
+const drawerClass = computed(() => ({
+  'admin-drawer--compact': adminNavVariant.value === 'compact',
+  'admin-drawer--rail': adminNavVariant.value === 'rail',
+  'admin-drawer--floating': adminNavVariant.value === 'floating',
+}));
+
+const isRouteActive = (to?: string) => {
+  if (!to) return false;
+  return route.path === to || route.path.startsWith(`${to}/`);
+};
+
+const expandRailDrawer = () => {
+  if (isDesktopRail.value && !railExpanded.value) {
+    railExpanded.value = true;
+  }
+};
+
+const isGroupActive = (item: navItem) =>
+  !!item.subitems?.some((subItem) => isRouteActive(subItem.to));
+
+watch(
+  [adminNavVariant, mdAndDown],
+  () => {
+    railExpanded.value = false;
+    openedGroups.value = [];
+  }
+);
+
+watch(
+  () => route.fullPath,
+  () => {
+    railExpanded.value = false;
+    openedGroups.value = [];
+  }
+);
 </script>
 
 <template>
   <v-app>
     <v-navigation-drawer
       v-model="left"
-      rail
-      permanent
-      color="rgba(var(--v-theme-surface), 0.7)"
-      class="blur-8"
+      :temporary="mdAndDown"
+      :permanent="!mdAndDown"
+      :width="drawerWidth"
+      :rail="isDesktopRail && !railExpanded"
+      border="end"
+      :class="drawerClass"
     >
-      <v-list nav density="compact" active-color="primary">
+      <v-list v-model:opened="openedGroups" nav density="compact">
+        <v-list-subheader>Admin</v-list-subheader>
+
         <template v-for="item in navItems" :key="item.title">
-          <template v-if="!item.subitems">
+          <v-list-item
+            v-if="!item.subitems"
+            :prepend-icon="item.icon"
+            :title="item.title"
+            :subtitle="adminNavVariant === 'classic' ? item.subtitle : undefined"
+            :to="item.to"
+            :active="isRouteActive(item.to)"
+            rounded="lg"
+            @click="expandRailDrawer"
+          />
+
+          <v-list-group v-else :value="item.title">
+            <template #activator="{ props }">
+              <v-list-item
+                v-bind="props"
+                :prepend-icon="item.icon"
+                :title="item.title"
+                :subtitle="adminNavVariant === 'classic' ? item.subtitle : undefined"
+                :active="isGroupActive(item)"
+                rounded="lg"
+                @click="expandRailDrawer"
+              />
+            </template>
+
             <v-list-item
-              v-tooltip="{
-                text: item.title,
-              }"
+              v-for="(subItem, i) in item.subitems"
+              :key="i"
+              :title="subItem.title"
+              :to="subItem.to"
+              :active="isRouteActive(subItem.to)"
               rounded="lg"
-              link
-              :title="item.title"
-              :to="item.to"
-            >
-              <template #prepend>
-                <v-icon :icon="item.icon" />
-              </template>
-            </v-list-item>
-          </template>
-
-          <template v-else>
-            <v-menu v-if="true" location="end" offset="14">
-              <template #activator="{ props: menuProps }">
-                <v-list-item
-                  v-tooltip="{
-                    text: item.title,
-                  }"
-                  v-bind="menuProps"
-                  link
-                  rounded="lg"
-                >
-                  <template #prepend>
-                    <v-icon :icon="item.icon" />
-                  </template>
-                </v-list-item>
-              </template>
-
-              <v-card width="300">
-                <v-card-title class="d-flex align-center pb-0">
-                  <v-icon start size="small" :icon="item.icon" />
-                  {{ item.title }}
-                </v-card-title>
-
-                <v-list density="compact" class="pa-0">
-                  <template v-for="(subItem, i) in item.subitems" :key="i">
-                    <v-list-item link :title="subItem.title" :to="subItem.to" />
-                  </template>
-                </v-list>
-              </v-card>
-            </v-menu>
-          </template>
+              @click="expandRailDrawer"
+            />
+          </v-list-group>
         </template>
       </v-list>
+
       <template #append>
-        <div class="d-flex justify-center">
-          <v-menu :close-on-content-click="false" location="end" offset="12">
-            <template #activator="{ props }">
-              <v-avatar v-bind="props" class="mb-1" rounded="lg" size="42">
-                <v-img
-                  cover
-                  src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-                />
-              </v-avatar>
-            </template>
-            <v-card width="300">
-              <v-list>
-                <v-list-item to="/settings/profile" prepend-icon="carbon:user">
-                  <v-list-item-title> My Profile </v-list-item-title>
-                </v-list-item>
-                <v-list-item
-                  to="/settings/appearance"
-                  prepend-icon="carbon:settings"
+        <div class="pa-3" v-if="adminNavVariant !== 'rail' || railExpanded">
+          <v-card variant="outlined">
+            <v-card-text class="pa-3">
+              <div class="d-flex align-center">
+                <v-avatar color="primary" variant="tonal" size="32">
+                  <span class="text-subtitle-2 font-weight-bold">
+                    {{ (user?.fullname || user?.email || 'R').slice(0, 1).toUpperCase() }}
+                  </span>
+                </v-avatar>
+                <div class="ml-2">
+                  <div class="font-weight-medium">
+                    {{ user?.fullname || 'Administrator' }}
+                  </div>
+                  <div class="text-caption text-medium-emphasis">
+                    {{ user?.email || 'Signed in' }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex mt-3 ga-2">
+                <v-btn
+                  size="small"
+                  variant="text"
+                  to="/admin/settings/profile"
                 >
-                  <v-list-item-title> Appearance </v-list-item-title>
-                </v-list-item>
-                <v-divider class="my-1" />
-                <v-list-item
-                  @click="logout"
-                  prepend-icon="carbon:logout"
+                  Profile
+                </v-btn>
+                <v-spacer />
+                <v-btn
+                  size="small"
+                  variant="text"
                   color="error"
+                  @click="logout"
                 >
-                  <v-list-item-title> Sign Out </v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-menu>
+                  Logout
+                </v-btn>
+              </div>
+            </v-card-text>
+          </v-card>
         </div>
       </template>
     </v-navigation-drawer>
-    <v-app-bar
-      flat
-      density="compact"
-      class="blur-8"
-      color="rgba(var(--v-theme-background),0.8)"
-    >
-      <v-container>
-        <v-row>
-          <v-col cols="12">
-            <div class="d-flex align-center">
-              <v-breadcrumbs class="d-flex align-center pa-0" :items="bread">
-                <template #prepend>
-                  <nuxt-link class="me-2" to="/admin/">
-                    <v-icon size="24" color="primary" icon="carbon:home" />
-                  </nuxt-link>
-                </template>
 
-                <template #item="{ item }">
-                  <template v-if="item.title !== 'Home'">
-                    <v-breadcrumbs-item
-                      :to="item.to"
-                      :disabled="route.fullPath === item.to"
-                    >
-                      {{ item.title }}
-                    </v-breadcrumbs-item>
-                  </template>
-                </template>
-              </v-breadcrumbs>
+    <v-app-bar flat border="b" density="compact">
+      <v-app-bar-nav-icon v-if="mdAndDown" @click="left = !left" />
+      <v-app-bar-title>
+        {{ route.meta?.title || bread.at(-1)?.title || 'Dashboard' }}
+      </v-app-bar-title>
 
-              <v-spacer />
-              <slot name="test" />
-              <v-btn rounded="lg" icon="carbon:search" />
-              <v-btn rounded="lg" icon="carbon:notification" />
-              <v-btn
-                rounded="lg"
-                icon="carbon:settings"
-                to="/settings/appearance"
-              />
-            </div>
-          </v-col>
-        </v-row>
-      </v-container>
+      <v-btn
+        size="small"
+        variant="text"
+        :prepend-icon="isDark ? 'carbon:moon' : 'carbon:sun'"
+        @click="toggleTheme"
+      >
+        {{ isDark ? 'Dark' : 'Light' }}
+      </v-btn>
+      <v-btn
+        size="small"
+        variant="text"
+        to="/admin/settings/appearance"
+      >
+        Settings
+      </v-btn>
     </v-app-bar>
+
     <v-main>
       <v-defaults-provider
         :defaults="{
-          VBtn: { density },
-          VTextField: { density },
-          VTextarea: { density },
-          VSelect: { density },
-          VAutocomplete: { density },
-          VDataTableServer: { density },
-          VList: { density },
-          VListItem: { density },
-          VChip: { density },
+          VBtn: { density: adminDensity, rounded: 'md' },
+          VTextField: { density: adminDensity, variant: 'outlined', rounded: 'md' },
+          VTextarea: { density: adminDensity, variant: 'outlined', rounded: 'md' },
+          VSelect: { density: adminDensity, variant: 'outlined', rounded: 'md' },
+          VAutocomplete: { density: adminDensity, variant: 'outlined', rounded: 'md' },
+          VDataTableServer: { density: adminDensity },
+          VDataTable: { density: adminDensity },
+          VList: { density: adminDensity },
+          VListItem: { density: adminDensity, rounded: 'md' },
+          VChip: { density: adminDensity, rounded: 'md' },
+          VCard: { rounded: 'md', elevation: 0, border: true },
         }"
       >
-        <slot />
+        <v-container fluid class="py-4">
+          <v-breadcrumbs class="px-0 pt-0 text-caption" :items="bread">
+            <template #prepend>
+              <nuxt-link class="me-2 d-inline-flex" to="/admin">
+                <v-icon size="18" icon="carbon:home" />
+              </nuxt-link>
+            </template>
+          </v-breadcrumbs>
+
+          <slot />
+        </v-container>
       </v-defaults-provider>
     </v-main>
   </v-app>

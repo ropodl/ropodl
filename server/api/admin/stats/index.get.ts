@@ -33,6 +33,11 @@ export default defineEventHandler(async (event) => {
       media: mediaCount || 0,
       users: userCount || 0,
     },
-    recentBlogs: recentBlogs || []
+    recentBlogs: (recentBlogs ?? []).map((blog: any) => ({
+      id: blog.id,
+      title: blog.blog_title,
+      status: blog.blog_status,
+      createdAt: blog.created_at,
+    })),
   }
 })

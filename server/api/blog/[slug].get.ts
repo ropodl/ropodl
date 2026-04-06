@@ -2,7 +2,14 @@ import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')
-  const client = await serverSupabaseClient(event)
+  const client: any = await serverSupabaseClient(event)
+
+  if (!slug) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Missing slug',
+    })
+  }
 
   const { data: post, error } = await client
     .from('blogs')

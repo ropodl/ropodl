@@ -11,7 +11,7 @@ const route = useRoute();
 const router = useRouter();
 
 const fetchCategories = async () => {
-  const res = await useApiFetch<{ data: any[] }>('/admin/blog/category');
+  const res = await useApiFetch<{ data: any[] }>('/blog/category');
   categories.value = res.data;
 };
 

@@ -1,4 +1,5 @@
 import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
+import { serializePortfolio } from '../../../utils/serializers'
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
@@ -10,12 +11,14 @@ export default defineEventHandler(async (event) => {
   }
 
   const query = getQuery(event)
-  const limit = Math.min(Number(query.limit) || 10, 50)
-  const offset = Math.max(Number(query.offset) || 0, 0)
+  const perPage = Math.min(Number(query.per_page ?? query.limit) || 10, 50)
+  const page = Math.max(Number(query.page) || 1, 1)
+  const offset = Math.max(Number(query.offset) || (page - 1) * perPage, 0)
+  const search = query.search as string | undefined
 
   const client = await serverSupabaseClient(event)
 
-  const { data, error, count } = await client
+  let supabaseQuery = client
     .from('portfolios')
     .select(`
       *,
@@ -23,7 +26,13 @@ export default defineEventHandler(async (event) => {
       work_type:work_types!work_type_id(*)
     `, { count: 'exact' })
     .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1)
+    .range(offset, offset + perPage - 1)
+
+  if (search) {
+    supabaseQuery = supabaseQuery.or(`title.ilike.%${search}%,slug.ilike.%${search}%`)
+  }
+
+  const { data, error, count } = await supabaseQuery
 
   if (error) {
     throw createError({
@@ -32,14 +41,17 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const total = count || 0
+  const currentPage = Math.floor(offset / perPage) + 1
+  const lastPage = Math.max(Math.ceil(total / perPage), 1)
+
   return {
-    success: true,
-    meta: {
-      total: count || 0,
-      count: data?.length || 0,
-      limit,
-      offset,
+    data: (data ?? []).map(serializePortfolio),
+    pagination: {
+      total,
+      current_page: currentPage,
+      per_page: perPage,
+      last_page: lastPage,
     },
-    data,
   }
 })

@@ -1,4 +1,5 @@
 import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
+import { serializeMedia } from '../../../utils/serializers'
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
@@ -32,5 +33,5 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  return data
+  return (data ?? []).map(serializeMedia)
 })

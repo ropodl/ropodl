@@ -78,39 +78,49 @@ const getStatusColor = (status: string) => {
 </script>
 
 <template>
-  <v-container>
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <div class="text-h4 font-weight-bold">Portfolios</div>
-        <div class="text-subtitle-1 text-medium-emphasis">
-          Showcase your best work
-        </div>
-      </v-col>
-      <v-col cols="12" md="6" class="text-right">
-        <v-btn
-          color="primary"
-          prepend-icon="carbon:add"
-          rounded="lg"
-          to="/admin/portfolio/create"
-        >
-          Add New Item
-        </v-btn>
-      </v-col>
-    </v-row>
+  <v-container class="admin-page">
+    <section class="admin-hero">
+      <div class="admin-hero__kicker">Portfolio archive</div>
+      <div class="admin-hero__title">Present the work with more authority.</div>
+      <div class="admin-hero__copy">
+        Curate case studies, monitor status, and keep your public portfolio
+        tight and consistent.
+      </div>
+    </section>
 
-    <v-card rounded="lg" elevation="0" border>
-      <v-card-text>
-        <v-text-field
-          v-model="search"
-          placeholder="Search portfolios..."
-          prepend-inner-icon="carbon:search"
-          hide-details
-          variant="outlined"
-          density="comfortable"
-          rounded="lg"
-          class="mb-4"
-          @update:model-value="handleSearch"
-        />
+    <v-card class="admin-panel">
+      <v-card-text class="pa-6">
+        <div class="admin-split-header">
+          <div>
+            <div class="admin-split-header__title">Portfolio index</div>
+            <div class="admin-split-header__copy">
+              All projects, categories, and publish states in one grid.
+            </div>
+          </div>
+          <v-btn
+            color="primary"
+            prepend-icon="carbon:add"
+            rounded="xl"
+            to="/admin/portfolio/create"
+          >
+            Add New Item
+          </v-btn>
+        </div>
+
+        <div class="admin-toolbar">
+          <div class="admin-toolbar__search">
+            <v-text-field
+              v-model="search"
+              placeholder="Search portfolios..."
+              prepend-inner-icon="carbon:search"
+              hide-details
+              variant="outlined"
+              density="comfortable"
+              rounded="xl"
+              @update:model-value="handleSearch"
+            />
+          </div>
+        </div>
 
         <v-data-table-server
           v-model:items-per-page="pagination.per_page"

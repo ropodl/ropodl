@@ -122,34 +122,17 @@ const rules = {
 </script>
 
 <template>
-  <v-container>
+  <v-container class="admin-page">
     <v-form ref="portfolioForm" @submit.prevent="save">
-      <v-row align="center" class="mb-4">
-        <v-col cols="12" md="6">
-          <v-btn
-            variant="text"
-            prepend-icon="carbon:arrow-left"
-            class="mb-2"
-            to="/admin/portfolio"
-          >
-            Back to Portfolios
-          </v-btn>
-          <div class="text-h4 font-weight-bold">
-            {{ isEditing ? 'Edit Portfolio' : 'Create New Portfolio' }}
-          </div>
-        </v-col>
-        <v-col cols="12" md="6" class="text-right">
-          <v-btn
-            color="primary"
-            size="large"
-            rounded="lg"
-            :loading="saving"
-            type="submit"
-          >
-            {{ isEditing ? 'Update' : 'Publish' }} Portfolio
-          </v-btn>
-        </v-col>
-      </v-row>
+      <section class="admin-hero">
+        <div class="admin-hero__kicker">Case study builder</div>
+        <div class="admin-hero__title">
+          {{ isEditing ? 'Refine the case study story.' : 'Stage the next portfolio release.' }}
+        </div>
+        <div class="admin-hero__copy">
+          Build richer project pages with stronger framing, better visuals, and cleaner categorization.
+        </div>
+      </section>
 
       <v-row v-if="loading">
         <v-col cols="12">
@@ -157,63 +140,100 @@ const rules = {
         </v-col>
       </v-row>
 
-      <v-row v-else>
-        <!-- Main Content -->
-        <v-col cols="12" md="8">
-          <v-card rounded="lg" elevation="0" border class="mb-6">
-            <v-card-text>
+      <div v-else class="admin-form-grid">
+        <div class="admin-stack">
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Project framing</div>
+              <div class="admin-panel__copy">
+                Name the project, define the URL, and write the narrative body.
+              </div>
+
               <v-text-field
                 v-model="form.title"
                 label="Portfolio Title"
                 placeholder="Name of your project"
                 variant="outlined"
-                rounded="lg"
+                rounded="xl"
                 :rules="[rules.required]"
-                class="mb-2"
+                class="mt-6 mb-2"
               />
               <v-text-field
                 v-model="form.slug"
                 label="Slug"
                 placeholder="project-slug"
                 variant="outlined"
-                rounded="lg"
+                rounded="xl"
                 :rules="[rules.required]"
                 class="mb-4"
               />
-              <div class="text-subtitle-1 font-weight-bold mb-2">
-                Project Content
-              </div>
+              <div class="admin-panel__title">Project Content</div>
               <Editor v-model:content="form.content" />
             </v-card-text>
           </v-card>
-        </v-col>
 
-        <!-- Sidebar -->
-        <v-col cols="12" md="4">
-          <!-- Featured Image -->
-          <v-card rounded="lg" elevation="0" border class="mb-6">
-            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold"
-              >Featured Image</v-card-title
-            >
-            <v-divider />
-            <v-card-text class="pa-4 text-center">
-              <v-img
-                v-if="previewImage"
-                :src="previewImage"
-                height="200"
-                cover
-                rounded="lg"
-                class="mb-4 bg-grey-lighten-4"
-              />
+        </div>
+
+        <div class="admin-stack">
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Release controls</div>
+              <div class="admin-panel__copy">
+                Publish when the project is presentation-ready.
+              </div>
               <v-btn
-                variant="tonal"
-                prepend-icon="carbon:image"
+                color="primary"
+                size="large"
+                rounded="xl"
                 block
-                rounded="lg"
+                class="mt-6 mb-4"
+                :loading="saving"
+                type="submit"
+              >
+                {{ isEditing ? 'Update Portfolio' : 'Publish Portfolio' }}
+              </v-btn>
+              <v-select
+                v-model="form.status"
+                label="Status"
+                :items="statusOptions"
+                variant="outlined"
+                rounded="xl"
+                class="mb-2"
+              />
+            </v-card-text>
+          </v-card>
+
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Featured image</div>
+              <div class="admin-panel__copy">
+                Select the hero visual that carries the project card and detail page.
+              </div>
+              <div
+                class="admin-feature-frame mt-6"
+                :class="{ 'admin-feature-frame--empty': !previewImage }"
                 @click="mediaDialog = true"
               >
-                {{ previewImage ? 'Change' : 'Select' }} Image
-              </v-btn>
+                <template v-if="previewImage">
+                  <v-img
+                    :src="previewImage"
+                    min-height="260"
+                    cover
+                  />
+                  <div class="admin-feature-frame__overlay">
+                    <v-btn rounded="xl" color="primary">Change image</v-btn>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="text-center">
+                    <v-icon size="44" icon="carbon:image" />
+                    <div class="text-h6 font-weight-bold mt-3">Select hero media</div>
+                    <div class="text-body-2 text-medium-emphasis mt-1">
+                      Add a visual anchor for the portfolio card.
+                    </div>
+                  </div>
+                </template>
+              </div>
               <MediaSelector v-model="mediaDialog" @select="onMediaSelect" />
               <v-input
                 :rules="[rules.required]"
@@ -224,13 +244,12 @@ const rules = {
             </v-card-text>
           </v-card>
 
-          <!-- Settings -->
-          <v-card rounded="lg" elevation="0" border class="mb-6">
-            <v-card-title class="pa-4 text-subtitle-1 font-weight-bold"
-              >Settings</v-card-title
-            >
-            <v-divider />
-            <v-card-text class="pa-4">
+          <v-card class="admin-panel">
+            <v-card-text class="pa-6">
+              <div class="admin-panel__title">Classification</div>
+              <div class="admin-panel__copy">
+                Tie the project to the right work type before it goes live.
+              </div>
               <v-select
                 v-model="form.workTypeId"
                 label="Work Type"
@@ -238,22 +257,14 @@ const rules = {
                 item-title="title"
                 item-value="id"
                 variant="outlined"
-                rounded="lg"
+                rounded="xl"
                 placeholder="Category"
-                class="mb-4"
-              />
-              <v-select
-                v-model="form.status"
-                label="Status"
-                :items="statusOptions"
-                variant="outlined"
-                rounded="lg"
-                class="mb-2"
+                class="mt-6 mb-2"
               />
             </v-card-text>
           </v-card>
-        </v-col>
-      </v-row>
+        </div>
+      </div>
     </v-form>
   </v-container>
 </template>

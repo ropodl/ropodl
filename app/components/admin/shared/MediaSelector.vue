@@ -22,6 +22,7 @@ const search = ref('');
 const selectedItems = ref<any[]>([]);
 const uploading = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
+const pendingFile = ref<File | null>(null);
 
 // Helper to check if an item is selected
 const isSelected = (item: any) => {
@@ -89,6 +90,8 @@ const handleFileUpload = async (event: Event) => {
   const file = target.files?.[0];
   if (!file) return;
 
+  pendingFile.value = file;
+
   uploading.value = true;
   const formData = new FormData();
   formData.append('file', file);
@@ -109,6 +112,15 @@ const handleFileUpload = async (event: Event) => {
     uploading.value = false;
     if (fileInput.value) fileInput.value.value = '';
   }
+};
+
+const formatUploadBytes = (bytes: number, decimals = 2) => {
+  if (!+bytes) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
 
 const selectImage = () => {
@@ -159,35 +171,54 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
       <v-card-text class="pa-0" style="height: 600px">
         <v-window v-model="tab" class="bg-surface fill-height">
-          Upload Tab
           <v-window-item value="upload" class="fill-height">
-            <div
-              class="upload-container d-flex flex-column align-center justify-center fill-height pa-8"
-            >
-              <v-icon size="64" color="grey-lighten-1" class="mb-4"
-                >mdi-cloud-upload</v-icon
-              >
-              <div class="text-h6 mb-2">Drop files to upload</div>
-              <div class="text-body-2 text-grey mb-6">or</div>
-              <v-btn
-                color="primary"
-                variant="flat"
-                :loading="uploading"
-                @click="fileInput?.click()"
-              >
-                Select Files
-              </v-btn>
-              <input
-                ref="fileInput"
-                type="file"
-                class="d-none"
-                accept="image/*"
-                @change="handleFileUpload"
-              />
+            <div class="media-selector-upload fill-height pa-4">
+              <div class="media-selector-upload__dropzone">
+                <v-icon size="36" color="primary" class="mb-3">mdi-cloud-upload-outline</v-icon>
+                <div class="text-subtitle-1 font-weight-medium mb-1">Upload to library</div>
+                <div class="text-body-2 text-medium-emphasis mb-4">
+                  Choose one image and it will be added straight into the library tab.
+                </div>
+                <v-btn
+                  color="primary"
+                  variant="flat"
+                  :loading="uploading"
+                  @click="fileInput?.click()"
+                >
+                  Select file
+                </v-btn>
+                <input
+                  ref="fileInput"
+                  type="file"
+                  class="d-none"
+                  accept="image/*"
+                  @change="handleFileUpload"
+                />
+              </div>
+
+              <div class="media-selector-upload__summary">
+                <div class="text-subtitle-2 font-weight-medium mb-3">Current file</div>
+                <div v-if="pendingFile" class="media-selector-upload__meta">
+                  <div class="media-selector-upload__meta-item">
+                    <span>Name</span>
+                    <strong class="line-clamp-1">{{ pendingFile.name }}</strong>
+                  </div>
+                  <div class="media-selector-upload__meta-item">
+                    <span>Type</span>
+                    <strong>{{ pendingFile.type || 'Unknown' }}</strong>
+                  </div>
+                  <div class="media-selector-upload__meta-item">
+                    <span>Size</span>
+                    <strong>{{ formatUploadBytes(pendingFile.size) }}</strong>
+                  </div>
+                </div>
+                <div v-else class="text-body-2 text-medium-emphasis">
+                  No file selected yet.
+                </div>
+              </div>
             </div>
           </v-window-item>
 
-          Library Tab
           <v-window-item value="library" class="fill-height">
             <div class="d-flex fill-height overflow-hidden">
               <div class="flex-grow-1 d-flex flex-column bg-grey-lighten-4">
@@ -203,7 +234,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                   />
                 </div>
                 <div class="media-grid pa-4 overflow-y-auto">
-                  <v-row dense>
+                  <v-row density="comfortable">
                     <v-col
                       v-for="item in media"
                       :key="item.id"
@@ -246,7 +277,6 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 </div>
               </div>
 
-              Sidebar
               <div
                 v-if="selectedItems.length > 0"
                 class="details-sidebar border-left bg-surface overflow-y-auto pa-4"
@@ -254,7 +284,6 @@ const formatBytes = (bytes: number, decimals = 2) => {
                 <div class="text-subtitle-1 font-weight-bold mb-4">
                   Attachment Details
                 </div>
-                Show details for the last selected item
                 <div v-if="selectedItems[selectedItems.length - 1] as any">
                   <v-img
                     :src="selectedItems[selectedItems.length - 1].fileUrl"

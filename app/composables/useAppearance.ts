@@ -1,6 +1,7 @@
 import { useTheme } from 'vuetify';
 
 export type Density = 'default' | 'comfortable' | 'compact';
+export type AdminNavVariant = 'classic' | 'compact' | 'rail' | 'floating';
 
 export const useAppearance = () => {
   const theme = useTheme();
@@ -14,6 +15,9 @@ export const useAppearance = () => {
   const primaryColor = useCookie<string>('appearance_primary_color', {
     default: () => '#FFFFFF',
   });
+  const adminNavVariant = useCookie<AdminNavVariant>('appearance_admin_nav_variant', {
+    default: () => 'classic',
+  });
 
   const toggleTheme = () => {
     isDark.value = !isDark.value;
@@ -25,6 +29,10 @@ export const useAppearance = () => {
 
   const setPrimaryColor = (color: string) => {
     primaryColor.value = color;
+  };
+
+  const setAdminNavVariant = (variant: AdminNavVariant) => {
+    adminNavVariant.value = variant;
   };
 
   // Logic to apply theme changes
@@ -53,8 +61,10 @@ export const useAppearance = () => {
     isDark,
     density,
     primaryColor,
+    adminNavVariant,
     toggleTheme,
     setDensity,
     setPrimaryColor,
+    setAdminNavVariant,
   };
 };

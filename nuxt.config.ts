@@ -1,3 +1,5 @@
+import { resolve } from 'node:path';
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -41,9 +43,9 @@ export default defineNuxtConfig({
 
   supabase: {
     redirectOptions: {
-      login: '/auth/login',
+      login: '/auth',
       callback: '/auth/confirm',
-      exclude: ['/', '/about', '/contact', '/blog/**', '/portfolio/**'],
+      exclude: ['/', '/about', '/contact', '/blog', '/blog/**', '/portfolio', '/portfolio/**'],
     },
   },
 
@@ -80,6 +82,14 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    resolve: {
+      alias: [
+        {
+          find: /^cookie$/,
+          replacement: resolve('./app/utils/cookie-shim.ts'),
+        },
+      ],
+    },
     ssr: {
       noExternal: [
         'vuetify',
@@ -95,6 +105,8 @@ export default defineNuxtConfig({
         'prosemirror-model',
         'prosemirror-transform',
         'prosemirror-view',
+        '@supabase/ssr',
+        'cookie',
         '@vue/devtools-core',
         '@vue/devtools-kit',
         '@iconify/vue',
