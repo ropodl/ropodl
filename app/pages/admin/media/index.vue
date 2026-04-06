@@ -38,9 +38,9 @@ const getMedia = async () => {
 };
 
 // Debounce search
-let timeout: any;
+let timeout: ReturnType<typeof setTimeout> | undefined;
 watch(search, () => {
-  clearTimeout(timeout);
+  if (timeout) clearTimeout(timeout);
   timeout = setTimeout(() => {
     getMedia();
   }, 500);
@@ -78,9 +78,9 @@ const uploadMedia = async () => {
     method: 'POST',
     body: formData,
   })
-    .then((res) => {
+    .then(() => {
       files.value = [];
-      getMedia();
+      void getMedia();
     })
     .catch((err) => {
       console.error(err);

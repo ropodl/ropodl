@@ -41,7 +41,7 @@
       <template v-else> -->
     <v-row class="py-16">
       <v-col class="mb-6">
-        <v-alert border rounded="lg" border-color="white">
+        <v-alert border rounded="lg" variant="tonal" color="primary" border-color="primary">
           Sorry no content available.
         </v-alert>
       </v-col>

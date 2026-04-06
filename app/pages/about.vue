@@ -100,7 +100,7 @@ const items = ref([
     <v-row>
       <v-col cols="12" md="5">
         <v-card border rounded="xl">
-          <v-parallax cover height="613" scale="0.8" src="/media/full.jpg" />
+          <v-img cover height="613" src="/media/full.jpg" />
         </v-card>
       </v-col>
       <v-col cols="12" md="7" class="d-flex flex-column justify-space-between">
@@ -146,7 +146,7 @@ const items = ref([
           class="text-display-large font-weight-medium position-sticky"
           style="top: 50px"
         >
-          My past work<br />experience
+          My past work<br>experience
         </div>
       </v-col>
       <v-col cols="12" md="6">

@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   app: {
     head: {
@@ -22,6 +22,7 @@ export default defineNuxtConfig({
 
   experimental: {
     viewTransition: false,
+    payloadExtraction: true,
     defaults: {
       nuxtLink: {
         prefetchOn: {
@@ -37,7 +38,6 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    'v-gsap-nuxt',
     '@nuxtjs/supabase'
   ],
 
@@ -59,6 +59,27 @@ export default defineNuxtConfig({
 
   ssr: true,
 
+  routeRules: {
+    '/': { prerender: true },
+    '/about': { prerender: true },
+    '/contact': { prerender: true },
+    '/portfolio': { prerender: true },
+    '/blog': { swr: 300 },
+    '/blog/**': { swr: 300 },
+    '/api/blog': { swr: 300 },
+    '/api/blog/**': { swr: 300 },
+    '/media/**': {
+      headers: {
+        'cache-control': 'public, max-age=31536000, immutable',
+      },
+    },
+    '/favicon.ico': {
+      headers: {
+        'cache-control': 'public, max-age=31536000, immutable',
+      },
+    },
+  },
+
   css: ['./app/assets/main.scss'],
 
   // when enabling ssr option you need to disable inlineStyles and maybe devLogs
@@ -79,6 +100,10 @@ export default defineNuxtConfig({
       '@tiptap/extension-placeholder',
       '@tiptap/extension-text-align',
     ],
+  },
+
+  nitro: {
+    compressPublicAssets: true,
   },
 
   vite: {
@@ -107,8 +132,7 @@ export default defineNuxtConfig({
         'prosemirror-view',
         '@supabase/ssr',
         'cookie',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
+        'cookie/dist/index.js',
         '@iconify/vue',
       ],
     },
@@ -135,6 +159,55 @@ export default defineNuxtConfig({
     },
   },
 
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'Ropodl',
+      short_name: 'Ropodl',
+      description: 'Portfolio, blog, and contact experience for Ropodl.',
+      theme_color: '#090b10',
+      background_color: '#090b10',
+      display: 'standalone',
+      lang: 'en',
+      start_url: '/',
+      icons: [
+        {
+          src: '/media/avatar.webp',
+          sizes: '512x512',
+          type: 'image/webp',
+          purpose: 'any',
+        },
+      ],
+    },
+    workbox: {
+      navigateFallback: '/',
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}'],
+      runtimeCaching: [
+        {
+          urlPattern: '/media/.*',
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'media-assets',
+            expiration: {
+              maxEntries: 64,
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+          },
+        },
+      ],
+    },
+    client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 60 * 60,
+    },
+    devOptions: {
+      enabled: false,
+    },
+    pwaAssets: {
+      disabled: true,
+    },
+  },
+
   runtimeConfig: {
     supabase: {
       secretKey: process.env.SUPABASE_SECRET_KEY,
@@ -144,8 +217,7 @@ export default defineNuxtConfig({
       supabase: {
         url: process.env.SUPABASE_URL,
         key: process.env.SUPABASE_ANON_KEY,
-      },
-      // API_URL: process.env.API_URL,
+      }
     },
   },
 });

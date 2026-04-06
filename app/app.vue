@@ -1,8 +1,10 @@
 <script setup>
 const { show, text, closeSnackbar } = useSnackbar();
+
+const loadingIndicatorColor = 'linear-gradient(90deg, rgb(var(--v-theme-primary)) 0%, #ffffff 100%)';
 </script>
 <template>
-  <NuxtLoadingIndicator color="white" :height="1" />
+  <NuxtLoadingIndicator :color="loadingIndicatorColor" :height="1" />
   <NuxtLayout>
     <NuxtPage />
     <v-snackbar

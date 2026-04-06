@@ -41,7 +41,6 @@ export async function useApiFetch<Res = unknown, Req = unknown>(
   url: string,
   opts: ApiFetchOptions<Req, Res> = {}
 ): Promise<Res> {
-  const config = useRuntimeConfig();
   const token = useCookie('token');
 
   const defaultTimeout = 5000;

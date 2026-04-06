@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import type { blog } from '~/types/blog';
 import Editor from '~/components/admin/shared/Editor.vue';
 import MediaSelector from '~/components/admin/shared/MediaSelector.vue';
 import useApiFetch from '~/utils/shared/useApiFetch';
@@ -45,7 +44,7 @@ const resetQuickForm = () => {
   quickForm.value = { title: '', slug: '', excerpt: '' };
 };
 
-const watchTitle = watch(
+watch(
   () => quickForm.value.title,
   (newVal) => {
     if (newVal) {
@@ -185,7 +184,7 @@ const submit = async () => {
   })
     .then((res) => {
       if (res.success) {
-        router.push(`/admin/blog/${res.data.id}`);
+        void router.push(`/admin/blog/${res.data.id}`);
       }
     })
     .catch((err) => {

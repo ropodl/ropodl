@@ -104,6 +104,9 @@ onMounted(() => {
 
 const isRailVariant = computed(() => adminNavVariant.value === 'rail');
 const isDesktopRail = computed(() => !mdAndDown.value && isRailVariant.value);
+const topbarVariant = computed(() =>
+  isDark.value ? 'rgba(9, 11, 16, 0.72)' : 'rgba(244, 246, 251, 0.78)'
+);
 
 const drawerWidth = computed(() => {
   switch (adminNavVariant.value) {
@@ -138,6 +141,14 @@ const expandRailDrawer = () => {
 const isGroupActive = (item: navItem) =>
   !!item.subitems?.some((subItem) => isRouteActive(subItem.to));
 
+const visibleNavItems = computed(() => {
+  if (!(isDesktopRail.value && !railExpanded.value)) {
+    return navItems;
+  }
+
+  return navItems.filter((item) => item.subitems?.length || isRouteActive(item.to));
+});
+
 watch(
   [adminNavVariant, mdAndDown],
   () => {
@@ -165,11 +176,23 @@ watch(
       :rail="isDesktopRail && !railExpanded"
       border="end"
       :class="drawerClass"
+      color="surface"
     >
-      <v-list v-model:opened="openedGroups" nav density="compact">
-        <v-list-subheader>Admin</v-list-subheader>
+      <div class="pa-3 pb-1">
+        <v-sheet
+          border
+          color="surface-variant"
+          class="px-3 py-2"
+        >
+          <div class="text-caption text-uppercase text-medium-emphasis">Workspace</div>
+          <div class="text-subtitle-2 font-weight-medium">Admin Control</div>
+        </v-sheet>
+      </div>
 
-        <template v-for="item in navItems" :key="item.title">
+      <v-list v-model:opened="openedGroups" nav density="compact" class="px-3 pb-3">
+        <v-list-subheader>Navigation</v-list-subheader>
+
+        <template v-for="item in visibleNavItems" :key="item.title">
           <v-list-item
             v-if="!item.subitems"
             :prepend-icon="item.icon"
@@ -208,54 +231,66 @@ watch(
       </v-list>
 
       <template #append>
-        <div class="pa-3" v-if="adminNavVariant !== 'rail' || railExpanded">
-          <v-card variant="outlined">
-            <v-card-text class="pa-3">
-              <div class="d-flex align-center">
-                <v-avatar color="primary" variant="tonal" size="32">
-                  <span class="text-subtitle-2 font-weight-bold">
-                    {{ (user?.fullname || user?.email || 'R').slice(0, 1).toUpperCase() }}
-                  </span>
-                </v-avatar>
-                <div class="ml-2">
-                  <div class="font-weight-medium">
-                    {{ user?.fullname || 'Administrator' }}
-                  </div>
-                  <div class="text-caption text-medium-emphasis">
-                    {{ user?.email || 'Signed in' }}
-                  </div>
+        <div v-if="adminNavVariant !== 'rail' || railExpanded" class="pa-3 pt-1">
+          <v-sheet border color="surface-variant" class="pa-3">
+            <div class="d-flex align-center">
+              <v-avatar color="primary" variant="tonal" size="34">
+                <span class="text-subtitle-2 font-weight-bold">
+                  {{ (user?.fullname || user?.email || 'R').slice(0, 1).toUpperCase() }}
+                </span>
+              </v-avatar>
+              <div class="ml-3 min-w-0">
+                <div class="font-weight-medium text-truncate">
+                  {{ user?.fullname || 'Administrator' }}
+                </div>
+                <div class="text-caption text-medium-emphasis text-truncate">
+                  {{ user?.email || 'Signed in' }}
                 </div>
               </div>
+            </div>
 
-              <div class="d-flex mt-3 ga-2">
-                <v-btn
-                  size="small"
-                  variant="text"
-                  to="/admin/settings/profile"
-                >
-                  Profile
-                </v-btn>
-                <v-spacer />
-                <v-btn
-                  size="small"
-                  variant="text"
-                  color="error"
-                  @click="logout"
-                >
-                  Logout
-                </v-btn>
-              </div>
-            </v-card-text>
-          </v-card>
+            <div class="d-flex mt-3 ga-2">
+              <v-btn
+                size="small"
+                variant="text"
+                to="/admin/settings/profile"
+              >
+                Profile
+              </v-btn>
+              <v-spacer />
+              <v-btn
+                size="small"
+                variant="text"
+                color="error"
+                @click="logout"
+              >
+                Logout
+              </v-btn>
+            </div>
+          </v-sheet>
         </div>
       </template>
     </v-navigation-drawer>
 
-    <v-app-bar flat border="b" density="compact">
+    <v-app-bar
+      border="b"
+      density="comfortable"
+      class="admin-topbar"
+      :style="{ backgroundColor: topbarVariant }"
+    >
       <v-app-bar-nav-icon v-if="mdAndDown" @click="left = !left" />
-      <v-app-bar-title>
-        {{ route.meta?.title || bread.at(-1)?.title || 'Dashboard' }}
-      </v-app-bar-title>
+      <div class="d-flex flex-column">
+        <div class="text-caption text-uppercase text-medium-emphasis">Admin</div>
+        <v-app-bar-title class="text-subtitle-1 font-weight-medium">
+          {{ route.meta?.title || bread.at(-1)?.title || 'Dashboard' }}
+        </v-app-bar-title>
+      </div>
+
+      <v-spacer />
+
+      <v-chip size="small" class="mr-2" color="primary">
+        {{ adminDensity }}
+      </v-chip>
 
       <v-btn
         size="small"
@@ -277,17 +312,18 @@ watch(
     <v-main>
       <v-defaults-provider
         :defaults="{
-          VBtn: { density: adminDensity, rounded: 'md' },
-          VTextField: { density: adminDensity, variant: 'outlined', rounded: 'md' },
-          VTextarea: { density: adminDensity, variant: 'outlined', rounded: 'md' },
-          VSelect: { density: adminDensity, variant: 'outlined', rounded: 'md' },
-          VAutocomplete: { density: adminDensity, variant: 'outlined', rounded: 'md' },
+          VBtn: { density: adminDensity, rounded: 'pill' },
+          VTextField: { density: adminDensity, variant: 'solo-filled', rounded: 'lg', flat: true },
+          VTextarea: { density: adminDensity, variant: 'solo-filled', rounded: 'lg', flat: true },
+          VSelect: { density: adminDensity, variant: 'solo-filled', rounded: 'lg', flat: true },
+          VAutocomplete: { density: adminDensity, variant: 'solo-filled', rounded: 'lg', flat: true },
           VDataTableServer: { density: adminDensity },
           VDataTable: { density: adminDensity },
           VList: { density: adminDensity },
-          VListItem: { density: adminDensity, rounded: 'md' },
-          VChip: { density: adminDensity, rounded: 'md' },
-          VCard: { rounded: 'md', elevation: 0, border: true },
+          VListItem: { density: adminDensity, rounded: 'lg' },
+          VChip: { density: adminDensity, rounded: 'pill', variant: 'tonal' },
+          VCard: { rounded: 'xl', elevation: 0, border: true },
+          VSheet: { rounded: 'xl' },
         }"
       >
         <v-container fluid class="py-4">

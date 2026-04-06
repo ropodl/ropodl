@@ -102,7 +102,7 @@ watch(files, (newFiles) => {
             A quick check before the file enters the media library.
           </div>
 
-          <div class="admin-upload-summary mt-4" v-if="selectedFile">
+          <div v-if="selectedFile" class="admin-upload-summary mt-4">
             <div class="admin-upload-summary__item">
               <span>Name</span>
               <strong class="line-clamp-1">{{ selectedFile.name }}</strong>

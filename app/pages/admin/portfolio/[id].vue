@@ -236,8 +236,8 @@ const rules = {
               </div>
               <MediaSelector v-model="mediaDialog" @select="onMediaSelect" />
               <v-input
-                :rules="[rules.required]"
                 v-model="form.featuredImageId"
+                :rules="[rules.required]"
                 hide-details="auto"
                 density="compact"
               />

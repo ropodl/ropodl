@@ -193,7 +193,7 @@ const formatBytes = (bytes: number, decimals = 2) => {
                   class="d-none"
                   accept="image/*"
                   @change="handleFileUpload"
-                />
+                >
               </div>
 
               <div class="media-selector-upload__summary">
