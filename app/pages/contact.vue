@@ -1,234 +1,371 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import useApiFetch from '~/utils/shared/useApiFetch';
+import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
-const form = ref({
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: {
+        'sitekey': string
+        'theme': 'dark'
+        'action': string
+        'callback': (token: string) => void
+        'expired-callback': () => void
+        'error-callback': () => void
+      }) => string
+      reset: (widgetId?: string) => void
+      remove: (widgetId: string) => void
+    }
+  }
+}
+
+const runtimeConfig = useRuntimeConfig()
+const { data: page } = await useFetch<{ content: Record<string, string>, seoTitle: string, seoDescription: string }>('/api/pages/contact')
+const copy = computed(() => page.value?.content || {})
+const siteOrigin = useSiteOrigin()
+usePageSeo(() => ({
+  title: page.value?.seoTitle || 'Contact Saroj Poudel',
+  description: page.value?.seoDescription || 'Get in touch with Saroj Poudel about a project, collaboration, or just to say hello.',
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    'name': page.value?.seoTitle || 'Contact Saroj Poudel',
+    'description': page.value?.seoDescription || 'Get in touch with Saroj Poudel about a project, collaboration, or just to say hello.',
+    'mainEntity': {
+      '@type': 'Person',
+      '@id': `${siteOrigin}/#person`,
+      'name': 'Saroj Poudel',
+      'email': copy.value.email
+    }
+  }
+}))
+const turnstileSiteKey = runtimeConfig.public.turnstileSiteKey as string
+const turnstileContainer = ref<HTMLElement>()
+const turnstileToken = ref('')
+const successHeading = ref<HTMLElement>()
+const verificationMessage = ref(turnstileSiteKey
+  ? 'Complete the verification challenge to enable sending.'
+  : 'Contact verification is not configured yet.')
+let turnstileWidgetId: string | undefined
+
+const form = reactive({
   name: '',
   email: '',
   subject: '',
   message: '',
-});
+  website: ''
+})
 
-const loading = ref(false);
-const success = ref(false);
-const error = ref<string | null>(null);
+const sending = ref(false)
+const sent = ref(false)
+const errorMessage = ref('')
 
-const rules = {
-  name: [(v: string) => !!v || 'Name is required'],
-  email: [
-    (v: string) => !!v || 'Email is required',
-    (v: string) => /.+@.+\..+/.test(v) || 'Email must be valid',
-  ],
-  subject: [(v: string) => !!v || 'Subject is required'],
-  message: [(v: string) => !!v || 'Message is required'],
-};
+async function sendMessage() {
+  if (sending.value) return
 
-const submitForm = async () => {
-  loading.value = true;
-  error.value = null;
-  success.value = false;
+  sending.value = true
+  sent.value = false
+  errorMessage.value = ''
 
   try {
-    const res = await useApiFetch<any>('/contact', {
+    await $fetch('/api/contact', {
       method: 'POST',
-      body: form.value,
-    });
-
-    if (res.success) {
-      success.value = true;
-      form.value = {
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      };
-    } else {
-      error.value = res.message || 'Failed to send message. Please try again.';
-    }
-  } catch (err: any) {
-    error.value = err.message || 'An error occurred. Please try again later.';
+      body: { ...form, turnstileToken: turnstileToken.value }
+    })
+    sent.value = true
+    await nextTick()
+    successHeading.value?.focus()
+    turnstileToken.value = ''
+    Object.assign(form, { name: '', email: '', subject: '', message: '', website: '' })
+    if (turnstileWidgetId) window.turnstile?.reset(turnstileWidgetId)
+  } catch (error) {
+    const responseMessage = error && typeof error === 'object' && 'data' in error
+      && typeof error.data === 'object' && error.data !== null && 'statusMessage' in error.data
+      && typeof error.data.statusMessage === 'string'
+      ? error.data.statusMessage
+      : undefined
+    errorMessage.value = responseMessage || 'Your message could not be sent. Please try again or email hello@ropodl.com directly.'
+    turnstileToken.value = ''
+    if (turnstileWidgetId) window.turnstile?.reset(turnstileWidgetId)
   } finally {
-    loading.value = false;
+    sending.value = false
   }
-};
+}
+
+function renderTurnstile() {
+  if (!turnstileContainer.value || !turnstileSiteKey || !window.turnstile || turnstileWidgetId) return
+
+  turnstileWidgetId = window.turnstile.render(turnstileContainer.value, {
+    'sitekey': turnstileSiteKey,
+    'theme': 'dark',
+    'action': 'contact',
+    'callback': (token) => {
+      turnstileToken.value = token
+      verificationMessage.value = 'Verification complete. You can send your message.'
+      errorMessage.value = ''
+    },
+    'expired-callback': () => {
+      turnstileToken.value = ''
+      verificationMessage.value = 'Complete the verification challenge to enable sending.'
+      errorMessage.value = 'Verification expired. Please complete the challenge again.'
+    },
+    'error-callback': () => {
+      turnstileToken.value = ''
+      verificationMessage.value = 'Verification is unavailable. Please try again.'
+      errorMessage.value = 'The verification challenge could not be completed. Please try again.'
+    }
+  })
+}
+
+onMounted(() => {
+  if (!turnstileSiteKey) {
+    return
+  }
+  if (window.turnstile) {
+    renderTurnstile()
+    return
+  }
+
+  const script = document.createElement('script')
+  script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+  script.async = true
+  script.defer = true
+  script.onload = renderTurnstile
+  script.onerror = () => {
+    verificationMessage.value = 'Verification is unavailable. Please reload the page.'
+    errorMessage.value = 'Could not load the verification challenge. Please reload the page.'
+  }
+  document.head.appendChild(script)
+})
+
+onBeforeUnmount(() => {
+  if (turnstileWidgetId) window.turnstile?.remove(turnstileWidgetId)
+  turnstileWidgetId = undefined
+})
 </script>
 
 <template>
-  <v-container class="py-16">
-    <v-row>
-      <v-col cols="12">
-        <layouts-default-page-title>
-          Get in <span class="text-primary-darken-2">touch</span>.
-        </layouts-default-page-title>
-      </v-col>
-    </v-row>
+  <PublicPageMotion
+    preset="contact"
+    class="mx-auto flex max-w-2xl flex-col gap-8 py-4 sm:gap-10 sm:py-8"
+  >
+    <header class="space-y-5">
+      <p class="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+        {{ copy.eyebrow || 'Contact' }}
+      </p>
+      <h1 class="text-4xl font-bold tracking-tight text-highlighted sm:text-5xl">
+        {{ copy.heading || "Let's make something good." }}
+      </h1>
+      <p class="font-mono text-base leading-7 text-muted">
+        {{ copy.description }}
+      </p>
+    </header>
 
-    <v-row>
-      <v-col cols="12" md="6">
-        <v-list :lines="false">
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="carbon:email" color="primary" class="mr-3" />
-            </template>
-            <template #title>
-              <span class="text-subtitle-1 font-weight-bold">Email</span>
-            </template>
-            <template #subtitle>
-              <span class="text-body-1 text-medium-emphasis">hello@ropodl.com</span>
-            </template>
-          </v-list-item>
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="carbon:location" color="primary" class="mr-3" />
-            </template>
-            <template #title>
-              <span class="text-subtitle-1 font-weight-bold">Office</span>
-            </template>
-            <template #subtitle>
-              <span class="text-body-1 text-medium-emphasis">Kathmandu, Nepal</span>
-            </template>
-          </v-list-item>
-          <v-list-item>
-            <template #prepend>
-            <v-icon icon="carbon:share-knowledge" color="primary" class="mr-3" />
-          </template>
-          <template #title>
-            <span class="text-subtitle-1 font-weight-bold">Social</span>
-          </template>
-          <template #subtitle>
-            <span class="text-body-1 text-medium-emphasis">Kathmandu, Nepal</span>
-          </template>
-        </v-list-item>
-        </v-list>
-        <!-- <div class="d-flex align-center mb-4">
-          <v-icon icon="carbon:email" color="primary" class="mr-3" />
-          <span class="text-subtitle-1 font-weight-bold">Email</span>
-        </div>
-        <div class="text-body-1 text-medium-emphasis">hello@ropodl.com</div> -->
-      </v-col>
-      <!-- <v-col cols="12" md="4">
-        <div class="d-flex align-center mb-4">
-          <v-icon icon="carbon:location" color="primary" class="mr-3" />
-          <span class="text-subtitle-1 font-weight-bold">Office</span>
-        </div>
-        <div class="text-body-1 text-medium-emphasis">Kathmandu, Nepal</div>
-      </v-col>
-      <v-col cols="12" md="4">
-        <div class="d-flex align-center mb-4">
-          <v-icon icon="carbon:share-knowledge" color="primary" class="mr-3" />
-          <span class="text-subtitle-1 font-weight-bold">Social</span>
-        </div>
-        <div class="d-flex gap-4">
-          <v-btn icon="carbon:logo-github" variant="text" size="small" />
-          <v-btn icon="carbon:logo-linkedin" variant="text" size="small" />
-          <v-btn icon="carbon:logo-twitter" variant="text" size="small" />
-        </div>
-      </v-col> -->
-      <v-col cols="12" md="6">
-        <v-card rounded="xl" border elevation="0" class="pa-6 pa-md-10">
-          <v-form v-if="!success" @submit.prevent="submitForm">
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="form.name"
-                  label="Your Name"
-                  placeholder="John Doe"
-                  variant="outlined"
-                  rounded="lg"
-                  :rules="rules.name"
-                  required
-                />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="form.email"
-                  label="Email Address"
-                  placeholder="john@example.com"
-                  variant="outlined"
-                  rounded="lg"
-                  :rules="rules.email"
-                  required
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="form.subject"
-                  label="Subject"
-                  placeholder="How can I help you?"
-                  variant="outlined"
-                  rounded="lg"
-                  :rules="rules.subject"
-                  required
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-textarea
-                  v-model="form.message"
-                  label="Message"
-                  placeholder="Type your message here..."
-                  variant="outlined"
-                  rounded="lg"
-                  :rules="rules.message"
-                  required
-                  rows="5"
-                />
-              </v-col>
-            </v-row>
+    <div class="flex flex-col gap-6 sm:gap-7">
+      <div class="grid gap-3 sm:grid-cols-2">
+        <Motion
+          as="div"
+          :while-hover="{ y: -2 }"
+          :while-press="{ scale: 0.985 }"
+          :transition="{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }"
+        >
+          <UCard
+            class="bg-elevated/50"
+            :ui="{ body: 'flex items-start gap-4 p-5' }"
+          >
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <UIcon
+                name="i-lucide-mail"
+                class="size-5"
+              />
+            </span>
+            <div class="min-w-0">
+              <p class="font-mono text-xs uppercase tracking-wider text-muted">
+                Email
+              </p>
+              <a
+                :href="`mailto:${copy.email || 'hello@ropodl.com'}`"
+                class="mt-1 block break-all font-medium text-highlighted transition-colors hover:text-primary"
+              >
+                {{ copy.email || 'hello@ropodl.com' }}
+              </a>
+            </div>
+          </UCard>
+        </Motion>
+        <Motion
+          as="div"
+          :while-hover="{ y: -2 }"
+          :while-press="{ scale: 0.985 }"
+          :transition="{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }"
+        >
+          <UCard
+            class="bg-elevated/50"
+            :ui="{ body: 'flex items-start gap-4 p-5' }"
+          >
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <UIcon
+                name="i-lucide-map-pin"
+                class="size-5"
+              />
+            </span>
+            <div>
+              <p class="font-mono text-xs uppercase tracking-wider text-muted">
+                Based in
+              </p>
+              <p class="mt-1 font-medium text-highlighted">
+                {{ copy.location || 'Kathmandu, Nepal' }}
+              </p>
+            </div>
+          </UCard>
+        </Motion>
+      </div>
 
-            <v-alert
-              v-if="error"
-              type="error"
-              variant="tonal"
-              closable
-              class="mb-6"
-              rounded="lg"
+      <Motion
+        as="div"
+        :while-hover="{ y: -1 }"
+        :transition="{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }"
+      >
+        <UCard
+          class="bg-elevated/50"
+          :ui="{ body: 'p-5 sm:p-8' }"
+        >
+          <div
+            v-if="sent"
+            role="status"
+            class="flex items-start gap-4 rounded-xl border border-primary/20 bg-primary/5 p-5"
+          >
+            <UIcon
+              name="i-lucide-circle-check"
+              class="mt-0.5 size-5 shrink-0 text-primary"
+            />
+            <div>
+              <h2
+                ref="successHeading"
+                tabindex="-1"
+                class="font-semibold text-highlighted"
+              >
+                Thanks for reaching out.
+              </h2>
+              <p class="mt-1 font-mono text-sm leading-6 text-muted">
+                Your message has been sent. I’ll get back to you soon.
+              </p>
+            </div>
+          </div>
+          <form
+            v-else
+            class="space-y-5"
+            @submit.prevent="sendMessage"
+          >
+            <input
+              v-model="form.website"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="absolute -left-[10000px] size-px opacity-0"
             >
-              {{ error }}
-            </v-alert>
-
-            <div class="d-flex justify-end mt-4">
-              <v-btn
+            <div class="grid gap-5 sm:grid-cols-2">
+              <UFormField
+                label="Your name"
+                name="name"
+                required
+              >
+                <UInput
+                  v-model="form.name"
+                  autocomplete="name"
+                  placeholder="Your name"
+                  required
+                  class="w-full"
+                  :disabled="sending"
+                />
+              </UFormField>
+              <UFormField
+                label="Email address"
+                name="email"
+                required
+              >
+                <UInput
+                  v-model="form.email"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                  required
+                  class="w-full"
+                  :disabled="sending"
+                />
+              </UFormField>
+            </div>
+            <UFormField
+              label="Subject"
+              name="subject"
+              required
+            >
+              <UInput
+                v-model="form.subject"
+                placeholder="What would you like to talk about?"
+                required
+                class="w-full"
+                :disabled="sending"
+              />
+            </UFormField>
+            <UFormField
+              label="Message"
+              name="message"
+              required
+            >
+              <UTextarea
+                v-model="form.message"
+                placeholder="Tell me a little about it..."
+                :rows="5"
+                required
+                class="w-full"
+                :disabled="sending"
+              />
+            </UFormField>
+            <p
+              v-if="errorMessage"
+              role="alert"
+              class="font-mono text-sm text-red-400"
+            >
+              {{ errorMessage }}
+            </p>
+            <div class="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+              <div
+                role="group"
+                aria-label="Message verification"
+                class="space-y-2"
+              >
+                <p
+                  id="verification-instructions"
+                  role="status"
+                  aria-live="polite"
+                  class="font-mono text-xs text-muted"
+                >
+                  {{ verificationMessage }}
+                </p>
+                <div
+                  v-if="turnstileSiteKey"
+                  ref="turnstileContainer"
+                  aria-describedby="verification-instructions"
+                />
+              </div>
+              <UButton
                 type="submit"
                 color="primary"
-                size="large"
-                rounded="pill"
-                min-width="160"
-                :loading="loading"
-                elevation="0"
+                variant="solid"
+                size="lg"
+                class="accent-bloom"
+                :loading="sending"
+                :disabled="sending || !turnstileToken"
               >
-                Send Message
-                <template #append>
-                  <v-icon icon="carbon:send" />
+                {{ sending ? 'Sending…' : 'Send a message' }}
+                <template #trailing>
+                  <UIcon name="i-lucide-arrow-up-right" />
                 </template>
-              </v-btn>
+              </UButton>
             </div>
-          </v-form>
-
-          <v-scale-transition>
-            <div v-if="success" class="text-center py-10">
-              <v-icon
-                icon="carbon:checkmark-filled"
-                color="primary"
-                size="80"
-                class="mb-6"
-              />
-              <h3 class="text-h4 font-weight-bold mb-2">Message Sent!</h3>
-              <p class="text-h6 font-weight-light text-medium-emphasis mb-8">
-                Thank you for reaching out. I'll get back to you shortly.
-              </p>
-              <v-btn variant="outlined" rounded="pill" to="/" color="primary">
-                Back to Home
-              </v-btn>
-            </div>
-          </v-scale-transition>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+          </form>
+        </UCard>
+      </Motion>
+    </div>
+  </PublicPageMotion>
 </template>
-
-<style scoped>
-.gap-4 {
-  gap: 1rem;
-}
-</style>

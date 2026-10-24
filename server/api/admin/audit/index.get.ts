@@ -1,33 +1,19 @@
-import { getAdminClient, requireAdminUser } from '../../../utils/admin'
-import { serializeAuditLog } from '../../../utils/serializers'
+import { count, desc } from 'drizzle-orm'
+import { getDatabase } from '../../../db'
+import { auditLogs } from '../../../db/schema'
+import { requireContentAdmin } from '../../../utils/content'
 
 export default defineEventHandler(async (event) => {
-  await requireAdminUser(event)
-  const client = await getAdminClient(event)
+  await requireContentAdmin(event)
+  const db = getDatabase(event)
+  const rows = await db.select({ total: count() }).from(auditLogs)
+  const total = rows[0]?.total || 0
   const query = getQuery(event)
-  const limit = Math.min(Number(query.limit) || 20, 100)
-  const offset = Math.max(Number(query.offset) || 0, 0)
-
-  const { data, error, count } = await client
-    .from('audit_logs')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1)
-
-  if (error) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: error.message,
-    })
-  }
-
-  return {
-    meta: {
-      total: count || 0,
-      count: data?.length || 0,
-      limit,
-      offset,
-    },
-    data: (data ?? []).map((item: any) => serializeAuditLog(item)),
-  }
+  const requestedSize = Number.parseInt(String(query.pageSize || '10'), 10)
+  const pageSize = [10, 25, 50, 100].includes(requestedSize) ? requestedSize : 10
+  const page = Math.max(1, Number.parseInt(String(query.page || '1'), 10) || 1)
+  const totalPages = Math.max(1, Math.ceil(total / pageSize))
+  const currentPage = Math.min(page, totalPages)
+  const items = await db.select().from(auditLogs).orderBy(desc(auditLogs.createdAt)).limit(pageSize).offset((currentPage - 1) * pageSize)
+  return { items, page: currentPage, pageSize, totalItems: total, totalPages }
 })

@@ -1,199 +1,284 @@
 <script setup lang="ts">
-import { useApiFetch } from '~/utils/shared/useApiFetch';
-import type { DashboardStats } from '~/types/stats';
+definePageMeta({ middleware: 'auth' })
 
-definePageMeta({
-  layout: 'admin',
-  middleware: ['is-auth'],
-});
-
-const stats = ref<DashboardStats | null>(null);
-const loading = ref(true);
-
-const fetchStats = async () => {
-  try {
-    const data = await useApiFetch<DashboardStats>('admin/stats');
-    stats.value = data;
-  } catch (e) {
-    console.error('Failed to fetch stats', e);
-  } finally {
-    loading.value = false;
+interface SiteMetrics {
+  since: string
+  contactConversions: number
+  articleFeedback: {
+    yes: number
+    no: number
+    byArticle: { slug: string, yes: number, no: number }[]
   }
-};
+}
 
-onMounted(() => {
-  fetchStats();
-});
+const { data: metrics, pending: metricsPending, error: metricsError } = await useFetch<SiteMetrics>('/api/admin/metrics')
 </script>
+
 <template>
-  <v-container class="admin-page">
-    <section class="admin-hero">
-      <div class="admin-hero__kicker">Overview</div>
-      <div class="admin-hero__title">Dashboard</div>
-      <div class="admin-hero__copy">Recent activity and core counts.</div>
-    </section>
-
-    <template v-if="loading">
-      <v-row>
-        <template v-for="i in 3" :key="i">
-          <v-col cols="12" md="4">
-            <v-skeleton-loader type="card" class="rounded-lg" />
-          </v-col>
+  <AdminShell>
+    <template #default="{ user }">
+      <AdminPageHeader
+        eyebrow="Project workspace"
+        :title="`Welcome back, ${user?.name?.split(' ')[0] || 'there'}`"
+        description="Here’s what’s happening with your project."
+      >
+        <template #actions>
+          <UButton
+            to="/"
+            icon="i-lucide-external-link"
+          >
+            Open project
+          </UButton>
         </template>
-      </v-row>
-    </template>
+      </AdminPageHeader>
 
-    <template v-else-if="stats">
-      <div class="admin-stat-grid mb-4">
-        <v-card class="admin-stat-tile">
-          <v-card-text class="pa-4">
-            <div class="d-flex align-center justify-space-between">
-              <div>
-                <div class="admin-stat-tile__label">Blog Posts</div>
-                <div class="admin-stat-tile__value">{{ stats.counts.blogs }}</div>
-              </div>
-              <v-btn
-                v-tooltip="'Create New Post'"
-                icon="carbon:add"
-                variant="tonal"
-                density="compact"
-                to="/admin/blog/create"
-              />
+      <div class="space-y-9 sm:space-y-11">
+        <section
+          class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"
+          aria-label="Workspace status"
+        >
+          <article class="rounded-xl border border-default bg-muted p-4 sm:p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-muted">Website</span>
+              <span class="flex size-8 items-center justify-center rounded-lg bg-success/10 text-success">
+                <UIcon
+                  name="i-lucide-globe-2"
+                  class="size-4"
+                />
+              </span>
             </div>
-          </v-card-text>
-        </v-card>
+            <div class="mt-4 flex items-center gap-2">
+              <span class="size-1.5 rounded-full bg-success" />
+              <p class="text-sm font-medium text-highlighted">
+                Live
+              </p>
+            </div>
+            <p class="mt-1 text-[11px] text-dimmed">
+              Projects are online
+            </p>
+          </article>
+          <article class="rounded-xl border border-default bg-muted p-4 sm:p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-muted">Email routing</span>
+              <span class="flex size-8 items-center justify-center rounded-lg bg-elevated text-toned">
+                <UIcon
+                  name="i-lucide-mail"
+                  class="size-4"
+                />
+              </span>
+            </div>
+            <p class="mt-4 text-sm font-medium text-highlighted">
+              hello@ropodl.com
+            </p>
+            <p class="mt-1 text-[11px] text-dimmed">
+              Forwarding is enabled
+            </p>
+          </article>
+          <article class="rounded-xl border border-default bg-muted p-4 sm:p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-muted">Image storage</span>
+              <span class="flex size-8 items-center justify-center rounded-lg bg-elevated text-toned">
+                <UIcon
+                  name="i-lucide-images"
+                  class="size-4"
+                />
+              </span>
+            </div>
+            <p class="mt-4 text-sm font-medium text-highlighted">
+              Connected
+            </p>
+            <p class="mt-1 text-[11px] text-dimmed">
+              Project uploads are available
+            </p>
+          </article>
+          <article class="rounded-xl border border-default bg-muted p-4 sm:p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-muted">Signed in as</span>
+              <span class="flex size-8 items-center justify-center rounded-lg bg-elevated text-toned">
+                <UIcon
+                  name="i-lucide-shield-check"
+                  class="size-4"
+                />
+              </span>
+            </div>
+            <p class="mt-4 truncate text-sm font-medium text-highlighted">
+              {{ user?.email }}
+            </p>
+            <p class="mt-1 text-[11px] text-dimmed">
+              Administrator account
+            </p>
+          </article>
+        </section>
 
-        <v-card class="admin-stat-tile">
-          <v-card-text class="pa-4">
-            <div class="d-flex align-center justify-space-between">
+        <AdminSection
+          title="Site signals"
+          description="Anonymous activity from the last 30 days."
+          aria-label="Site signals"
+        >
+          <UEmpty
+            v-if="metricsPending"
+            variant="naked"
+            loading
+            title="Loading site metrics…"
+          />
+          <UAlert
+            v-else-if="metricsError"
+            role="status"
+            color="error"
+            variant="subtle"
+            icon="i-lucide-circle-alert"
+            title="Site metrics are unavailable. Apply the latest database migration to enable them."
+          />
+          <template v-else-if="metrics">
+            <div class="grid gap-5 sm:grid-cols-3">
               <div>
-                <div class="admin-stat-tile__label">Media Library</div>
-                <div class="admin-stat-tile__value">{{ stats.counts.media }}</div>
+                <p class="text-xs text-muted">
+                  Contact messages sent
+                </p>
+                <p class="mt-2 text-2xl font-semibold text-highlighted">
+                  {{ metrics.contactConversions }}
+                </p>
               </div>
-              <v-btn
-                v-tooltip="'Upload Media'"
-                icon="carbon:upload"
-                variant="tonal"
-                density="compact"
-                to="/admin/media/create"
-              />
+              <div>
+                <p class="text-xs text-muted">
+                  Articles marked useful
+                </p>
+                <p class="mt-2 text-2xl font-semibold text-highlighted">
+                  {{ metrics.articleFeedback.yes }}
+                </p>
+              </div>
+              <div>
+                <p class="text-xs text-muted">
+                  Articles needing work
+                </p>
+                <p class="mt-2 text-2xl font-semibold text-highlighted">
+                  {{ metrics.articleFeedback.no }}
+                </p>
+              </div>
             </div>
-          </v-card-text>
-        </v-card>
+            <ul
+              v-if="metrics.articleFeedback.byArticle.length"
+              class="divide-y divide-default border-t border-default"
+              aria-label="Feedback by article"
+            >
+              <li
+                v-for="article in metrics.articleFeedback.byArticle"
+                :key="article.slug"
+                class="flex items-center justify-between gap-4 py-3 text-xs last:pb-0"
+              >
+                <NuxtLink
+                  :to="`/blogs/${article.slug}`"
+                  class="min-w-0 truncate text-toned hover:text-highlighted"
+                >
+                  {{ article.slug }}
+                </NuxtLink>
+                <span class="shrink-0 text-muted">{{ article.yes }} useful · {{ article.no }} not quite</span>
+              </li>
+            </ul>
+          </template>
+        </AdminSection>
 
-        <v-card class="admin-stat-tile">
-          <v-card-text class="pa-4">
-            <div class="d-flex align-center justify-space-between">
-              <div>
-                <div class="admin-stat-tile__label">Users</div>
-                <div class="admin-stat-tile__value">{{ stats.counts.users }}</div>
-              </div>
-              <v-avatar color="primary" variant="tonal" rounded="xl">
-                <v-icon icon="carbon:user-multiple" />
-              </v-avatar>
+        <section aria-labelledby="content-heading">
+          <div class="mb-4 flex items-end justify-between gap-4">
+            <div>
+              <h2
+                id="content-heading"
+                class="text-base font-semibold text-highlighted"
+              >
+                Create content
+              </h2>
+              <p class="mt-1 text-xs text-muted">
+                Add new articles and projects to your project.
+              </p>
             </div>
-          </v-card-text>
-        </v-card>
+            <span class="hidden text-[10px] font-medium uppercase tracking-[0.16em] text-dimmed sm:inline">Quick access</span>
+          </div>
+
+          <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <NuxtLink
+              to="/admin/blogs/create"
+              class="group rounded-xl border border-default bg-muted p-5 transition-colors hover:border-accented hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              <div class="flex items-start justify-between">
+                <span class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <UIcon
+                    name="i-lucide-file-plus-2"
+                    class="size-5"
+                  />
+                </span>
+                <UIcon
+                  name="i-lucide-arrow-up-right"
+                  class="size-4 text-dimmed transition-colors group-hover:text-toned"
+                />
+              </div>
+              <h3 class="mt-5 text-sm font-semibold text-highlighted">
+                New blog post
+              </h3>
+              <p class="mt-1.5 text-xs leading-5 text-muted">
+                Write an article, choose a featured image, and publish it.
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-toned">Create article <UIcon
+                name="i-lucide-arrow-right"
+                class="size-3.5 transition-transform group-hover:translate-x-0.5"
+              /></span>
+            </NuxtLink>
+            <NuxtLink
+              to="/admin/projects/create"
+              class="group rounded-xl border border-default bg-muted p-5 transition-colors hover:border-accented hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              <div class="flex items-start justify-between">
+                <span class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <UIcon
+                    name="i-lucide-folder-plus"
+                    class="size-5"
+                  />
+                </span>
+                <UIcon
+                  name="i-lucide-arrow-up-right"
+                  class="size-4 text-dimmed transition-colors group-hover:text-toned"
+                />
+              </div>
+              <h3 class="mt-5 text-sm font-semibold text-highlighted">
+                New project
+              </h3>
+              <p class="mt-1.5 text-xs leading-5 text-muted">
+                Add a project with its own slug and cover image.
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-toned">Create project <UIcon
+                name="i-lucide-arrow-right"
+                class="size-3.5 transition-transform group-hover:translate-x-0.5"
+              /></span>
+            </NuxtLink>
+            <NuxtLink
+              to="/admin/media"
+              class="group rounded-xl border border-default bg-muted p-5 transition-colors hover:border-accented hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              <div class="flex items-start justify-between">
+                <span class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <UIcon
+                    name="i-lucide-images"
+                    class="size-5"
+                  />
+                </span>
+                <UIcon
+                  name="i-lucide-arrow-up-right"
+                  class="size-4 text-dimmed transition-colors group-hover:text-toned"
+                />
+              </div>
+              <h3 class="mt-5 text-sm font-semibold text-highlighted">
+                Media library
+              </h3>
+              <p class="mt-1.5 text-xs leading-5 text-muted">
+                Browse and upload images, then reuse them in the visual editor.
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-toned">Open file explorer <UIcon
+                name="i-lucide-arrow-right"
+                class="size-3.5 transition-transform group-hover:translate-x-0.5"
+              /></span>
+            </NuxtLink>
+          </div>
+        </section>
       </div>
-
-      <v-row class="mt-1">
-        <v-col cols="12" md="8">
-          <v-card class="admin-panel">
-            <v-card-text class="pa-4">
-              <div class="admin-split-header">
-                <div>
-                  <div class="admin-split-header__title">Recent posts</div>
-                </div>
-                <v-btn
-                  color="primary"
-                  variant="text"
-                  to="/admin/blog"
-                >
-                  View all
-                </v-btn>
-              </div>
-              <v-table>
-                <thead>
-                  <tr>
-                    <th class="text-left">Title</th>
-                    <th class="text-left">Status</th>
-                    <th class="text-left">Date</th>
-                    <th class="text-right">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="blog in stats.recentBlogs" :key="blog.id">
-                    <td class="font-weight-medium">{{ blog.title }}</td>
-                    <td>
-                      <v-chip
-                        size="x-small"
-                        :color="
-                          blog.status === 'published'
-                            ? 'success'
-                            : blog.status === 'archieved'
-                              ? 'error'
-                              : 'warning'
-                        "
-                        variant="flat"
-                        class="text-capitalize"
-                      >
-                        {{ blog.status }}
-                      </v-chip>
-                    </td>
-                    <td class="text-medium-emphasis text-body-2">
-                      {{ new Date(blog.createdAt).toLocaleDateString() }}
-                    </td>
-                    <td class="text-right">
-                      <v-btn
-                        icon="carbon:edit"
-                        variant="text"
-                        density="compact"
-                        size="small"
-                        :to="`/admin/blog/${blog.id}`"
-                      />
-                    </td>
-                  </tr>
-                  <tr v-if="stats.recentBlogs.length === 0">
-                    <td colspan="4" class="text-center text-medium-emphasis py-8">
-                      No recent activity found.
-                    </td>
-                  </tr>
-                </tbody>
-              </v-table>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-card class="admin-panel">
-            <v-card-title class="px-4 pt-4 pb-1 text-subtitle-1">Quick actions</v-card-title>
-            <v-card-text class="px-4 pb-4 pt-0">
-              <div class="d-grid gap-2">
-                <v-btn
-                  block
-                  variant="text"
-                  to="/admin/blog/create"
-                >
-                  New article
-                </v-btn>
-                <v-btn
-                  block
-                  variant="text"
-                  to="/admin/media/create"
-                >
-                  Upload media
-                </v-btn>
-                <v-btn
-                  block
-                  variant="text"
-                  to="/admin/contact"
-                >
-                  Contact inbox
-                </v-btn>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
     </template>
-  </v-container>
+  </AdminShell>
 </template>

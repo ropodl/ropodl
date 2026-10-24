@@ -1,7 +1,0 @@
-$heading-font: 'Ubuntu', sans-serif;
-$body-font: 'Ubuntu', sans-serif;
-
-@use 'vuetify/settings' with (
-  $heading-font-family: $heading-font,
-  $body-font-family: $body-font
-);

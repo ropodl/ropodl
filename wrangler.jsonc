@@ -1,0 +1,89 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "saroj-portfolio",
+  "main": ".output/server/index.mjs",
+  "compatibility_date": "2026-10-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "placement": {
+    "mode": "smart"
+  },
+  "ai": {
+    "binding": "AI",
+    "remote": true
+  },
+  "images": {
+    "binding": "IMAGES"
+  },
+  "cache": {
+    "enabled": true
+  },
+  "vars": {
+    "NUXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAFcWXT8sD-1aKNSc"
+  },
+  "routes": [
+    { "pattern": "ropodl.com/*", "zone_name": "ropodl.com" },
+    { "pattern": "www.ropodl.com/*", "zone_name": "ropodl.com" }
+  ],
+  "assets": {
+    "directory": ".output/public",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "saroj-portfolio",
+      "database_id": "0f520c80-6ce7-4462-892c-ff1b94033a8a",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "APP_KV",
+      "id": "c8754fbadfec403ea745402fb1ba0057"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS",
+      "bucket_name": "saroj-portfolio-uploads"
+    }
+  ],
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "destination_address": "hello@ropodl.com",
+      "allowed_sender_addresses": ["hello@ropodl.com"]
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CONTACT_LIMITER",
+      "namespace_id": "810271",
+      "simple": { "limit": 5, "period": 60 }
+    },
+    {
+      "name": "LOGIN_LIMITER",
+      "namespace_id": "810272",
+      "simple": { "limit": 10, "period": 60 }
+    },
+    {
+      "name": "UPLOADS_LIMITER",
+      "namespace_id": "810273",
+      "simple": { "limit": 20, "period": 60 }
+    },
+    {
+      "name": "AUDIO_LIMITER",
+      "namespace_id": "810274",
+      "simple": { "limit": 3, "period": 60 }
+    },
+    {
+      "name": "FEEDBACK_LIMITER",
+      "namespace_id": "810275",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ]
+}

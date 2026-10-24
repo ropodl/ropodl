@@ -1,0 +1,23 @@
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+  vue-demi: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - '@better-auth/core@1.7.11'
+  - '@better-auth/drizzle-adapter@1.7.11'
+  - '@better-auth/kysely-adapter@1.7.11'
+  - '@better-auth/memory-adapter@1.7.11'
+  - '@better-auth/mongo-adapter@1.7.11'
+  - '@better-auth/prisma-adapter@1.7.11'
+  - '@better-auth/telemetry@1.7.11'
+  - better-auth@1.7.11
+  - '@cloudflare/workerd-darwin-64@1.20261019.1'
+  - '@cloudflare/workerd-darwin-arm64@1.20261019.1'
+  - '@cloudflare/workerd-linux-64@1.20261019.1'
+  - '@cloudflare/workerd-linux-arm64@1.20261019.1'
+  - '@cloudflare/workerd-windows-64@1.20261019.1'
+  - '@cloudflare/workers-types@5.20261019.1'
+  - miniflare@5.20261019.0-beta
+  - workerd@1.20261019.1
+  - wrangler@4.151.2
