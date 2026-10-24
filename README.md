@@ -48,7 +48,7 @@ pnpm exec wrangler secret put TURNSTILE_SECRET_KEY
 
 Create a Turnstile widget in the Cloudflare dashboard. Set its site key as the Worker variable `NUXT_PUBLIC_TURNSTILE_SITE_KEY`, and the secret key with `wrangler secret put TURNSTILE_SECRET_KEY`. The local `.dev.vars.example` uses Cloudflare's published test keys; replace these with real keys for production.
 
-For Web Analytics, add the site in Cloudflare's **Web Analytics** dashboard and set the provided token as the Worker variable `NUXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`. The app injects the official Cloudflare beacon only when this token is set. Cloudflare Web Analytics reports field Core Web Vitals (LCP, INP, and CLS); review its Core Web Vitals dashboard after real visitor data has accumulated. Contact messages are sent from `hello@ropodl.com` to `hello@ropodl.com`, the verified forwarding destination for `hello@ropodl.com`.
+For Web Analytics, add the site in Cloudflare's **Web Analytics** dashboard and set the provided token as the Worker variable `NUXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`. The app injects the official Cloudflare beacon only when this token is set. Cloudflare Web Analytics reports field Core Web Vitals (LCP, INP, and CLS); review its Core Web Vitals dashboard after real visitor data has accumulated. Contact messages are sent via the Worker `send_email` binding from and to `hello@ropodl.com` (configure forwarding for that address in the Cloudflare dashboard).
 
 Apply the D1 migration and create the remote admin account:
 

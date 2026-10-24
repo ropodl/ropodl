@@ -17,6 +17,10 @@ logs
 .DS_Store
 .fleet
 .idea
+.aws
+.agents
+.codex
+.cursor
 
 # Local env files
 .env
@@ -24,4 +28,5 @@ logs
 !.env.example
 .dev.vars
 .dev.vars.*
+!.dev.vars.example
 .wrangler
