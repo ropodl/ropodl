@@ -51,16 +51,18 @@ const siteOrigin = useSiteOrigin()
 const featuredProjects = computed(() => projects.value?.items.slice(0, 3) ?? [])
 const recentPosts = computed(() => posts.value?.items.slice(0, 3) ?? [])
 const hasPosts = computed(() => recentPosts.value.length > 0)
+const homeDescription = 'Full-stack developer and designer in Kathmandu. Selected work with Vue, Nuxt, and Laravel.'
+
 usePageSeo(() => ({
   title: page.value?.seoTitle || 'Saroj Poudel — Full-stack developer & designer',
-  description: page.value?.seoDescription || 'Full-stack developer and designer in Kathmandu, Nepal. Explore selected projects and writing.',
+  description: page.value?.seoDescription || homeDescription,
   image: '/social-card.png',
   imageAlt: 'Saroj Poudel — Full-stack developer and designer',
   schema: {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     'name': page.value?.seoTitle || 'Saroj Poudel — Full-stack developer & designer',
-    'description': page.value?.seoDescription || 'Full-stack developer and designer in Kathmandu, Nepal. Explore selected projects and writing.',
+    'description': page.value?.seoDescription || homeDescription,
     'mainEntity': { '@id': `${siteOrigin}/#person` },
     'hasPart': {
       '@type': 'ItemList',

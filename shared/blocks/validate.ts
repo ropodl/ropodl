@@ -66,7 +66,7 @@ export function image(value: unknown, context: BlockContext, field = 'image'): C
   if (!isSafeContentImageUrl(src) || (context.userId && !src.startsWith(`/api/uploads/uploads/${context.userId}/`))) {
     fail('Choose an image from your media library.')
   }
-  const result: ContentImage = { src, alt: text(raw.alt, 240, `${field} alt text`) }
+  const result: ContentImage = { src, alt: text(raw.alt, 240, `${field} alt text`, true) }
   const caption = text(raw.caption, 500, `${field} caption`)
   if (caption) result.caption = caption
   return result

@@ -26,30 +26,48 @@ const sections = computed(() => blockDocument.value?.blocks.flatMap((block, inde
     : []
 ) || [])
 
-usePageSeo(() => ({
-  title: project.value?.seoTitle || project.value?.title || 'Projects — Saroj Poudel',
-  description: project.value?.seoDescription || project.value?.summary || '',
-  image: project.value?.imageUrl,
-  imageAlt: project.value?.title || 'Saroj Poudel project',
-  schema: project.value
-    ? {
+usePageSeo(() => {
+  if (!project.value) return { title: 'Projects — Saroj Poudel', description: '' }
+
+  const pageUrl = `${siteOrigin}/projects/${project.value.slug}`
+  const image = project.value.imageUrl
+    ? new URL(project.value.imageUrl, siteOrigin).href
+    : `${siteOrigin}/social-card.png`
+
+  return {
+    title: project.value.seoTitle || project.value.title,
+    description: project.value.seoDescription || project.value.summary || '',
+    image: project.value.imageUrl || '/social-card.png',
+    imageAlt: `${project.value.title} — project cover`,
+    schema: [
+      {
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
-        '@id': `${siteOrigin}/projects/${project.value.slug}#creative-work`,
+        '@id': `${pageUrl}#creative-work`,
         'name': project.value.title,
         'headline': project.value.title,
         'description': project.value.seoDescription || project.value.summary,
-        'url': `${siteOrigin}/projects/${project.value.slug}`,
-        'mainEntityOfPage': `${siteOrigin}/projects/${project.value.slug}`,
-        'image': project.value.imageUrl ? new URL(project.value.imageUrl, siteOrigin).href : `${siteOrigin}/social-card.png`,
+        'url': pageUrl,
+        'mainEntityOfPage': pageUrl,
+        'image': image,
         'dateCreated': new Date(project.value.createdAt).toISOString(),
         'creator': { '@id': `${siteOrigin}/#person` },
         'author': { '@id': `${siteOrigin}/#person` },
         'genre': project.value.type?.title,
         'inLanguage': 'en'
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${siteOrigin}/` },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Projects', 'item': `${siteOrigin}/projects` },
+          { '@type': 'ListItem', 'position': 3, 'name': project.value.title, 'item': pageUrl }
+        ]
       }
-    : undefined
-}))
+    ]
+  }
+})
 </script>
 
 <template>
@@ -63,18 +81,46 @@ usePageSeo(() => ({
       class="-mt-5 pb-8 sm:-mt-8 sm:pb-10"
     >
       <header class="mx-auto max-w-6xl px-4 pb-8 pt-7 sm:px-7 sm:pb-12 sm:pt-10 lg:px-10 lg:pb-16">
-        <NuxtLink
-          prefetch-on="visibility"
-          to="/projects"
-          class="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-primary"
+        <nav
+          aria-label="Breadcrumb"
+          class="font-mono text-xs text-muted"
         >
-          <UIcon
-            name="i-lucide-arrow-left"
-            class="size-3.5"
-            aria-hidden="true"
-          />
-          All projects
-        </NuxtLink>
+          <ol class="flex flex-wrap items-center gap-2">
+            <li>
+              <NuxtLink
+                prefetch-on="visibility"
+                to="/"
+                class="transition-colors hover:text-primary"
+              >
+                Home
+              </NuxtLink>
+            </li>
+            <li
+              aria-hidden="true"
+              class="text-dimmed"
+            >
+              /
+            </li>
+            <li>
+              <NuxtLink
+                prefetch-on="visibility"
+                to="/projects"
+                class="transition-colors hover:text-primary"
+              >
+                Projects
+              </NuxtLink>
+            </li>
+            <li
+              aria-hidden="true"
+              class="text-dimmed"
+            >
+              /
+            </li>
+            <li class="truncate text-highlighted">
+              <span aria-current="page">{{ project.title }}</span>
+            </li>
+          </ol>
+        </nav>
 
         <div class="mt-10 lg:mt-16">
           <div class="max-w-4xl">

@@ -13,18 +13,48 @@ const workSteps = computed(() => (copy.value.howIWorkSteps || '').split('\n').ma
   const [title, description] = line.split('|').map(item => item.trim())
   return { title, description }
 }).filter(item => item.title))
+const faqs = [
+  {
+    question: 'What do you specialize in?',
+    answer: 'Full-stack product work with Vue, Nuxt, and Laravel — from interface design through backend services, launch, and ongoing maintenance.'
+  },
+  {
+    question: 'Do you handle both design and development?',
+    answer: 'Yes. I shape the interface and build the underlying functionality so the experience stays coherent from sketch to production.'
+  },
+  {
+    question: 'Where are you based?',
+    answer: 'Kathmandu, Nepal. I collaborate with local teams and remote clients.'
+  },
+  {
+    question: 'How do engagements usually start?',
+    answer: 'With a clear goal: who the product is for, what success looks like, and the constraints around timeline and stack. From there I shape, build, launch, and keep improving.'
+  }
+]
+const aboutDescription = 'Learn about Saroj Poudel, a full-stack developer and designer based in Kathmandu, Nepal.'
 usePageSeo(() => ({
   title: page.value?.seoTitle || 'About Saroj Poudel',
-  description: page.value?.seoDescription || 'Learn about Saroj Poudel, a full-stack developer and designer based in Kathmandu, Nepal.',
+  description: page.value?.seoDescription || aboutDescription,
   image: '/saroj-poudel.webp',
   imageAlt: 'Saroj Poudel',
-  schema: {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    'name': page.value?.seoTitle || 'About Saroj Poudel',
-    'description': page.value?.seoDescription || 'Learn about Saroj Poudel, a full-stack developer and designer based in Kathmandu, Nepal.',
-    'mainEntity': { '@id': `${siteOrigin}/#person` }
-  }
+  schema: [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      'name': page.value?.seoTitle || 'About Saroj Poudel',
+      'description': page.value?.seoDescription || aboutDescription,
+      'mainEntity': { '@id': `${siteOrigin}/#person` }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': faqs.map(item => ({
+        '@type': 'Question',
+        'name': item.question,
+        'acceptedAnswer': { '@type': 'Answer', 'text': item.answer }
+      }))
+    }
+  ]
 }))
 </script>
 
@@ -144,6 +174,42 @@ usePageSeo(() => ({
             </div>
           </UCard>
         </Motion>
+      </div>
+    </section>
+
+    <section
+      class="space-y-6"
+      aria-labelledby="about-faq-heading"
+    >
+      <header class="max-w-2xl space-y-4">
+        <p class="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+          FAQ
+        </p>
+        <h2
+          id="about-faq-heading"
+          class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl"
+        >
+          Common questions
+        </h2>
+      </header>
+      <div class="divide-y divide-default rounded-xl border border-default">
+        <details
+          v-for="item in faqs"
+          :key="item.question"
+          class="group p-4 sm:p-5"
+        >
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-highlighted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+            {{ item.question }}
+            <UIcon
+              name="i-lucide-plus"
+              class="size-4 shrink-0 text-primary transition-transform group-open:rotate-45"
+              aria-hidden="true"
+            />
+          </summary>
+          <p class="mt-3 font-mono text-sm leading-7 text-muted">
+            {{ item.answer }}
+          </p>
+        </details>
       </div>
     </section>
 

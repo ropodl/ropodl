@@ -241,7 +241,7 @@ function formatLabel(value: BlogPostFormat) {
               >
                 <NuxtImg
                   :src="post.imageUrl"
-                  alt=""
+                  :alt="`${post.title} cover image`"
                   width="768"
                   height="480"
                   sizes="sm:100vw md:192px"

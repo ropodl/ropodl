@@ -1,5 +1,5 @@
 <script setup lang="ts">
-interface GalleryImage { src: string, alt: string }
+interface GalleryImage { src: string, alt: string, caption?: string }
 
 const props = withDefaults(defineProps<{ images: GalleryImage[], label?: string, priority?: boolean }>(), { priority: false })
 const dialog = ref<HTMLDialogElement>()
@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
       >
         <NuxtImg
           :src="image.src"
-          :alt="image.alt"
+          :alt="image.alt || image.caption || `${label || 'Gallery'} image ${index + 1}`"
           width="900"
           height="900"
           sizes="sm:50vw md:50vw lg:40vw"
@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
         <img
           :key="activeImage.src"
           :src="activeImage.src"
-          :alt="activeImage.alt"
+          :alt="activeImage.alt || activeImage.caption || `${label || 'Gallery'} image`"
           class="max-h-full max-w-full select-none object-contain transition-transform duration-200"
           :class="zoom > 1 ? 'cursor-grab active:cursor-grabbing' : ''"
           :style="imageStyle"

@@ -20,7 +20,7 @@ defineProps<{ block: TestimonialBlock }>()
       <NuxtImg
         v-if="block.image && isSafeContentImageUrl(block.image.src)"
         :src="block.image.src"
-        :alt="block.image.alt"
+        :alt="block.image.alt || `${block.name} photo`"
         width="96"
         height="96"
         format="webp"

@@ -22,21 +22,53 @@ const runtimeConfig = useRuntimeConfig()
 const { data: page } = await useFetch<{ content: Record<string, string>, seoTitle: string, seoDescription: string }>('/api/pages/contact')
 const copy = computed(() => page.value?.content || {})
 const siteOrigin = useSiteOrigin()
+const contactDescription = 'Get in touch with Saroj Poudel about a project, collaboration, or just to say hello.'
+const faqs = [
+  {
+    question: 'What kinds of projects do you take on?',
+    answer: 'Product websites, admin tools, and full-stack apps — especially Vue, Nuxt, and Laravel work that needs both design craft and solid engineering.'
+  },
+  {
+    question: 'Do you work remotely?',
+    answer: 'Yes. I am based in Kathmandu, Nepal, and collaborate with local and remote teams.'
+  },
+  {
+    question: 'How should I reach you?',
+    answer: 'Use the form on this page or email hello@ropodl.com. Include goals, timeline, and any links that help me understand the work.'
+  },
+  {
+    question: 'How quickly do you reply?',
+    answer: 'I usually reply within a few business days. If the request is urgent, say so in the subject line.'
+  }
+]
 usePageSeo(() => ({
   title: page.value?.seoTitle || 'Contact Saroj Poudel',
-  description: page.value?.seoDescription || 'Get in touch with Saroj Poudel about a project, collaboration, or just to say hello.',
-  schema: {
-    '@context': 'https://schema.org',
-    '@type': 'ContactPage',
-    'name': page.value?.seoTitle || 'Contact Saroj Poudel',
-    'description': page.value?.seoDescription || 'Get in touch with Saroj Poudel about a project, collaboration, or just to say hello.',
-    'mainEntity': {
-      '@type': 'Person',
-      '@id': `${siteOrigin}/#person`,
-      'name': 'Saroj Poudel',
-      'email': copy.value.email
+  description: page.value?.seoDescription || contactDescription,
+  image: '/social-card.png',
+  imageAlt: 'Contact Saroj Poudel',
+  schema: [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      'name': page.value?.seoTitle || 'Contact Saroj Poudel',
+      'description': page.value?.seoDescription || contactDescription,
+      'mainEntity': {
+        '@type': 'Person',
+        '@id': `${siteOrigin}/#person`,
+        'name': 'Saroj Poudel',
+        'email': copy.value.email
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': faqs.map(item => ({
+        '@type': 'Question',
+        'name': item.question,
+        'acceptedAnswer': { '@type': 'Answer', 'text': item.answer }
+      }))
     }
-  }
+  ]
 }))
 const turnstileSiteKey = runtimeConfig.public.turnstileSiteKey as string
 const turnstileContainer = ref<HTMLElement>()
@@ -366,6 +398,42 @@ onBeforeUnmount(() => {
           </form>
         </UCard>
       </Motion>
+
+      <section
+        class="space-y-5"
+        aria-labelledby="contact-faq-heading"
+      >
+        <header class="space-y-3">
+          <p class="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+            FAQ
+          </p>
+          <h2
+            id="contact-faq-heading"
+            class="text-2xl font-bold tracking-tight text-highlighted sm:text-3xl"
+          >
+            Before you write
+          </h2>
+        </header>
+        <div class="divide-y divide-default rounded-xl border border-default">
+          <details
+            v-for="item in faqs"
+            :key="item.question"
+            class="group p-4 sm:p-5"
+          >
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-highlighted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+              {{ item.question }}
+              <UIcon
+                name="i-lucide-plus"
+                class="size-4 shrink-0 text-primary transition-transform group-open:rotate-45"
+                aria-hidden="true"
+              />
+            </summary>
+            <p class="mt-3 font-mono text-sm leading-7 text-muted">
+              {{ item.answer }}
+            </p>
+          </details>
+        </div>
+      </section>
     </div>
   </PublicPageMotion>
 </template>

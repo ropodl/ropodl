@@ -88,7 +88,7 @@ async function removePost(post: ContentRow) {
                 <img
                   v-if="post.imageUrl"
                   :src="post.imageUrl"
-                  alt=""
+                  :alt="`${post.title} thumbnail`"
                   class="size-12 shrink-0 rounded-lg border border-default object-cover"
                 >
                 <span

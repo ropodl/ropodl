@@ -44,7 +44,7 @@ defineProps<{ items: RelatedItem[], kind: 'blogs' | 'projects' }>()
           <NuxtImg
             v-if="item.imageUrl"
             :src="item.imageUrl"
-            alt=""
+            :alt="`${item.title} preview`"
             width="960"
             height="540"
             sizes="sm:100vw md:50vw lg:33vw"

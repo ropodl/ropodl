@@ -13,7 +13,7 @@ const position = ref(50)
     <div class="relative overflow-hidden rounded-xl border border-default bg-elevated select-none">
       <NuxtImg
         :src="block.after.src"
-        :alt="block.after.alt || 'After'"
+        :alt="block.after.alt || block.after.caption || 'After comparison image'"
         width="1200"
         format="webp"
         class="!m-0 block w-full !rounded-none !border-0"
@@ -21,7 +21,7 @@ const position = ref(50)
       />
       <NuxtImg
         :src="block.before.src"
-        :alt="block.before.alt || 'Before'"
+        :alt="block.before.alt || block.before.caption || 'Before comparison image'"
         width="1200"
         format="webp"
         class="!m-0 absolute inset-0 block size-full !rounded-none !border-0 object-cover"

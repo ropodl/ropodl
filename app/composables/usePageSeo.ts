@@ -11,14 +11,14 @@ export interface PageSeo {
   authorName?: string
   section?: string
   tags?: string[]
-  schema?: Record<string, unknown>
+  schema?: Record<string, unknown> | Record<string, unknown>[]
 }
 
 export function useSiteOrigin() {
   return useRuntimeConfig().public.siteUrl.replace(/\/+$/, '')
 }
 
-function safeJsonLd(value: Record<string, unknown>) {
+function safeJsonLd(value: Record<string, unknown> | Record<string, unknown>[]) {
   return JSON.stringify(value).replace(/[<>&\u2028\u2029]/g, character => ({
     '<': '\\u003C',
     '>': '\\u003E',

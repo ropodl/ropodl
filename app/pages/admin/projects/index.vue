@@ -88,7 +88,7 @@ async function removeProject(project: ContentRow) {
                 <img
                   v-if="project.imageUrl"
                   :src="project.imageUrl"
-                  alt=""
+                  :alt="`${project.title} thumbnail`"
                   class="size-12 shrink-0 rounded-lg border border-default object-cover"
                 >
                 <span

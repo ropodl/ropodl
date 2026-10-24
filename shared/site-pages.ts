@@ -9,7 +9,7 @@ export const sitePageDefaults: Record<string, { label: string, content: Record<s
       blogsEyebrow: 'Blog', blogsHeading: 'Blog', blogsLink: 'See all', projectCardLink: 'View project', blogCardLink: 'Read', projectsEmpty: 'New projects are on the way.', blogsEmpty: 'No blog posts yet.'
     },
     seoTitle: 'Saroj Poudel — Full-stack developer & designer',
-    seoDescription: 'Full-stack developer and designer in Kathmandu, Nepal. Explore selected projects and writing.'
+    seoDescription: 'Full-stack developer and designer in Kathmandu. Selected work with Vue, Nuxt, and Laravel.'
   },
   about: {
     label: 'About',
