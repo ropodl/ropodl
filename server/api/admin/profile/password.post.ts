@@ -5,7 +5,7 @@ import { recordAdminAction } from '../../../utils/audit'
 
 export default defineEventHandler(async (event) => {
   await requireContentAdmin(event)
-  const body = await readBody<{ currentPassword?: unknown; newPassword?: unknown }>(event)
+  const body = await readBody<{ currentPassword?: unknown, newPassword?: unknown }>(event)
   if (typeof body?.currentPassword !== 'string' || typeof body?.newPassword !== 'string' || body.newPassword.length < 8 || body.newPassword.length > 128) {
     throw createError({ statusCode: 400, statusMessage: 'Provide your current password and a new password of at least 8 characters.' })
   }

@@ -120,7 +120,7 @@ function year(value: string | number) {
         </h1>
       </div>
       <p class="max-w-2xl font-mono text-base leading-7 text-muted">
-        {{ copy.description || "I focus on creating digital experiences that are intuitive, enjoyable, and effective. I've been building things with Vue, Strapi, and HonoJs, combining design sense with strong engineering to deliver practical solutions." }} Explore my
+        {{ copy.description || "I focus on creating digital experiences that are intuitive, enjoyable, and effective. I've been building things with Vue, Drizzle, and Nuxt, combining design sense with strong engineering to deliver practical solutions." }} Explore my
         <NuxtLink
           to="/projects"
           class="text-highlighted underline decoration-primary/70 underline-offset-4 hover:text-primary hover:decoration-primary"

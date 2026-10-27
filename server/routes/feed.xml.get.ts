@@ -3,7 +3,7 @@ import { getDatabase } from '../db'
 import { blogs } from '../db/schema'
 
 function escapeXml(value: string) {
-  return value.replace(/[<>&'\"]/g, char => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' })[char]!)
+  return value.replace(/[<>&'"']/g, char => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '\'': '&apos;', '"': '&quot;' })[char]!)
 }
 
 export default defineEventHandler(async (event) => {

@@ -1,7 +1,7 @@
 import { getCloudflareEnv } from '../utils/cloudflare'
 
 function escapeXml(value: string) {
-  return value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[char]!)
+  return value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&apos;' })[char]!)
 }
 
 async function embeddedAsset(event: Parameters<typeof getCloudflareEnv>[0], path: string, mimeType: string) {

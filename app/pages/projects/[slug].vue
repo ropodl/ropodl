@@ -18,7 +18,13 @@ interface ProjectRecord {
 
 const route = useRoute()
 const siteOrigin = useSiteOrigin()
-const { data: project } = await useFetch<ProjectRecord>(() => `/api/projects/${encodeURIComponent(String(route.params.slug))}`)
+const { data: project, error } = await useFetch<ProjectRecord>(() => `/api/projects/${encodeURIComponent(String(route.params.slug))}`)
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode || 500,
+    statusMessage: error.value.statusMessage || 'Could not load this project.'
+  })
+}
 const blockDocument = computed(() => readContentBlockDocument(project.value?.content || ''))
 const sections = computed(() => blockDocument.value?.blocks.flatMap((block, index) =>
   block.type === 'heading'

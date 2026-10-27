@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   await requireContentAdmin(event)
   const kind = getRouterParam(event, 'kind') || ''
   const table = getTaxonomyTable(kind)
-  const body = await readBody<{ title?: unknown; slug?: unknown; description?: unknown }>(event)
+  const body = await readBody<{ title?: unknown, slug?: unknown, description?: unknown }>(event)
   const title = typeof body?.title === 'string' ? body.title.trim().slice(0, 120) : ''
   const slug = slugify(body?.slug || title)
   const description = typeof body?.description === 'string' ? body.description.trim().slice(0, 600) : ''

@@ -27,7 +27,13 @@ interface BlogPost {
 
 const route = useRoute()
 const siteOrigin = useSiteOrigin()
-const { data: post } = await useFetch<BlogPost>(() => `/api/blogs/${encodeURIComponent(String(route.params.slug))}`)
+const { data: post, error } = await useFetch<BlogPost>(() => `/api/blogs/${encodeURIComponent(String(route.params.slug))}`)
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode || 500,
+    statusMessage: error.value.statusMessage || 'Could not load this blog post.'
+  })
+}
 
 const formattedDate = computed(() => new Intl.DateTimeFormat('en', {
   dateStyle: 'long',

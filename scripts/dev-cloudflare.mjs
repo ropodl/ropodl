@@ -1,6 +1,5 @@
-import { watch } from 'node:fs'
+import { watch, existsSync } from 'node:fs'
 import { spawn } from 'node:child_process'
-import { existsSync } from 'node:fs'
 
 const sourceDirectories = ['app', 'server', 'public', 'drizzle'].filter(existsSync)
 const watchedFiles = ['nuxt.config.ts', 'package.json', 'drizzle.config.ts'].filter(existsSync)

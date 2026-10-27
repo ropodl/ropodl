@@ -20,7 +20,7 @@ if (!email || !password) {
 const id = randomUUID()
 const now = Date.now()
 const hashedPassword = await hashPassword(password)
-const quote = value => `'${String(value).replaceAll("'", "''")}'`
+const quote = value => `'${String(value).replaceAll(/'/g, `''`)}'`
 const migratePreviousEmail = previousEmail && previousEmail !== email
   ? `UPDATE "user" SET email = ${quote(email)}, name = ${quote(name)}, emailVerified = 1, updatedAt = ${now} WHERE email = ${quote(previousEmail)} AND NOT EXISTS (SELECT 1 FROM "user" WHERE email = ${quote(email)});\n`
   : ''
