@@ -33,6 +33,11 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
+@utility nav-backdrop {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
 @utility accent-bloom {
   box-shadow: 0 0 24px rgb(239 68 68 / 28%);
   transition: box-shadow 180ms ease;

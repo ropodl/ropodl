@@ -186,7 +186,7 @@ if (import.meta.client && googleTagId) {
         class="site-nav-header fixed inset-x-0 top-4 z-50 px-4"
       >
         <nav
-          class="relative mx-auto flex max-w-4xl flex-nowrap items-center gap-x-2 rounded-2xl border border-default bg-default/80 px-3 py-3 shadow-lg shadow-black/5 backdrop-blur-xl sm:gap-x-6 sm:px-6"
+          class="nav-backdrop relative mx-auto flex max-w-4xl flex-nowrap items-center gap-x-2 rounded-2xl border border-default bg-default/80 px-3 py-3 shadow-lg shadow-black/5 sm:gap-x-6 sm:px-6"
           aria-label="Main navigation"
         >
           <NuxtLink
@@ -267,7 +267,7 @@ if (import.meta.client && googleTagId) {
             :animate="{ opacity: 1, y: 0, scale: 1 }"
             :exit="{ opacity: 0, y: -5, scale: 0.985 }"
             :transition="{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }"
-            class="mx-auto mt-2 max-w-4xl overflow-hidden rounded-2xl border border-default bg-default/95 p-2 shadow-xl shadow-black/10 backdrop-blur-xl sm:hidden"
+            class="nav-backdrop mx-auto mt-2 max-w-4xl overflow-hidden rounded-2xl border border-default bg-default/95 p-2 shadow-xl shadow-black/10 sm:hidden"
           >
             <Motion
               v-for="(item, index) in [
