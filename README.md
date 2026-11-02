@@ -66,6 +66,8 @@ pnpm cf:deploy
 Add a custom domain to the Worker in Cloudflare. Set `BETTER_AUTH_URL` to that origin if you need an explicit auth URL; otherwise, the request origin is used. Enable **Images > Transformations** for the zone to activate Nuxt Image's Cloudflare provider.
 Canonical URLs and social-card links use `https://ropodl.com` by default; set `NUXT_PUBLIC_SITE_URL` when deploying to a different public origin.
 
+The public sitemap is served at `/sitemap.xml`, with published blog posts and projects added from D1. `/robots.txt` points crawlers to the sitemap and excludes private routes. `/llms.txt` provides AI assistants with a concise guide to the public site and its canonical URLs.
+
 ## Cloudflare resources in code
 
 - The admin content editor stores versioned JSON blocks for paragraphs, headings, lists, quotes, callouts, images, galleries, timelines, stats, FAQs, buttons, links, code, and dividers. Existing rich HTML content remains readable and is converted to blocks when edited. Project detail pages use these blocks in an editorial case-study layout with a cover, section navigation, and reading progress.

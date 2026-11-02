@@ -62,6 +62,13 @@ export default defineEventHandler((event) => {
     return
   }
 
+  if (path === '/') {
+    // Keep the host-specific www redirect from being bypassed by a cached homepage response.
+    setHeader(event, 'Cache-Control', 'no-store')
+    setHeader(event, 'CDN-Cache-Control', 'no-store')
+    return
+  }
+
   const isPublicDocument = publicHtmlPaths.some(pattern => pattern.test(path))
   const isPublicApi = publicApiPaths.some(pattern => pattern.test(path))
   if (isPublicApi && allowedQuery(url)) {

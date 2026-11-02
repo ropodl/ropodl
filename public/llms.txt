@@ -1,0 +1,20 @@
+# ropodl
+
+> ropodl is the portfolio and writing site of Saroj Poudel, a software engineer, full-stack developer, and designer based in Kathmandu, Nepal.
+
+This site presents Saroj's background, selected projects, and writing about frontend development, design, and building for the web. Public pages are available in English.
+
+## Site sections
+
+- [Home](https://ropodl.com/): Overview, recent writing, and selected projects.
+- [About](https://ropodl.com/about): Background, experience, skills, and approach to design and development.
+- [Projects](https://ropodl.com/projects): Published project work and case studies.
+- [Blog](https://ropodl.com/blogs): Published articles and notes.
+- [Contact](https://ropodl.com/contact): Contact information and project inquiries.
+
+## Feeds and indexes
+
+- [XML sitemap](https://ropodl.com/sitemap.xml): Current public pages, projects, and published articles.
+- [RSS feed](https://ropodl.com/feed.xml): Recent published articles.
+
+Use the canonical HTTPS URLs above when citing this site. Project and article details can change; consult their current pages for the latest information.

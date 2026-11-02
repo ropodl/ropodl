@@ -6,3 +6,5 @@ Disallow: /login
 Disallow: /saved
 
 Sitemap: https://ropodl.com/sitemap.xml
+
+# Public content index for AI assistants: https://ropodl.com/llms.txt
