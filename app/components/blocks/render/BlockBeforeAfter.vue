@@ -10,19 +10,21 @@ const position = ref(50)
     v-if="isSafeContentImageUrl(block.before.src) && isSafeContentImageUrl(block.after.src)"
     class="my-6"
   >
-    <div class="relative overflow-hidden rounded-xl border border-default bg-elevated select-none">
+    <div class="relative aspect-[16/10] overflow-hidden rounded-xl border border-default bg-elevated select-none">
       <NuxtImg
         :src="block.after.src"
         :alt="block.after.alt || block.after.caption || 'After comparison image'"
         width="1200"
+        height="750"
         format="webp"
-        class="!m-0 block w-full !rounded-none !border-0"
+        class="!m-0 absolute inset-0 block size-full !rounded-none !border-0 object-cover"
         loading="lazy"
       />
       <NuxtImg
         :src="block.before.src"
         :alt="block.before.alt || block.before.caption || 'Before comparison image'"
         width="1200"
+        height="750"
         format="webp"
         class="!m-0 absolute inset-0 block size-full !rounded-none !border-0 object-cover"
         :style="{ clipPath: `inset(0 ${100 - position}% 0 0)` }"
