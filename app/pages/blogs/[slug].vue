@@ -15,6 +15,7 @@ interface BlogPost {
   quoteText: string
   quoteCitation: string
   videoEmbedUrl: string | null
+  publishedAt: string | number | null
   updatedAt: string | number
   imageUrl: string | null
   createdAt: string | number
@@ -27,7 +28,11 @@ interface BlogPost {
 
 const route = useRoute()
 const siteOrigin = useSiteOrigin()
-const { data: post, error } = await useFetch<BlogPost>(() => `/api/blogs/${encodeURIComponent(String(route.params.slug))}`)
+const isPreview = computed(() => route.query.preview === '1')
+const postEndpoint = computed(() => isPreview.value
+  ? `/api/admin/blogs/${encodeURIComponent(String(route.params.slug))}`
+  : `/api/blogs/${encodeURIComponent(String(route.params.slug))}`)
+const { data: post, error } = await useFetch<BlogPost>(() => postEndpoint.value)
 if (error.value) {
   throw createError({
     statusCode: error.value.statusCode || 500,
@@ -38,7 +43,7 @@ if (error.value) {
 const formattedDate = computed(() => new Intl.DateTimeFormat('en', {
   dateStyle: 'long',
   timeZone: 'UTC'
-}).format(new Date(post.value!.createdAt)))
+}).format(new Date(post.value!.publishedAt || post.value!.createdAt)))
 const articleImages = computed(() => [
   ...(post.value?.imageUrl && post.value.postFormat !== 'image' ? [{ src: post.value.imageUrl, alt: post.value.title }] : []),
   ...extractContentImages(post.value?.content || '', true)
@@ -61,33 +66,45 @@ usePageSeo(() => ({
   image: post.value?.imageUrl,
   imageAlt: post.value?.title || 'Saroj Poudel blog post',
   type: 'article',
-  publishedTime: post.value?.createdAt,
+  publishedTime: post.value?.publishedAt || post.value?.createdAt,
   modifiedTime: post.value?.updatedAt,
   authorName: 'Saroj Poudel',
   section: post.value?.category?.title,
   tags: post.value?.tags?.map(tag => tag.title),
+  robots: isPreview.value ? 'noindex, nofollow' : undefined,
   schema: post.value
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'BlogPosting',
-        '@id': `${siteOrigin}/blogs/${post.value.slug}#article`,
-        'headline': post.value.title,
-        'description': post.value.seoDescription || post.value.summary,
-        'url': `${siteOrigin}/blogs/${post.value.slug}`,
-        'mainEntityOfPage': {
-          '@type': 'WebPage',
-          '@id': `${siteOrigin}/blogs/${post.value.slug}`
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          '@id': `${siteOrigin}/blogs/${post.value.slug}#article`,
+          'headline': post.value.title,
+          'description': post.value.seoDescription || post.value.summary,
+          'url': `${siteOrigin}/blogs/${post.value.slug}`,
+          'mainEntityOfPage': {
+            '@type': 'WebPage',
+            '@id': `${siteOrigin}/blogs/${post.value.slug}`
+          },
+          'image': post.value.imageUrl ? new URL(post.value.imageUrl, siteOrigin).href : `${siteOrigin}/social-card.png`,
+          'datePublished': new Date(post.value.publishedAt || post.value.createdAt).toISOString(),
+          'dateModified': new Date(post.value.updatedAt).toISOString(),
+          'author': { '@id': `${siteOrigin}/#person` },
+          'publisher': { '@id': `${siteOrigin}/#person` },
+          'articleSection': post.value.category?.title,
+          'keywords': post.value.tags?.map(tag => tag.title),
+          'wordCount': articleWordCount.value,
+          'inLanguage': 'en'
         },
-        'image': post.value.imageUrl ? new URL(post.value.imageUrl, siteOrigin).href : `${siteOrigin}/social-card.png`,
-        'datePublished': new Date(post.value.createdAt).toISOString(),
-        'dateModified': new Date(post.value.updatedAt).toISOString(),
-        'author': { '@id': `${siteOrigin}/#person` },
-        'publisher': { '@id': `${siteOrigin}/#person` },
-        'articleSection': post.value.category?.title,
-        'keywords': post.value.tags?.map(tag => tag.title),
-        'wordCount': articleWordCount.value,
-        'inLanguage': 'en'
-      }
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${siteOrigin}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${siteOrigin}/blogs` },
+            { '@type': 'ListItem', 'position': 3, 'name': post.value.title, 'item': `${siteOrigin}/blogs/${post.value.slug}` }
+          ]
+        }
+      ]
     : undefined
 }))
 </script>
@@ -98,6 +115,25 @@ usePageSeo(() => ({
     class="block"
   >
     <article class="mx-auto max-w-3xl space-y-8 py-8 sm:py-12">
+      <UAlert
+        v-if="isPreview"
+        color="primary"
+        variant="subtle"
+        icon="i-lucide-eye"
+        title="Draft preview"
+        description="This saved version is private and only visible while you are signed in."
+      >
+        <template #actions>
+          <UButton
+            :to="`/admin/blogs/${encodeURIComponent(String(route.params.slug))}/edit`"
+            color="neutral"
+            variant="soft"
+            size="sm"
+          >
+            Back to editor
+          </UButton>
+        </template>
+      </UAlert>
       <header class="space-y-5">
         <NuxtLink
           prefetch-on="visibility"
@@ -121,7 +157,7 @@ usePageSeo(() => ({
             </UBadge>
             <time
               v-if="post"
-              :datetime="new Date(post.createdAt).toISOString()"
+              :datetime="new Date(post.publishedAt || post.createdAt).toISOString()"
             >{{ formattedDate }}</time>
             <NuxtLink
               v-if="post?.category"
@@ -224,21 +260,24 @@ usePageSeo(() => ({
         aria-label="Article actions"
       >
         <BlogTextToSpeech
-          v-if="post.content"
+          v-if="post.content && !isPreview"
           :slug="post.slug"
           :updated-at="post.updatedAt"
         />
         <ArticleBookmarkButton
+          v-if="!isPreview"
           :slug="post.slug"
           :title="post.title"
           :summary="post.summary"
           :image-url="post.imageUrl"
         />
         <ContentShareActions
+          v-if="!isPreview"
           :title="post.title"
           :text="post.summary"
         />
         <NuxtLink
+          v-if="!isPreview"
           to="/saved"
           class="inline-flex min-h-9 items-center gap-1.5 px-2 text-sm text-muted transition-colors hover:text-primary"
         >
@@ -275,7 +314,7 @@ usePageSeo(() => ({
         This article does not have any additional content yet.
       </p>
       <LazyArticleFeedback
-        v-if="post"
+        v-if="post && !isPreview"
         hydrate-on-visible
         :slug="post.slug"
       />
@@ -352,6 +391,7 @@ usePageSeo(() => ({
       </nav>
 
       <LazyRelatedContent
+        v-if="!isPreview"
         hydrate-on-visible
         :items="post?.related || []"
         kind="blogs"

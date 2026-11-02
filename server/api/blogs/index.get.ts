@@ -34,6 +34,7 @@ export default defineEventHandler(async (event) => {
         imageKey: blogs.imageKey,
         postFormat: blogs.postFormat,
         createdAt: blogs.createdAt,
+        publishedAt: blogs.publishedAt,
         // Aliased because D1 batch rows are keyed by column name, and these would collide with blogs.title/slug.
         categoryTitle: sql<string | null>`${blogCategories.title}`.as('categoryTitle'),
         categorySlug: sql<string | null>`${blogCategories.slug}`.as('categorySlug')

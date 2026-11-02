@@ -9,6 +9,8 @@ interface ProjectRecord {
   seoDescription: string
   content: string
   imageUrl: string | null
+  publishedAt: string | number | null
+  updatedAt: string | number
   createdAt: string | number
   type?: { title: string, slug: string } | null
   previous?: { slug: string, title: string } | null
@@ -18,7 +20,11 @@ interface ProjectRecord {
 
 const route = useRoute()
 const siteOrigin = useSiteOrigin()
-const { data: project, error } = await useFetch<ProjectRecord>(() => `/api/projects/${encodeURIComponent(String(route.params.slug))}`)
+const isPreview = computed(() => route.query.preview === '1')
+const projectEndpoint = computed(() => isPreview.value
+  ? `/api/admin/projects/${encodeURIComponent(String(route.params.slug))}`
+  : `/api/projects/${encodeURIComponent(String(route.params.slug))}`)
+const { data: project, error } = await useFetch<ProjectRecord>(() => projectEndpoint.value)
 if (error.value) {
   throw createError({
     statusCode: error.value.statusCode || 500,
@@ -43,8 +49,12 @@ usePageSeo(() => {
   return {
     title: project.value.seoTitle || project.value.title,
     description: project.value.seoDescription || project.value.summary || '',
+    robots: isPreview.value ? 'noindex, nofollow' : undefined,
     image: project.value.imageUrl || '/social-card.png',
     imageAlt: `${project.value.title} — project cover`,
+    type: 'article',
+    publishedTime: project.value.publishedAt || project.value.createdAt,
+    modifiedTime: project.value.updatedAt,
     schema: [
       {
         '@context': 'https://schema.org',
@@ -56,7 +66,8 @@ usePageSeo(() => {
         'url': pageUrl,
         'mainEntityOfPage': pageUrl,
         'image': image,
-        'dateCreated': new Date(project.value.createdAt).toISOString(),
+        'datePublished': new Date(project.value.publishedAt || project.value.createdAt).toISOString(),
+        'dateModified': new Date(project.value.updatedAt).toISOString(),
         'creator': { '@id': `${siteOrigin}/#person` },
         'author': { '@id': `${siteOrigin}/#person` },
         'genre': project.value.type?.title,
@@ -86,6 +97,26 @@ usePageSeo(() => {
       id="project-case-study"
       class="-mt-5 pb-8 sm:-mt-8 sm:pb-10"
     >
+      <UAlert
+        v-if="isPreview"
+        color="primary"
+        variant="subtle"
+        icon="i-lucide-eye"
+        title="Draft preview"
+        description="This saved version is private and only visible while you are signed in."
+        class="mx-auto mb-4 max-w-6xl px-4 sm:px-7 lg:px-10"
+      >
+        <template #actions>
+          <UButton
+            :to="`/admin/projects/${encodeURIComponent(String(route.params.slug))}/edit`"
+            color="neutral"
+            variant="soft"
+            size="sm"
+          >
+            Back to editor
+          </UButton>
+        </template>
+      </UAlert>
       <header class="mx-auto max-w-6xl px-4 pb-8 pt-7 sm:px-7 sm:pb-12 sm:pt-10 lg:px-10 lg:pb-16">
         <nav
           aria-label="Breadcrumb"
@@ -290,7 +321,7 @@ usePageSeo(() => {
       </section>
 
       <div
-        v-if="project.previous || project.next"
+        v-if="!isPreview && (project.previous || project.next)"
         class="mx-auto max-w-6xl px-4 sm:px-7 lg:px-10"
       >
         <nav
@@ -347,7 +378,10 @@ usePageSeo(() => {
         </nav>
       </div>
 
-      <div class="mx-auto max-w-6xl px-4 sm:px-7 lg:px-10">
+      <div
+        v-if="!isPreview"
+        class="mx-auto max-w-6xl px-4 sm:px-7 lg:px-10"
+      >
         <LazyContactCta hydrate-on-visible />
       </div>
     </article>

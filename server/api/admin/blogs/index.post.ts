@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
     id: crypto.randomUUID(),
     ...values,
     categoryId,
+    publishedAt: values.status === 'published' ? now : null,
     createdAt: now,
     updatedAt: now
   }).returning({ id: blogs.id, slug: blogs.slug, status: blogs.status })

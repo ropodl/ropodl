@@ -7,6 +7,7 @@ interface BlogPost {
   summary: string
   imageUrl: string | null
   createdAt: string | number
+  publishedAt: string | number | null
   postFormat: BlogPostFormat
   category?: { title: string, slug: string } | null
   tags?: { title: string, slug: string }[]
@@ -263,7 +264,7 @@ function formatLabel(value: BlogPostFormat) {
                   >
                     {{ formatLabel(post.postFormat || 'standard') }}
                   </UBadge>
-                  <time :datetime="new Date(post.createdAt).toISOString()">{{ formatDate(post.createdAt) }}</time>
+                  <time :datetime="new Date(post.publishedAt || post.createdAt).toISOString()">{{ formatDate(post.publishedAt || post.createdAt) }}</time>
                   <span
                     v-if="currentPage === 1 && index === 0"
                     class="text-primary"

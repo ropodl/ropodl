@@ -11,6 +11,7 @@ export interface PageSeo {
   authorName?: string
   section?: string
   tags?: string[]
+  robots?: string
   schema?: Record<string, unknown> | Record<string, unknown>[]
 }
 
@@ -54,6 +55,7 @@ export function usePageSeo(options: MaybeRefOrGetter<PageSeo>) {
       title: page.title,
       meta: [
         { name: 'description', content: page.description },
+        ...(page.robots ? [{ name: 'robots', content: page.robots }] : []),
         { property: 'og:title', content: page.title },
         { property: 'og:description', content: page.description },
         { property: 'og:type', content: page.type || 'website' },

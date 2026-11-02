@@ -10,7 +10,12 @@ export default defineEventHandler(async (event) => {
   if (!currentSlug) throw createError({ statusCode: 404, statusMessage: 'Blog post not found.' })
   const body = await readBody<Record<string, unknown>>(event)
   const db = getDatabase(event)
-  const [current] = await db.select({ id: blogs.id, imageKey: blogs.imageKey }).from(blogs).where(eq(blogs.slug, currentSlug)).limit(1)
+  const [current] = await db.select({
+    id: blogs.id,
+    imageKey: blogs.imageKey,
+    status: blogs.status,
+    publishedAt: blogs.publishedAt
+  }).from(blogs).where(eq(blogs.slug, currentSlug)).limit(1)
   if (!current) throw createError({ statusCode: 404, statusMessage: 'Blog post not found.' })
   const values = { ...parseContentInput(body ?? {}, user.id, current.imageKey), ...parseBlogFormatInput(body ?? {}) }
   const categoryId = typeof body.categoryId === 'string' && body.categoryId ? body.categoryId : null
@@ -19,7 +24,11 @@ export default defineEventHandler(async (event) => {
   if (tagIds.length && (await db.select({ id: blogTags.id }).from(blogTags).where(inArray(blogTags.id, tagIds))).length !== tagIds.length) throw createError({ statusCode: 400, statusMessage: 'Choose valid blog tags.' })
   const [duplicate] = await db.select({ id: blogs.id }).from(blogs).where(and(eq(blogs.slug, values.slug), ne(blogs.id, current.id))).limit(1)
   if (duplicate) throw createError({ statusCode: 409, statusMessage: 'That blog slug is already in use.' })
-  const [updated] = await db.update(blogs).set({ ...values, categoryId, updatedAt: new Date() }).where(eq(blogs.id, current.id)).returning({ id: blogs.id, slug: blogs.slug, status: blogs.status })
+  const now = new Date()
+  const publishedAt = values.status === 'published'
+    ? current.status === 'published' ? current.publishedAt ?? now : now
+    : null
+  const [updated] = await db.update(blogs).set({ ...values, categoryId, publishedAt, updatedAt: now }).where(eq(blogs.id, current.id)).returning({ id: blogs.id, slug: blogs.slug, status: blogs.status })
   await db.delete(blogTagLinks).where(eq(blogTagLinks.blogId, current.id))
   if (tagIds.length) await db.insert(blogTagLinks).values(tagIds.map(tagId => ({ blogId: current.id, tagId })))
   await db.delete(blogCategoryLinks).where(eq(blogCategoryLinks.blogId, current.id))

@@ -51,7 +51,10 @@ export default defineEventHandler((event) => {
   const path = url.pathname
   const privatePath = path === '/admin' || path.startsWith('/admin/') || path === '/login' || path === '/dashboard' || path.startsWith('/api/admin/') || path.startsWith('/api/auth/')
 
-  if (privatePath) {
+  const contentPreview = url.searchParams.get('preview') === '1'
+    && /^\/(blogs|projects)\/[a-z0-9-]+$/i.test(path)
+
+  if (privatePath || contentPreview) {
     setHeader(event, 'Cache-Control', 'private, no-store, max-age=0')
     setHeader(event, 'X-Robots-Tag', 'noindex, nofollow')
     return

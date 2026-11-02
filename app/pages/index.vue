@@ -15,6 +15,7 @@ interface BlogPost {
   title: string
   summary: string
   createdAt: string | number
+  publishedAt: string | number | null
   postFormat?: BlogPostFormat
   category?: { title: string, slug: string } | null
 }
@@ -193,7 +194,7 @@ function year(value: string | number) {
                   >
                     {{ formatLabel(post.postFormat || 'standard') }}
                   </UBadge>
-                  <time :datetime="new Date(post.createdAt).toISOString()">{{ formatDate(post.createdAt) }}</time>
+                  <time :datetime="new Date(post.publishedAt || post.createdAt).toISOString()">{{ formatDate(post.publishedAt || post.createdAt) }}</time>
                   <span
                     v-if="post.category"
                     class="text-primary/80"

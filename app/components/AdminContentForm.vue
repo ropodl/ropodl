@@ -41,9 +41,13 @@ const saving = ref(false)
 const formError = ref('')
 const uploadError = ref('')
 const saved = ref(false)
+const savedSlug = ref(props.slug || '')
 const existingItem = ref<ExistingContent | null>(null)
-const { data: categories } = await useFetch<TaxonomyOption[]>('/api/admin/taxonomies/categories', { default: () => [] })
-const { data: tags } = await useFetch<TaxonomyOption[]>('/api/admin/taxonomies/tags', { default: () => [] })
+const previewPath = computed(() => savedSlug.value
+  ? `/${props.collection}/${encodeURIComponent(savedSlug.value)}?preview=1`
+  : '')
+const { data: categories, refresh: refreshCategories } = await useFetch<TaxonomyOption[]>('/api/admin/taxonomies/categories', { default: () => [] })
+const { data: tags, refresh: refreshTags } = await useFetch<TaxonomyOption[]>('/api/admin/taxonomies/tags', { default: () => [] })
 const { data: workTypes } = await useFetch<TaxonomyOption[]>('/api/admin/taxonomies/work-types', { default: () => [] })
 const editorText = computed(() => contentDocument.value
   ? contentBlocksPlainText(contentDocument.value.blocks)
@@ -67,6 +71,13 @@ const typeModel = computed({
   get: () => form.typeId || noneValue,
   set: (value: string) => { form.typeId = value === noneValue ? '' : value }
 })
+const taxonomyDialogOpen = ref(false)
+const taxonomyKind = ref<'categories' | 'tags'>('categories')
+const taxonomyTitle = ref('')
+const taxonomySlug = ref('')
+const taxonomySaving = ref(false)
+const taxonomyError = ref('')
+const taxonomyLabel = computed(() => taxonomyKind.value === 'categories' ? 'category' : 'tag')
 const projectSteps = [
   { label: 'Project details', href: '#project-details', icon: 'i-lucide-notebook-pen' },
   { label: 'Build the story', href: '#content-blocks', icon: 'i-lucide-layers-3' },
@@ -110,6 +121,46 @@ watch(() => form.title, (title) => {
       .slice(0, 120)
   }
 })
+
+watch(taxonomyTitle, (title) => {
+  taxonomySlug.value = title.normalize('NFKD').toLowerCase().trim()
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 120)
+})
+
+function openTaxonomyDialog(kind: 'categories' | 'tags') {
+  taxonomyKind.value = kind
+  taxonomyTitle.value = ''
+  taxonomySlug.value = ''
+  taxonomyError.value = ''
+  taxonomyDialogOpen.value = true
+}
+
+async function createTaxonomy() {
+  taxonomySaving.value = true
+  taxonomyError.value = ''
+  try {
+    const created = await $fetch<TaxonomyOption>(`/api/admin/taxonomies/${taxonomyKind.value}`, {
+      method: 'POST',
+      body: { title: taxonomyTitle.value, slug: taxonomySlug.value }
+    })
+    if (taxonomyKind.value === 'categories') {
+      await refreshCategories()
+      form.categoryId = created.id
+    } else {
+      await refreshTags()
+      if (!form.tagIds.includes(created.id)) form.tagIds.push(created.id)
+    }
+    taxonomyDialogOpen.value = false
+  } catch (error) {
+    const requestError = error as { data?: { statusMessage?: string } }
+    taxonomyError.value = requestError.data?.statusMessage || `Could not create this ${taxonomyLabel.value}.`
+  } finally {
+    taxonomySaving.value = false
+  }
+}
 
 function openFilePicker() {
   fileInput.value?.click()
@@ -167,6 +218,7 @@ async function submit() {
       method: props.slug ? 'PUT' : 'POST',
       body: { ...form }
     })
+    savedSlug.value = created.slug
     if (created.status === 'published') {
       await navigateTo(isBlog.value ? `/blogs/${created.slug}` : `/projects/${created.slug}`)
     } else {
@@ -372,9 +424,25 @@ async function submit() {
           <div class="grid gap-5 border-t border-default pt-5 sm:grid-cols-2">
             <UFormField
               v-if="isBlog"
-              label="Category"
+              name="category"
             >
+              <template #label>
+                <div class="flex w-full items-center justify-between gap-2">
+                  <label for="content-category">Category</label>
+                  <UButton
+                    type="button"
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                    icon="i-lucide-plus"
+                    @click="openTaxonomyDialog('categories')"
+                  >
+                    Add
+                  </UButton>
+                </div>
+              </template>
               <USelect
+                id="content-category"
                 v-model="categoryModel"
                 :items="categoryOptions"
                 class="w-full"
@@ -382,9 +450,25 @@ async function submit() {
             </UFormField>
             <UFormField
               v-if="isBlog"
-              label="Tags"
+              name="tags"
             >
+              <template #label>
+                <div class="flex w-full items-center justify-between gap-2">
+                  <label for="content-tags">Tags</label>
+                  <UButton
+                    type="button"
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                    icon="i-lucide-plus"
+                    @click="openTaxonomyDialog('tags')"
+                  >
+                    Add
+                  </UButton>
+                </div>
+              </template>
               <USelectMenu
+                id="content-tags"
                 v-model="form.tagIds"
                 :items="tags"
                 value-key="id"
@@ -552,8 +636,86 @@ async function submit() {
           >
             {{ saving ? 'Saving…' : form.status === 'published' ? `Publish ${itemLabel}` : form.status === 'archived' ? `Archive ${itemLabel}` : props.slug ? 'Save changes' : 'Save draft' }}
           </UButton>
+          <UButton
+            v-if="previewPath && form.status === 'draft'"
+            :to="previewPath"
+            target="_blank"
+            rel="noopener noreferrer"
+            color="neutral"
+            variant="outline"
+            icon="i-lucide-eye"
+            block
+          >
+            Preview saved draft
+          </UButton>
         </AdminSection>
       </aside>
     </form>
+
+    <UModal
+      v-model:open="taxonomyDialogOpen"
+      :title="`Add ${taxonomyLabel}`"
+      description="Create a reusable option for blog posts."
+      :dismissible="!taxonomySaving"
+      :close="{ disabled: taxonomySaving }"
+    >
+      <template #body>
+        <form
+          class="space-y-5"
+          @submit.prevent="createTaxonomy"
+        >
+          <UFormField
+            label="Title"
+            required
+          >
+            <UInput
+              v-model="taxonomyTitle"
+              required
+              maxlength="120"
+              autofocus
+              class="w-full"
+            />
+          </UFormField>
+          <UFormField
+            label="Slug"
+            required
+          >
+            <UInput
+              v-model="taxonomySlug"
+              required
+              maxlength="120"
+              pattern="[a-z0-9]+(-[a-z0-9]+)*"
+              class="w-full"
+            />
+          </UFormField>
+          <UAlert
+            v-if="taxonomyError"
+            role="alert"
+            color="error"
+            variant="subtle"
+            icon="i-lucide-circle-alert"
+            :title="taxonomyError"
+          />
+          <div class="flex justify-end gap-2">
+            <UButton
+              type="button"
+              color="neutral"
+              variant="outline"
+              :disabled="taxonomySaving"
+              @click="taxonomyDialogOpen = false"
+            >
+              Cancel
+            </UButton>
+            <UButton
+              type="submit"
+              :loading="taxonomySaving"
+              :disabled="taxonomySaving || !taxonomyTitle.trim() || !taxonomySlug"
+            >
+              {{ taxonomySaving ? 'Creating…' : 'Create' }}
+            </UButton>
+          </div>
+        </form>
+      </template>
+    </UModal>
   </div>
 </template>

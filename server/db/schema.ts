@@ -66,6 +66,7 @@ export const blogs = sqliteTable('blogs', {
   imageKey: text('imageKey'),
   categoryId: text('categoryId'),
   status: text('status').$type<ContentStatus>().notNull().default('draft'),
+  publishedAt: integer('publishedAt', { mode: 'timestamp_ms' }),
   createdAt: createdAt(),
   updatedAt: updatedAt()
 }, table => [
@@ -84,6 +85,7 @@ export const projects = sqliteTable('projects', {
   imageKey: text('imageKey'),
   typeId: text('typeId'),
   status: text('status').$type<ContentStatus>().notNull().default('draft'),
+  publishedAt: integer('publishedAt', { mode: 'timestamp_ms' }),
   createdAt: createdAt(),
   updatedAt: updatedAt()
 }, table => [
