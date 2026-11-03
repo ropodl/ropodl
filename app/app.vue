@@ -1,11 +1,21 @@
 <script setup>
+import { authClient } from './lib/auth-client'
+
 const mobileMenuOpen = ref(false)
 const route = useRoute()
+const { data: session } = await authClient.useSession(useFetch)
 const runtimeConfig = useRuntimeConfig()
 const analyticsToken = runtimeConfig.public.cloudflareWebAnalyticsToken
 const googleTagId = runtimeConfig.public.googleTagId
 const siteOrigin = useSiteOrigin()
 const isPrimarySectionActive = path => route.path === path || route.path.startsWith(`${path}/`)
+const mobileNavigationItems = computed(() => [
+  { label: 'Blog', to: '/blogs', icon: 'i-lucide-notebook-tabs' },
+  { label: 'Projects', to: '/projects', icon: 'i-lucide-panels-top-left' },
+  { label: 'About', to: '/about', icon: 'i-lucide-user-round' },
+  { label: 'Contact', to: '/contact', icon: 'i-lucide-mail' },
+  ...(session.value ? [{ label: 'Admin', to: '/admin', icon: 'i-lucide-layout-dashboard' }] : [])
+])
 
 watch(() => route.path, () => {
   mobileMenuOpen.value = false
@@ -238,6 +248,22 @@ if (import.meta.client && googleTagId) {
           >
             Contact
           </NuxtLink>
+          <NuxtLink
+            v-if="session"
+            to="/admin"
+            prefetch-on="visibility"
+            aria-label="Admin dashboard"
+            class="hidden items-center gap-1.5 rounded-lg px-1.5 py-1 text-xs text-muted transition-colors hover:text-highlighted sm:inline-flex sm:px-2 sm:text-sm"
+            active-class="bg-primary/10 text-primary"
+            :class="isPrimarySectionActive('/admin') ? 'bg-primary/10 text-primary' : ''"
+            :aria-current="isPrimarySectionActive('/admin') ? 'page' : undefined"
+          >
+            <UIcon
+              name="i-lucide-layout-dashboard"
+              class="size-3.5"
+            />
+            Admin
+          </NuxtLink>
           <LazySiteSearch hydrate-on-idle />
           <Motion
             as="button"
@@ -270,12 +296,7 @@ if (import.meta.client && googleTagId) {
             class="nav-backdrop mx-auto mt-2 max-w-4xl overflow-hidden rounded-2xl border border-default bg-default/95 p-2 shadow-xl shadow-black/10 sm:hidden"
           >
             <Motion
-              v-for="(item, index) in [
-                { label: 'Blog', to: '/blogs', icon: 'i-lucide-notebook-tabs' },
-                { label: 'Projects', to: '/projects', icon: 'i-lucide-panels-top-left' },
-                { label: 'About', to: '/about', icon: 'i-lucide-user-round' },
-                { label: 'Contact', to: '/contact', icon: 'i-lucide-mail' }
-              ]"
+              v-for="(item, index) in mobileNavigationItems"
               :key="item.to"
               as="div"
               :initial="{ opacity: 0, x: -6 }"
