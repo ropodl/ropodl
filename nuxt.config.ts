@@ -3,7 +3,7 @@ import { voidPlugin } from 'void'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 const cloudflareModuleEntry = fileURLToPath(import.meta.resolve('nitropack/presets/cloudflare/runtime/cloudflare-module'))
-// Keep Void opt-in while the candidate is validated against the preserved Wrangler path.
+// Void integration stays explicit so the preserved Wrangler path remains usable for rollback.
 const voidIntegrationEnabled = process.env.VOID_NUXT_INTEGRATION === '1'
 
 export default defineNuxtConfig({
@@ -45,8 +45,7 @@ export default defineNuxtConfig({
     public: {
       siteUrl: 'https://ropodl.com',
       turnstileSiteKey: '',
-      cloudflareWebAnalyticsToken: '',
-      googleTagId: 'G-1KDFS20N0H'
+      cloudflareWebAnalyticsToken: ''
     }
   },
 

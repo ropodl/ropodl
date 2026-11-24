@@ -4,7 +4,6 @@ const route = useRoute()
 const hasSession = useState('public-nav-session', () => false)
 const runtimeConfig = useRuntimeConfig()
 const analyticsToken = runtimeConfig.public.cloudflareWebAnalyticsToken
-const googleTagId = runtimeConfig.public.googleTagId
 const siteOrigin = useSiteOrigin()
 const isPrimarySectionActive = path => route.path === path || route.path.startsWith(`${path}/`)
 const mobileNavigationItems = computed(() => [
@@ -163,52 +162,6 @@ useHead({
       }]
     : []
 })
-
-// Load the tag only after the first public view has rendered and the browser is idle.
-const googleTagLoaded = useState('google-tag-loaded', () => false)
-
-// The inline config snippet is rendered into the HTML so Google's tag checker can detect it.
-useHead(() => ({
-  script: googleTagLoaded.value
-    ? [
-        { key: 'google-tag', src: `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`, async: true },
-        {
-          key: 'google-tag-config',
-          innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(googleTagId)},{send_page_view:false});`
-        }
-      ]
-    : []
-}))
-
-// Page views are sent manually on each finished navigation (not by gtag's automatic page_view) so private routes are never tracked.
-if (import.meta.client && googleTagId) {
-  useNuxtApp().hook('page:finish', () => {
-    if (privateRoute.value) return
-    googleTagLoaded.value = true
-    if (!window.gtag) {
-      window.dataLayer = window.dataLayer || []
-      window.gtag = function () {
-        // gtag.js only recognises the real arguments object, not a rest-parameter array.
-        // eslint-disable-next-line prefer-rest-params
-        window.dataLayer.push(arguments)
-      }
-      window.gtag('js', new Date())
-      window.gtag('config', googleTagId, { send_page_view: false })
-    }
-    // Queue the view immediately, then load the analytics bundle only when the browser is idle.
-    requestAnimationFrame(() => window.gtag('event', 'page_view', {
-      page_location: window.location.href,
-      page_title: document.title
-    }))
-    if (!googleTagLoaded.value) {
-      const loadGoogleTag = () => {
-        googleTagLoaded.value = true
-      }
-      if ('requestIdleCallback' in window) window.requestIdleCallback(loadGoogleTag, { timeout: 3000 })
-      else window.setTimeout(loadGoogleTag, 1000)
-    }
-  })
-}
 </script>
 
 <template>

@@ -89,16 +89,20 @@ The public sitemap is served at `/sitemap.xml`, with published blog posts and pr
 - `POST /api/uploads` requires an authenticated session and stores PNG, JPEG, WebP, AVIF, or GIF images in R2 (up to 4 MB). `GET /api/uploads/:path` serves them from the same Worker origin.
 - `POST /api/contact` validates contact form submissions and sends them through Resend.
 
+## CI/CD
+
+GitHub Actions runs lint and typecheck on pull requests and pushes to `main` or `migration/cloudflare-void-vue`. A push to `main` additionally builds, validates, and deploys the production Worker through the guarded Void scripts, skips D1 migrations, then checks the apex homepage, `www` redirect, and public API. Configure a GitHub environment named `production` with `CLOUDFLARE_API_TOKEN` as an environment secret and `CLOUDFLARE_ACCOUNT_ID` as an environment variable. Protect that environment with required reviewers if production deploy approval is desired. Deploys are serialized and are not cancelled once started. No production deploy occurs from pull requests or the migration branch.
+
 ## Scripts
 
 ```bash
 pnpm dev                 # Current Nuxt development server with Cloudflare preset
-pnpm void:dev            # Candidate Nuxt + Void local development
+pnpm void:dev            # Nuxt + Void local development
 pnpm void:typecheck      # Typecheck with Void Nitro integration enabled
-pnpm void:build          # Candidate production build (does not deploy)
+pnpm void:build          # Default-target Void build (does not deploy)
 pnpm void:smoke          # Local candidate server smoke test
 pnpm cf:dev              # Build and run through the preserved Wrangler config
-pnpm cf:deploy           # Build and deploy to Cloudflare Workers
+pnpm cf:deploy           # Legacy Wrangler rollback path; normal releases use Void
 pnpm db:generate         # Generate Drizzle SQLite migrations
 pnpm db:migrate          # Apply migrations to local D1
 pnpm db:migrate:remote   # Apply migrations to remote D1
