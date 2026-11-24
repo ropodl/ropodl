@@ -83,9 +83,9 @@ export default defineEventHandler((event) => {
   }
 
   if (isPublicDocument && allowedQuery(url)) {
-    // HTML stays revalidated in browsers so a deploy never serves pages pointing at removed chunks.
-    setHeader(event, 'Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400')
-    setHeader(event, 'CDN-Cache-Control', 'public, max-age=300, stale-while-revalidate=86400')
+    // Cloudflare's current cache key can collide between apex and www; keep host-sensitive HTML out of edge cache.
+    setHeader(event, 'Cache-Control', 'public, max-age=0, must-revalidate')
+    setHeader(event, 'CDN-Cache-Control', 'no-store')
     return
   }
 
