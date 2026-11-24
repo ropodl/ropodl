@@ -49,7 +49,7 @@ export default defineEventHandler((event) => {
 
   const url = getRequestURL(event)
   const path = url.pathname
-  const privatePath = path === '/admin' || path.startsWith('/admin/') || path === '/login' || path === '/dashboard' || path.startsWith('/api/admin/') || path.startsWith('/api/auth/')
+  const privatePath = path === '/admin' || path.startsWith('/admin/') || path === '/login' || path === '/dashboard' || path === '/saved' || path.startsWith('/api/admin/') || path.startsWith('/api/auth/')
 
   const contentPreview = url.searchParams.get('preview') === '1'
     && /^\/(blogs|projects)\/[a-z0-9-]+$/i.test(path)
