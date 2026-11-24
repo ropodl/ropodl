@@ -45,10 +45,10 @@ function findId(value) {
 }
 
 try {
-  run(wrangler, ['d1', 'migrations', 'apply', 'saroj-portfolio', '--local'], { stdio: 'inherit' })
+  run(wrangler, ['--config', 'wrangler.legacy.jsonc', 'd1', 'migrations', 'apply', 'saroj-portfolio', '--local'], { stdio: 'inherit' })
   run(node, ['scripts/seed-admin.mjs'], { stdio: 'inherit' })
 
-  const adminResult = run(wrangler, ['d1', 'execute', 'saroj-portfolio', '--local', '--json', '--command', 'SELECT id FROM user WHERE email = \'admin@example.com\' LIMIT 1'])
+  const adminResult = run(wrangler, ['--config', 'wrangler.legacy.jsonc', 'd1', 'execute', 'saroj-portfolio', '--local', '--json', '--command', 'SELECT id FROM user WHERE email = \'admin@example.com\' LIMIT 1'])
   const adminId = findId(JSON.parse(adminResult))
   if (!adminId) throw new Error('Could not find the local admin account after seeding it.')
 
@@ -103,19 +103,19 @@ try {
   }
 
   writeFileSync(sqlFile, statements.join('\n'), { mode: 0o600 })
-  run(wrangler, ['d1', 'execute', 'saroj-portfolio', '--local', '--file', sqlFile], { stdio: 'inherit' })
+  run(wrangler, ['--config', 'wrangler.legacy.jsonc', 'd1', 'execute', 'saroj-portfolio', '--local', '--file', sqlFile], { stdio: 'inherit' })
 
   if (process.argv.includes('--clear')) {
     for (let i = 1; i <= 100; i++) {
       const key = `uploads/${adminId}/demo-image-${String(i).padStart(3, '0')}.png`
-      run(wrangler, ['r2', 'object', 'delete', `saroj-portfolio-uploads/${key}`, '--local'], { stdio: 'ignore' })
+      run(wrangler, ['--config', 'wrangler.legacy.jsonc', 'r2', 'object', 'delete', `saroj-portfolio-uploads/${key}`, '--local'], { stdio: 'ignore' })
     }
     console.info('Removed local demo records and images.')
   } else {
     writeFileSync(imageFile, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l3sAAAAASUVORK5CYII=', 'base64'))
     for (let i = mediaFrom; i <= 100; i++) {
       const key = `uploads/${adminId}/demo-image-${String(i).padStart(3, '0')}.png`
-      run(wrangler, ['r2', 'object', 'put', `saroj-portfolio-uploads/${key}`, '--local', '--file', imageFile, '--content-type', 'image/png'], { stdio: 'ignore' })
+      run(wrangler, ['--config', 'wrangler.legacy.jsonc', 'r2', 'object', 'put', `saroj-portfolio-uploads/${key}`, '--local', '--file', imageFile, '--content-type', 'image/png'], { stdio: 'ignore' })
     }
     console.info('Seeded 100 local demo records for each admin content collection and 100 local media files.')
   }

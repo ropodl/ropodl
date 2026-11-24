@@ -1,4 +1,6 @@
 # Nuxt dev/build outputs
+.void/
+.void-wrangler.jsonc
 .output
 .data
 .nuxt
@@ -30,3 +32,5 @@ logs
 .dev.vars.*
 !.dev.vars.example
 .wrangler
+.cloudflare
+server/middleware/__void-dev-trigger.ts

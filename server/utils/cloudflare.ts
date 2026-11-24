@@ -4,6 +4,7 @@ import type { H3Event } from 'h3'
 
 export interface CloudflareEnv {
   DB: D1Database
+  VOID_USE_SDK_DB?: string
   APP_KV: KVNamespace
   UPLOADS: R2Bucket
   AI: Ai

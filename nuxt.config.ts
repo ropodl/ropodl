@@ -1,7 +1,10 @@
 import { fileURLToPath } from 'node:url'
+import { voidPlugin } from 'void'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 const cloudflareModuleEntry = fileURLToPath(import.meta.resolve('nitropack/presets/cloudflare/runtime/cloudflare-module'))
+// Keep Void opt-in while the candidate is validated against the preserved Wrangler path.
+const voidIntegrationEnabled = process.env.VOID_NUXT_INTEGRATION === '1'
 
 export default defineNuxtConfig({
   modules: [
@@ -47,6 +50,13 @@ export default defineNuxtConfig({
     }
   },
 
+  alias: {
+    '@schema': fileURLToPath(new URL('./server/db/schema.ts', import.meta.url)),
+    ...(!voidIntegrationEnabled
+      ? { 'void/db': fileURLToPath(new URL('./server/db/void-db-unavailable.ts', import.meta.url)) }
+      : {})
+  },
+
   features: {
     inlineStyles: true
   },
@@ -68,8 +78,14 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-10-19',
 
   nitro: {
-    preset: 'cloudflare',
-    entry: cloudflareModuleEntry,
+    preset: voidIntegrationEnabled ? 'cloudflare-module' : 'cloudflare',
+    ...(!voidIntegrationEnabled ? { entry: cloudflareModuleEntry } : {}),
+    ...(voidIntegrationEnabled
+      ? {
+          modules: ['void/nitro'],
+          cloudflare: { dev: { configPath: './.void-wrangler.jsonc' } }
+        }
+      : {}),
     rollupConfig: {
       output: {
         format: 'esm',
@@ -77,6 +93,10 @@ export default defineNuxtConfig({
         inlineDynamicImports: false
       }
     }
+  },
+
+  vite: {
+    plugins: voidIntegrationEnabled ? [voidPlugin()] : []
   },
 
   eslint: {

@@ -32,7 +32,7 @@ writeFileSync(sqlFile, sql, { mode: 0o600 })
 try {
   const target = remote ? '--remote' : '--local'
   const wrangler = join(process.cwd(), 'node_modules', '.bin', process.platform === 'win32' ? 'wrangler.cmd' : 'wrangler')
-  const result = spawnSync(wrangler, ['d1', 'execute', 'saroj-portfolio', target, '--file', sqlFile], { stdio: 'inherit' })
+  const result = spawnSync(wrangler, ['--config', 'wrangler.legacy.jsonc', 'd1', 'execute', 'saroj-portfolio', target, '--file', sqlFile], { stdio: 'inherit' })
   if (result.error) throw result.error
   if (result.status !== 0) throw new Error(`Wrangler exited with status ${result.status}.`)
   console.info(`Admin account is ready in the ${target === '--remote' ? 'remote' : 'local'} D1 database: ${email}.`)

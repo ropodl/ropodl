@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "source": {
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "saroj-portfolio",
+    "main": ".output/server/index.mjs",
+    "compatibility_date": "2026-10-19",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "workers_dev": false,
+    "placement": {
+      "mode": "smart"
+    },
+    "ai": {
+      "binding": "AI",
+      "remote": true
+    },
+    "images": {
+      "binding": "IMAGES"
+    },
+    "cache": {
+      "enabled": true
+    },
+    "vars": {
+      "NUXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAFcWXT8sD-1aKNSc",
+      "VOID_USE_SDK_DB": "1"
+    },
+    "routes": [
+      {
+        "pattern": "ropodl.com/*",
+        "zone_name": "ropodl.com"
+      },
+      {
+        "pattern": "www.ropodl.com/*",
+        "zone_name": "ropodl.com"
+      }
+    ],
+    "assets": {
+      "directory": ".output/public",
+      "binding": "ASSETS"
+    },
+    "observability": {
+      "enabled": true
+    },
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "saroj-portfolio",
+        "database_id": "0f520c80-6ce7-4462-892c-ff1b94033a8a",
+        "migrations_dir": "drizzle"
+      }
+    ],
+    "kv_namespaces": [
+      {
+        "binding": "APP_KV",
+        "id": "c8754fbadfec403ea745402fb1ba0057"
+      }
+    ],
+    "r2_buckets": [
+      {
+        "binding": "UPLOADS",
+        "bucket_name": "saroj-portfolio-uploads"
+      }
+    ],
+    "send_email": [
+      {
+        "name": "EMAIL",
+        "destination_address": "hello@ropodl.com",
+        "allowed_sender_addresses": [
+          "hello@ropodl.com"
+        ]
+      }
+    ],
+    "ratelimits": [
+      {
+        "name": "CONTACT_LIMITER",
+        "namespace_id": "810271",
+        "simple": {
+          "limit": 5,
+          "period": 60
+        }
+      },
+      {
+        "name": "LOGIN_LIMITER",
+        "namespace_id": "810272",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      },
+      {
+        "name": "UPLOADS_LIMITER",
+        "namespace_id": "810273",
+        "simple": {
+          "limit": 20,
+          "period": 60
+        }
+      },
+      {
+        "name": "AUDIO_LIMITER",
+        "namespace_id": "810274",
+        "simple": {
+          "limit": 3,
+          "period": 60
+        }
+      },
+      {
+        "name": "FEEDBACK_LIMITER",
+        "namespace_id": "810275",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      }
+    ]
+  },
+  "resolved": {
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "saroj-portfolio",
+    "main": ".output/server/index.mjs",
+    "compatibility_date": "2026-10-19",
+    "compatibility_flags": [
+      "nodejs_compat",
+      "nodejs_als"
+    ],
+    "workers_dev": false,
+    "placement": {
+      "mode": "smart"
+    },
+    "ai": {
+      "binding": "AI",
+      "remote": true
+    },
+    "images": {
+      "binding": "IMAGES"
+    },
+    "cache": {
+      "enabled": true
+    },
+    "vars": {
+      "NUXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAFcWXT8sD-1aKNSc",
+      "VOID_USE_SDK_DB": "1"
+    },
+    "routes": [
+      {
+        "pattern": "ropodl.com/*",
+        "zone_name": "ropodl.com"
+      },
+      {
+        "pattern": "www.ropodl.com/*",
+        "zone_name": "ropodl.com"
+      }
+    ],
+    "assets": {
+      "directory": ".output/public",
+      "binding": "ASSETS"
+    },
+    "observability": {
+      "enabled": true
+    },
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "saroj-portfolio",
+        "database_id": "0f520c80-6ce7-4462-892c-ff1b94033a8a",
+        "migrations_dir": "drizzle"
+      }
+    ],
+    "kv_namespaces": [
+      {
+        "binding": "APP_KV",
+        "id": "c8754fbadfec403ea745402fb1ba0057"
+      }
+    ],
+    "r2_buckets": [
+      {
+        "binding": "UPLOADS",
+        "bucket_name": "saroj-portfolio-uploads"
+      }
+    ],
+    "send_email": [
+      {
+        "name": "EMAIL",
+        "destination_address": "hello@ropodl.com",
+        "allowed_sender_addresses": [
+          "hello@ropodl.com"
+        ]
+      }
+    ],
+    "ratelimits": [
+      {
+        "name": "CONTACT_LIMITER",
+        "namespace_id": "810271",
+        "simple": {
+          "limit": 5,
+          "period": 60
+        }
+      },
+      {
+        "name": "LOGIN_LIMITER",
+        "namespace_id": "810272",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      },
+      {
+        "name": "UPLOADS_LIMITER",
+        "namespace_id": "810273",
+        "simple": {
+          "limit": 20,
+          "period": 60
+        }
+      },
+      {
+        "name": "AUDIO_LIMITER",
+        "namespace_id": "810274",
+        "simple": {
+          "limit": 3,
+          "period": 60
+        }
+      },
+      {
+        "name": "FEEDBACK_LIMITER",
+        "namespace_id": "810275",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      }
+    ]
+  },
+  "text": "{\n  \"$schema\": \"node_modules/wrangler/config-schema.json\",\n  \"name\": \"saroj-portfolio\",\n  \"main\": \".output/server/index.mjs\",\n  \"compatibility_date\": \"2026-10-19\",\n  \"compatibility_flags\": [\n    \"nodejs_compat\",\n    \"nodejs_als\"\n  ],\n  \"workers_dev\": false,\n  \"placement\": {\n    \"mode\": \"smart\"\n  },\n  \"ai\": {\n    \"binding\": \"AI\",\n    \"remote\": true\n  },\n  \"images\": {\n    \"binding\": \"IMAGES\"\n  },\n  \"cache\": {\n    \"enabled\": true\n  },\n  \"vars\": {\n    \"NUXT_PUBLIC_TURNSTILE_SITE_KEY\": \"0x4AAAAAAFcWXT8sD-1aKNSc\",\n    \"VOID_USE_SDK_DB\": \"1\"\n  },\n  \"routes\": [\n    {\n      \"pattern\": \"ropodl.com/*\",\n      \"zone_name\": \"ropodl.com\"\n    },\n    {\n      \"pattern\": \"www.ropodl.com/*\",\n      \"zone_name\": \"ropodl.com\"\n    }\n  ],\n  \"assets\": {\n    \"directory\": \".output/public\",\n    \"binding\": \"ASSETS\"\n  },\n  \"observability\": {\n    \"enabled\": true\n  },\n  \"d1_databases\": [\n    {\n      \"binding\": \"DB\",\n      \"database_name\": \"saroj-portfolio\",\n      \"database_id\": \"0f520c80-6ce7-4462-892c-ff1b94033a8a\",\n      \"migrations_dir\": \"drizzle\"\n    }\n  ],\n  \"kv_namespaces\": [\n    {\n      \"binding\": \"APP_KV\",\n      \"id\": \"c8754fbadfec403ea745402fb1ba0057\"\n    }\n  ],\n  \"r2_buckets\": [\n    {\n      \"binding\": \"UPLOADS\",\n      \"bucket_name\": \"saroj-portfolio-uploads\"\n    }\n  ],\n  \"send_email\": [\n    {\n      \"name\": \"EMAIL\",\n      \"destination_address\": \"hello@ropodl.com\",\n      \"allowed_sender_addresses\": [\n        \"hello@ropodl.com\"\n      ]\n    }\n  ],\n  \"ratelimits\": [\n    {\n      \"name\": \"CONTACT_LIMITER\",\n      \"namespace_id\": \"810271\",\n      \"simple\": {\n        \"limit\": 5,\n        \"period\": 60\n      }\n    },\n    {\n      \"name\": \"LOGIN_LIMITER\",\n      \"namespace_id\": \"810272\",\n      \"simple\": {\n        \"limit\": 10,\n        \"period\": 60\n      }\n    },\n    {\n      \"name\": \"UPLOADS_LIMITER\",\n      \"namespace_id\": \"810273\",\n      \"simple\": {\n        \"limit\": 20,\n        \"period\": 60\n      }\n    },\n    {\n      \"name\": \"AUDIO_LIMITER\",\n      \"namespace_id\": \"810274\",\n      \"simple\": {\n        \"limit\": 3,\n        \"period\": 60\n      }\n    },\n    {\n      \"name\": \"FEEDBACK_LIMITER\",\n      \"namespace_id\": \"810275\",\n      \"simple\": {\n        \"limit\": 10,\n        \"period\": 60\n      }\n    }\n  ]\n}\n"
+}

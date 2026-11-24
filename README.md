@@ -4,6 +4,8 @@ Nuxt 4 and Nuxt UI application deployed on Cloudflare Workers. Cloudflare D1 sto
 
 ## Install and develop
 
+Use Node.js 24.22+ or 26.12+ (the repository pins 26.12.0 in `.node-version`), then install dependencies:
+
 ```bash
 pnpm install
 cp .dev.vars.example .dev.vars
@@ -22,11 +24,13 @@ To load local-only demo content for the admin screens, run `pnpm db:seed:demo`. 
 
 For local development, the seed command creates `admin@example.com` / `admin123`. Public sign-up is disabled. For a remote account, set `ADMIN_EMAIL` and `ADMIN_PASSWORD` before running the seed command; optionally set `ADMIN_PREVIOUS_EMAIL` to rename an existing seeded account.
 
-`pnpm dev` runs Nuxt's development server with the Cloudflare preset. To preview the built Worker runtime, use `pnpm cf:dev`.
+`pnpm dev` runs Nuxt's development server with the existing Cloudflare preset. To preview the built Worker runtime, use `pnpm cf:dev`.
 
-## Create Cloudflare resources
+Void 1.11.0 is integrated as an opt-in Nuxt adapter; it requires Node.js 24.22+ or 26.12+ (the repository pins 26.12.0). The local config migration moved the canonical Worker settings to `void.config.ts`; the original Wrangler config is preserved as `wrangler.legacy.jsonc` for the existing Wrangler scripts and rollback path. No Cloudflare resources were changed. Use `pnpm void:dev`, `pnpm void:typecheck`, `pnpm void:build`, and `pnpm void:smoke` to exercise the candidate locally; the smoke check starts the Void dev server and verifies a read-only `GET /api/blogs` query returns HTTP 200. The wrapper copies local `.dev.vars` to ignored `.env` only when `.env` is absent, and temporarily stages legacy dotenv/example files under ignored `.void/` while Void runs; it restores those files afterward. The normal `pnpm dev`, `pnpm build`, and `pnpm cf:deploy` commands remain on the current Nuxt/Nitro/Wrangler path. Do not run `void deploy` yet: `void.config.ts` contains the production Worker routes and resource IDs, and the Void deployment path still needs a reviewed staging/cutover procedure.
 
-Install dependencies, then create the D1 database, KV namespace, and R2 bucket:
+## Create Cloudflare resources for a new installation
+
+The current project already has its production D1, KV, and R2 resources configured. Do not run these creation commands against the existing production account. For a separate new installation, create resources with Wrangler:
 
 ```bash
 pnpm exec wrangler login
@@ -35,15 +39,15 @@ pnpm cf:kv:create
 pnpm cf:r2:create
 ```
 
-Copy the D1 database ID and KV namespace ID returned by Wrangler into `wrangler.jsonc`, replacing the `REPLACE_WITH_...` values. The R2 bucket name is already set in the config. For local development, Wrangler emulates these bindings; the IDs are needed for remote deployment.
+For this already-provisioned app, `void.config.ts` is the canonical Worker configuration and contains the existing production resource bindings. `wrangler.legacy.jsonc` is a preserved compatibility config for current Wrangler scripts; keep its resource IDs synchronized during the rollback window. For local development, the Wrangler path emulates bindings locally; do not create replacement production resources.
 
 Onboard `ropodl.com` for Cloudflare Email Sending in the Cloudflare dashboard and verify its SPF/DKIM records. The Worker uses a `send_email` binding restricted to `hello@ropodl.com`; local Wrangler development uses the remote binding to send through Cloudflare Email Service.
 
 Set production secrets:
 
 ```bash
-pnpm exec wrangler secret put BETTER_AUTH_SECRET
-pnpm exec wrangler secret put TURNSTILE_SECRET_KEY
+pnpm exec wrangler --config wrangler.legacy.jsonc secret put BETTER_AUTH_SECRET
+pnpm exec wrangler --config wrangler.legacy.jsonc secret put TURNSTILE_SECRET_KEY
 ```
 
 Create a Turnstile widget in the Cloudflare dashboard. Set its site key as the Worker variable `NUXT_PUBLIC_TURNSTILE_SITE_KEY`, and the secret key with `wrangler secret put TURNSTILE_SECRET_KEY`. The local `.dev.vars.example` uses Cloudflare's published test keys; replace these with real keys for production.
@@ -72,24 +76,28 @@ The public sitemap is served at `/sitemap.xml`, with published blog posts and pr
 
 - The admin content editor stores versioned JSON blocks for paragraphs, headings, lists, quotes, callouts, images, galleries, timelines, stats, FAQs, buttons, links, code, and dividers. Existing rich HTML content remains readable and is converted to blocks when edited. Project detail pages use these blocks in an editorial case-study layout with a cover, section navigation, and reading progress.
 - `server/utils/content.ts` validates block counts, field lengths, link protocols, and per-user R2 image paths before saving. Public block rendering uses Vue text bindings; legacy HTML continues through the server-side allowlist sanitizer.
-- `wrangler.jsonc` configures the Workers entry point and D1, KV, and R2 bindings.
+- `void.config.ts` is the canonical Worker config. `wrangler.legacy.jsonc` preserves the pre-migration Wrangler configuration for existing scripts and rollback.
 - `server/utils/cloudflare.ts` reads request-scoped Worker bindings and secrets.
-- `server/db/` uses Drizzle's D1 driver and SQLite schema. Generate migrations with `pnpm db:generate`; apply them locally or remotely with the `db:migrate` scripts.
+- `server/db/` uses the existing Drizzle SQLite schema. The shared database factory uses Void's schema-aware D1 client only when the Void Worker sets `VOID_USE_SDK_DB=1`; the legacy Wrangler config continues to use the current direct D1 client. Generate migrations with `pnpm db:generate`; apply them locally or remotely with the `db:migrate` scripts.
 - `server/utils/auth.ts` configures Better Auth with D1, email/password sign-in, and disabled public sign-up.
 - `server/utils/kv.ts` exposes the Cloudflare KV namespace for server routes.
 - Cloudflare Workers Rate Limiting bindings protect contact submissions (5/min/IP), sign-in (10/min/IP), and uploads (20/min/user). These counters are approximate and location-local, as documented by Cloudflare.
 - The contact form uses Turnstile and validates tokens server-side with Siteverify.
 - Cloudflare Web Analytics loads its beacon only when `NUXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` is configured.
 - Successful contact submissions and article usefulness feedback are aggregated by UTC day in D1 without storing visitor identifiers. The admin dashboard shows the last 30 days of contact conversions and feedback. Apply all migrations, including `0008_site_metrics.sql`, to enable these metrics.
-- Article feedback is limited by a Cloudflare Rate Limiting binding and a per-article local-storage marker; it does not persist names, email addresses, or IP addresses. The `FEEDBACK_LIMITER` binding is configured in `wrangler.jsonc`.
+- Article feedback is limited by a Cloudflare Rate Limiting binding and a per-article local-storage marker; it does not persist names, email addresses, or IP addresses. The `FEEDBACK_LIMITER` binding is configured in `void.config.ts`.
 - `POST /api/uploads` requires an authenticated session and stores PNG, JPEG, WebP, AVIF, or GIF images in R2 (up to 4 MB). `GET /api/uploads/:path` serves them from the same Worker origin.
 - `POST /api/contact` validates contact form submissions and sends them through Resend.
 
 ## Scripts
 
 ```bash
-pnpm dev                 # Nuxt development server with Cloudflare preset
-pnpm cf:dev              # Build and run through Wrangler
+pnpm dev                 # Current Nuxt development server with Cloudflare preset
+pnpm void:dev            # Candidate Nuxt + Void local development
+pnpm void:typecheck      # Typecheck with Void Nitro integration enabled
+pnpm void:build          # Candidate production build (does not deploy)
+pnpm void:smoke          # Local candidate server smoke test
+pnpm cf:dev              # Build and run through the preserved Wrangler config
 pnpm cf:deploy           # Build and deploy to Cloudflare Workers
 pnpm db:generate         # Generate Drizzle SQLite migrations
 pnpm db:migrate          # Apply migrations to local D1
