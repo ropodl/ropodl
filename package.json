@@ -44,7 +44,7 @@
     "@nuxtjs/sitemap": "^9.1.0",
     "better-auth": "^1.7.11",
     "drizzle-orm": "^0.45.4",
-    "nuxt": "^4.6.1",
+    "nuxt": "^4.6.4",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
