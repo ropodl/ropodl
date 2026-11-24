@@ -65,6 +65,13 @@ export default defineEventHandler((event) => {
     return
   }
 
+  if (path === '/') {
+    // Host-specific canonical redirects must never be bypassed by a cached homepage response.
+    setHeader(event, 'Cache-Control', 'no-store')
+    setHeader(event, 'CDN-Cache-Control', 'no-store')
+    return
+  }
+
   const isPublicDocument = publicHtmlPaths.some(pattern => pattern.test(path))
   const isPublicApi = publicApiPaths.some(pattern => pattern.test(path))
   if (isPublicApi && allowedQuery(url)) {
@@ -76,8 +83,7 @@ export default defineEventHandler((event) => {
   }
 
   if (isPublicDocument && allowedQuery(url)) {
-    // Public HTML is revalidated in browsers while the edge serves a warm copy between deploys.
-    // Cloudflare's default cache key includes the hostname; the www redirect is separately no-store.
+    // HTML stays revalidated in browsers so a deploy never serves pages pointing at removed chunks.
     setHeader(event, 'Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400')
     setHeader(event, 'CDN-Cache-Control', 'public, max-age=300, stale-while-revalidate=86400')
     return
