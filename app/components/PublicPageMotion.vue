@@ -6,19 +6,19 @@ const scope = ref<HTMLElement>()
 
 // Every preset is the same gentle fade-and-rise; only the duration differs.
 const durations: Record<MotionPreset, number> = {
-  'home': 0.34,
-  'profile': 0.34,
-  'contact': 0.32,
-  'login': 0.28,
-  'saved': 0.32,
-  'blog-list': 0.32,
-  'project-list': 0.32,
-  'article': 0.34,
-  'project': 0.34
+  'home': 0.12,
+  'profile': 0.12,
+  'contact': 0.12,
+  'login': 0.12,
+  'saved': 0.12,
+  'blog-list': 0.12,
+  'project-list': 0.12,
+  'article': 0.12,
+  'project': 0.12
 }
 
 onMounted(() => {
-  if (scope.value) void animateMotion(scope.value, { opacity: 0, y: 6 }, {}, { duration: durations[props.preset] })
+  if (scope.value) void animateMotion(scope.value, { opacity: 0, y: 2 }, {}, { duration: durations[props.preset] })
 })
 </script>
 

@@ -1,9 +1,7 @@
 <script setup>
-import { authClient } from './lib/auth-client'
-
 const mobileMenuOpen = ref(false)
 const route = useRoute()
-const { data: session } = await authClient.useSession(useFetch)
+const hasSession = useState('public-nav-session', () => false)
 const runtimeConfig = useRuntimeConfig()
 const analyticsToken = runtimeConfig.public.cloudflareWebAnalyticsToken
 const googleTagId = runtimeConfig.public.googleTagId
@@ -14,11 +12,33 @@ const mobileNavigationItems = computed(() => [
   { label: 'Projects', to: '/projects', icon: 'i-lucide-panels-top-left' },
   { label: 'About', to: '/about', icon: 'i-lucide-user-round' },
   { label: 'Contact', to: '/contact', icon: 'i-lucide-mail' },
-  ...(session.value ? [{ label: 'Admin', to: '/admin', icon: 'i-lucide-layout-dashboard' }] : [])
+  ...(hasSession.value ? [{ label: 'Admin', to: '/admin', icon: 'i-lucide-layout-dashboard' }] : [])
 ])
 
-watch(() => route.path, () => {
+async function refreshPublicSession() {
+  if (route.path.startsWith('/admin')) return
+  try {
+    const result = await $fetch('/api/auth/get-session')
+    hasSession.value = Boolean(result?.user)
+  } catch {
+    hasSession.value = false
+  }
+}
+
+function schedulePublicSessionCheck() {
+  if (route.path.startsWith('/admin')) return
+  const check = () => {
+    void refreshPublicSession()
+  }
+  if ('requestIdleCallback' in window) window.requestIdleCallback(check, { timeout: 2000 })
+  else window.setTimeout(check, 300)
+}
+
+watch(() => route.path, (path, previousPath) => {
   mobileMenuOpen.value = false
+  if (path === '/login' || previousPath === '/login' || path.startsWith('/admin') || previousPath.startsWith('/admin')) {
+    void refreshPublicSession()
+  }
 })
 
 function onGlobalKeydown(event) {
@@ -27,7 +47,10 @@ function onGlobalKeydown(event) {
   document.querySelector('button[aria-controls="mobile-primary-navigation"]')?.focus()
 }
 
-onMounted(() => window.addEventListener('keydown', onGlobalKeydown))
+onMounted(() => {
+  window.addEventListener('keydown', onGlobalKeydown)
+  schedulePublicSessionCheck()
+})
 onBeforeUnmount(() => window.removeEventListener('keydown', onGlobalKeydown))
 
 useHead({
@@ -141,9 +164,8 @@ useHead({
     : []
 })
 
-// The tag is only loaded once a public page is visited, and stays loaded so client-side navigation keeps working.
+// Load the tag only after the first public view has rendered and the browser is idle.
 const googleTagLoaded = useState('google-tag-loaded', () => false)
-if (googleTagId && !privateRoute.value) googleTagLoaded.value = true
 
 // The inline config snippet is rendered into the HTML so Google's tag checker can detect it.
 useHead(() => ({
@@ -173,11 +195,18 @@ if (import.meta.client && googleTagId) {
       window.gtag('js', new Date())
       window.gtag('config', googleTagId, { send_page_view: false })
     }
-    // Wait a frame so the new page's <title> has been written to the document.
+    // Queue the view immediately, then load the analytics bundle only when the browser is idle.
     requestAnimationFrame(() => window.gtag('event', 'page_view', {
       page_location: window.location.href,
       page_title: document.title
     }))
+    if (!googleTagLoaded.value) {
+      const loadGoogleTag = () => {
+        googleTagLoaded.value = true
+      }
+      if ('requestIdleCallback' in window) window.requestIdleCallback(loadGoogleTag, { timeout: 3000 })
+      else window.setTimeout(loadGoogleTag, 1000)
+    }
   })
 }
 </script>
@@ -249,7 +278,7 @@ if (import.meta.client && googleTagId) {
             Contact
           </NuxtLink>
           <NuxtLink
-            v-if="session"
+            v-if="hasSession"
             to="/admin"
             prefetch-on="visibility"
             aria-label="Admin dashboard"

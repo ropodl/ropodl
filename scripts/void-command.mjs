@@ -1,15 +1,37 @@
 import { spawn } from 'node:child_process'
-import { copyFileSync, existsSync, mkdirSync, readdirSync, renameSync, rmSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync } from 'node:fs'
 import { randomUUID } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
-const command = process.argv[2]
-const allowedCommands = new Set(['dev', 'typecheck', 'build'])
+const requestedCommand = process.argv[2]
+const staging = requestedCommand?.startsWith('staging:')
+const command = staging ? requestedCommand.slice('staging:'.length) : requestedCommand
+const args = process.argv.slice(3)
+const allowedCommands = new Set(['dev', 'typecheck', 'build', 'deploy'])
 
-if (!allowedCommands.has(command)) {
-  throw new Error(`Expected one of: ${[...allowedCommands].join(', ')}.`)
+if (!allowedCommands.has(command) || (command === 'deploy' && !staging)) {
+  throw new Error('Expected dev, typecheck, build, staging:dev, staging:typecheck, staging:build, or staging:deploy.')
+}
+
+if (command === 'deploy') {
+  const configPath = join(root, '.void-wrangler.jsonc')
+  if (!existsSync(configPath)) throw new Error('Staging deploy blocked: connect the staging config first.')
+  const config = JSON.parse(readFileSync(configPath, 'utf8'))
+  const d1 = config.d1_databases?.find(binding => binding.binding === 'DB')
+  const kv = config.kv_namespaces?.find(binding => binding.binding === 'APP_KV')
+  const uploads = config.r2_buckets?.find(binding => binding.binding === 'UPLOADS')
+  if (config.name !== 'saroj-portfolio-staging'
+    || config.workers_dev !== true
+    || config.preview_urls !== true
+    || (config.routes?.length ?? 0) !== 0
+    || d1?.database_id !== '4a48d6f4-a382-410b-b098-46181da2362b'
+    || kv?.id !== '45f053d9935d439ebbf0a68fce360eef'
+    || uploads?.bucket_name !== 'saroj-portfolio-staging-uploads'
+    || config.send_email) {
+    throw new Error('Staging deploy blocked: generated Worker config is not isolated from production.')
+  }
 }
 
 const stagedEnvRoot = join(root, '.void', 'legacy-env')
@@ -56,13 +78,19 @@ try {
     }
   }
 
-  const executable = join(root, 'node_modules', '.bin', process.platform === 'win32' ? 'nuxt.cmd' : 'nuxt')
-  const child = spawn(executable, [command, ...process.argv.slice(3)], {
+  const executable = command === 'deploy'
+    ? process.execPath
+    : join(root, 'node_modules', '.bin', process.platform === 'win32' ? 'nuxt.cmd' : 'nuxt')
+  const childArgs = command === 'deploy'
+    ? [join(root, 'node_modules', 'void', 'dist', 'cli', 'cli.mjs'), 'deploy', ...args]
+    : [command, ...args]
+  const child = spawn(executable, childArgs, {
     cwd: root,
     env: {
       ...process.env,
+      ...(staging ? { VOID_TARGET: 'staging' } : command === 'dev' ? { VOID_TARGET: 'local' } : {}),
       VOID_NUXT_INTEGRATION: '1',
-      ...(command === 'build' ? { NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=8192' } : {})
+      ...(command === 'build' || command === 'deploy' ? { NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=8192' } : {})
     },
     stdio: 'inherit',
     shell: process.platform === 'win32'
