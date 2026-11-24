@@ -4,11 +4,12 @@ import { defineConfig } from 'void/config'
 const productionD1Id = '0f520c80-6ce7-4462-892c-ff1b94033a8a'
 const productionKvId = 'c8754fbadfec403ea745402fb1ba0057'
 const stagingTarget = process.env.VOID_TARGET === 'staging'
+const productionTarget = process.env.VOID_TARGET === 'production'
 const localTarget = process.env.VOID_TARGET === 'local'
 const isDeployCommand = process.argv.some(argument => argument === 'deploy')
 
-if (isDeployCommand && !stagingTarget) {
-  throw new Error('Bare Void deployment is blocked; use the guarded void:staging:deploy script.')
+if (isDeployCommand && !stagingTarget && !productionTarget) {
+  throw new Error('Bare Void deployment is blocked; use the guarded void:staging:deploy or void:production:deploy script.')
 }
 
 const stagingD1Id = '4a48d6f4-a382-410b-b098-46181da2362b'
@@ -38,7 +39,7 @@ export default defineConfig({
       'nodejs_compat'
     ],
     workers_dev: stagingTarget || localTarget,
-    ...(stagingTarget ? { preview_urls: true } : {}),
+    ...(!localTarget ? { preview_urls: true } : {}),
     placement: {
       mode: 'smart'
     },

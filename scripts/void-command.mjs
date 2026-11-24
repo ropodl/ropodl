@@ -6,31 +6,70 @@ import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const requestedCommand = process.argv[2]
-const staging = requestedCommand?.startsWith('staging:')
-const command = staging ? requestedCommand.slice('staging:'.length) : requestedCommand
-const args = process.argv.slice(3)
-const allowedCommands = new Set(['dev', 'typecheck', 'build', 'deploy'])
+const target = requestedCommand?.startsWith('staging:')
+  ? 'staging'
+  : requestedCommand?.startsWith('production:')
+    ? 'production'
+    : undefined
 
-if (!allowedCommands.has(command) || (command === 'deploy' && !staging)) {
-  throw new Error('Expected dev, typecheck, build, staging:dev, staging:typecheck, staging:build, or staging:deploy.')
+const command = target ? requestedCommand.slice(`${target}:`.length) : requestedCommand
+const args = process.argv.slice(3)
+const allowedCommands = new Set(['dev', 'typecheck', 'build', 'deploy', 'check'])
+
+if (!allowedCommands.has(command)
+  || (command === 'deploy' && !target)
+  || (command === 'check' && !target)) {
+  throw new Error('Expected dev, typecheck, build, staging:dev, staging:typecheck, staging:build, staging:deploy, production:build, production:check, or production:deploy.')
 }
 
-if (command === 'deploy') {
+if (command === 'deploy' || command === 'check') {
   const configPath = join(root, '.void-wrangler.jsonc')
-  if (!existsSync(configPath)) throw new Error('Staging deploy blocked: connect the staging config first.')
+  if (!existsSync(configPath)) throw new Error(`${target} config check refused: generated .void-wrangler.jsonc is missing.`)
   const config = JSON.parse(readFileSync(configPath, 'utf8'))
   const d1 = config.d1_databases?.find(binding => binding.binding === 'DB')
   const kv = config.kv_namespaces?.find(binding => binding.binding === 'APP_KV')
   const uploads = config.r2_buckets?.find(binding => binding.binding === 'UPLOADS')
-  if (config.name !== 'saroj-portfolio-staging'
-    || config.workers_dev !== true
-    || config.preview_urls !== true
-    || (config.routes?.length ?? 0) !== 0
-    || d1?.database_id !== '4a48d6f4-a382-410b-b098-46181da2362b'
-    || kv?.id !== '45f053d9935d439ebbf0a68fce360eef'
-    || uploads?.bucket_name !== 'saroj-portfolio-staging-uploads'
-    || config.send_email) {
-    throw new Error('Staging deploy blocked: generated Worker config is not isolated from production.')
+  const expectedRoutes = [
+    { pattern: 'ropodl.com/*', zone_name: 'ropodl.com' },
+    { pattern: 'www.ropodl.com/*', zone_name: 'ropodl.com' }
+  ]
+  const expectedRateLimitIds = target === 'staging'
+    ? { CONTACT_LIMITER: '1810271', LOGIN_LIMITER: '1810272', UPLOADS_LIMITER: '1810273', AUDIO_LIMITER: '1810274', FEEDBACK_LIMITER: '1810275' }
+    : { CONTACT_LIMITER: '810271', LOGIN_LIMITER: '810272', UPLOADS_LIMITER: '810273', AUDIO_LIMITER: '810274', FEEDBACK_LIMITER: '810275' }
+  const rateLimitsMatch = Object.entries(expectedRateLimitIds).every(([name, namespaceId]) =>
+    config.ratelimits?.some(binding => binding.name === name && binding.namespace_id === namespaceId))
+  const validStaging = target === 'staging'
+    && config.name === 'saroj-portfolio-staging'
+    && config.workers_dev === true
+    && config.preview_urls === true
+    && (config.routes?.length ?? 0) === 0
+    && d1?.database_name === 'saroj-portfolio-staging'
+    && d1?.database_id === '4a48d6f4-a382-410b-b098-46181da2362b'
+    && kv?.id === '45f053d9935d439ebbf0a68fce360eef'
+    && uploads?.bucket_name === 'saroj-portfolio-staging-uploads'
+    && rateLimitsMatch
+    && !config.send_email
+  const validProduction = target === 'production'
+    && config.name === 'saroj-portfolio'
+    && config.workers_dev === false
+    && config.preview_urls === true
+    && JSON.stringify(config.routes) === JSON.stringify(expectedRoutes)
+    && d1?.database_name === 'saroj-portfolio'
+    && d1?.database_id === '0f520c80-6ce7-4462-892c-ff1b94033a8a'
+    && kv?.id === 'c8754fbadfec403ea745402fb1ba0057'
+    && uploads?.bucket_name === 'saroj-portfolio-uploads'
+    && rateLimitsMatch
+    && config.send_email?.some(binding => binding.name === 'EMAIL'
+      && binding.destination_address === 'hello@ropodl.com'
+      && binding.allowed_sender_addresses?.includes('hello@ropodl.com'))
+    && config.vars?.NUXT_PUBLIC_TURNSTILE_SITE_KEY === '0x4AAAAAAFcWXT8sD-1aKNSc'
+    && config.vars?.VOID_USE_SDK_DB === '1'
+  if (!validStaging && !validProduction) {
+    throw new Error(`${target} deploy blocked: generated Worker config does not match the approved isolated staging or existing production resources/routes.`)
+  }
+  if (command === 'check') {
+    console.info(`${target} Worker config verified: ${config.name}; routes=${config.routes.length}; D1/KV/R2 bindings match.`)
+    process.exit(0)
   }
 }
 
@@ -88,7 +127,7 @@ try {
     cwd: root,
     env: {
       ...process.env,
-      ...(staging ? { VOID_TARGET: 'staging' } : command === 'dev' ? { VOID_TARGET: 'local' } : {}),
+      ...(target ? { VOID_TARGET: target } : command === 'dev' ? { VOID_TARGET: 'local' } : {}),
       VOID_NUXT_INTEGRATION: '1',
       ...(command === 'build' || command === 'deploy' ? { NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=8192' } : {})
     },
